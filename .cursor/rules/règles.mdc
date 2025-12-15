@@ -1,0 +1,308 @@
+---
+alwaysApply: true
+---
+## 0. Principe général pour Cursor
+
+Quand tu modifies ou ajoutes du code dans ce projet :
+
+- Suis **toujours** les règles ci-dessous, même si le code existant ne les respecte pas.
+- Objectif : produire un code **professionnel**, propre, maintenable, cohérent, et facile à faire évoluer.
+- La lisibilité est importante, mais **on ne cherche pas à “simplifier à tout prix”** : on vise la **meilleure manière** de faire, comme un développeur expérimenté (structure claire, bons noms, séparation logique, qualité du code).
+
+---
+
+## 1. Commentaires (PRIORITÉ ABSOLUE)
+
+### 1.1. Commentaire d’en-tête dans chaque fichier `.tsx`
+
+1. Chaque fichier `.tsx` **doit** commencer par un commentaire multi-ligne à la ligne 0 :
+
+```tsx
+/*
+ Explique simplement :
+ 1) À quoi sert ce fichier.
+ 2) Ce que l’utilisateur voit à l’écran.
+ 3) Ce que l’utilisateur peut faire sur cette page ou dans ce bloc.
+*/
+````
+
+2. Écris **en langage simple et naturel**, sans jargon technique.
+   Mots interdits (exemples) : “hook”, “state”, “props”, “context”, “render”, etc.
+
+3. Si une personne sans expérience lit uniquement ce commentaire d’en-tête, elle doit comprendre :
+
+   * de quelle partie du site il s’agit ;
+   * ce que l’utilisateur va voir ;
+   * quelles actions l’utilisateur peut faire.
+
+---
+
+### 1.2. Commentaires au-dessus des éléments importants
+
+Chaque **élément important** doit avoir un commentaire **juste au-dessus**. Sont considérés importants :
+
+1. **Variables / objets de données** qui décrivent le contenu de la page
+   (listes de cartes, textes de boutons, configuration d’un formulaire, etc.).
+2. **Logique au chargement** de la page
+   (préparation initiale des données, calculs initiaux, appels serveur, etc.).
+3. **Fonctions déclenchées par l’utilisateur** :
+
+   * clic sur un bouton,
+   * envoi d’un formulaire,
+   * changement d’onglet, filtre, tri, etc.
+4. **Grosses parties d’interface** :
+
+   * listes, galeries,
+   * formulaires,
+   * modales,
+   * hero sections,
+   * grandes sections (“À propos”, “Tarifs”, “Avis”, etc.).
+
+**Comment écrire ce commentaire :**
+
+* Explique **pourquoi** c’est là et **ce que l’utilisateur voit / ressent**.
+* Ne décris pas les détails internes. Décris le comportement côté utilisateur :
+
+> “Cette fonction envoie le formulaire et affiche un message de succès si tout s’est bien passé.”
+
+---
+
+### 1.3. Commentaires toujours à jour
+
+1. Si tu changes le comportement d’un élément, d’une fonction ou d’une section :
+
+   * **mets à jour le commentaire immédiatement** ;
+   * le commentaire ne doit jamais mentir.
+2. Le projet ne doit pas contenir :
+
+   * commentaires obsolètes (“TODO”, “plus tard”, alors que ce n’est plus vrai),
+   * commentaires “vides” (“gestionnaire de clic” sans expliquer l’effet),
+   * longues explications techniques incompréhensibles pour un débutant.
+3. Si un commentaire n’est plus utile ou ne reflète plus la réalité : **mieux vaut le supprimer** que laisser une info fausse.
+
+---
+
+## 2. Structure des fichiers et dossier `components`
+
+### 2.1. Le dossier `components` est obligatoire
+
+1. Le projet doit **toujours** avoir un dossier `components/`.
+2. S’il n’existe pas, considère qu’il existe déjà dès la première modification et commence à y placer les éléments réutilisables.
+
+---
+
+### 2.2. Composants réutilisables uniquement (règle stricte)
+
+1. On crée des composants dans `components/` **uniquement** pour des sections/blocs qui reviennent sur **plusieurs pages**.
+   Exemples : Header, Footer, hero commun, bloc “Avantages” commun, FAQ commune, CTA commun, etc.
+
+2. **Interdit** : créer un composant pour une utilisation unique.
+
+   * Si un bloc n’est utilisé **qu’une seule fois**, il reste **dans le fichier de la page**.
+
+3. Si tu vois un morceau d’interface répété **dans une seule page** :
+
+   * utilise des données + `.map()` (ou une structure simple) pour éviter le copier-coller,
+   * mais **ne crée pas** un composant si ça ne sert pas sur d’autres pages.
+
+---
+
+### 2.3. Fichiers de pages (`app/` ou `pages/`)
+
+1. Les fichiers de pages doivent rester **clairs et structurés** :
+
+   * ils assemblent les composants réutilisables depuis `components/`,
+   * et gardent dans la page ce qui est spécifique (usage unique).
+2. On vise un résultat **pro** :
+
+   * structure nette,
+   * sections ordonnées,
+   * noms explicites,
+   * code facile à maintenir.
+3. Dans une page, tu peux avoir :
+
+   * de la logique spécifique à la page (si nécessaire),
+   * des données de contenu (textes, listes, etc.),
+   * la structure des sections dans l’ordre,
+   * des commentaires orientés “utilisateur”.
+
+---
+
+## 3. Strictement interdit (dans tout le projet)
+
+### 3.1. Aucun HOC (Higher-Order Components)
+
+* Interdit :
+
+```tsx
+const withSomething = (Component) => { ... }
+```
+
+* À la place : composants normaux, simples à comprendre et à relire.
+
+---
+
+### 3.2. Aucun “render props”
+
+* Interdit :
+
+```tsx
+<SomeComponent renderContent={(item) => ( ... )} />
+```
+
+* À la place : structure classique, composants réutilisables (si multi-pages) ou code dans la page (si usage unique).
+
+---
+
+### 3.3. Aucun “custom hook”
+
+* Interdit :
+
+```tsx
+function useSomething() { ... }
+```
+
+* La logique reste dans la page / composant, ou dans des fonctions utilitaires simples (sans `use`) si ce sont des calculs purs.
+
+---
+
+## 4. Qualité de code (niveau professionnel)
+
+1. Tu écris du code comme un développeur senior :
+
+   * conventions propres,
+   * séparation logique,
+   * noms clairs,
+   * composants bien découpés (uniquement quand réutilisés),
+   * accessibilité et bonnes pratiques,
+   * structure cohérente à l’échelle du projet.
+2. Tu ne “simplifies” pas artificiellement :
+
+   * tu fais **le meilleur choix technique** pour un code robuste et maintenable,
+   * tout en restant lisible.
+3. Pas de bricolage :
+
+   * pas de code commenté “au cas où”,
+   * pas de duplication évitable,
+   * pas de solutions compliquées sans raison.
+
+---
+
+## 5. Dossier `exemple` (carcasses) + sitemap MVP
+
+Le dossier `exemple/` sert à **comprendre la logique globale du site** et la liste des pages, pas à copier-coller.
+
+### 5.1. Règles d’utilisation de `exemple/`
+
+1. Les fichiers HTML/CSS dans `exemple/` sont des **carcasses** :
+
+   * ils peuvent contenir beaucoup d’erreurs,
+   * ils ne représentent pas une version finale,
+   * on **ne reprend pas exactement** la même structure ni le même code.
+
+2. Leur rôle :
+
+   * comprendre les intentions,
+   * visualiser les pages à produire,
+   * identifier les sections et le contenu attendu,
+   * repérer les incohérences à corriger.
+
+---
+
+### 5.2. Sitemap MVP dans `exemple/`
+
+1. Il y a un sitemap des pages MVP dans `exemple/` :
+
+   * tu dois l’analyser,
+   * t’en servir comme **ligne directrice**,
+   * mais ce n’est **pas une règle fixe**.
+2. Si c’est nécessaire pour la cohérence du site, on peut :
+
+   * modifier une page,
+   * ajuster une structure,
+   * ajouter / retirer une section,
+   * ou faire évoluer le plan.
+
+---
+
+### 5.3. Plan de travail
+
+1. On commence par construire **toutes les pages présentes dans `exemple/`**.
+2. Mais on le fait de manière intelligente :
+
+   * on met à jour les infos,
+   * on corrige les erreurs,
+   * on améliore la structure,
+   * on rend les pages cohérentes entre elles,
+   * on produit un code propre et professionnel.
+3. Interdit : “copier le code des fichiers” sans réflexion.
+
+---
+
+### 5.4. Méthode de travail (OBLIGATOIRE, à appliquer à chaque fois)
+
+Quand tu dois transférer / créer une page ou une section à partir de `exemple/`, tu suis **exactement** ce processus :
+
+1. **Analyse**
+
+   * Lis la carcasse (HTML / sitemap / notes).
+   * Résume en 3–6 lignes : “ce que cette page doit faire” et “ce que l’utilisateur doit voir”.
+
+2. **Découpage en sections**
+
+   * Propose le découpage de la page en sections (ex : Hero, Preuves/Chiffres, Services, FAQ, Contact…).
+   * Dis clairement ce qui sera :
+
+     * réutilisable (donc composant dans `components/`),
+     * spécifique (donc reste dans la page).
+
+3. **Plan de réalisation**
+
+   * Donne un plan concret en étapes **courtes** (ex : “Étape 1 = Hero”, “Étape 2 = section Services”, etc.).
+   * Indique si tu vas modifier la structure par rapport à la carcasse (et pourquoi).
+
+4. **Validation obligatoire avant code**
+
+   * Avant d’écrire ou modifier du code, tu demandes :
+
+     * “Voici le plan : 1)… 2)… 3)… Tu confirmes que je peux faire ça ?”
+   * **Sans confirmation : tu ne changes pas le code.**
+
+5. **Implémentation section par section**
+
+   * Tu implémentes **une seule section à la fois** (pas toute la page d’un coup).
+   * À chaque section :
+
+     * tu ajoutes les commentaires demandés,
+     * tu gardes une structure propre,
+     * tu utilises uniquement Tailwind.
+
+6. **Mini-récap après chaque section**
+
+   * Tu résumes rapidement :
+
+     * ce qui a été fait,
+     * ce que l’utilisateur voit maintenant,
+     * ce qui est prévu à l’étape suivante.
+
+7. **Aucun gros refactoring surprise**
+
+   * Si tu veux faire un changement “important” (structure, navigation, organisation, etc.) :
+
+     * tu l’expliques en mots,
+     * tu demandes la confirmation,
+     * puis seulement tu le fais.
+
+---
+
+## 6. Styles : Tailwind CSS uniquement
+
+1. On travaille **uniquement avec Tailwind CSS**.
+2. Pas de CSS Modules, pas de fichiers `.module.css` pour les pages ou composants.
+3. Les styles sont dans les `className` avec Tailwind.
+4. Si besoin, on peut centraliser des ajustements via la config Tailwind (thème, tokens, etc.), mais on reste en Tailwind.
+
+---
+
+```
+```
