@@ -1,26 +1,54 @@
+/*
+  Styles globaux du site AR+SOLUTION
+  
+  Ce fichier définit :
+  - Les couleurs de la marque (bleu sombre = confiance/pro, orange = action/énergie)
+  - Les variables CSS utilisées dans tout le site
+  - La configuration du thème Tailwind
+
+  Note : Le design détaillé sera affiné dans une phase ultérieure.
+  Pour l'instant, on se concentre sur la structure et les couleurs de base.
+*/
+
 @import "tailwindcss";
 
+/* Couleurs de la marque AR+SOLUTION */
 :root {
+  /* Couleurs de fond et texte de base */
   --background: #ffffff;
   --foreground: #171717;
+  
+  /* Bleu sombre - couleur principale (confiance, professionnalisme) */
+  --brand-blue: #1e3a5f;
+  --brand-blue-light: #2d5a8a;
+  --brand-blue-dark: #152b47;
+  
+  /* Orange - couleur d'accent (énergie, action, CTA) */
+  --brand-orange: #f97316;
+  --brand-orange-light: #fb923c;
+  --brand-orange-dark: #ea580c;
 }
 
+/* Configuration du thème Tailwind avec les couleurs de la marque */
 @theme inline {
+  /* Couleurs de base */
   --color-background: var(--background);
   --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  
+  /* Couleurs de la marque accessibles via Tailwind (ex: bg-brand-blue, text-brand-orange) */
+  --color-brand-blue: var(--brand-blue);
+  --color-brand-blue-light: var(--brand-blue-light);
+  --color-brand-blue-dark: var(--brand-blue-dark);
+  --color-brand-orange: var(--brand-orange);
+  --color-brand-orange-light: var(--brand-orange-light);
+  --color-brand-orange-dark: var(--brand-orange-dark);
+  
+  /* Police par défaut - Inter chargée via Google Fonts CDN avec fallback système */
+  --font-sans: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-  }
-}
-
+/* Styles de base pour le body */
 body {
   background: var(--background);
   color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
 }

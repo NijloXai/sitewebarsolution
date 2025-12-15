@@ -1,0 +1,605 @@
+/*
+  Page Contact & Devis du site AR+SOLUTION.
+  
+  Cette page permet aux visiteurs de :
+  - Demander un devis gratuit via un formulaire intelligent
+  - Contacter directement l'entreprise par téléphone ou email
+  - Voir le processus de demande de devis (4 étapes)
+  - Consulter la zone d'intervention (Strasbourg et Alsace)
+  - Lire les réponses aux questions fréquentes avant de contacter
+
+  Le formulaire propose un "smart switcher" entre :
+  - Mode "Particulier / Pro" (par défaut)
+  - Mode "Marchés Publics" (champs spécifiques pour les collectivités)
+
+  L'utilisateur est rassuré par :
+  - Les badges de certification (RGE, Qualibat, Décennale)
+  - Le délai de réponse annoncé (48h)
+  - Les coordonnées directes pour un contact immédiat
+*/
+
+import Link from "next/link";
+import Header from "@/components/Header";
+import Footer from "@/components/Footer";
+
+/* ============================================
+   DONNÉES DE LA PAGE
+   ============================================ */
+
+/* Étapes du processus de demande de devis */
+const etapesProcessus = [
+  {
+    numero: 1,
+    titre: "Prise de contact",
+    description: "Analyse de votre demande immédiate. Qualification du besoin sous 24h.",
+    icone: "paper-plane",
+  },
+  {
+    numero: 2,
+    titre: "Visite technique",
+    description: "Déplacement sur site (si nécessaire) pour un métré précis et étude des contraintes.",
+    icone: "ruler",
+  },
+  {
+    numero: 3,
+    titre: "Devis détaillé",
+    description: "Envoi d'un chiffrage transparent. Pièces administratives jointes pour les MP.",
+    icone: "file-invoice",
+  },
+  {
+    numero: 4,
+    titre: "Planification",
+    description: "Validation du devis et calage des dates d'intervention chantier.",
+    icone: "calendar-check",
+  },
+];
+
+/* Villes de la zone d'intervention pour le SEO local */
+const villesIntervention = [
+  "Strasbourg Centre",
+  "Haguenau",
+  "Illkirch-Graffenstaden",
+  "Schiltigheim",
+  "Molsheim",
+  "Sélestat",
+];
+
+/* Types de projet pour le formulaire "Particulier / Pro" */
+const typesProjet = [
+  { value: "platrerie", label: "Plâtrerie / Cloisons" },
+  { value: "isolation", label: "Isolation thermique (Intérieur/Combles)" },
+  { value: "plafond", label: "Faux-plafonds" },
+  { value: "renovation", label: "Rénovation globale" },
+];
+
+/* Questions fréquentes de la FAQ */
+const faqItems = [
+  {
+    question: "Le devis est-il vraiment gratuit ?",
+    reponse:
+      "Oui, totalement. Nous réalisons une estimation gratuite sur plan ou après visite technique. Aucun frais de dossier n'est facturé pour l'établissement du chiffrage.",
+  },
+  {
+    question: "Intervenez-vous en site occupé (bureaux, ERP) ?",
+    reponse:
+      "Absolument. Nous avons l'habitude d'intervenir dans des locaux en activité (écoles, bureaux, commerces). Nous adaptons nos horaires et mettons en place des protections pour minimiser les nuisances (bruit, poussière).",
+  },
+  {
+    question: "Fournissez-vous les attestations RGE / Assurances ?",
+    reponse:
+      "Oui. Pour les Marchés Publics comme pour les particuliers (aides de l'État), nous joignons systématiquement nos attestations d'assurance Décennale et nos certificats Qualibat RGE à jour au devis ou sur simple demande.",
+  },
+];
+
+/* ============================================
+   PAGE CONTACT & DEVIS
+   ============================================ */
+
+export default function PageContact() {
+  return (
+    <>
+      {/* Header - Navigation principale sticky */}
+      <Header pageActive="contact" />
+
+      {/* ============================================
+          CONTENU PRINCIPAL
+          ============================================ */}
+      <main className="mt-20">
+        {/* ============================================
+            SECTION 1: HERO & HUB DE CONTACT (Split Layout)
+            Colonne gauche : Promesse + Accès contact direct
+            Colonne droite : Formulaire intelligent avec switcher
+            ============================================ */}
+        <section className="relative bg-gray-50 py-12 lg:py-20 overflow-hidden">
+          {/* Fond décoratif subtil (placeholder) */}
+          <div
+            className="absolute inset-0 z-0 opacity-5"
+            style={{
+              backgroundImage: "url('https://placehold.co/1920x1080?text=Plan+Architecte+BTP')",
+              backgroundSize: "cover",
+              backgroundPosition: "center",
+            }}
+          />
+
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="grid lg:grid-cols-12 gap-12 items-start">
+              {/* ============================================
+                  COLONNE GAUCHE : Promesse & Contact Direct
+                  ============================================ */}
+              <div className="lg:col-span-5 flex flex-col justify-center h-full pt-4">
+                {/* Badge certification */}
+                <span className="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider mb-4 w-fit">
+                  <svg className="w-4 h-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
+                  </svg>
+                  Certifié RGE Qualibat
+                </span>
+
+                {/* Titre principal */}
+                <h1 className="text-4xl lg:text-5xl font-extrabold text-brand-blue leading-tight mb-6">
+                  Vos projets de plâtrerie et isolation,{" "}
+                  <span className="text-brand-orange">chiffrés avec précision</span>.
+                </h1>
+
+                {/* Sous-titre */}
+                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                  Mairies, architectes ou particuliers : obtenez une réponse sous 48h.
+                  Basés à Strasbourg, nous intervenons dans tout le Bas-Rhin pour vos
+                  travaux de rénovation énergétique et aménagement.
+                </p>
+
+                {/* Bloc "Accès Immédiat" - Contact direct */}
+                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-8">
+                  <h2 className="text-lg font-bold text-brand-blue mb-4 flex items-center">
+                    <svg className="w-5 h-5 text-brand-orange mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                    </svg>
+                    Besoin d&apos;une réponse immédiate ?
+                  </h2>
+                  <div className="space-y-4">
+                    {/* Lien téléphone */}
+                    <a href="tel:0388000000" className="flex items-center gap-4 group">
+                      <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue group-hover:bg-brand-orange group-hover:text-white transition">
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-500">Appel direct (Lun-Ven 8h-18h)</p>
+                        <p className="text-xl font-bold text-brand-blue group-hover:text-brand-orange transition">
+                          03 88 00 00 00
+                        </p>
+                      </div>
+                    </a>
+                    {/* Lien email */}
+                    <a href="mailto:contact@ar-solution.fr" className="flex items-center gap-4 group">
+                      <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue group-hover:bg-brand-orange group-hover:text-white transition">
+                        <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
+                        </svg>
+                      </div>
+                      <div>
+                        <p className="text-sm text-gray-500">Service Chiffrage</p>
+                        <p className="text-base font-bold text-brand-blue underline decoration-gray-300 underline-offset-4 group-hover:text-brand-orange transition">
+                          contact@ar-solution.fr
+                        </p>
+                      </div>
+                    </a>
+                  </div>
+                </div>
+
+                {/* Logos de réassurance (certifications) */}
+                <div className="flex gap-4 opacity-80 grayscale hover:grayscale-0 transition duration-300">
+                  <img
+                    src="https://placehold.co/100x50?text=RGE"
+                    alt="Label RGE"
+                    className="h-12 object-contain"
+                  />
+                  <img
+                    src="https://placehold.co/100x50?text=Qualibat"
+                    alt="Label Qualibat"
+                    className="h-12 object-contain"
+                  />
+                  <img
+                    src="https://placehold.co/100x50?text=Decennale"
+                    alt="Garantie Décennale"
+                    className="h-12 object-contain"
+                  />
+                </div>
+              </div>
+
+              {/* ============================================
+                  COLONNE DROITE : Formulaire "Hub" intelligent
+                  Avec switcher Particulier/Pro vs Marchés Publics
+                  ============================================ */}
+              <div id="formulaire" className="lg:col-span-7 scroll-mt-24">
+                <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border-t-4 border-brand-orange relative">
+                  {/* Switcher de mode (Particulier/Pro vs Marchés Publics) */}
+                  {/* Note: La logique JS pour basculer les champs sera ajoutée ultérieurement */}
+                  <div className="flex justify-center mb-8">
+                    <div className="bg-gray-100 p-1 rounded-lg inline-flex relative">
+                      <button
+                        className="px-6 py-2 rounded-md text-sm font-bold shadow bg-white text-brand-blue transition-all duration-200"
+                        id="btn-priv"
+                      >
+                        <svg className="w-4 h-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
+                        </svg>
+                        Particulier / Pro
+                      </button>
+                      <button
+                        className="px-6 py-2 rounded-md text-sm font-bold text-gray-500 hover:text-brand-blue transition-all duration-200"
+                        id="btn-public"
+                      >
+                        <svg className="w-4 h-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
+                        </svg>
+                        Marchés Publics
+                      </button>
+                    </div>
+                  </div>
+
+                  {/* Formulaire de demande de devis */}
+                  <form action="#" method="POST" className="space-y-5">
+                    {/* Champs communs : Nom & Téléphone */}
+                    <div className="grid md:grid-cols-2 gap-5">
+                      <div>
+                        <label
+                          htmlFor="lastname"
+                          className="block text-sm font-semibold text-gray-700 mb-1"
+                        >
+                          Nom & Prénom <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="text"
+                          id="lastname"
+                          name="lastname"
+                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-orange focus:ring-2 focus:ring-orange-100 outline-none transition"
+                          placeholder="Votre nom complet"
+                          required
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="phone"
+                          className="block text-sm font-semibold text-gray-700 mb-1"
+                        >
+                          Téléphone <span className="text-red-500">*</span>
+                        </label>
+                        <input
+                          type="tel"
+                          id="phone"
+                          name="phone"
+                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-orange focus:ring-2 focus:ring-orange-100 outline-none transition"
+                          placeholder="06 00 00 00 00"
+                          required
+                        />
+                      </div>
+                    </div>
+
+                    {/* Champ Email */}
+                    <div>
+                      <label
+                        htmlFor="email"
+                        className="block text-sm font-semibold text-gray-700 mb-1"
+                      >
+                        Email professionnel ou personnel <span className="text-red-500">*</span>
+                      </label>
+                      <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-orange focus:ring-2 focus:ring-orange-100 outline-none transition"
+                        placeholder="exemple@email.com"
+                        required
+                      />
+                    </div>
+
+                    {/* Champs Spécifiques "Marchés Publics" (masqués par défaut) */}
+                    {/* Note: Ces champs seront affichés via JS quand le mode Marchés Publics est actif */}
+                    <div id="public-fields" className="hidden bg-blue-50 p-4 rounded-lg border border-blue-100">
+                      <div className="mb-4">
+                        <label
+                          htmlFor="organisme"
+                          className="block text-sm font-semibold text-blue-900 mb-1"
+                        >
+                          Organisme / Mairie
+                        </label>
+                        <input
+                          type="text"
+                          id="organisme"
+                          name="organisme"
+                          className="w-full px-4 py-3 rounded-lg border border-blue-200 focus:border-brand-orange outline-none"
+                          placeholder="Ex: Mairie de Strasbourg, Collectivité..."
+                        />
+                      </div>
+                      <div>
+                        <label
+                          htmlFor="ref-consult"
+                          className="block text-sm font-semibold text-blue-900 mb-1"
+                        >
+                          Référence Consultation / Marché
+                        </label>
+                        <input
+                          type="text"
+                          id="ref-consult"
+                          name="ref-consult"
+                          className="w-full px-4 py-3 rounded-lg border border-blue-200 focus:border-brand-orange outline-none"
+                          placeholder="Ex: MAPA-2024-05..."
+                        />
+                      </div>
+                      <p className="text-xs text-blue-700 mt-2 flex items-center">
+                        <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                          <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+                        </svg>
+                        Les pièces administratives (RGE, Décennale, Kbis) seront jointes automatiquement.
+                      </p>
+                    </div>
+
+                    {/* Champs Spécifiques "Particulier / Pro" (visibles par défaut) */}
+                    <div id="private-fields">
+                      <label
+                        htmlFor="project-type"
+                        className="block text-sm font-semibold text-gray-700 mb-1"
+                      >
+                        Type de projet <span className="text-red-500">*</span>
+                      </label>
+                      <select
+                        id="project-type"
+                        name="project-type"
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-orange focus:ring-2 focus:ring-orange-100 outline-none transition bg-white"
+                        defaultValue=""
+                      >
+                        <option value="" disabled>
+                          Sélectionnez votre besoin...
+                        </option>
+                        {typesProjet.map((type) => (
+                          <option key={type.value} value={type.value}>
+                            {type.label}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
+
+                    {/* Champ détails du projet */}
+                    <div>
+                      <label
+                        htmlFor="message"
+                        className="block text-sm font-semibold text-gray-700 mb-1"
+                      >
+                        Détails du projet
+                      </label>
+                      <textarea
+                        id="message"
+                        name="message"
+                        rows={3}
+                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-orange focus:ring-2 focus:ring-orange-100 outline-none transition"
+                        placeholder="Indiquez la surface approximative, le lieu et vos délais souhaités..."
+                      />
+                    </div>
+
+                    {/* Bouton d'envoi CTA */}
+                    <button
+                      type="submit"
+                      className="w-full bg-brand-orange hover:bg-orange-700 text-white font-bold text-lg py-4 rounded-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                    >
+                      <span>Recevoir mon devis gratuit</span>
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                      </svg>
+                    </button>
+
+                    {/* Mention RGPD */}
+                    <p className="text-xs text-gray-400 text-center mt-3">
+                      <svg className="w-3 h-3 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z" />
+                      </svg>
+                      Vos données restent confidentielles. Réponse sous 48h.
+                    </p>
+                  </form>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================
+            SECTION 2: PROCESSUS - "Et après ?"
+            Explique les 4 étapes après l'envoi du formulaire
+            ============================================ */}
+        <section className="py-16 bg-white border-b border-gray-100">
+          <div className="container mx-auto px-4 text-center">
+            <h2 className="text-3xl font-bold text-brand-blue mb-12">
+              Comment se déroule votre demande ?
+            </h2>
+
+            <div className="grid md:grid-cols-4 gap-8 relative">
+              {/* Ligne connectrice horizontale (desktop uniquement) */}
+              <div className="hidden md:block absolute top-12 left-1/2 -translate-x-1/2 w-3/4 h-1 bg-gray-100 z-0" />
+
+              {/* Les 4 étapes du processus */}
+              {etapesProcessus.map((etape) => (
+                <div key={etape.numero} className="relative z-10 group">
+                  {/* Cercle avec icône */}
+                  <div className="w-24 h-24 bg-white border-4 border-gray-100 rounded-full flex items-center justify-center mx-auto mb-6 group-hover:border-brand-orange transition duration-300">
+                    {etape.icone === "paper-plane" && (
+                      <svg className="w-8 h-8 text-brand-blue group-hover:text-brand-orange transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 19l9 2-9-18-9 18 9-2zm0 0v-8" />
+                      </svg>
+                    )}
+                    {etape.icone === "ruler" && (
+                      <svg className="w-8 h-8 text-brand-blue group-hover:text-brand-orange transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10" />
+                      </svg>
+                    )}
+                    {etape.icone === "file-invoice" && (
+                      <svg className="w-8 h-8 text-brand-blue group-hover:text-brand-orange transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                      </svg>
+                    )}
+                    {etape.icone === "calendar-check" && (
+                      <svg className="w-8 h-8 text-brand-blue group-hover:text-brand-orange transition" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+                      </svg>
+                    )}
+                  </div>
+                  {/* Titre et description de l'étape */}
+                  <h3 className="font-bold text-lg mb-2">
+                    {etape.numero}. {etape.titre}
+                  </h3>
+                  <p className="text-sm text-gray-500 px-4">{etape.description}</p>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================
+            SECTION 3: ZONE D'INTERVENTION (SEO Local)
+            Carte + liste des villes desservies en Alsace
+            ============================================ */}
+        <section className="py-16 bg-gray-50">
+          <div className="container mx-auto px-4">
+            <div className="bg-white rounded-2xl shadow-sm overflow-hidden flex flex-col md:flex-row">
+              {/* Colonne texte */}
+              <div className="md:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
+                <h2 className="text-3xl font-bold text-brand-blue mb-6">
+                  Intervention rapide à Strasbourg et en Alsace
+                </h2>
+                <p className="text-gray-600 mb-6 leading-relaxed">
+                  Basée au cœur de l&apos;Eurométropole, notre équipe se déplace quotidiennement
+                  dans tout le Bas-Rhin. Nous garantissons la ponctualité de nos équipes
+                  et la propreté des chantiers.
+                </p>
+                <h4 className="font-bold text-brand-blue mb-4">
+                  Principales zones desservies :
+                </h4>
+                <ul className="grid grid-cols-2 gap-2 mb-8">
+                  {villesIntervention.map((ville) => (
+                    <li key={ville} className="flex items-center text-gray-600">
+                      <svg className="w-4 h-4 text-brand-orange mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z" />
+                        <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 11a3 3 0 11-6 0 3 3 0 016 0z" />
+                      </svg>
+                      {ville}
+                    </li>
+                  ))}
+                </ul>
+                <a
+                  href="tel:0388000000"
+                  className="inline-flex items-center font-bold text-brand-orange hover:text-brand-blue transition"
+                >
+                  Vérifier mon éligibilité géographique
+                  <svg className="w-4 h-4 ml-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
+                  </svg>
+                </a>
+              </div>
+
+              {/* Colonne carte (placeholder) */}
+              <div className="md:w-1/2 relative min-h-[400px]">
+                <img
+                  src="https://placehold.co/800x600?text=Carte+Zone+Intervention+Alsace"
+                  alt="Carte zone intervention Alsace"
+                  className="absolute inset-0 w-full h-full object-cover"
+                />
+                {/* Badge flottant siège social */}
+                <div className="absolute bottom-6 left-6 bg-white p-4 rounded-lg shadow-lg max-w-xs">
+                  <p className="text-sm font-bold text-brand-blue">📍 Siège Social</p>
+                  <p className="text-xs text-gray-500">Strasbourg, 67000</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        {/* ============================================
+            SECTION 4: FAQ - Questions fréquentes
+            Lève les freins avant l'envoi du formulaire
+            ============================================ */}
+        <section className="py-16 bg-white">
+          <div className="container mx-auto px-4 max-w-3xl">
+            <h2 className="text-3xl font-bold text-brand-blue text-center mb-10">
+              Questions fréquentes
+            </h2>
+
+            <div className="space-y-4">
+              {faqItems.map((item, index) => (
+                <details
+                  key={index}
+                  className="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all duration-300"
+                >
+                  <summary className="flex justify-between items-center font-bold text-lg cursor-pointer list-none p-5 text-brand-blue">
+                    <span>{item.question}</span>
+                    <span className="transition group-open:rotate-180">
+                      <svg
+                        className="w-5 h-5 text-brand-orange"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M19 9l-7 7-7-7"
+                        />
+                      </svg>
+                    </span>
+                  </summary>
+                  <div className="text-gray-600 px-5 pb-5">{item.reponse}</div>
+                </details>
+              ))}
+            </div>
+
+            {/* Lien vers la FAQ complète */}
+            <div className="text-center mt-8">
+              <Link
+                href="/faq"
+                className="text-brand-blue font-semibold hover:text-brand-orange transition"
+              >
+                Voir toutes les questions fréquentes →
+              </Link>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      {/* Footer réutilisable */}
+      <Footer />
+
+      {/* ============================================
+          BARRE STICKY MOBILE
+          Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
+          ============================================ */}
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+        <a
+          href="tel:0388000000"
+          className="flex-1 flex items-center justify-center bg-gray-100 text-brand-blue font-bold py-3 rounded-lg"
+        >
+          <svg
+            className="w-5 h-5 mr-2"
+            fill="none"
+            viewBox="0 0 24 24"
+            stroke="currentColor"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+            />
+          </svg>
+          Appeler
+        </a>
+        <a
+          href="#formulaire"
+          className="flex-1 flex items-center justify-center bg-brand-orange text-white font-bold py-3 rounded-lg shadow-md"
+        >
+          Devis Gratuit
+        </a>
+      </div>
+    </>
+  );
+}
+
