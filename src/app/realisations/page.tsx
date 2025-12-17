@@ -19,6 +19,10 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import CtaBlock from "@/components/CtaBlock";
 import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 /* ============================================
    DONNÉES DE LA PAGE
@@ -216,31 +220,27 @@ export default function PageRealisations() {
 
               {/* Boutons d'action */}
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-flex justify-center items-center px-8 py-4 border border-transparent text-base font-bold rounded-md text-white bg-brand-orange hover:bg-brand-orange-dark shadow-lg transition duration-300"
-                >
-                  Demander un devis chiffré
-                </Link>
-                <a
-                  href="#public-focus"
-                  className="inline-flex justify-center items-center px-8 py-4 border-2 border-white/30 text-base font-semibold rounded-md text-white hover:bg-white hover:text-brand-blue transition duration-300 backdrop-blur-sm"
-                >
-                  <svg
-                    className="w-5 h-5 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                    />
-                  </svg>
-                  Accès Marchés Publics
-                </a>
+                <Button asChild size="lg" className="bg-brand-orange hover:bg-brand-orange-dark text-white">
+                  <Link href="/contact">Demander un devis chiffré</Link>
+                </Button>
+                <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white hover:text-brand-blue backdrop-blur-sm">
+                  <a href="#public-focus">
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                      />
+                    </svg>
+                    Accès Marchés Publics
+                  </a>
+                </Button>
               </div>
             </div>
           </div>
@@ -352,9 +352,9 @@ export default function PageRealisations() {
             {/* Grille de cartes */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {realisations.map((projet) => (
-                <article
+                <Card
                   key={projet.id}
-                  className={`group bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 overflow-hidden border border-gray-100 flex flex-col h-full ${
+                  className={`group hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full ${
                     projet.secteur === "public"
                       ? "ring-2 ring-transparent hover:ring-brand-blue/20"
                       : ""
@@ -370,7 +370,7 @@ export default function PageRealisations() {
 
                     {/* Badge Avant/Après si disponible */}
                     {projet.avantApres && (
-                      <div className="absolute top-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded-md text-xs font-bold text-slate-800 shadow-sm">
+                      <Badge className="absolute top-4 left-4 bg-white/90 backdrop-blur text-slate-800 shadow-sm">
                         <svg
                           className="w-3 h-3 inline mr-1 text-brand-orange"
                           fill="none"
@@ -391,12 +391,12 @@ export default function PageRealisations() {
                           />
                         </svg>
                         Avant / Après dispo
-                      </div>
+                      </Badge>
                     )}
 
                     {/* Badge secteur (Particulier ou Marché Public) */}
-                    <div
-                      className={`absolute bottom-4 right-4 px-3 py-1 rounded-full text-xs font-bold ${
+                    <Badge
+                      className={`absolute bottom-4 right-4 ${
                         projet.secteur === "public"
                           ? "bg-brand-blue text-white shadow-lg"
                           : "bg-brand-orange text-white"
@@ -420,11 +420,11 @@ export default function PageRealisations() {
                       {projet.secteur === "public"
                         ? "Marché Public"
                         : "Particulier"}
-                    </div>
+                    </Badge>
                   </div>
 
                   {/* Contenu de la carte */}
-                  <div className="p-6 flex-1 flex flex-col">
+                  <CardContent className="p-6 flex-1 flex flex-col">
                     {/* Métier et lieu */}
                     <div className="flex items-center text-xs text-gray-500 mb-2">
                       <span className="uppercase tracking-wider font-semibold text-brand-blue">
@@ -448,9 +448,9 @@ export default function PageRealisations() {
                     </div>
 
                     {/* Titre du projet */}
-                    <h3 className="text-xl font-bold mb-3 text-slate-800 group-hover:text-brand-blue transition-colors">
+                    <CardTitle className="text-xl mb-3 text-slate-800 group-hover:text-brand-blue transition-colors">
                       {projet.titre}
-                    </h3>
+                    </CardTitle>
 
                     {/* Description courte */}
                     <p
@@ -485,14 +485,14 @@ export default function PageRealisations() {
                         </svg>
                       </Link>
                     </div>
-                  </div>
-                </article>
+                  </CardContent>
+                </Card>
               ))}
             </div>
 
             {/* Bouton charger plus */}
             <div className="text-center mt-12">
-              <button className="px-8 py-3 bg-white border border-gray-300 text-gray-600 font-semibold rounded-lg hover:bg-gray-50 transition-colors">
+              <Button variant="outline" size="lg">
                 <svg
                   className="w-5 h-5 inline mr-2"
                   fill="none"
@@ -507,7 +507,7 @@ export default function PageRealisations() {
                   />
                 </svg>
                 Charger plus de réalisations
-              </button>
+              </Button>
             </div>
           </div>
         </section>
@@ -628,25 +628,24 @@ export default function PageRealisations() {
                 </ul>
 
                 {/* CTA vers page Marchés Publics */}
-                <Link
-                  href="/marches-publics"
-                  className="inline-flex items-center px-6 py-3 bg-brand-blue text-white font-bold rounded-lg hover:bg-blue-800 transition-colors shadow-md"
-                >
-                  Contacter notre référent Marchés Publics
-                  <svg
-                    className="w-4 h-4 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M9 5l7 7-7 7"
-                    />
-                  </svg>
-                </Link>
+                <Button asChild className="bg-brand-blue hover:bg-blue-800 text-white shadow-md">
+                  <Link href="/marches-publics">
+                    Contacter notre référent Marchés Publics
+                    <svg
+                      className="w-4 h-4 ml-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M9 5l7 7-7 7"
+                      />
+                    </svg>
+                  </Link>
+                </Button>
               </div>
 
               {/* Colonne logos collectivités */}
@@ -773,36 +772,22 @@ export default function PageRealisations() {
               Questions fréquentes sur nos réalisations
             </h2>
 
-            <div className="space-y-4">
+            <Accordion type="single" collapsible className="space-y-4">
               {faqRealisations.map((item, index) => (
-                <details
+                <AccordionItem
                   key={index}
-                  className="group bg-gray-50 rounded-lg open:ring-2 open:ring-brand-blue/20 open:bg-white transition-all"
+                  value={`item-${index}`}
+                  className="bg-gray-50 rounded-lg px-4 data-[state=open]:ring-2 data-[state=open]:ring-brand-blue/20 data-[state=open]:bg-white transition-all"
                 >
-                  <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4 text-slate-800 hover:text-brand-blue">
-                    <span>{item.question}</span>
-                    <span className="transition group-open:rotate-180">
-                      <svg
-                        className="w-5 h-5 text-gray-400"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </span>
-                  </summary>
-                  <div className="text-gray-600 px-4 pb-4 text-sm">
+                  <AccordionTrigger className="text-slate-800 hover:text-brand-blue font-medium">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600 text-sm">
                     {item.reponse}
-                  </div>
-                </details>
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
           </div>
         </section>
 
@@ -826,31 +811,35 @@ export default function PageRealisations() {
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
       <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <a
-          href="tel:0388000000"
-          className="flex-1 flex items-center justify-center bg-gray-100 text-brand-blue font-bold py-3 rounded-lg"
+        <Button
+          asChild
+          variant="secondary"
+          className="flex-1 text-brand-blue font-bold"
         >
-          <svg
-            className="w-5 h-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
-          Appeler
-        </a>
-        <Link
-          href="/contact"
-          className="flex-1 flex items-center justify-center bg-brand-orange text-white font-bold py-3 rounded-lg shadow-md"
+          <a href="tel:0388000000">
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            Appeler
+          </a>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
         >
-          Devis Gratuit
-        </Link>
+          <Link href="/contact">Devis Gratuit</Link>
+        </Button>
       </div>
     </>
   );

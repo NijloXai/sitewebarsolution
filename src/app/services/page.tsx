@@ -22,6 +22,9 @@ import Link from "next/link";
 import CtaBlock from "@/components/CtaBlock";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 
 /* ========================================
    DONNÉES DES 4 SERVICES PRINCIPAUX
@@ -239,15 +242,15 @@ export default function ServicesPage() {
           <div className="max-w-3xl">
             {/* Badges de confiance : RGE, Décennale, Site Occupé */}
             <div className="flex flex-wrap gap-3 mb-6">
-              <span className="bg-amber-500/10 text-amber-500 border border-amber-500/30 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider flex items-center gap-2">
+              <Badge className="bg-amber-500/10 text-amber-500 border-amber-500/30 hover:bg-amber-500/20 uppercase tracking-wider">
                 ✓ Certifié RGE
-              </span>
-              <span className="bg-white/10 text-white border border-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+              </Badge>
+              <Badge variant="outline" className="bg-white/10 text-white border-white/20 hover:bg-white/20 uppercase tracking-wider">
                 Garantie Décennale
-              </span>
-              <span className="bg-white/10 text-white border border-white/20 px-3 py-1 rounded-full text-xs font-bold uppercase tracking-wider">
+              </Badge>
+              <Badge variant="outline" className="bg-white/10 text-white border-white/20 hover:bg-white/20 uppercase tracking-wider">
                 Intervention Site Occupé
-              </span>
+              </Badge>
             </div>
 
             {/* Titre principal SEO */}
@@ -265,18 +268,16 @@ export default function ServicesPage() {
 
             {/* Boutons d'action : Devis et Marchés Publics */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Link
-                href="/contact"
-                className="inline-flex justify-center items-center bg-amber-500 hover:bg-amber-600 text-white font-bold py-4 px-8 rounded-lg transition-all shadow-lg hover:shadow-orange-500/30 text-lg"
-              >
-                Demander mon devis gratuit →
-              </Link>
-              <Link
-                href="/marches-publics"
-                className="inline-flex justify-center items-center bg-transparent border-2 border-slate-500 hover:border-white text-slate-300 hover:text-white font-semibold py-4 px-8 rounded-lg transition-all"
-              >
-                🏛️ Accès Marchés Publics
-              </Link>
+              <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-600 text-white shadow-lg hover:shadow-orange-500/30 text-lg">
+                <Link href="/contact">
+                  Demander mon devis gratuit →
+                </Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="bg-transparent border-2 border-slate-500 hover:border-white text-slate-300 hover:text-white">
+                <Link href="/marches-publics">
+                  🏛️ Accès Marchés Publics
+                </Link>
+              </Button>
             </div>
 
             {/* Mention temps de réponse */}
@@ -307,9 +308,9 @@ export default function ServicesPage() {
           {/* Grille des 4 cartes services */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
             {servicesData.map((service) => (
-              <article
+              <Card
                 key={service.id}
-                className="bg-white rounded-xl shadow-md hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full overflow-hidden border border-slate-100"
+                className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full overflow-hidden"
               >
                 {/* Image avec tag de catégorie */}
                 <div className="h-48 overflow-hidden relative">
@@ -318,22 +319,26 @@ export default function ServicesPage() {
                     alt={service.imageAlt}
                     className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
                   />
-                  <div
-                    className={`absolute bottom-0 left-0 ${service.tagColor} text-white text-xs font-bold px-3 py-1 rounded-tr-lg`}
-                  >
-                    {service.tag}
+                  <div className="absolute bottom-0 left-0">
+                    <Badge
+                      className={`${service.tagColor} text-white border-0 rounded-tr-lg rounded-bl-none`}
+                    >
+                      {service.tag}
+                    </Badge>
                   </div>
                 </div>
 
                 {/* Contenu de la carte */}
-                <div className="p-6 flex-1 flex flex-col">
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
+                <CardHeader className="flex-1 flex flex-col">
+                  <CardTitle className="text-xl mb-2">
                     {service.title}
-                  </h3>
-                  <p className="text-amber-500 font-medium text-sm mb-4">
+                  </CardTitle>
+                  <CardDescription className="text-amber-500 font-medium text-sm mb-4">
                     {service.accroche}
-                  </p>
+                  </CardDescription>
+                </CardHeader>
 
+                <CardContent className="flex-1 flex flex-col">
                   {/* Liste des points clés du service */}
                   <ul className="text-sm text-slate-600 space-y-2 mb-6 flex-1">
                     {service.points.map((point, index) => (
@@ -343,18 +348,17 @@ export default function ServicesPage() {
                       </li>
                     ))}
                   </ul>
+                </CardContent>
 
-                  {/* Lien vers la page détaillée */}
-                  <div className="mt-auto pt-4 border-t border-slate-100">
-                    <Link
-                      href={service.lien}
-                      className="text-blue-600 font-semibold hover:underline flex justify-between items-center"
-                    >
+                {/* Lien vers la page détaillée */}
+                <CardFooter className="mt-auto pt-4 border-t">
+                  <Button asChild variant="link" className="text-blue-600 font-semibold p-0 h-auto">
+                    <Link href={service.lien} className="flex justify-between items-center w-full">
                       En savoir plus <span>→</span>
                     </Link>
-                  </div>
-                </div>
-              </article>
+                  </Button>
+                </CardFooter>
+              </Card>
             ))}
           </div>
         </div>
@@ -375,9 +379,9 @@ export default function ServicesPage() {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             {/* Colonne texte */}
             <div className="lg:w-1/2">
-              <div className="inline-block bg-blue-600 text-white px-3 py-1 rounded text-xs font-bold uppercase mb-4">
+              <Badge className="bg-blue-600 text-white border-0 mb-4 uppercase">
                 Espace Professionnel
-              </div>
+              </Badge>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
                 Mairies, Collectivités, Gestionnaires : un partenaire fiable en Alsace
               </h2>
@@ -405,13 +409,12 @@ export default function ServicesPage() {
               </ul>
 
               {/* Bouton vers la page Marchés Publics */}
-              <Link
-                href="/marches-publics"
-                className="inline-flex items-center bg-white text-slate-900 hover:bg-slate-100 font-bold py-3 px-6 rounded-lg transition-colors"
-              >
-                Accéder à l'Espace Marchés Publics
-                <span className="ml-2 text-blue-600">→</span>
-              </Link>
+              <Button asChild size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
+                <Link href="/marches-publics">
+                  Accéder à l'Espace Marchés Publics
+                  <span className="ml-2 text-blue-600">→</span>
+                </Link>
+              </Button>
             </div>
 
             {/* Colonne image */}
@@ -448,26 +451,28 @@ export default function ServicesPage() {
             <div className="hidden md:block absolute top-8 left-0 w-full h-1 bg-slate-100 -z-10"></div>
 
             {methodeEtapes.map((etape) => (
-              <div key={etape.numero} className="text-center bg-white p-4">
-                {/* Numéro de l'étape dans un cercle */}
-                <div
-                  className={`w-16 h-16 mx-auto ${
-                    etape.actif
-                      ? "bg-blue-600 text-white"
-                      : "bg-slate-200 text-slate-600"
-                  } rounded-full flex items-center justify-center text-xl font-bold mb-4 shadow-lg border-4 border-white`}
-                >
-                  {etape.numero}
-                </div>
-                <h3 className="font-bold text-lg mb-2">{etape.titre}</h3>
-                <p className="text-sm text-slate-500">{etape.description}</p>
-                {/* Badge spécial si présent */}
-                {etape.badge && (
-                  <span className="inline-block mt-2 px-2 py-1 bg-green-100 text-green-700 text-xs font-bold rounded">
-                    {etape.badge}
-                  </span>
-                )}
-              </div>
+              <Card key={etape.numero} className="text-center">
+                <CardContent className="pt-6">
+                  {/* Numéro de l'étape dans un cercle */}
+                  <div
+                    className={`w-16 h-16 mx-auto ${
+                      etape.actif
+                        ? "bg-blue-600 text-white"
+                        : "bg-slate-200 text-slate-600"
+                    } rounded-full flex items-center justify-center text-xl font-bold mb-4 shadow-lg border-4 border-white`}
+                  >
+                    {etape.numero}
+                  </div>
+                  <CardTitle className="text-lg mb-2">{etape.titre}</CardTitle>
+                  <CardDescription className="text-sm">{etape.description}</CardDescription>
+                  {/* Badge spécial si présent */}
+                  {etape.badge && (
+                    <Badge className="mt-2 bg-green-100 text-green-700 border-0">
+                      {etape.badge}
+                    </Badge>
+                  )}
+                </CardContent>
+              </Card>
             ))}
           </div>
         </div>
@@ -489,12 +494,11 @@ export default function ServicesPage() {
                 Interventions récentes à Strasbourg, Illkirch, Schiltigheim...
               </p>
             </div>
-            <Link
-              href="/realisations"
-              className="hidden md:inline-flex items-center text-blue-600 font-bold hover:underline"
-            >
-              Voir toutes les réalisations →
-            </Link>
+            <Button asChild variant="link" className="hidden md:inline-flex text-blue-600 font-bold">
+              <Link href="/realisations">
+                Voir toutes les réalisations →
+              </Link>
+            </Button>
           </div>
 
           {/* Grille des 3 projets */}
@@ -525,12 +529,11 @@ export default function ServicesPage() {
 
           {/* Lien mobile vers toutes les réalisations */}
           <div className="mt-8 text-center md:hidden">
-            <Link
-              href="/realisations"
-              className="inline-flex items-center text-blue-600 font-bold hover:underline"
-            >
-              Voir toutes les réalisations →
-            </Link>
+            <Button asChild variant="link" className="text-blue-600 font-bold">
+              <Link href="/realisations">
+                Voir toutes les réalisations →
+              </Link>
+            </Button>
           </div>
         </div>
       </section>
@@ -607,31 +610,36 @@ export default function ServicesPage() {
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
       <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <a
-          href="tel:0388000000"
-          className="flex-1 flex items-center justify-center bg-gray-100 text-brand-blue font-bold py-3 rounded-lg"
+        <Button
+          asChild
+          variant="secondary"
+          className="flex-1 bg-gray-100 text-brand-blue font-bold"
         >
-          <svg
-            className="w-5 h-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
-          Appeler
-        </a>
-        <Link
-          href="/contact"
-          className="flex-1 flex items-center justify-center bg-brand-orange text-white font-bold py-3 rounded-lg shadow-md"
+          <a href="tel:0388000000">
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            Appeler
+          </a>
+        </Button>
+        <Button
+          asChild
+          className="flex-1 bg-brand-orange text-white font-bold shadow-md hover:bg-brand-orange/90"
         >
-          Devis Gratuit
-        </Link>
+          <Link href="/contact">
+            Devis Gratuit
+          </Link>
+        </Button>
       </div>
     </>
   );

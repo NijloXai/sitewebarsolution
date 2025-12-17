@@ -23,6 +23,12 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import TrustBar from "@/components/TrustBar";
 import Footer from "@/components/Footer";
+import GridScan from "@/components/GridScan";
+import { ContactForm } from "@/components/ContactForm";
+import { FAQ } from "@/components/FAQ";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 
 /* ============================================
    DONNÉES DE LA PAGE
@@ -176,33 +182,7 @@ const villesIntervention = [
   "Obernai",
 ];
 
-/* Questions fréquentes de la FAQ */
-const faqItems = [
-  {
-    question: "Quels sont vos délais d'intervention ?",
-    reponse:
-      "Nos délais varient selon la charge, mais nous nous engageons à fournir un devis sous 48h. Pour les travaux, un planning précis est validé avant signature.",
-  },
-  {
-    question: "Êtes-vous certifiés RGE pour les aides ?",
-    reponse:
-      "Oui, nous sommes certifiés RGE (Reconnu Garant de l'Environnement), ce qui vous rend éligible aux aides de l'État (MaPrimeRénov', CEE) pour les travaux d'isolation.",
-  },
-  {
-    question: "Comment garantissez-vous la propreté du chantier ?",
-    reponse:
-      "La protection des sols et du mobilier est systématique avant tout démarrage. Un nettoyage est effectué chaque fin de journée.",
-  },
-];
 
-/* Options du formulaire de contact */
-const typesProjet = [
-  "Isolation & Plâtrerie",
-  "Rénovation complète",
-  "Peinture & Décoration",
-  "Marché Public / Appel d'offre",
-  "Autre",
-];
 
 /* ============================================
    PAGE D'ACCUEIL
@@ -221,16 +201,27 @@ export default function PageAccueil() {
         {/* ============================================
             HERO SECTION - La promesse principale
             L'utilisateur voit immédiatement ce que fait l'entreprise et peut demander un devis
+            Animation 3D futuriste en arrière-plan qui réagit aux mouvements de la souris
             ============================================ */}
         <section className="relative bg-slate-900 overflow-hidden">
-          {/* Image de fond avec overlay pour la lisibilité du texte */}
+          {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
-            <img
-              className="w-full h-full object-cover opacity-40"
-              src="https://placehold.co/1920x1080?text=Chantier+Platrerie+Termine"
-              alt="Rénovation intérieure Alsace"
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent" />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
 
           {/* Contenu du hero */}
@@ -238,16 +229,19 @@ export default function PageAccueil() {
             <div className="max-w-2xl">
               {/* Badges de localisation et certifications */}
               <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <span className="bg-brand-orange/20 text-brand-orange border border-brand-orange/30 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide">
+                <Badge 
+                  variant="outline" 
+                  className="bg-brand-orange/20 text-brand-orange border-brand-orange/30 uppercase tracking-wide"
+                >
                   Strasbourg & Alsace
-                </span>
+                </Badge>
                 <div className="flex gap-2">
-                  <span className="text-white text-xs font-semibold bg-white/10 px-2 py-1 rounded">
+                  <Badge variant="outline" className="text-white bg-white/10 border-white/20">
                     RGE Qualibat
-                  </span>
-                  <span className="text-white text-xs font-semibold bg-white/10 px-2 py-1 rounded">
+                  </Badge>
+                  <Badge variant="outline" className="text-white bg-white/10 border-white/20">
                     Décennale
-                  </span>
+                  </Badge>
                 </div>
               </div>
 
@@ -265,18 +259,21 @@ export default function PageAccueil() {
 
               {/* Boutons d'action principaux */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href="#contact"
-                  className="inline-flex justify-center items-center px-8 py-4 border border-transparent text-base font-bold rounded-md text-white bg-brand-orange hover:bg-brand-orange-dark shadow-lg transition duration-300"
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg"
                 >
-                  Demander un devis gratuit
-                </a>
-                <Link
-                  href="/marches-publics"
-                  className="inline-flex justify-center items-center px-8 py-4 border-2 border-white/30 text-base font-semibold rounded-md text-white hover:bg-white hover:text-brand-blue transition duration-300 backdrop-blur-sm"
+                  <a href="#contact">Demander un devis gratuit</a>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-white/30 text-white hover:bg-white hover:text-brand-blue backdrop-blur-sm"
                 >
-                  Accès Acheteurs Publics
-                </Link>
+                  <Link href="/marches-publics">Accès Acheteurs Publics</Link>
+                </Button>
               </div>
             </div>
           </div>
@@ -308,41 +305,42 @@ export default function PageAccueil() {
             {/* Grille des 3 cartes profils */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
               {profilsClients.map((profil) => (
-                <div
+                <Card
                   key={profil.id}
-                  className="group relative bg-white border border-gray-200 rounded-xl shadow-sm hover:shadow-xl transition duration-300 flex flex-col overflow-hidden"
+                  className="group relative overflow-hidden hover:shadow-xl transition-all duration-200 flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2"
                 >
                   {/* Image de la carte */}
                   <div className="h-48 overflow-hidden">
                     <img
                       src={profil.image}
                       alt={profil.titre}
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
+                      className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
                   {/* Contenu de la carte */}
-                  <div className="p-6 flex-1 flex flex-col">
+                  <CardContent className="p-6 flex-1 flex flex-col">
                     {profil.badge && (
                       <div className="flex items-center gap-2 mb-3">
-                        <span className="bg-blue-100 text-blue-800 text-xs font-bold px-2 py-1 rounded uppercase">
+                        <Badge variant="secondary" className="bg-blue-100 text-blue-800 uppercase">
                           {profil.badge}
-                        </span>
+                        </Badge>
                       </div>
                     )}
-                    <h3 className="text-xl font-bold text-brand-blue mb-2">
+                    <CardTitle className="text-xl text-brand-blue mb-2">
                       {profil.titre}
-                    </h3>
-                    <p className="text-gray-600 text-sm mb-6 flex-1">
+                    </CardTitle>
+                    <CardDescription className="text-sm mb-6 flex-1">
                       {profil.description}
-                    </p>
+                    </CardDescription>
                     <Link
                       href={profil.lien}
-                      className="inline-flex items-center text-brand-blue font-semibold hover:text-brand-orange"
+                      className="inline-flex items-center text-brand-blue font-semibold hover:text-brand-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded transition-colors"
+                      aria-label={`${profil.lienTexte} - ${profil.titre}`}
                     >
-                      {profil.lienTexte} <span className="ml-2">→</span>
+                      {profil.lienTexte} <span className="ml-2" aria-hidden="true">→</span>
                     </Link>
-                  </div>
-                </div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
@@ -367,48 +365,51 @@ export default function PageAccueil() {
             {/* Grille des 4 cartes services */}
             <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
               {services.map((service) => (
-                <div
+                <Card
                   key={service.id}
-                  className="bg-white p-6 rounded-lg shadow-sm border border-gray-100 hover:border-brand-orange transition"
+                  className="hover:border-brand-orange transition-colors duration-200 focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2"
                 >
-                  {/* Icône du service */}
-                  <div
-                    className={`w-12 h-12 ${
-                      service.iconeColor === "orange"
-                        ? "bg-orange-100 text-brand-orange"
-                        : "bg-blue-100 text-brand-blue"
-                    } rounded-lg flex items-center justify-center mb-4`}
-                  >
-                    <svg
-                      className="w-6 h-6"
-                      fill="none"
-                      viewBox="0 0 24 24"
-                      stroke="currentColor"
+                  <CardContent className="p-6">
+                    {/* Icône du service */}
+                    <div
+                      className={`w-12 h-12 ${
+                        service.iconeColor === "orange"
+                          ? "bg-orange-100 text-brand-orange"
+                          : "bg-blue-100 text-brand-blue"
+                      } rounded-lg flex items-center justify-center mb-4`}
                     >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
-                      />
-                    </svg>
-                  </div>
-                  {/* Titre et prestations */}
-                  <h3 className="text-lg font-bold text-brand-blue mb-2">
-                    {service.titre}
-                  </h3>
-                  <ul className="text-sm text-gray-600 space-y-1 mb-4">
-                    {service.prestations.map((prestation) => (
-                      <li key={prestation}>• {prestation}</li>
-                    ))}
-                  </ul>
-                  <Link
-                    href={service.lien}
-                    className="text-sm font-semibold text-brand-orange hover:text-brand-blue"
-                  >
-                    En savoir plus →
-                  </Link>
-                </div>
+                      <svg
+                        className="w-6 h-6"
+                        fill="none"
+                        viewBox="0 0 24 24"
+                        stroke="currentColor"
+                      >
+                        <path
+                          strokeLinecap="round"
+                          strokeLinejoin="round"
+                          strokeWidth={2}
+                          d="M4 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2V6zM14 6a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2V6zM4 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2H6a2 2 0 01-2-2v-2zM14 16a2 2 0 012-2h2a2 2 0 012 2v2a2 2 0 01-2 2h-2a2 2 0 01-2-2v-2z"
+                        />
+                      </svg>
+                    </div>
+                    {/* Titre et prestations */}
+                    <CardTitle className="text-lg text-brand-blue mb-2">
+                      {service.titre}
+                    </CardTitle>
+                    <ul className="text-sm text-muted-foreground space-y-1 mb-4">
+                      {service.prestations.map((prestation) => (
+                        <li key={prestation}>• {prestation}</li>
+                      ))}
+                    </ul>
+                    <Link
+                      href={service.lien}
+                      className="text-sm font-semibold text-brand-orange hover:text-brand-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded transition-colors inline-flex items-center"
+                      aria-label={`En savoir plus sur ${service.titre}`}
+                    >
+                      En savoir plus <span className="ml-1" aria-hidden="true">→</span>
+                    </Link>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
@@ -433,9 +434,10 @@ export default function PageAccueil() {
               </div>
               <Link
                 href="/realisations"
-                className="hidden md:inline-block mt-4 md:mt-0 text-brand-orange font-semibold hover:text-brand-blue"
+                className="hidden md:inline-flex items-center mt-4 md:mt-0 text-brand-orange font-semibold hover:text-brand-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded transition-colors"
+                aria-label="Explorer le portfolio de réalisations"
               >
-                Explorer le portfolio →
+                Explorer le portfolio <span className="ml-1" aria-hidden="true">→</span>
               </Link>
             </div>
 
@@ -449,14 +451,16 @@ export default function PageAccueil() {
               />
 
               {/* Badge d'information sur le projet */}
-              <div className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm p-4 rounded-lg shadow-lg z-20 max-w-sm">
-                <h4 className="font-bold text-brand-blue">
-                  Rénovation complète Appartement
-                </h4>
-                <p className="text-sm text-gray-600">
-                  Strasbourg Neudorf • Plâtrerie, Isolation & Peinture
-                </p>
-              </div>
+              <Card className="absolute bottom-6 left-6 bg-white/90 backdrop-blur-sm z-20 max-w-sm border-0 shadow-lg">
+                <CardContent className="p-4">
+                  <CardTitle className="text-brand-blue">
+                    Rénovation complète Appartement
+                  </CardTitle>
+                  <CardDescription>
+                    Strasbourg Neudorf • Plâtrerie, Isolation & Peinture
+                  </CardDescription>
+                </CardContent>
+              </Card>
 
               {/* Indicateur visuel du slider (curseur de comparaison) */}
               <div className="absolute inset-y-0 left-1/2 w-1 bg-white cursor-ew-resize z-10 flex items-center justify-center">
@@ -482,7 +486,8 @@ export default function PageAccueil() {
             <div className="mt-8 text-center md:hidden">
               <Link
                 href="/realisations"
-                className="text-brand-orange font-bold"
+                className="inline-flex items-center text-brand-orange font-bold hover:text-brand-blue focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded transition-colors"
+                aria-label="Voir toutes les réalisations"
               >
                 Voir toutes les réalisations
               </Link>
@@ -538,26 +543,30 @@ export default function PageAccueil() {
               </div>
 
               {/* Colonne droite : Méthode de travail (stepper) */}
-              <div className="bg-white p-8 rounded-2xl shadow-sm border border-gray-100">
-                <h3 className="text-xl font-bold text-brand-blue mb-6 border-b border-gray-100 pb-4">
-                  Notre méthode de travail
-                </h3>
-                {/* Timeline verticale */}
-                <div className="relative border-l-2 border-brand-orange/30 ml-3 space-y-8">
-                  {etapesMethode.map((etape) => (
-                    <div key={etape.numero} className="relative pl-8">
-                      {/* Point orange sur la timeline */}
-                      <span className="absolute -left-[9px] top-1 h-4 w-4 rounded-full bg-brand-orange border-2 border-white" />
-                      <h5 className="font-bold text-gray-900">
-                        {etape.numero}. {etape.titre}
-                      </h5>
-                      <p className="text-sm text-gray-500">
-                        {etape.description}
-                      </p>
-                    </div>
-                  ))}
-                </div>
-              </div>
+              <Card>
+                <CardHeader>
+                  <CardTitle className="text-xl text-brand-blue border-b border-gray-100 pb-4">
+                    Notre méthode de travail
+                  </CardTitle>
+                </CardHeader>
+                <CardContent>
+                  {/* Timeline verticale */}
+                  <div className="relative border-l-2 border-brand-orange/30 ml-3 space-y-8">
+                    {etapesMethode.map((etape) => (
+                      <div key={etape.numero} className="relative pl-8">
+                        {/* Point orange sur la timeline */}
+                        <span className="absolute -left-[9px] top-1 h-4 w-4 rounded-full bg-brand-orange border-2 border-white" />
+                        <h5 className="font-bold text-gray-900">
+                          {etape.numero}. {etape.titre}
+                        </h5>
+                        <p className="text-sm text-muted-foreground">
+                          {etape.description}
+                        </p>
+                      </div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
@@ -639,41 +648,46 @@ export default function PageAccueil() {
                 </div>
 
                 {/* CTA email */}
-                <a
-                  href="mailto:marches@ar-solution.fr"
-                  className="inline-flex items-center bg-white text-brand-blue px-6 py-3 rounded font-bold hover:bg-gray-100 transition"
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-white text-brand-blue hover:bg-gray-100"
                 >
-                  Contacter le service Marchés Publics
-                </a>
+                  <a href="mailto:marches@ar-solution.fr">
+                    Contacter le service Marchés Publics
+                  </a>
+                </Button>
               </div>
 
               {/* Grille des documents disponibles */}
               <div className="lg:w-1/2 bg-blue-800/50 p-8 rounded-xl border border-blue-700">
                 <div className="grid grid-cols-2 gap-4">
                   {documentsMarchesPublics.map((doc) => (
-                    <div
+                    <Card
                       key={doc.titre}
-                      className="bg-brand-blue p-4 rounded border border-blue-600 flex flex-col items-center text-center"
+                      className="bg-brand-blue border-blue-600 flex flex-col items-center text-center"
                     >
-                      {/* Icône document */}
-                      <svg
-                        className="w-8 h-8 text-gray-400 mb-2"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                        />
-                      </svg>
-                      <span className="font-bold text-sm">{doc.titre}</span>
-                      <span className="text-xs text-blue-300 mt-1">
-                        {doc.disponibilite}
-                      </span>
-                    </div>
+                      <CardContent className="p-4">
+                        {/* Icône document */}
+                        <svg
+                          className="w-8 h-8 text-gray-400 mb-2"
+                          fill="none"
+                          viewBox="0 0 24 24"
+                          stroke="currentColor"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
+                          />
+                        </svg>
+                        <CardTitle className="text-sm text-white">{doc.titre}</CardTitle>
+                        <CardDescription className="text-xs text-blue-300 mt-1">
+                          {doc.disponibilite}
+                        </CardDescription>
+                      </CardContent>
+                    </Card>
                   ))}
                 </div>
               </div>
@@ -706,19 +720,22 @@ export default function PageAccueil() {
                   {/* Liste des avis */}
                   <div className="space-y-4">
                     {avisClients.map((avis, index) => (
-                      <div key={index} className="bg-white p-4 rounded shadow-sm">
-                        <p className="text-gray-600 italic text-sm">
-                          &ldquo;{avis.texte}&rdquo;
-                        </p>
-                        <p className="text-xs text-gray-400 mt-2 font-bold">
-                          - {avis.auteur} ({avis.ville})
-                        </p>
-                      </div>
+                      <Card key={index}>
+                        <CardContent className="p-4">
+                          <p className="text-muted-foreground italic text-sm">
+                            &ldquo;{avis.texte}&rdquo;
+                          </p>
+                          <p className="text-xs text-muted-foreground mt-2 font-bold">
+                            - {avis.auteur} ({avis.ville})
+                          </p>
+                        </CardContent>
+                      </Card>
                     ))}
                   </div>
                   <a
                     href="#avis"
-                    className="block text-center mt-4 text-sm text-brand-blue font-semibold underline"
+                    className="block text-center mt-4 text-sm text-brand-blue font-semibold underline hover:text-brand-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded transition-colors inline-block"
+                    aria-label="Voir tous les avis clients"
                   >
                     Voir tous les avis
                   </a>
@@ -766,38 +783,12 @@ export default function PageAccueil() {
         <section className="py-16 bg-gray-100" id="contact">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* FAQ Accordéon - Répond aux questions courantes avant le formulaire */}
-            <div className="mb-16 space-y-4">
+            <div className="mb-16">
               <h2 className="text-2xl font-bold text-brand-blue mb-6 text-center">
                 Questions Fréquentes
               </h2>
 
-              {faqItems.map((item, index) => (
-                <details
-                  key={index}
-                  className="group bg-white rounded-lg shadow-sm"
-                >
-                  <summary className="flex justify-between items-center font-medium cursor-pointer list-none p-4">
-                    <span>{item.question}</span>
-                    <span className="transition group-open:rotate-180">
-                      <svg
-                        fill="none"
-                        height="24"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                        viewBox="0 0 24 24"
-                        width="24"
-                      >
-                        <path d="M6 9l6 6 6-6" />
-                      </svg>
-                    </span>
-                  </summary>
-                  <div className="text-gray-600 p-4 pt-0 text-sm">
-                    {item.reponse}
-                  </div>
-                </details>
-              ))}
+              <FAQ />
             </div>
 
             {/* Formulaire de demande de devis - Le visiteur peut envoyer sa demande */}
@@ -811,136 +802,7 @@ export default function PageAccueil() {
                 </p>
               </div>
 
-              <form className="space-y-6">
-                {/* Ligne 1 : Nom + Email */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="nom"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Nom complet
-                    </label>
-                    <input
-                      type="text"
-                      id="nom"
-                      name="nom"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange bg-gray-50 p-3"
-                      placeholder="Votre nom"
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="email"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Email
-                    </label>
-                    <input
-                      type="email"
-                      id="email"
-                      name="email"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange bg-gray-50 p-3"
-                      placeholder="vous@email.com"
-                    />
-                  </div>
-                </div>
-
-                {/* Ligne 2 : Téléphone + Code Postal */}
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                  <div>
-                    <label
-                      htmlFor="tel"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Téléphone
-                    </label>
-                    <input
-                      type="tel"
-                      id="tel"
-                      name="tel"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange bg-gray-50 p-3"
-                      placeholder="06 .. .. .. .."
-                    />
-                  </div>
-                  <div>
-                    <label
-                      htmlFor="cp"
-                      className="block text-sm font-medium text-gray-700"
-                    >
-                      Code Postal
-                    </label>
-                    <input
-                      type="text"
-                      id="cp"
-                      name="cp"
-                      className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange bg-gray-50 p-3"
-                      placeholder="67000"
-                    />
-                  </div>
-                </div>
-
-                {/* Type de projet */}
-                <div>
-                  <label
-                    htmlFor="type"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Type de projet
-                  </label>
-                  <select
-                    id="type"
-                    name="type"
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange bg-gray-50 p-3"
-                  >
-                    {typesProjet.map((type) => (
-                      <option key={type}>{type}</option>
-                    ))}
-                  </select>
-                </div>
-
-                {/* Message optionnel */}
-                <div>
-                  <label
-                    htmlFor="message"
-                    className="block text-sm font-medium text-gray-700"
-                  >
-                    Détails (Optionnel)
-                  </label>
-                  <textarea
-                    id="message"
-                    name="message"
-                    rows={3}
-                    className="mt-1 block w-full rounded-md border-gray-300 shadow-sm focus:border-brand-orange focus:ring-brand-orange bg-gray-50 p-3"
-                  />
-                </div>
-
-                {/* Case RGPD */}
-                <div className="flex items-start">
-                  <div className="flex h-5 items-center">
-                    <input
-                      id="rgpd"
-                      name="rgpd"
-                      type="checkbox"
-                      className="h-4 w-4 rounded border-gray-300 text-brand-orange focus:ring-brand-orange"
-                    />
-                  </div>
-                  <div className="ml-3 text-sm">
-                    <label htmlFor="rgpd" className="text-gray-500">
-                      J&apos;accepte que mes données soient utilisées pour me
-                      recontacter.
-                    </label>
-                  </div>
-                </div>
-
-                {/* Bouton d'envoi */}
-                <button
-                  type="submit"
-                  className="w-full flex justify-center py-4 px-4 border border-transparent rounded-md shadow-sm text-lg font-bold text-white bg-brand-orange hover:bg-brand-orange-dark focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-brand-orange transition"
-                >
-                  Recevoir mon devis gratuit
-                </button>
-              </form>
+              <ContactForm />
             </div>
           </div>
         </section>
@@ -954,31 +816,35 @@ export default function PageAccueil() {
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
       <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <a
-          href="tel:0388000000"
-          className="flex-1 flex items-center justify-center bg-gray-100 text-brand-blue font-bold py-3 rounded-lg"
+        <Button
+          asChild
+          variant="secondary"
+          className="flex-1 text-brand-blue font-bold"
         >
-          <svg
-            className="w-5 h-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
-          Appeler
-        </a>
-        <a
-          href="#contact"
-          className="flex-1 flex items-center justify-center bg-brand-orange text-white font-bold py-3 rounded-lg shadow-md"
+          <a href="tel:0388000000">
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            Appeler
+          </a>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
         >
-          Devis Gratuit
-        </a>
+          <a href="#contact">Devis Gratuit</a>
+        </Button>
       </div>
     </>
   );

@@ -20,6 +20,9 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Metadata } from "next";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 /* ============================================
    METADATA SEO
@@ -282,11 +285,12 @@ export default function PageMentionsLegales() {
               SECTION 2 : ASSURANCES ET GARANTIES
               Section mise en avant pour rassurer les clients (marchés publics)
               ============================================ */}
-          <section
+          <Card
             id="assurances"
-            className="bg-slate-50 rounded-lg border border-slate-200 p-6 md:p-8 border-l-4 border-l-brand-blue"
+            className="bg-slate-50 border-l-4 border-l-brand-blue"
           >
-            <div className="flex items-start space-x-4">
+            <CardContent className="p-6 md:p-8">
+              <div className="flex items-start space-x-4">
               {/* Icône bouclier - symbolise la sécurité et les garanties */}
               <div className="hidden md:block text-brand-blue mt-1">
                 <svg
@@ -352,8 +356,9 @@ export default function PageMentionsLegales() {
                   </p>
                 </div>
               </div>
-            </div>
-          </section>
+              </div>
+            </CardContent>
+          </Card>
 
           {/* ============================================
               SECTION 3 : HÉBERGEMENT ET RÉALISATION
@@ -492,12 +497,9 @@ export default function PageMentionsLegales() {
               administrative pour un marché public ? Notre service administratif
               est à votre écoute.
             </p>
-            <Link
-              href="/contact"
-              className="inline-block bg-brand-orange hover:bg-brand-orange-dark text-white font-bold py-3 px-8 rounded-lg transition-all transform hover:-translate-y-0.5 shadow-lg"
-            >
-              Contactez-nous
-            </Link>
+            <Button asChild className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg">
+              <Link href="/contact">Contactez-nous</Link>
+            </Button>
 
             {/* Logos de réassurance */}
             <div className="mt-12 flex justify-center items-center space-x-6 opacity-70 grayscale hover:grayscale-0 transition-all duration-500">
@@ -522,31 +524,35 @@ export default function PageMentionsLegales() {
           Affichée uniquement sur mobile pour appeler ou demander un devis
           ============================================ */}
       <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <a
-          href="tel:0388000000"
-          className="flex-1 flex items-center justify-center bg-gray-100 text-brand-blue font-bold py-3 rounded-lg"
+        <Button
+          asChild
+          variant="secondary"
+          className="flex-1 text-brand-blue font-bold"
         >
-          <svg
-            className="w-5 h-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
-          Appeler
-        </a>
-        <Link
-          href="/contact"
-          className="flex-1 flex items-center justify-center bg-brand-orange text-white font-bold py-3 rounded-lg shadow-md"
+          <a href="tel:0388000000">
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            Appeler
+          </a>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
         >
-          Devis Gratuit
-        </Link>
+          <Link href="/contact">Devis Gratuit</Link>
+        </Button>
       </div>
     </>
   );

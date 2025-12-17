@@ -26,6 +26,10 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TrustBar from "@/components/TrustBar";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 /* ============================================
    DONNÉES DE LA PAGE
@@ -220,9 +224,9 @@ export default function PageServiceAmenagement() {
             <div className="max-w-3xl">
               {/* Badge Argument Santé */}
               <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <span className="bg-green-500/20 text-green-400 border border-green-500/30 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide flex items-center gap-2">
+                <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30 uppercase tracking-wide">
                   <svg
-                    className="w-4 h-4"
+                    className="w-4 h-4 mr-1"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -233,7 +237,7 @@ export default function PageServiceAmenagement() {
                     />
                   </svg>
                   Peintures Écolabel / A+
-                </span>
+                </Badge>
               </div>
 
               {/* Titre principal - promesse de valeur */}
@@ -250,25 +254,28 @@ export default function PageServiceAmenagement() {
 
               {/* Boutons d'action principaux */}
               <div className="flex flex-col sm:flex-row gap-4 items-start">
-                <a
-                  href="#devis"
-                  className="inline-flex justify-center items-center px-8 py-4 border border-transparent text-base font-bold rounded-md text-white bg-brand-orange hover:bg-brand-orange-dark shadow-lg transition duration-300"
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg"
                 >
-                  Demander mon devis peinture
-                  <svg
-                    className="w-5 h-5 ml-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </a>
+                  <a href="#devis">
+                    Demander mon devis peinture
+                    <svg
+                      className="w-5 h-5 ml-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </a>
+                </Button>
                 <span className="text-sm text-slate-300 mt-2 sm:mt-4 flex items-center bg-slate-800/50 px-3 py-2 rounded">
                   <svg
                     className="w-4 h-4 mr-1 text-brand-orange"
@@ -322,20 +329,23 @@ export default function PageServiceAmenagement() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {prestationsResidentiel.map((prestation) => (
-                  <div
+                  <Card
                     key={prestation.id}
                     className={`${
                       prestation.badge
                         ? "bg-orange-50 border-orange-100"
-                        : "bg-slate-50 border-slate-100"
-                    } p-8 rounded-xl border hover:shadow-lg transition duration-300 relative overflow-hidden`}
+                        : ""
+                    } hover:shadow-lg transition duration-300 relative overflow-hidden`}
                   >
-                    {/* Badge optionnel */}
-                    {prestation.badge && (
-                      <div className="absolute top-0 right-0 bg-orange-200 text-orange-800 text-xs font-bold px-2 py-1 rounded-bl">
-                        {prestation.badge}
-                      </div>
-                    )}
+                    <CardContent className="p-8">
+                      {/* Badge optionnel */}
+                      {prestation.badge && (
+                        <div className="absolute top-0 right-0">
+                          <Badge className="bg-orange-200 text-orange-800 text-xs font-bold rounded-bl">
+                            {prestation.badge}
+                          </Badge>
+                        </div>
+                      )}
 
                     {/* Icône de la prestation */}
                     <div
@@ -393,12 +403,12 @@ export default function PageServiceAmenagement() {
                     </div>
 
                     {/* Titre et description */}
-                    <h4 className="text-xl font-bold mb-3 text-slate-900">
+                    <CardTitle className="text-xl mb-3 text-slate-900">
                       {prestation.titre}
-                    </h4>
-                    <p className="text-slate-600 leading-relaxed mb-4">
+                    </CardTitle>
+                    <CardDescription className="leading-relaxed mb-4">
                       {prestation.description}
-                    </p>
+                    </CardDescription>
 
                     {/* Lien optionnel */}
                     {prestation.lien && (
@@ -422,7 +432,8 @@ export default function PageServiceAmenagement() {
                         </svg>
                       </Link>
                     )}
-                  </div>
+                  </CardContent>
+                </Card>
                 ))}
               </div>
             </div>
@@ -436,10 +447,11 @@ export default function PageServiceAmenagement() {
               </h3>
               <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                 {prestationsTertiaire.map((prestation) => (
-                  <div
+                  <Card
                     key={prestation.id}
-                    className="bg-slate-50 p-8 rounded-xl border border-slate-100 hover:shadow-lg transition duration-300"
+                    className="hover:shadow-lg transition duration-300"
                   >
+                    <CardContent className="p-8">
                     {/* Icône de la prestation */}
                     <div className="h-14 w-14 bg-blue-100 text-brand-blue rounded-lg flex items-center justify-center mb-6">
                       {prestation.id === "airless" && (
@@ -490,13 +502,14 @@ export default function PageServiceAmenagement() {
                     </div>
 
                     {/* Titre et description */}
-                    <h4 className="text-xl font-bold mb-3 text-slate-900">
+                    <CardTitle className="text-xl mb-3 text-slate-900">
                       {prestation.titre}
-                    </h4>
-                    <p className="text-slate-600 leading-relaxed">
+                    </CardTitle>
+                    <CardDescription className="leading-relaxed">
                       {prestation.description}
-                    </p>
-                  </div>
+                    </CardDescription>
+                  </CardContent>
+                </Card>
                 ))}
               </div>
             </div>
@@ -649,15 +662,16 @@ export default function PageServiceAmenagement() {
                     className="w-full h-64 object-cover opacity-80 group-hover:opacity-100 transition duration-500 group-hover:scale-105"
                   />
                   <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900 to-transparent">
-                    <span
+                    <Badge
+                      variant="secondary"
                       className={`${
                         projet.type === "Résidentiel"
                           ? "text-blue-400"
                           : "text-brand-orange"
-                      } text-xs font-bold uppercase tracking-wider mb-1 block`}
+                      } text-xs font-bold uppercase tracking-wider mb-1`}
                     >
                       {projet.type}
-                    </span>
+                    </Badge>
                     <h3 className="text-lg font-bold">
                       {projet.titre} - {projet.lieu}
                     </h3>
@@ -688,35 +702,18 @@ export default function PageServiceAmenagement() {
               Questions fréquentes
             </h2>
 
-            <div className="space-y-4">
+            <Accordion type="single" collapsible className="w-full">
               {faqItems.map((item, index) => (
-                <details
-                  key={index}
-                  className="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all duration-300"
-                >
-                  <summary className="flex justify-between items-center font-semibold cursor-pointer list-none p-4 text-slate-800">
-                    <span>{item.question}</span>
-                    <span className="transition group-open:rotate-180 text-slate-500">
-                      <svg
-                        fill="none"
-                        height="24"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                        viewBox="0 0 24 24"
-                        width="24"
-                      >
-                        <path d="M6 9l6 6 6-6" />
-                      </svg>
-                    </span>
-                  </summary>
-                  <div className="text-gray-600 mt-0 px-4 pb-4 text-sm leading-relaxed">
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left font-semibold text-slate-800">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600 text-sm leading-relaxed">
                     {item.reponse}
-                  </div>
-                </details>
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
 
             {/* Logos Marques partenaires (Réassurance subtile) */}
             <div className="mt-16 text-center">
@@ -762,31 +759,36 @@ export default function PageServiceAmenagement() {
               </p>
 
               <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Link
-                  href="/contact"
-                  className="bg-brand-orange hover:bg-brand-orange-dark text-white px-8 py-4 rounded-lg font-bold text-lg shadow-lg transition transform hover:-translate-y-1"
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-brand-orange hover:bg-brand-orange-dark text-white font-bold text-lg shadow-lg"
                 >
-                  Obtenir un chiffrage
-                </Link>
-                <a
-                  href="tel:0388000000"
-                  className="bg-white hover:bg-slate-50 text-slate-900 border border-slate-300 px-8 py-4 rounded-lg font-bold text-lg shadow transition flex items-center justify-center"
+                  <Link href="/contact">Obtenir un chiffrage</Link>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="bg-white hover:bg-slate-50 text-slate-900 border-slate-300 font-bold text-lg shadow"
                 >
-                  <svg
-                    className="w-5 h-5 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                    />
-                  </svg>
-                  03 88 00 00 00
-                </a>
+                  <a href="tel:0388000000">
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+                      />
+                    </svg>
+                    03 88 00 00 00
+                  </a>
+                </Button>
               </div>
             </div>
           </div>
@@ -801,31 +803,35 @@ export default function PageServiceAmenagement() {
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
       <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <a
-          href="tel:0388000000"
-          className="flex-1 flex items-center justify-center bg-gray-100 text-brand-blue font-bold py-3 rounded-lg"
+        <Button
+          asChild
+          variant="secondary"
+          className="flex-1 text-brand-blue font-bold"
         >
-          <svg
-            className="w-5 h-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
-          Appeler
-        </a>
-        <a
-          href="#devis"
-          className="flex-1 flex items-center justify-center bg-brand-orange text-white font-bold py-3 rounded-lg shadow-md"
+          <a href="tel:0388000000">
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            Appeler
+          </a>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
         >
-          Devis Peinture
-        </a>
+          <a href="#devis">Devis Peinture</a>
+        </Button>
       </div>
     </>
   );
