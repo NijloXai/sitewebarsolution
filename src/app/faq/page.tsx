@@ -16,6 +16,10 @@
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 /* ============================================
    DONNÉES DE LA PAGE FAQ
@@ -267,22 +271,17 @@ export default function PageFAQ() {
             </div>
 
             {/* Liste des questions en accordéon */}
-            <div className="space-y-4">
+            <Accordion type="single" collapsible className="space-y-4">
               {questionsProcessus.map((item, index) => (
-                <details
+                <AccordionItem
                   key={index}
-                  className="group bg-white border border-gray-200 rounded-lg p-4 cursor-pointer hover:border-brand-orange transition duration-300"
+                  value={`item-${index}`}
+                  className="bg-white border border-gray-200 rounded-lg px-4 hover:border-brand-orange transition duration-300"
                 >
-                  {/* Question (toujours visible) */}
-                  <summary className="flex justify-between items-center font-semibold text-brand-blue list-none">
-                    <span>{item.question}</span>
-                    <span className="transition-transform duration-300 group-open:rotate-180">
-                      <Icone type="chevron" className="w-5 h-5 text-brand-orange" />
-                    </span>
-                  </summary>
-
-                  {/* Réponse (visible au clic) */}
-                  <div className="text-gray-600 mt-4 leading-relaxed pl-4 border-l-2 border-orange-100">
+                  <AccordionTrigger className="font-semibold text-brand-blue">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600 leading-relaxed pl-4 border-l-2 border-orange-100">
                     <p><strong>{item.reponse.intro}</strong></p>
                     {item.reponse.details && (
                       <p className="mt-2">{item.reponse.details}</p>
@@ -299,10 +298,10 @@ export default function PageFAQ() {
                         {item.reponse.note}
                       </p>
                     )}
-                  </div>
-                </details>
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
           </div>
         </section>
 
@@ -344,22 +343,17 @@ export default function PageFAQ() {
             </div>
 
             {/* Liste des questions en accordéon */}
-            <div className="space-y-4">
+            <Accordion type="single" collapsible className="space-y-4">
               {questionsTechniques.map((item, index) => (
-                <details
+                <AccordionItem
                   key={index}
-                  className="group bg-white border border-gray-200 rounded-lg p-4 cursor-pointer hover:border-green-300 transition duration-300"
+                  value={`item-${index}`}
+                  className="bg-white border border-gray-200 rounded-lg px-4 hover:border-green-300 transition duration-300"
                 >
-                  {/* Question (toujours visible) */}
-                  <summary className="flex justify-between items-center font-semibold text-brand-blue list-none">
-                    <span>{item.question}</span>
-                    <span className="transition-transform duration-300 group-open:rotate-180">
-                      <Icone type="chevron" className="w-5 h-5 text-green-500" />
-                    </span>
-                  </summary>
-
-                  {/* Réponse (visible au clic) */}
-                  <div className="text-gray-600 mt-4 leading-relaxed pl-4 border-l-2 border-green-100">
+                  <AccordionTrigger className="font-semibold text-brand-blue">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600 leading-relaxed pl-4 border-l-2 border-green-100">
                     <p><strong>{item.reponse.intro}</strong></p>
                     {item.reponse.details && (
                       <p className="mt-2">{item.reponse.details}</p>
@@ -372,10 +366,10 @@ export default function PageFAQ() {
                         → {item.reponse.lien.texte}
                       </Link>
                     )}
-                  </div>
-                </details>
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
           </div>
         </section>
 
@@ -403,18 +397,17 @@ export default function PageFAQ() {
             {/* Grille des cartes d'information */}
             <div className="grid md:grid-cols-2 gap-6">
               {cartesMarchesPublics.map((carte) => (
-                <div
+                <Card
                   key={carte.titre}
-                  className={`bg-white p-6 rounded-xl shadow-sm border border-gray-200 ${
-                    carte.large ? "md:col-span-2" : ""
-                  }`}
+                  className={`${carte.large ? "md:col-span-2" : ""}`}
                 >
-                  <h3 className="font-bold text-brand-blue mb-2 flex items-center gap-2">
+                  <CardContent className="p-6">
+                  <CardTitle className="font-bold text-brand-blue mb-2 flex items-center gap-2">
                     <span className="text-blue-600">
                       <Icone type={carte.icone} className="w-5 h-5" />
                     </span>
                     {carte.titre}
-                  </h3>
+                  </CardTitle>
                   <p className="text-sm text-gray-600">
                     {carte.question && (
                       <>
@@ -428,18 +421,16 @@ export default function PageFAQ() {
                       : carte.reponse
                     }
                   </p>
-                </div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
 
             {/* CTA vers la page Marchés Publics */}
             <div className="mt-8 text-center">
-              <Link
-                href="/marches-publics"
-                className="inline-flex items-center bg-blue-600 hover:bg-blue-700 text-white px-6 py-3 rounded-lg font-bold transition"
-              >
-                Accéder à l&apos;espace Marchés Publics →
-              </Link>
+              <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
+                <Link href="/marches-publics">Accéder à l&apos;espace Marchés Publics →</Link>
+              </Button>
             </div>
           </div>
         </section>
@@ -519,19 +510,15 @@ export default function PageFAQ() {
 
             {/* Boutons CTA */}
             <div className="flex flex-col md:flex-row justify-center gap-4">
-              <Link
-                href="/contact"
-                className="bg-brand-orange hover:bg-brand-orange-dark text-white px-8 py-4 rounded-lg font-bold transition transform hover:-translate-y-1 shadow-lg text-lg"
-              >
-                Demander un devis détaillé
-              </Link>
-              <a
-                href="mailto:contact@ar-solution.fr"
-                className="bg-transparent border border-white hover:bg-white hover:text-slate-900 text-white px-8 py-4 rounded-lg font-semibold transition flex items-center justify-center gap-2"
-              >
-                <Icone type="email" className="w-5 h-5" />
-                Contacter l&apos;administratif
-              </a>
+              <Button asChild size="lg" className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg">
+                <Link href="/contact">Demander un devis détaillé</Link>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="border-white hover:bg-white hover:text-slate-900 text-white">
+                <a href="mailto:contact@ar-solution.fr">
+                  <Icone type="email" className="w-5 h-5" />
+                  Contacter l&apos;administratif
+                </a>
+              </Button>
             </div>
 
             <p className="mt-6 text-sm text-slate-500">
@@ -549,31 +536,35 @@ export default function PageFAQ() {
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
       <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <a
-          href="tel:0388000000"
-          className="flex-1 flex items-center justify-center bg-gray-100 text-brand-blue font-bold py-3 rounded-lg"
+        <Button
+          asChild
+          variant="secondary"
+          className="flex-1 text-brand-blue font-bold"
         >
-          <svg
-            className="w-5 h-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
-          Appeler
-        </a>
-        <Link
-          href="/contact"
-          className="flex-1 flex items-center justify-center bg-brand-orange text-white font-bold py-3 rounded-lg shadow-md"
+          <a href="tel:0388000000">
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            Appeler
+          </a>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
         >
-          Devis Gratuit
-        </Link>
+          <Link href="/contact">Devis Gratuit</Link>
+        </Button>
       </div>
     </>
   );

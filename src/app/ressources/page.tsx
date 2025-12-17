@@ -16,6 +16,10 @@
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 
 /* ============================================
    DONNÉES DE LA PAGE
@@ -164,9 +168,9 @@ export default function PageRessources() {
           {/* Contenu du hero */}
           <div className="max-w-4xl mx-auto px-4 relative z-10 text-center">
             {/* Badge d'introduction */}
-            <span className="inline-block py-1 px-3 rounded-full bg-orange-600/20 text-orange-400 text-xs font-bold uppercase tracking-wider mb-4 border border-orange-600/30">
+            <Badge className="bg-orange-600/20 text-orange-400 border-orange-600/30 mb-4">
               Blog & Expertise Technique
-            </span>
+            </Badge>
 
             {/* Titre principal */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold mb-6 leading-tight">
@@ -199,9 +203,9 @@ export default function PageRessources() {
                   />
                 </svg>
               </div>
-              <input
+              <Input
                 type="text"
-                className="block w-full pl-10 pr-3 py-4 border-none rounded-lg leading-5 bg-white text-slate-900 placeholder-slate-500 focus:outline-none focus:ring-2 focus:ring-brand-orange shadow-xl"
+                className="pl-10 py-4 bg-white text-slate-900 placeholder-slate-500 focus-visible:ring-brand-orange shadow-xl"
                 placeholder="Rechercher un sujet (ex: RGE, Plâtrerie, CEE...)"
                 aria-label="Rechercher dans les articles"
               />
@@ -254,7 +258,7 @@ export default function PageRessources() {
             Met en avant le dossier du mois pour l'autorité SEO
             ============================================ */}
         <section className="py-12 md:py-16 max-w-7xl mx-auto px-4">
-          <div className="bg-white rounded-2xl shadow-lg border border-slate-100 overflow-hidden flex flex-col lg:flex-row">
+          <Card className="shadow-lg overflow-hidden flex flex-col lg:flex-row">
             {/* Image de l'article en vedette */}
             <div className="lg:w-1/2 relative h-64 lg:h-auto">
               <img
@@ -263,13 +267,13 @@ export default function PageRessources() {
                 className="w-full h-full object-cover"
               />
               {/* Badge "Dossier du Mois" */}
-              <div className="absolute top-4 left-4 bg-brand-orange text-white text-xs font-bold px-3 py-1 rounded shadow">
+              <Badge className="absolute top-4 left-4 bg-brand-orange text-white shadow">
                 Dossier du Mois
-              </div>
+              </Badge>
             </div>
 
             {/* Contenu de l'article en vedette */}
-            <div className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
+            <CardContent className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
               {/* Métadonnées */}
               <div className="flex items-center space-x-2 mb-4 text-sm text-slate-500 font-medium">
                 <span className="text-blue-700">{articleVedette.categorie}</span>
@@ -278,9 +282,9 @@ export default function PageRessources() {
               </div>
 
               {/* Titre */}
-              <h2 className="text-3xl font-bold text-slate-900 mb-4 leading-tight">
+              <CardTitle className="text-3xl text-slate-900 mb-4 leading-tight">
                 {articleVedette.titre}
-              </h2>
+              </CardTitle>
 
               {/* Description */}
               <p className="text-slate-600 mb-8 leading-relaxed">
@@ -289,28 +293,27 @@ export default function PageRessources() {
 
               {/* CTA */}
               <div className="flex items-center gap-4">
-                <a
-                  href={articleVedette.lien}
-                  className="bg-slate-900 text-white px-6 py-3 rounded-lg font-semibold hover:bg-slate-800 transition flex items-center gap-2"
-                >
-                  Lire le dossier complet
-                  <svg
-                    className="w-4 h-4"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M17 8l4 4m0 0l-4 4m4-4H3"
-                    />
-                  </svg>
-                </a>
+                <Button asChild className="bg-slate-900 hover:bg-slate-800 text-white">
+                  <a href={articleVedette.lien}>
+                    Lire le dossier complet
+                    <svg
+                      className="w-4 h-4"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M17 8l4 4m0 0l-4 4m4-4H3"
+                      />
+                    </svg>
+                  </a>
+                </Button>
               </div>
-            </div>
-          </div>
+            </CardContent>
+          </Card>
         </section>
 
         {/* ============================================
@@ -335,9 +338,9 @@ export default function PageRessources() {
             {/* Grille des articles */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
               {articles.map((article) => (
-                <article
+                <Card
                   key={article.id}
-                  className={`group bg-white rounded-xl shadow-sm hover:shadow-xl transition-all duration-300 border border-slate-100 flex flex-col h-full ${
+                  className={`group hover:shadow-xl transition-all duration-300 flex flex-col h-full ${
                     article.special ? "ring-1 ring-blue-100" : ""
                   }`}
                 >
@@ -349,29 +352,29 @@ export default function PageRessources() {
                       className="w-full h-full object-cover transform group-hover:scale-105 transition duration-500"
                     />
                     {/* Badge catégorie */}
-                    <span
-                      className={`absolute top-3 left-3 text-xs font-bold px-2 py-1 rounded ${
+                    <Badge
+                      className={`absolute top-3 left-3 ${
                         article.special
                           ? "bg-blue-100 text-blue-800"
                           : "bg-white/90 backdrop-blur text-slate-700"
                       }`}
                     >
                       {article.categorie}
-                    </span>
+                    </Badge>
                   </div>
 
                   {/* Contenu de l'article */}
-                  <div className="p-6 flex-1 flex flex-col">
+                  <CardContent className="p-6 flex-1 flex flex-col">
                     {/* Titre */}
-                    <h3
-                      className={`text-xl font-bold text-slate-900 mb-3 transition ${
+                    <CardTitle
+                      className={`text-xl text-slate-900 mb-3 transition ${
                         article.special
                           ? "group-hover:text-blue-700"
                           : "group-hover:text-brand-orange"
                       }`}
                     >
                       {article.titre}
-                    </h3>
+                    </CardTitle>
 
                     {/* Description */}
                     <p className="text-slate-500 text-sm mb-4 line-clamp-3">
@@ -393,16 +396,14 @@ export default function PageRessources() {
                         Lire →
                       </span>
                     </div>
-                  </div>
-                </article>
+                  </CardContent>
+                </Card>
               ))}
             </div>
 
             {/* Bouton charger plus */}
             <div className="mt-12 text-center">
-              <button className="inline-flex items-center px-6 py-3 border border-slate-300 text-sm font-medium rounded-md text-slate-700 bg-white hover:bg-slate-50 transition">
-                Charger plus d&apos;articles
-              </button>
+              <Button variant="outline">Charger plus d&apos;articles</Button>
             </div>
           </div>
         </section>
@@ -430,29 +431,27 @@ export default function PageRessources() {
             {/* Boutons CTA */}
             <div className="flex flex-col md:flex-row justify-center items-center gap-6">
               {/* CTA PRINCIPAL : Devis */}
-              <Link
-                href="/contact"
-                className="w-full md:w-auto bg-brand-orange text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-brand-orange-dark transition shadow-lg shadow-orange-900/50 flex flex-col items-center"
-              >
-                <span>Demander un devis gratuit</span>
-                <span className="text-xs font-normal opacity-90 mt-1">
-                  Réponse sous 48h
-                </span>
-              </Link>
+              <Button asChild size="lg" className="w-full md:w-auto bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg shadow-orange-900/50 flex flex-col items-center">
+                <Link href="/contact">
+                  <span>Demander un devis gratuit</span>
+                  <span className="text-xs font-normal opacity-90 mt-1">
+                    Réponse sous 48h
+                  </span>
+                </Link>
+              </Button>
 
               {/* Séparateur mobile */}
               <span className="md:hidden text-slate-500 font-sm">- ou -</span>
 
               {/* CTA SECONDAIRE : Marchés Publics */}
-              <Link
-                href="/marches-publics"
-                className="w-full md:w-auto bg-transparent border-2 border-slate-600 text-white px-8 py-4 rounded-lg font-bold text-lg hover:bg-slate-800 hover:border-slate-500 transition flex flex-col items-center"
-              >
-                <span>Espace Marchés Publics / Mairies</span>
-                <span className="text-xs font-normal opacity-90 text-slate-400 mt-1">
-                  Contact Bureau d&apos;études dédié
-                </span>
-              </Link>
+              <Button asChild variant="outline" size="lg" className="w-full md:w-auto border-2 border-slate-600 text-white hover:bg-slate-800 hover:border-slate-500 flex flex-col items-center">
+                <Link href="/marches-publics">
+                  <span>Espace Marchés Publics / Mairies</span>
+                  <span className="text-xs font-normal opacity-90 text-slate-400 mt-1">
+                    Contact Bureau d&apos;études dédié
+                  </span>
+                </Link>
+              </Button>
             </div>
 
             {/* Réassurance rapide */}
@@ -488,31 +487,35 @@ export default function PageRessources() {
           Affichée uniquement sur mobile pour accès rapide aux CTA
           ============================================ */}
       <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <a
-          href="tel:0388000000"
-          className="flex-1 flex items-center justify-center bg-gray-100 text-brand-blue font-bold py-3 rounded-lg"
+        <Button
+          asChild
+          variant="secondary"
+          className="flex-1 text-brand-blue font-bold"
         >
-          <svg
-            className="w-5 h-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
-          Appeler
-        </a>
-        <Link
-          href="/contact"
-          className="flex-1 flex items-center justify-center bg-brand-orange text-white font-bold py-3 rounded-lg shadow-md"
+          <a href="tel:0388000000">
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            Appeler
+          </a>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
         >
-          Devis Gratuit
-        </Link>
+          <Link href="/contact">Devis Gratuit</Link>
+        </Button>
       </div>
     </>
   );

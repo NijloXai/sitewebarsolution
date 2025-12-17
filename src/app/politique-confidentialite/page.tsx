@@ -19,6 +19,9 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Metadata } from "next";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+import { Separator } from "@/components/ui/separator";
 
 /* ============================================
    METADATA SEO
@@ -158,12 +161,10 @@ export default function PagePolitiqueConfidentialite() {
             ============================================ */}
         <section className="pb-16">
           <div className="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="bg-white rounded-2xl shadow-lg border border-slate-100 p-8 relative overflow-hidden">
-              {/* Accent latéral coloré */}
-              <div className="absolute top-0 left-0 w-2 h-full bg-brand-blue" />
-
-              {/* Grille des 3 points */}
-              <div className="grid md:grid-cols-3 gap-8">
+            <Card className="shadow-lg relative overflow-hidden border-l-4 border-l-brand-blue">
+              <CardContent className="p-8">
+                {/* Grille des 3 points */}
+                <div className="grid md:grid-cols-3 gap-8">
                 {pointsEssentiels.map((point) => (
                   <div key={point.id} className="flex flex-col items-start">
                     {/* Icône selon le type */}
@@ -238,8 +239,9 @@ export default function PagePolitiqueConfidentialite() {
                     </p>
                   </div>
                 ))}
-              </div>
-            </div>
+                </div>
+              </CardContent>
+            </Card>
           </div>
         </section>
 
@@ -279,11 +281,12 @@ export default function PagePolitiqueConfidentialite() {
                     SECTION 1: RESPONSABLE DU TRAITEMENT
                     Informations sur l'entité responsable des données
                     ============================================ */}
-                <section
+                <Card
                   id="responsable"
-                  className="bg-white p-8 rounded-xl shadow-sm border border-slate-100 scroll-mt-28"
+                  className="scroll-mt-28"
                 >
-                  <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
+                  <CardContent className="p-8">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
                     <span className="bg-blue-100 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
                       01
                     </span>
@@ -327,7 +330,8 @@ export default function PagePolitiqueConfidentialite() {
                       </li>
                     </ul>
                   </div>
-                </section>
+                  </CardContent>
+                </Card>
 
                 {/* ============================================
                     SECTION 2: COLLECTE & FINALITÉS
@@ -514,11 +518,12 @@ export default function PagePolitiqueConfidentialite() {
                     SECTION 5: VOS DROITS
                     Droits RGPD et comment les exercer
                     ============================================ */}
-                <section
+                <Card
                   id="droits"
-                  className="bg-blue-50 p-8 rounded-xl border border-blue-100 scroll-mt-28"
+                  className="bg-blue-50 border-blue-100 scroll-mt-28"
                 >
-                  <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
+                  <CardContent className="p-8">
+                    <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
                     <span className="bg-blue-200 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
                       05
                     </span>
@@ -588,7 +593,8 @@ export default function PagePolitiqueConfidentialite() {
                       (www.cnil.fr).
                     </p>
                   </div>
-                </section>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
@@ -603,31 +609,35 @@ export default function PagePolitiqueConfidentialite() {
           Affichée uniquement sur mobile pour appeler ou demander un devis
           ============================================ */}
       <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <a
-          href="tel:0388000000"
-          className="flex-1 flex items-center justify-center bg-gray-100 text-brand-blue font-bold py-3 rounded-lg"
+        <Button
+          asChild
+          variant="secondary"
+          className="flex-1 text-brand-blue font-bold"
         >
-          <svg
-            className="w-5 h-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
-          Appeler
-        </a>
-        <Link
-          href="/contact"
-          className="flex-1 flex items-center justify-center bg-brand-orange text-white font-bold py-3 rounded-lg shadow-md"
+          <a href="tel:0388000000">
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            Appeler
+          </a>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
         >
-          Devis Gratuit
-        </Link>
+          <Link href="/contact">Devis Gratuit</Link>
+        </Button>
       </div>
     </>
   );

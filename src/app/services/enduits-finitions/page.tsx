@@ -25,6 +25,10 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TrustBar from "@/components/TrustBar";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 /* ============================================
    DONNÉES DE LA PAGE
@@ -206,7 +210,7 @@ export default function PageServiceEnduitsFinitions() {
             <div className="max-w-3xl">
               {/* Badges RGE et intervention site occupé */}
               <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <span className="inline-flex items-center bg-green-500/20 text-green-400 border border-green-500/30 rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide">
+                <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30 uppercase tracking-wide">
                   <svg
                     className="w-3 h-3 mr-1"
                     fill="currentColor"
@@ -215,10 +219,10 @@ export default function PageServiceEnduitsFinitions() {
                     <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
                   </svg>
                   Certifié RGE
-                </span>
-                <span className="bg-white/10 text-white border border-white/20 rounded-full px-3 py-1 text-xs font-bold backdrop-blur-sm">
+                </Badge>
+                <Badge variant="outline" className="bg-white/10 text-white border-white/20 backdrop-blur-sm">
                   Intervention Site Occupé & Milieu Scolaire
-                </span>
+                </Badge>
               </div>
 
               {/* Titre principal - promesse de valeur */}
@@ -240,18 +244,21 @@ export default function PageServiceEnduitsFinitions() {
 
               {/* Boutons d'action principaux */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href="#devis"
-                  className="group relative inline-flex justify-center items-center px-8 py-4 bg-brand-orange text-white font-bold rounded shadow-lg hover:bg-orange-600 hover:shadow-orange-500/30 transition duration-300"
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-brand-orange hover:bg-orange-600 text-white shadow-lg"
                 >
-                  Demander un chiffrage (48h)
-                </a>
-                <a
-                  href="#realisations"
-                  className="inline-flex justify-center items-center px-8 py-4 border-2 border-slate-400 text-slate-200 font-semibold rounded hover:bg-white hover:text-slate-900 transition duration-300"
+                  <a href="#devis">Demander un chiffrage (48h)</a>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-2 border-slate-400 text-slate-200 hover:bg-white hover:text-slate-900"
                 >
-                  Voir nos réalisations
-                </a>
+                  <a href="#realisations">Voir nos réalisations</a>
+                </Button>
               </div>
 
               {/* Micro-réassurance */}
@@ -353,96 +360,99 @@ export default function PageServiceEnduitsFinitions() {
             {/* Grille des 4 cartes solutions */}
             <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
               {solutionsEnduits.map((solution) => (
-                <article
+                <Card
                   key={solution.id}
-                  className="bg-slate-50 border border-slate-100 rounded-xl p-6 hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                  className="hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
                 >
-                  {/* Icône du type de solution */}
-                  <div
-                    className={`w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center mb-6 transition-colors ${
-                      solution.iconeColor === "blue"
-                        ? "group-hover:bg-brand-blue"
-                        : solution.iconeColor === "orange"
-                        ? "group-hover:bg-brand-orange"
-                        : solution.iconeColor === "purple"
-                        ? "group-hover:bg-purple-600"
-                        : "group-hover:bg-green-600"
-                    }`}
-                  >
-                    <svg
-                      className={`w-6 h-6 transition-colors ${
+                  <CardContent className="p-6">
+                    {/* Icône du type de solution */}
+                    <div
+                      className={`w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center mb-6 transition-colors ${
                         solution.iconeColor === "blue"
-                          ? "text-brand-blue group-hover:text-white"
+                          ? "group-hover:bg-brand-blue"
                           : solution.iconeColor === "orange"
-                          ? "text-brand-orange group-hover:text-white"
+                          ? "group-hover:bg-brand-orange"
                           : solution.iconeColor === "purple"
-                          ? "text-purple-600 group-hover:text-white"
-                          : "text-green-600 group-hover:text-white"
-                      }`}
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      {solution.id === "ratissage" && (
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-                        />
-                      )}
-                      {solution.id === "airless" && (
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M13 10V3L4 14h7v7l9-11h-7z"
-                        />
-                      )}
-                      {solution.id === "decoratif" && (
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                        />
-                      )}
-                      {solution.id === "reparation" && (
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                        />
-                      )}
-                    </svg>
-                  </div>
-
-                  {/* Titre et description */}
-                  <h3 className="text-xl font-bold text-slate-900 mb-2">
-                    {solution.titre}
-                  </h3>
-                  <p className="text-sm text-slate-600 mb-4">
-                    {solution.description}
-                  </p>
-
-                  {/* Badge cible client */}
-                  <div className="border-t border-slate-200 pt-3">
-                    <span
-                      className={`text-xs font-semibold px-2 py-1 rounded ${
-                        solution.badgeColor === "blue"
-                          ? "text-brand-blue bg-blue-50"
-                          : solution.badgeColor === "orange"
-                          ? "text-brand-orange bg-orange-50"
-                          : solution.badgeColor === "purple"
-                          ? "text-purple-600 bg-purple-50"
-                          : "text-green-600 bg-green-50"
+                          ? "group-hover:bg-purple-600"
+                          : "group-hover:bg-green-600"
                       }`}
                     >
-                      {solution.badge}
-                    </span>
-                  </div>
-                </article>
+                      <svg
+                        className={`w-6 h-6 transition-colors ${
+                          solution.iconeColor === "blue"
+                            ? "text-brand-blue group-hover:text-white"
+                            : solution.iconeColor === "orange"
+                            ? "text-brand-orange group-hover:text-white"
+                            : solution.iconeColor === "purple"
+                            ? "text-purple-600 group-hover:text-white"
+                            : "text-green-600 group-hover:text-white"
+                        }`}
+                        fill="none"
+                        stroke="currentColor"
+                        viewBox="0 0 24 24"
+                      >
+                        {solution.id === "ratissage" && (
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                          />
+                        )}
+                        {solution.id === "airless" && (
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M13 10V3L4 14h7v7l9-11h-7z"
+                          />
+                        )}
+                        {solution.id === "decoratif" && (
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
+                          />
+                        )}
+                        {solution.id === "reparation" && (
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
+                          />
+                        )}
+                      </svg>
+                    </div>
+
+                    {/* Titre et description */}
+                    <CardTitle className="text-xl mb-2">
+                      {solution.titre}
+                    </CardTitle>
+                    <CardDescription className="text-sm mb-4">
+                      {solution.description}
+                    </CardDescription>
+
+                    {/* Badge cible client */}
+                    <div className="border-t border-slate-200 pt-3">
+                      <Badge
+                        variant="secondary"
+                        className={`text-xs font-semibold ${
+                          solution.badgeColor === "blue"
+                            ? "text-brand-blue bg-blue-50"
+                            : solution.badgeColor === "orange"
+                            ? "text-brand-orange bg-orange-50"
+                            : solution.badgeColor === "purple"
+                            ? "text-purple-600 bg-purple-50"
+                            : "text-green-600 bg-green-50"
+                        }`}
+                      >
+                        {solution.badge}
+                      </Badge>
+                    </div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
@@ -573,8 +583,10 @@ export default function PageServiceEnduitsFinitions() {
                       className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
                     />
                     {/* Badge type de projet */}
-                    <div className="absolute top-4 right-4 bg-brand-orange text-white px-3 py-1 rounded-full text-xs font-bold uppercase">
-                      {projet.type}
+                    <div className="absolute top-4 right-4">
+                      <Badge className="bg-brand-orange text-white uppercase">
+                        {projet.type}
+                      </Badge>
                     </div>
                   </div>
                   <h3 className="font-bold text-lg text-slate-800">
@@ -674,25 +686,27 @@ export default function PageServiceEnduitsFinitions() {
 
               {/* CTA */}
               <div>
-                <a
-                  href="mailto:marches@ar-solution.fr"
-                  className="inline-flex items-center justify-center bg-slate-800 text-white px-6 py-3 rounded hover:bg-slate-900 transition font-semibold"
+                <Button
+                  asChild
+                  className="bg-slate-800 text-white hover:bg-slate-900"
                 >
-                  <svg
-                    className="w-5 h-5 mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                  Contacter le service Marchés
-                </a>
+                  <a href="mailto:marches@ar-solution.fr">
+                    <svg
+                      className="w-5 h-5 mr-2"
+                      fill="none"
+                      stroke="currentColor"
+                      viewBox="0 0 24 24"
+                    >
+                      <path
+                        strokeLinecap="round"
+                        strokeLinejoin="round"
+                        strokeWidth={2}
+                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                      />
+                    </svg>
+                    Contacter le service Marchés
+                  </a>
+                </Button>
               </div>
             </div>
           </div>
@@ -708,35 +722,18 @@ export default function PageServiceEnduitsFinitions() {
               Vos questions fréquentes
             </h2>
 
-            <div className="space-y-4">
+            <Accordion type="single" collapsible className="w-full">
               {faqItems.map((item, index) => (
-                <details
-                  key={index}
-                  className="group bg-slate-50 rounded-lg transition-all open:ring-2 open:ring-brand-blue/20"
-                >
-                  <summary className="flex justify-between items-center cursor-pointer p-6 font-bold text-slate-800 list-none">
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left font-bold text-slate-800">
                     {item.question}
-                    <span className="transition group-open:rotate-180">
-                      <svg
-                        fill="none"
-                        height="24"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                        viewBox="0 0 24 24"
-                        width="24"
-                      >
-                        <path d="M6 9l6 6 6-6" />
-                      </svg>
-                    </span>
-                  </summary>
-                  <div className="text-slate-600 px-6 pb-6 pt-0 leading-relaxed">
+                  </AccordionTrigger>
+                  <AccordionContent className="text-slate-600 leading-relaxed">
                     {item.reponse}
-                  </div>
-                </details>
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
           </div>
         </section>
 
@@ -758,12 +755,13 @@ export default function PageServiceEnduitsFinitions() {
               Intervention sur Strasbourg, CUS et tout le Bas-Rhin.
             </p>
 
-            <Link
-              href="/contact"
-              className="inline-block bg-brand-orange text-white text-xl font-bold py-5 px-10 rounded-lg shadow-lg hover:bg-orange-600 hover:scale-105 transition-all duration-300"
+            <Button
+              asChild
+              size="lg"
+              className="bg-brand-orange hover:bg-orange-600 text-white text-xl font-bold shadow-lg"
             >
-              Obtenir mon devis maintenant
-            </Link>
+              <Link href="/contact">Obtenir mon devis maintenant</Link>
+            </Button>
 
             {/* Logos garanties */}
             <div className="mt-12 flex justify-center gap-8 opacity-60 grayscale hover:grayscale-0 transition-all">
@@ -795,31 +793,35 @@ export default function PageServiceEnduitsFinitions() {
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
       <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <a
-          href="tel:0388000000"
-          className="flex-1 flex items-center justify-center bg-gray-100 text-brand-blue font-bold py-3 rounded-lg"
+        <Button
+          asChild
+          variant="secondary"
+          className="flex-1 text-brand-blue font-bold"
         >
-          <svg
-            className="w-5 h-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
-          Appeler
-        </a>
-        <a
-          href="#devis"
-          className="flex-1 flex items-center justify-center bg-brand-orange text-white font-bold py-3 rounded-lg shadow-md"
+          <a href="tel:0388000000">
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            Appeler
+          </a>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
         >
-          Devis Enduits
-        </a>
+          <a href="#devis">Devis Enduits</a>
+        </Button>
       </div>
     </>
   );

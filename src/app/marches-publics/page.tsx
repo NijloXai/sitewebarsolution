@@ -24,6 +24,14 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
 
 /* Métadonnées spécifiques à la page Marchés Publics pour le référencement */
 export const metadata: Metadata = {
@@ -224,12 +232,13 @@ export default function MarchesPublicsPage() {
             {/* Badges de réassurance - certifications clés visibles immédiatement */}
             <div className="mb-6 flex flex-wrap gap-3">
               {badgesReassurance.map((badge) => (
-                <span
+                <Badge
                   key={badge.label}
-                  className="flex items-center gap-2 rounded border border-white/20 bg-white/10 px-3 py-1 text-sm font-medium backdrop-blur"
+                  variant="outline"
+                  className="border-white/20 bg-white/10 text-white backdrop-blur"
                 >
                   <span className="text-green-400">{badge.icon}</span> {badge.label}
-                </span>
+                </Badge>
               ))}
             </div>
 
@@ -249,18 +258,12 @@ export default function MarchesPublicsPage() {
 
             {/* Boutons d'action principaux */}
             <div className="flex flex-col gap-4 sm:flex-row">
-              <a
-                href="#contact"
-                className="transform rounded bg-orange-500 px-8 py-4 text-center font-bold text-white shadow-lg transition hover:-translate-y-1 hover:bg-orange-600"
-              >
-                Contacter pour un marché public
-              </a>
-              <a
-                href="#administratif"
-                className="rounded border border-white/30 bg-white/10 px-8 py-4 text-center font-semibold text-white backdrop-blur transition hover:bg-white/20"
-              >
-                📄 Dossier Administratif
-              </a>
+              <Button asChild size="lg" className="bg-orange-500 hover:bg-orange-600 text-white shadow-lg">
+                <a href="#contact">Contacter pour un marché public</a>
+              </Button>
+              <Button asChild variant="outline" size="lg" className="border-white/30 bg-white/10 text-white backdrop-blur hover:bg-white/20">
+                <a href="#administratif">📄 Dossier Administratif</a>
+              </Button>
             </div>
           </div>
         </div>
@@ -313,17 +316,18 @@ export default function MarchesPublicsPage() {
             {/* Grille des 4 cartes de prestations */}
             <div className="grid grid-cols-1 gap-6 md:grid-cols-2 lg:grid-cols-4">
               {prestationsLots.map((lot) => (
-                <div
+                <Card
                   key={lot.titre}
-                  className="group rounded-xl border border-slate-100 bg-slate-50 p-8 transition hover:shadow-lg"
+                  className="group hover:shadow-lg bg-slate-50"
                 >
+                  <CardContent className="p-8">
                   {/* Icône du lot */}
                   <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-white text-2xl text-orange-500 shadow-sm transition group-hover:bg-orange-500 group-hover:text-white">
                     {lot.icon}
                   </div>
 
                   {/* Titre du lot */}
-                  <h3 className="mb-3 text-xl font-bold text-slate-900">{lot.titre}</h3>
+                  <CardTitle className="mb-3 text-xl text-slate-900">{lot.titre}</CardTitle>
 
                   {/* Liste des services inclus */}
                   <ul className="space-y-2 text-sm text-slate-500">
@@ -331,7 +335,8 @@ export default function MarchesPublicsPage() {
                       <li key={service}>• {service}</li>
                     ))}
                   </ul>
-                </div>
+                  </CardContent>
+                </Card>
               ))}
             </div>
 
@@ -372,9 +377,9 @@ export default function MarchesPublicsPage() {
             {/* Grille des 3 références principales */}
             <div className="grid grid-cols-1 gap-8 md:grid-cols-3">
               {referencesPubliques.map((ref) => (
-                <div
+                <Card
                   key={ref.titre}
-                  className="group relative cursor-pointer overflow-hidden rounded-lg shadow-md"
+                  className="group relative cursor-pointer overflow-hidden p-0"
                 >
                   {/* Image placeholder - à remplacer par de vraies photos */}
                   <div className="h-64 w-full bg-slate-300 transition duration-500 group-hover:scale-105">
@@ -385,15 +390,13 @@ export default function MarchesPublicsPage() {
 
                   {/* Overlay avec informations du projet */}
                   <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-6">
-                    <span
-                      className={`mb-2 w-fit rounded px-2 py-1 text-xs font-bold text-white ${ref.couleurBadge}`}
-                    >
+                    <Badge className={`mb-2 w-fit ${ref.couleurBadge} text-white`}>
                       {ref.type}
-                    </span>
-                    <h3 className="text-lg font-bold text-white">{ref.titre}</h3>
+                    </Badge>
+                    <CardTitle className="text-lg text-white">{ref.titre}</CardTitle>
                     <p className="text-sm text-slate-300">{ref.description}</p>
                   </div>
-                </div>
+                </Card>
               ))}
             </div>
 
@@ -492,21 +495,22 @@ export default function MarchesPublicsPage() {
                 {/* Badges des certifications */}
                 <div className="mb-6 flex flex-wrap gap-4">
                   {garantiesAdministratives.map((garantie) => (
-                    <div
+                    <Badge
                       key={garantie.label}
-                      className="flex items-center gap-2 rounded border border-slate-200 bg-slate-50 px-3 py-2 text-sm font-semibold text-slate-700"
+                      variant="outline"
+                      className="border-slate-200 bg-slate-50 text-slate-700"
                     >
                       <span className="text-orange-500">{garantie.icon}</span> {garantie.label}
-                    </div>
+                    </Badge>
                   ))}
                 </div>
               </div>
 
               {/* Bouton de téléchargement des pièces administratives */}
               <div className="text-center md:w-1/3">
-                <button className="flex w-full items-center justify-center gap-3 rounded bg-slate-900 px-6 py-4 font-bold text-white shadow-lg transition hover:bg-slate-800">
+                <Button size="lg" className="w-full bg-slate-900 hover:bg-slate-800 text-white shadow-lg">
                   ⬇ Demander les pièces administratives
-                </button>
+                </Button>
                 <p className="mt-3 text-xs text-slate-500">🕐 Envoi par email sous 24h</p>
               </div>
             </div>
@@ -545,20 +549,22 @@ export default function MarchesPublicsPage() {
                 Questions fréquentes des acheteurs
               </h2>
 
-              <div className="space-y-4">
+              <Accordion type="single" collapsible className="space-y-4">
                 {faqAcheteurs.map((faq, index) => (
-                  <details
+                  <AccordionItem
                     key={index}
-                    className="group rounded-lg border border-slate-200 bg-slate-50"
+                    value={`item-${index}`}
+                    className="rounded-lg border border-slate-200 bg-slate-50 px-4"
                   >
-                    <summary className="flex cursor-pointer list-none items-center justify-between p-4 font-medium text-slate-900">
-                      <span>{faq.question}</span>
-                      <span className="transition group-open:rotate-180">▼</span>
-                    </summary>
-                    <div className="mt-2 px-4 pb-4 text-sm text-slate-600">{faq.reponse}</div>
-                  </details>
+                    <AccordionTrigger className="font-medium text-slate-900">
+                      {faq.question}
+                    </AccordionTrigger>
+                    <AccordionContent className="text-sm text-slate-600">
+                      {faq.reponse}
+                    </AccordionContent>
+                  </AccordionItem>
                 ))}
-              </div>
+              </Accordion>
             </div>
           </div>
         </section>
@@ -605,80 +611,90 @@ export default function MarchesPublicsPage() {
               </div>
 
               {/* Colonne droite : Formulaire de contact */}
-              <div className="rounded-xl bg-white p-6 text-slate-800 shadow-2xl md:p-8">
-                <form className="space-y-4">
-                  {/* Ligne 1 : Organisme et Nom */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="mb-1 block text-xs font-bold uppercase text-slate-500">
-                        Organisme
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="Mairie, École..."
-                        className="w-full rounded border border-slate-300 bg-slate-50 p-3 focus:border-orange-500 focus:outline-none"
-                      />
+              <Card className="bg-white text-slate-800 shadow-2xl">
+                <CardContent className="p-6 md:p-8">
+                  <form className="space-y-4">
+                    {/* Ligne 1 : Organisme et Nom */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label className="text-xs font-bold uppercase text-slate-500">
+                          Organisme
+                        </Label>
+                        <Input
+                          type="text"
+                          placeholder="Mairie, École..."
+                          className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label className="text-xs font-bold uppercase text-slate-500">
+                          Nom du contact
+                        </Label>
+                        <Input
+                          type="text"
+                          placeholder="Votre nom"
+                          className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500"
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <label className="mb-1 block text-xs font-bold uppercase text-slate-500">
-                        Nom du contact
-                      </label>
-                      <input
-                        type="text"
-                        placeholder="Votre nom"
-                        className="w-full rounded border border-slate-300 bg-slate-50 p-3 focus:border-orange-500 focus:outline-none"
-                      />
-                    </div>
-                  </div>
 
-                  {/* Ligne 2 : Email et Téléphone */}
-                  <div className="grid grid-cols-2 gap-4">
-                    <div>
-                      <label className="mb-1 block text-xs font-bold uppercase text-slate-500">
-                        Email
-                      </label>
-                      <input
-                        type="email"
-                        placeholder="email@organisme.fr"
-                        className="w-full rounded border border-slate-300 bg-slate-50 p-3 focus:border-orange-500 focus:outline-none"
-                      />
+                    {/* Ligne 2 : Email et Téléphone */}
+                    <div className="grid grid-cols-2 gap-4">
+                      <div className="space-y-2">
+                        <Label className="text-xs font-bold uppercase text-slate-500">
+                          Email
+                        </Label>
+                        <Input
+                          type="email"
+                          placeholder="email@organisme.fr"
+                          className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500"
+                        />
+                      </div>
+                      <div className="space-y-2">
+                        <Label className="text-xs font-bold uppercase text-slate-500">
+                          Téléphone
+                        </Label>
+                        <Input
+                          type="tel"
+                          placeholder="03 88..."
+                          className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500"
+                        />
+                      </div>
                     </div>
-                    <div>
-                      <label className="mb-1 block text-xs font-bold uppercase text-slate-500">
-                        Téléphone
-                      </label>
-                      <input
-                        type="tel"
-                        placeholder="03 88..."
-                        className="w-full rounded border border-slate-300 bg-slate-50 p-3 focus:border-orange-500 focus:outline-none"
-                      />
+
+                    {/* Type de demande */}
+                    <div className="space-y-2">
+                      <Label className="text-xs font-bold uppercase text-slate-500">
+                        Type de demande
+                      </Label>
+                      <Select>
+                        <SelectTrigger className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500">
+                          <SelectValue placeholder="Sélectionnez..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {typesDemande.map((type) => (
+                            <SelectItem key={type} value={type}>
+                              {type}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
-                  </div>
 
-                  {/* Type de demande */}
-                  <div>
-                    <label className="mb-1 block text-xs font-bold uppercase text-slate-500">
-                      Type de demande
-                    </label>
-                    <select className="w-full rounded border border-slate-300 bg-slate-50 p-3 focus:border-orange-500 focus:outline-none">
-                      {typesDemande.map((type) => (
-                        <option key={type}>{type}</option>
-                      ))}
-                    </select>
-                  </div>
-
-                  {/* Bouton d'envoi */}
-                  <button
-                    type="submit"
-                    className="mt-2 w-full rounded bg-orange-500 py-4 font-bold text-white transition hover:bg-orange-600"
-                  >
-                    Envoyer ma demande
-                  </button>
-                  <p className="mt-2 text-center text-xs text-slate-400">
-                    Réponse garantie sous 24h/48h.
-                  </p>
-                </form>
-              </div>
+                    {/* Bouton d'envoi */}
+                    <Button
+                      type="submit"
+                      size="lg"
+                      className="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold"
+                    >
+                      Envoyer ma demande
+                    </Button>
+                    <p className="mt-2 text-center text-xs text-slate-400">
+                      Réponse garantie sous 24h/48h.
+                    </p>
+                  </form>
+                </CardContent>
+              </Card>
             </div>
           </div>
         </section>
@@ -692,31 +708,35 @@ export default function MarchesPublicsPage() {
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
       <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <a
-          href="tel:0388000000"
-          className="flex-1 flex items-center justify-center bg-gray-100 text-brand-blue font-bold py-3 rounded-lg"
+        <Button
+          asChild
+          variant="secondary"
+          className="flex-1 text-brand-blue font-bold"
         >
-          <svg
-            className="w-5 h-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
-          Appeler
-        </a>
-        <Link
-          href="/contact"
-          className="flex-1 flex items-center justify-center bg-brand-orange text-white font-bold py-3 rounded-lg shadow-md"
+          <a href="tel:0388000000">
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            Appeler
+          </a>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
         >
-          Devis Gratuit
-        </Link>
+          <Link href="/contact">Devis Gratuit</Link>
+        </Button>
       </div>
     </>
   );

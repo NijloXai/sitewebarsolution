@@ -26,6 +26,10 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CtaBlock from "@/components/CtaBlock";
 import TrustBar from "@/components/TrustBar";
+import { Button } from "@/components/ui/button";
+import { Badge } from "@/components/ui/badge";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 /* ============================================
    DONNÉES DE LA PAGE
@@ -230,9 +234,9 @@ export default function PageServicePlatrerie() {
             <div className="max-w-3xl">
               {/* Badges certifications et localisation */}
               <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <span className="bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide flex items-center gap-2">
+                <Badge variant="outline" className="bg-white/10 backdrop-blur-sm border-white/20 text-white uppercase tracking-wide">
                   <svg
-                    className="w-3 h-3 text-brand-orange"
+                    className="w-3 h-3 text-brand-orange mr-1"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
@@ -243,17 +247,17 @@ export default function PageServicePlatrerie() {
                     />
                   </svg>
                   Intervention Alsace
-                </span>
-                <span className="bg-white/10 backdrop-blur-sm border border-white/20 text-white rounded-full px-3 py-1 text-xs font-bold uppercase tracking-wide flex items-center gap-2">
+                </Badge>
+                <Badge variant="outline" className="bg-white/10 backdrop-blur-sm border-white/20 text-white uppercase tracking-wide">
                   <svg
-                    className="w-3 h-3 text-brand-orange"
+                    className="w-3 h-3 text-brand-orange mr-1"
                     fill="currentColor"
                     viewBox="0 0 20 20"
                   >
                     <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
                   </svg>
                   Certifié RGE & Qualibat
-                </span>
+                </Badge>
               </div>
 
               {/* Titre principal - promesse de valeur */}
@@ -274,18 +278,21 @@ export default function PageServicePlatrerie() {
 
               {/* Boutons d'action principaux */}
               <div className="flex flex-col sm:flex-row gap-4">
-                <a
-                  href="#devis"
-                  className="inline-flex justify-center items-center px-8 py-4 border border-transparent text-base font-bold rounded-md text-white bg-brand-orange hover:bg-brand-orange-dark shadow-lg transition duration-300 transform hover:-translate-y-1"
+                <Button
+                  asChild
+                  size="lg"
+                  className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg"
                 >
-                  Demander un devis (Réponse 48h)
-                </a>
-                <Link
-                  href="/marches-publics"
-                  className="inline-flex justify-center items-center px-8 py-4 border-2 border-white/30 text-base font-semibold rounded-md text-white hover:bg-white hover:text-brand-blue transition duration-300 backdrop-blur-sm"
+                  <a href="#devis">Demander un devis (Réponse 48h)</a>
+                </Button>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-2 border-white/30 text-white hover:bg-white hover:text-brand-blue backdrop-blur-sm"
                 >
-                  Accès Marchés Publics & Pros
-                </Link>
+                  <Link href="/marches-publics">Accès Marchés Publics & Pros</Link>
+                </Button>
               </div>
             </div>
           </div>
@@ -317,113 +324,115 @@ export default function PageServicePlatrerie() {
             {/* Grille des 4 cartes prestations */}
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
               {prestationsPlatrerie.map((prestation) => (
-                <div
+                <Card
                   key={prestation.id}
-                  className="bg-gray-50 p-6 rounded-xl border border-gray-100 hover:shadow-lg hover:border-brand-orange transition duration-300 group"
+                  className="hover:shadow-lg hover:border-brand-orange transition duration-300 group"
                 >
-                  {/* Icône de la prestation */}
-                  <div
-                    className={`w-12 h-12 ${
-                      prestation.iconeColor === "orange"
-                        ? "bg-white text-brand-orange group-hover:bg-brand-orange group-hover:text-white"
-                        : "bg-white text-brand-blue group-hover:bg-brand-blue group-hover:text-white"
-                    } rounded-full flex items-center justify-center mb-4 shadow-sm transition`}
-                  >
-                    {prestation.id === "cloisons" && (
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
-                        />
-                      </svg>
-                    )}
-                    {prestation.id === "faux-plafonds" && (
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                        />
-                      </svg>
-                    )}
-                    {prestation.id === "finitions" && (
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-                        />
-                      </svg>
-                    )}
-                    {prestation.id === "isolation" && (
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                        />
-                      </svg>
-                    )}
-                  </div>
-                  {/* Titre et description */}
-                  <h3 className="text-xl font-bold text-slate-800 mb-2">
-                    {prestation.titre}
-                  </h3>
-                  <p className="text-sm text-gray-500 mb-4">
-                    {prestation.description}
-                  </p>
-                  {/* Lien optionnel vers un service lié */}
-                  {prestation.lien ? (
-                    <Link
-                      href={prestation.lien}
-                      className="text-brand-blue font-semibold text-sm underline hover:text-brand-orange transition"
+                  <CardContent className="p-6">
+                    {/* Icône de la prestation */}
+                    <div
+                      className={`w-12 h-12 ${
+                        prestation.iconeColor === "orange"
+                          ? "bg-orange-100 text-brand-orange group-hover:bg-brand-orange group-hover:text-white"
+                          : "bg-blue-100 text-brand-blue group-hover:bg-brand-blue group-hover:text-white"
+                      } rounded-full flex items-center justify-center mb-4 shadow-sm transition`}
                     >
-                      {prestation.lienTexte}
-                    </Link>
-                  ) : (
-                    <span className="text-brand-orange font-semibold text-sm flex items-center gap-1">
-                      Plus de détails
-                      <svg
-                        className="w-3 h-3"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
+                      {prestation.id === "cloisons" && (
+                        <svg
+                          className="w-6 h-6"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
+                          />
+                        </svg>
+                      )}
+                      {prestation.id === "faux-plafonds" && (
+                        <svg
+                          className="w-6 h-6"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                          />
+                        </svg>
+                      )}
+                      {prestation.id === "finitions" && (
+                        <svg
+                          className="w-6 h-6"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                          />
+                        </svg>
+                      )}
+                      {prestation.id === "isolation" && (
+                        <svg
+                          className="w-6 h-6"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                          />
+                        </svg>
+                      )}
+                    </div>
+                    {/* Titre et description */}
+                    <CardTitle className="text-xl mb-2">
+                      {prestation.titre}
+                    </CardTitle>
+                    <CardDescription className="text-sm mb-4">
+                      {prestation.description}
+                    </CardDescription>
+                    {/* Lien optionnel vers un service lié */}
+                    {prestation.lien ? (
+                      <Link
+                        href={prestation.lien}
+                        className="text-brand-blue font-semibold text-sm underline hover:text-brand-orange transition"
                       >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M9 5l7 7-7 7"
-                        />
-                      </svg>
-                    </span>
-                  )}
-                </div>
+                        {prestation.lienTexte}
+                      </Link>
+                    ) : (
+                      <span className="text-brand-orange font-semibold text-sm flex items-center gap-1">
+                        Plus de détails
+                        <svg
+                          className="w-3 h-3"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M9 5l7 7-7 7"
+                          />
+                        </svg>
+                      </span>
+                    )}
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
@@ -442,9 +451,9 @@ export default function PageServicePlatrerie() {
             {/* Grille des 3 profils clients */}
             <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-5xl mx-auto">
               {profilsClients.map((profil) => (
-                <div
+                <Card
                   key={profil.id}
-                  className={`bg-white p-6 rounded-xl shadow-sm border-l-4 ${
+                  className={`shadow-sm border-l-4 ${
                     profil.id === "public"
                       ? "border-brand-blue"
                       : profil.id === "pro"
@@ -452,103 +461,105 @@ export default function PageServicePlatrerie() {
                       : "border-gray-400"
                   }`}
                 >
-                  {/* Icône du profil */}
-                  <div
-                    className={`w-10 h-10 mb-4 rounded-full flex items-center justify-center ${
-                      profil.id === "public"
-                        ? "bg-blue-100 text-brand-blue"
-                        : profil.id === "pro"
-                        ? "bg-orange-100 text-brand-orange"
-                        : "bg-gray-100 text-gray-600"
-                    }`}
-                  >
-                    {profil.icone === "building" && (
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                        />
-                      </svg>
-                    )}
-                    {profil.icone === "briefcase" && (
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                        />
-                      </svg>
-                    )}
-                    {profil.icone === "home" && (
-                      <svg
-                        className="w-5 h-5"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                        />
-                      </svg>
-                    )}
-                  </div>
-
-                  <h3 className="text-xl font-bold text-brand-blue mb-2">
-                    {profil.titre}
-                  </h3>
-                  <p className="text-gray-600 text-sm mb-4">
-                    {profil.description}
-                  </p>
-
-                  {/* Liste des avantages */}
-                  <ul className="space-y-2 mb-4">
-                    {profil.avantages.map((avantage, index) => (
-                      <li
-                        key={index}
-                        className="flex items-center gap-2 text-sm font-semibold"
-                      >
+                  <CardContent className="p-6">
+                    {/* Icône du profil */}
+                    <div
+                      className={`w-10 h-10 mb-4 rounded-full flex items-center justify-center ${
+                        profil.id === "public"
+                          ? "bg-blue-100 text-brand-blue"
+                          : profil.id === "pro"
+                          ? "bg-orange-100 text-brand-orange"
+                          : "bg-gray-100 text-gray-600"
+                      }`}
+                    >
+                      {profil.icone === "building" && (
                         <svg
-                          className="w-4 h-4 text-green-500 flex-shrink-0"
-                          fill="currentColor"
-                          viewBox="0 0 20 20"
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
                         >
                           <path
-                            fillRule="evenodd"
-                            d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                            clipRule="evenodd"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
                           />
                         </svg>
-                        {avantage}
-                      </li>
-                    ))}
-                  </ul>
+                      )}
+                      {profil.icone === "briefcase" && (
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
+                          />
+                        </svg>
+                      )}
+                      {profil.icone === "home" && (
+                        <svg
+                          className="w-5 h-5"
+                          fill="none"
+                          stroke="currentColor"
+                          viewBox="0 0 24 24"
+                        >
+                          <path
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                            strokeWidth={2}
+                            d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
+                          />
+                        </svg>
+                      )}
+                    </div>
 
-                  {/* Lien CTA si disponible */}
-                  {profil.lien && (
-                    <Link
-                      href={profil.lien}
-                      className="text-brand-orange font-bold hover:underline text-sm"
-                    >
-                      {profil.lienTexte}
-                    </Link>
-                  )}
-                </div>
+                    <CardTitle className="text-xl text-brand-blue mb-2">
+                      {profil.titre}
+                    </CardTitle>
+                    <CardDescription className="text-sm mb-4">
+                      {profil.description}
+                    </CardDescription>
+
+                    {/* Liste des avantages */}
+                    <ul className="space-y-2 mb-4">
+                      {profil.avantages.map((avantage, index) => (
+                        <li
+                          key={index}
+                          className="flex items-center gap-2 text-sm font-semibold"
+                        >
+                          <svg
+                            className="w-4 h-4 text-green-500 flex-shrink-0"
+                            fill="currentColor"
+                            viewBox="0 0 20 20"
+                          >
+                            <path
+                              fillRule="evenodd"
+                              d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
+                              clipRule="evenodd"
+                            />
+                          </svg>
+                          {avantage}
+                        </li>
+                      ))}
+                    </ul>
+
+                    {/* Lien CTA si disponible */}
+                    {profil.lien && (
+                      <Link
+                        href={profil.lien}
+                        className="text-brand-orange font-bold hover:underline text-sm"
+                      >
+                        {profil.lienTexte}
+                      </Link>
+                    )}
+                  </CardContent>
+                </Card>
               ))}
             </div>
           </div>
@@ -659,9 +670,9 @@ export default function PageServicePlatrerie() {
                   <div className="text-left">
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="font-bold text-lg">{projet.titre}</h3>
-                      <span className="text-xs bg-gray-100 text-gray-600 px-2 py-0.5 rounded">
+                      <Badge variant="secondary" className="text-xs">
                         {projet.type}
-                      </span>
+                      </Badge>
                     </div>
                     <p className="text-sm text-gray-500 mb-1">
                       📍 {projet.lieu}
@@ -674,12 +685,14 @@ export default function PageServicePlatrerie() {
 
             {/* Bouton vers toutes les réalisations */}
             <div className="mt-10">
-              <Link
-                href="/realisations"
-                className="inline-block border-2 border-brand-blue text-brand-blue font-bold px-8 py-3 rounded hover:bg-brand-blue hover:text-white transition"
+              <Button
+                asChild
+                variant="outline"
+                size="lg"
+                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white"
               >
-                Voir tous nos projets plâtrerie
-              </Link>
+                <Link href="/realisations">Voir tous nos projets plâtrerie</Link>
+              </Button>
             </div>
           </div>
         </section>
@@ -801,20 +814,21 @@ export default function PageServicePlatrerie() {
                 </p>
                 <div className="flex flex-wrap gap-2 justify-center mb-4">
                   {documentsMarchesPublics.map((doc) => (
-                    <span
+                    <Badge
                       key={doc.titre}
-                      className="text-xs bg-white/10 px-2 py-1 rounded text-white/80"
+                      variant="outline"
+                      className="text-xs bg-white/10 border-white/20 text-white/80"
                     >
                       {doc.titre}
-                    </span>
+                    </Badge>
                   ))}
                 </div>
-                <a
-                  href="mailto:pro@ar-solution.fr"
-                  className="block w-full bg-white text-brand-blue font-bold py-3 rounded hover:bg-gray-100 transition mb-3"
+                <Button
+                  asChild
+                  className="w-full bg-white text-brand-blue hover:bg-gray-100 mb-3"
                 >
-                  Contacter le service Pro
-                </a>
+                  <a href="mailto:pro@ar-solution.fr">Contacter le service Pro</a>
+                </Button>
                 <p className="text-xs text-slate-400">
                   Ligne directe réservée aux maîtres d&apos;œuvre et
                   collectivités.
@@ -834,35 +848,18 @@ export default function PageServicePlatrerie() {
               Questions fréquentes
             </h2>
 
-            <div className="space-y-4">
+            <Accordion type="single" collapsible className="w-full">
               {faqItems.map((item, index) => (
-                <details
-                  key={index}
-                  className="group bg-gray-50 rounded-lg cursor-pointer open:bg-white open:shadow-md transition-all duration-300"
-                >
-                  <summary className="flex justify-between items-center font-bold text-lg text-brand-blue p-4 list-none">
+                <AccordionItem key={index} value={`item-${index}`}>
+                  <AccordionTrigger className="text-left font-bold text-lg text-brand-blue">
                     {item.question}
-                    <span className="transition group-open:rotate-180">
-                      <svg
-                        fill="none"
-                        height="24"
-                        stroke="currentColor"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth="1.5"
-                        viewBox="0 0 24 24"
-                        width="24"
-                      >
-                        <path d="M6 9l6 6 6-6" />
-                      </svg>
-                    </span>
-                  </summary>
-                  <p className="text-gray-600 px-4 pb-4 leading-relaxed">
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600 leading-relaxed">
                     {item.reponse}
-                  </p>
-                </details>
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
           </div>
         </section>
 
@@ -886,31 +883,35 @@ export default function PageServicePlatrerie() {
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
       <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <a
-          href="tel:0388000000"
-          className="flex-1 flex items-center justify-center bg-gray-100 text-brand-blue font-bold py-3 rounded-lg"
+        <Button
+          asChild
+          variant="secondary"
+          className="flex-1 text-brand-blue font-bold"
         >
-          <svg
-            className="w-5 h-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
-          Appeler
-        </a>
-        <a
-          href="#devis"
-          className="flex-1 flex items-center justify-center bg-brand-orange text-white font-bold py-3 rounded-lg shadow-md"
+          <a href="tel:0388000000">
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            Appeler
+          </a>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
         >
-          Devis Plâtrerie
-        </a>
+          <a href="#devis">Devis Plâtrerie</a>
+        </Button>
       </div>
     </>
   );

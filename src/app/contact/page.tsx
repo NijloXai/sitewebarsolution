@@ -21,6 +21,14 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import { Button } from "@/components/ui/button";
+import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Label } from "@/components/ui/label";
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Badge } from "@/components/ui/badge";
+import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 
 /* ============================================
    DONNÉES DE LA PAGE
@@ -128,12 +136,12 @@ export default function PageContact() {
                   ============================================ */}
               <div className="lg:col-span-5 flex flex-col justify-center h-full pt-4">
                 {/* Badge certification */}
-                <span className="inline-block py-1 px-3 rounded-full bg-blue-100 text-blue-800 text-xs font-bold uppercase tracking-wider mb-4 w-fit">
+                <Badge className="bg-blue-100 text-blue-800 mb-4 w-fit">
                   <svg className="w-4 h-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
                   Certifié RGE Qualibat
-                </span>
+                </Badge>
 
                 {/* Titre principal */}
                 <h1 className="text-4xl lg:text-5xl font-extrabold text-brand-blue leading-tight mb-6">
@@ -213,7 +221,8 @@ export default function PageContact() {
                   Avec switcher Particulier/Pro vs Marchés Publics
                   ============================================ */}
               <div id="formulaire" className="lg:col-span-7 scroll-mt-24">
-                <div className="bg-white rounded-2xl shadow-xl p-6 md:p-8 border-t-4 border-brand-orange relative">
+                <Card className="shadow-xl border-t-4 border-brand-orange">
+                  <CardContent className="p-6 md:p-8">
                   {/* Switcher de mode (Particulier/Pro vs Marchés Publics) */}
                   {/* Note: La logique JS pour basculer les champs sera ajoutée ultérieurement */}
                   <div className="flex justify-center mb-8">
@@ -243,89 +252,74 @@ export default function PageContact() {
                   <form action="#" method="POST" className="space-y-5">
                     {/* Champs communs : Nom & Téléphone */}
                     <div className="grid md:grid-cols-2 gap-5">
-                      <div>
-                        <label
-                          htmlFor="lastname"
-                          className="block text-sm font-semibold text-gray-700 mb-1"
-                        >
+                      <div className="space-y-2">
+                        <Label htmlFor="lastname">
                           Nom & Prénom <span className="text-red-500">*</span>
-                        </label>
-                        <input
+                        </Label>
+                        <Input
                           type="text"
                           id="lastname"
                           name="lastname"
-                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-orange focus:ring-2 focus:ring-orange-100 outline-none transition"
                           placeholder="Votre nom complet"
                           required
+                          className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                         />
                       </div>
-                      <div>
-                        <label
-                          htmlFor="phone"
-                          className="block text-sm font-semibold text-gray-700 mb-1"
-                        >
+                      <div className="space-y-2">
+                        <Label htmlFor="phone">
                           Téléphone <span className="text-red-500">*</span>
-                        </label>
-                        <input
+                        </Label>
+                        <Input
                           type="tel"
                           id="phone"
                           name="phone"
-                          className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-orange focus:ring-2 focus:ring-orange-100 outline-none transition"
                           placeholder="06 00 00 00 00"
                           required
+                          className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                         />
                       </div>
                     </div>
 
                     {/* Champ Email */}
-                    <div>
-                      <label
-                        htmlFor="email"
-                        className="block text-sm font-semibold text-gray-700 mb-1"
-                      >
+                    <div className="space-y-2">
+                      <Label htmlFor="email">
                         Email professionnel ou personnel <span className="text-red-500">*</span>
-                      </label>
-                      <input
+                      </Label>
+                      <Input
                         type="email"
                         id="email"
                         name="email"
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-orange focus:ring-2 focus:ring-orange-100 outline-none transition"
                         placeholder="exemple@email.com"
                         required
+                        className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                       />
                     </div>
 
                     {/* Champs Spécifiques "Marchés Publics" (masqués par défaut) */}
                     {/* Note: Ces champs seront affichés via JS quand le mode Marchés Publics est actif */}
-                    <div id="public-fields" className="hidden bg-blue-50 p-4 rounded-lg border border-blue-100">
-                      <div className="mb-4">
-                        <label
-                          htmlFor="organisme"
-                          className="block text-sm font-semibold text-blue-900 mb-1"
-                        >
+                    <div id="public-fields" className="hidden bg-blue-50 p-4 rounded-lg border border-blue-100 space-y-4">
+                      <div className="space-y-2">
+                        <Label htmlFor="organisme" className="text-blue-900">
                           Organisme / Mairie
-                        </label>
-                        <input
+                        </Label>
+                        <Input
                           type="text"
                           id="organisme"
                           name="organisme"
-                          className="w-full px-4 py-3 rounded-lg border border-blue-200 focus:border-brand-orange outline-none"
                           placeholder="Ex: Mairie de Strasbourg, Collectivité..."
+                          className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                         />
                       </div>
-                      <div>
-                        <label
-                          htmlFor="ref-consult"
-                          className="block text-sm font-semibold text-blue-900 mb-1"
-                        >
+                      <div className="space-y-2">
+                        <Label htmlFor="ref-consult" className="text-blue-900">
                           Référence Consultation / Marché
-                        </label>
-                        <input
+                        </Label>
+                        <Input
                           type="text"
                           id="ref-consult"
                           name="ref-consult"
-                          className="w-full px-4 py-3 rounded-lg border border-blue-200 focus:border-brand-orange outline-none"
                           placeholder="Ex: MAPA-2024-05..."
+                          className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                         />
                       </div>
                       <p className="text-xs text-blue-700 mt-2 flex items-center">
@@ -337,57 +331,50 @@ export default function PageContact() {
                     </div>
 
                     {/* Champs Spécifiques "Particulier / Pro" (visibles par défaut) */}
-                    <div id="private-fields">
-                      <label
-                        htmlFor="project-type"
-                        className="block text-sm font-semibold text-gray-700 mb-1"
-                      >
+                    <div id="private-fields" className="space-y-2">
+                      <Label htmlFor="project-type">
                         Type de projet <span className="text-red-500">*</span>
-                      </label>
-                      <select
-                        id="project-type"
-                        name="project-type"
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-orange focus:ring-2 focus:ring-orange-100 outline-none transition bg-white"
-                        defaultValue=""
-                      >
-                        <option value="" disabled>
-                          Sélectionnez votre besoin...
-                        </option>
-                        {typesProjet.map((type) => (
-                          <option key={type.value} value={type.value}>
-                            {type.label}
-                          </option>
-                        ))}
-                      </select>
+                      </Label>
+                      <Select name="project-type" defaultValue="">
+                        <SelectTrigger
+                          id="project-type"
+                          className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
+                        >
+                          <SelectValue placeholder="Sélectionnez votre besoin..." />
+                        </SelectTrigger>
+                        <SelectContent>
+                          {typesProjet.map((type) => (
+                            <SelectItem key={type.value} value={type.value}>
+                              {type.label}
+                            </SelectItem>
+                          ))}
+                        </SelectContent>
+                      </Select>
                     </div>
 
                     {/* Champ détails du projet */}
-                    <div>
-                      <label
-                        htmlFor="message"
-                        className="block text-sm font-semibold text-gray-700 mb-1"
-                      >
-                        Détails du projet
-                      </label>
-                      <textarea
+                    <div className="space-y-2">
+                      <Label htmlFor="message">Détails du projet</Label>
+                      <Textarea
                         id="message"
                         name="message"
                         rows={3}
-                        className="w-full px-4 py-3 rounded-lg border border-gray-300 focus:border-brand-orange focus:ring-2 focus:ring-orange-100 outline-none transition"
                         placeholder="Indiquez la surface approximative, le lieu et vos délais souhaités..."
+                        className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                       />
                     </div>
 
                     {/* Bouton d'envoi CTA */}
-                    <button
+                    <Button
                       type="submit"
-                      className="w-full bg-brand-orange hover:bg-orange-700 text-white font-bold text-lg py-4 rounded-lg shadow-lg hover:shadow-xl transition transform hover:-translate-y-0.5 flex items-center justify-center gap-2"
+                      size="lg"
+                      className="w-full bg-brand-orange hover:bg-orange-700 text-white text-lg font-bold shadow-lg"
                     >
                       <span>Recevoir mon devis gratuit</span>
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
-                    </button>
+                    </Button>
 
                     {/* Mention RGPD */}
                     <p className="text-xs text-gray-400 text-center mt-3">
@@ -397,7 +384,8 @@ export default function PageContact() {
                       Vos données restent confidentielles. Réponse sous 48h.
                     </p>
                   </form>
-                </div>
+                  </CardContent>
+                </Card>
               </div>
             </div>
           </div>
@@ -523,34 +511,22 @@ export default function PageContact() {
               Questions fréquentes
             </h2>
 
-            <div className="space-y-4">
+            <Accordion type="single" collapsible className="space-y-4">
               {faqItems.map((item, index) => (
-                <details
+                <AccordionItem
                   key={index}
-                  className="group bg-gray-50 rounded-lg open:bg-white open:shadow-md transition-all duration-300"
+                  value={`item-${index}`}
+                  className="bg-gray-50 rounded-lg px-5 data-[state=open]:bg-white data-[state=open]:shadow-md transition-all duration-300"
                 >
-                  <summary className="flex justify-between items-center font-bold text-lg cursor-pointer list-none p-5 text-brand-blue">
-                    <span>{item.question}</span>
-                    <span className="transition group-open:rotate-180">
-                      <svg
-                        className="w-5 h-5 text-brand-orange"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 9l-7 7-7-7"
-                        />
-                      </svg>
-                    </span>
-                  </summary>
-                  <div className="text-gray-600 px-5 pb-5">{item.reponse}</div>
-                </details>
+                  <AccordionTrigger className="font-bold text-lg text-brand-blue">
+                    {item.question}
+                  </AccordionTrigger>
+                  <AccordionContent className="text-gray-600">
+                    {item.reponse}
+                  </AccordionContent>
+                </AccordionItem>
               ))}
-            </div>
+            </Accordion>
 
             {/* Lien vers la FAQ complète */}
             <div className="text-center mt-8">
@@ -573,31 +549,35 @@ export default function PageContact() {
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
       <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <a
-          href="tel:0388000000"
-          className="flex-1 flex items-center justify-center bg-gray-100 text-brand-blue font-bold py-3 rounded-lg"
+        <Button
+          asChild
+          variant="secondary"
+          className="flex-1 text-brand-blue font-bold"
         >
-          <svg
-            className="w-5 h-5 mr-2"
-            fill="none"
-            viewBox="0 0 24 24"
-            stroke="currentColor"
-          >
-            <path
-              strokeLinecap="round"
-              strokeLinejoin="round"
-              strokeWidth={2}
-              d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-            />
-          </svg>
-          Appeler
-        </a>
-        <a
-          href="#formulaire"
-          className="flex-1 flex items-center justify-center bg-brand-orange text-white font-bold py-3 rounded-lg shadow-md"
+          <a href="tel:0388000000">
+            <svg
+              className="w-5 h-5 mr-2"
+              fill="none"
+              viewBox="0 0 24 24"
+              stroke="currentColor"
+            >
+              <path
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                strokeWidth={2}
+                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
+              />
+            </svg>
+            Appeler
+          </a>
+        </Button>
+        <Button
+          asChild
+          size="lg"
+          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
         >
-          Devis Gratuit
-        </a>
+          <a href="#formulaire">Devis Gratuit</a>
+        </Button>
       </div>
     </>
   );

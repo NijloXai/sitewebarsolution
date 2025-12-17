@@ -12,6 +12,8 @@
   - items : tableau d'objets { valeur, label } à afficher
 */
 
+import { Card, CardContent } from "@/components/ui/card";
+
 /* Type des éléments affichés dans la barre de confiance */
 interface TrustBarItem {
   valeur: string;
@@ -25,25 +27,25 @@ interface TrustBarProps {
 
 export default function TrustBar({ items }: TrustBarProps) {
   return (
-    <section className="bg-gray-50 border-b border-gray-200">
+    <section className="bg-muted/30 border-b">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
-        <div className="grid grid-cols-2 md:grid-cols-4 gap-6 text-center">
-          {items.map((item, index) => (
-            <div
+        <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
+          {items.map((item) => (
+            <Card
               key={item.label}
-              className={`flex flex-col items-center justify-center p-2 ${
-                index > 0 ? "border-l border-gray-200" : ""
-              }`}
+              className="border-0 shadow-none bg-transparent text-center"
             >
-              {/* Valeur principale (chiffre ou sigle) */}
-              <span className="text-3xl font-bold text-brand-blue mb-1">
-                {item.valeur}
-              </span>
-              {/* Label descriptif */}
-              <span className="text-sm text-gray-500 font-medium uppercase tracking-wide">
-                {item.label}
-              </span>
-            </div>
+              <CardContent className="flex flex-col items-center justify-center p-4 md:p-6">
+                {/* Valeur principale (chiffre ou sigle) */}
+                <span className="text-3xl md:text-4xl font-bold text-brand-blue mb-2">
+                  {item.valeur}
+                </span>
+                {/* Label descriptif */}
+                <span className="text-xs md:text-sm text-muted-foreground font-medium uppercase tracking-wide">
+                  {item.label}
+                </span>
+              </CardContent>
+            </Card>
           ))}
         </div>
       </div>
