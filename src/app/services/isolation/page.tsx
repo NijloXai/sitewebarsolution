@@ -26,6 +26,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TrustBar from "@/components/TrustBar";
 import CtaBlock from "@/components/CtaBlock";
+import GridScan from "@/components/GridScan";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -220,14 +221,24 @@ export default function PageServiceIsolation() {
             L'utilisateur comprend immédiatement le service et peut demander un devis
             ============================================ */}
         <section className="relative bg-slate-900 overflow-hidden">
-          {/* Image de fond avec overlay pour la lisibilité du texte */}
+          {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
-            <img
-              className="w-full h-full object-cover opacity-40"
-              src="https://placehold.co/1920x1080?text=Pose+Isolation+Thermique"
-              alt="Isolation thermique Strasbourg Alsace"
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent" />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
 
           {/* Contenu du hero */}
@@ -235,10 +246,10 @@ export default function PageServiceIsolation() {
             <div className="max-w-2xl">
               {/* Badges RGE et localisation */}
               <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30 uppercase tracking-wide">
+                <Badge variant="outline" className="badge-success-light border-status-success/30 uppercase tracking-wide">
                   Certifié RGE
                 </Badge>
-                <Badge variant="outline" className="bg-brand-orange/20 text-brand-orange border-brand-orange/30 uppercase tracking-wide">
+                <Badge variant="outline" className="badge-accent-light border-brand-orange/30 uppercase tracking-wide">
                   Strasbourg & Alsace
                 </Badge>
               </div>
@@ -279,7 +290,7 @@ export default function PageServiceIsolation() {
               <div className="mt-6 flex items-center gap-4 text-sm text-gray-300 flex-wrap">
                 <span className="flex items-center gap-2">
                   <svg
-                    className="w-4 h-4 text-green-400"
+                    className="w-4 h-4 text-status-success-light"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -295,7 +306,7 @@ export default function PageServiceIsolation() {
                 </span>
                 <span className="flex items-center gap-2">
                   <svg
-                    className="w-4 h-4 text-green-400"
+                    className="w-4 h-4 text-status-success-light"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -349,8 +360,8 @@ export default function PageServiceIsolation() {
                     <div
                       className={`w-12 h-12 ${
                         type.iconeColor === "orange"
-                          ? "bg-orange-100 text-brand-orange group-hover:bg-brand-orange group-hover:text-white"
-                          : "bg-blue-100 text-brand-blue group-hover:bg-brand-blue group-hover:text-white"
+                          ? "bg-brand-orange/10 text-brand-orange group-hover:bg-brand-orange group-hover:text-white"
+                          : "bg-brand-blue/10 text-brand-blue group-hover:bg-brand-blue group-hover:text-white"
                       } rounded-lg flex items-center justify-center mb-4 transition`}
                     >
                       <svg
@@ -432,7 +443,7 @@ export default function PageServiceIsolation() {
                   >
                     <CardContent className="p-6">
                       {profil.badge && (
-                        <Badge variant="secondary" className="text-xs font-bold tracking-wider uppercase mb-2">
+                        <Badge variant="secondary" className="badge-primary-light text-xs font-bold tracking-wider uppercase mb-2">
                           {profil.badge}
                         </Badge>
                       )}
@@ -447,8 +458,8 @@ export default function PageServiceIsolation() {
                                 profil.id === "public"
                                   ? "text-brand-orange"
                                   : profil.id === "pro"
-                                  ? "text-green-500"
-                                  : "text-orange-500"
+                                  ? "text-status-success"
+                                  : "text-brand-orange"
                               }`}
                             >
                               ✓
@@ -550,19 +561,19 @@ export default function PageServiceIsolation() {
 
                     {/* Avec nous */}
                     <div className="w-1/2 text-center relative">
-                      <div className="absolute -top-3 -right-3 bg-green-500 text-white text-xs font-bold px-2 py-1 rounded shadow">
+                      <div className="absolute -top-3 -right-3 bg-status-success text-white text-xs font-bold px-2 py-1 rounded shadow">
                         RECOMMANDÉ
                       </div>
                       <div className="text-brand-orange font-bold mb-2 text-sm uppercase tracking-wide">
                         AR+SOLUTION
                       </div>
-                      <div className="bg-orange-50 p-4 rounded-lg border-2 border-brand-orange h-full flex flex-col justify-center items-center gap-2">
+                      <div className="bg-brand-orange/10 p-4 rounded-lg border-2 border-brand-orange h-full flex flex-col justify-center items-center gap-2">
                         <span className="text-2xl">🏠</span>
                         <span className="font-bold text-brand-blue">
                           1 Équipe Complète
                         </span>
                         <span className="text-sm">Isolation + Finitions</span>
-                        <span className="text-sm font-bold text-green-600">
+                        <span className="text-sm font-bold text-status-success-dark">
                           Garantie Totale
                         </span>
                       </div>
@@ -610,7 +621,7 @@ export default function PageServiceIsolation() {
                     />
                     {/* Badge type de projet */}
                     <div className="absolute top-4 right-4">
-                      <Badge className="bg-brand-orange text-white uppercase">
+                      <Badge className="badge-accent uppercase">
                         {projet.type}
                       </Badge>
                     </div>
@@ -780,7 +791,7 @@ export default function PageServiceIsolation() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"

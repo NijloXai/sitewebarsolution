@@ -18,6 +18,7 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import GridScan from "@/components/GridScan";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
@@ -140,18 +141,41 @@ export default function PagePolitiqueConfidentialite() {
             EN-TÊTE DE PAGE
             Titre principal et introduction
             ============================================ */}
-        <section className="py-12 md:py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
-              Politique de Confidentialité &{" "}
-              <br className="hidden md:block" />
-              <span className="text-brand-blue">Protection des Données</span>
-            </h1>
-            <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
-              La confiance est la base de tout chantier réussi. Nous appliquons
-              une transparence totale sur la collecte et l&apos;usage de vos
-              données, conformément au RGPD.
-            </p>
+        <section className="relative bg-slate-900 overflow-hidden">
+          {/* Animation 3D GridScan en arrière-plan */}
+          <div className="absolute inset-0">
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
+            />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
+          </div>
+
+          {/* Contenu du hero */}
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40">
+            <div className="max-w-4xl mx-auto text-center">
+              <h1 className="text-3xl md:text-5xl font-extrabold text-white mb-6 leading-tight">
+                Politique de Confidentialité &{" "}
+                <br className="hidden md:block" />
+                <span className="text-brand-orange">Protection des Données</span>
+              </h1>
+              <p className="text-lg md:text-xl text-gray-300 max-w-2xl mx-auto">
+                La confiance est la base de tout chantier réussi. Nous appliquons
+                une transparence totale sur la collecte et l&apos;usage de vos
+                données, conformément au RGPD.
+              </p>
+            </div>
           </div>
         </section>
 
@@ -171,10 +195,10 @@ export default function PagePolitiqueConfidentialite() {
                     <div
                       className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${
                         point.couleur === "blue"
-                          ? "bg-blue-100 text-brand-blue"
+                          ? "bg-brand-blue/10 text-brand-blue"
                           : point.couleur === "orange"
-                          ? "bg-orange-100 text-brand-orange"
-                          : "bg-green-100 text-green-600"
+                          ? "bg-brand-orange/10 text-brand-orange"
+                          : "bg-status-success/10 text-status-success-dark"
                       }`}
                     >
                       {point.icone === "location" && (
@@ -265,7 +289,7 @@ export default function PagePolitiqueConfidentialite() {
                     <a
                       key={item.id}
                       href={`#${item.id}`}
-                      className="block px-3 py-2 text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-brand-blue rounded-md transition"
+                      className="block px-3 py-2 text-sm font-medium text-slate-600 hover:bg-brand-blue/10 hover:text-brand-blue rounded-md transition"
                     >
                       {item.numero}. {item.titre}
                     </a>
@@ -287,7 +311,7 @@ export default function PagePolitiqueConfidentialite() {
                 >
                   <CardContent className="p-8">
                     <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                    <span className="bg-blue-100 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
+                    <span className="bg-brand-blue/10 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
                       01
                     </span>
                     Qui est responsable de vos données ?
@@ -339,7 +363,7 @@ export default function PagePolitiqueConfidentialite() {
                     ============================================ */}
                 <section id="collecte" className="scroll-mt-28">
                   <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                    <span className="bg-blue-100 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
+                    <span className="bg-brand-blue/10 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
                       02
                     </span>
                     Quelles données collectons-nous et pourquoi ?
@@ -394,7 +418,7 @@ export default function PagePolitiqueConfidentialite() {
                   </div>
 
                   {/* Note sur la base légale */}
-                  <div className="mt-4 flex items-start gap-3 p-4 bg-blue-50 text-brand-blue rounded-md text-sm">
+                  <div className="mt-4 flex items-start gap-3 p-4 bg-brand-blue/10 text-brand-blue rounded-md text-sm">
                     <svg
                       className="w-5 h-5 shrink-0 mt-0.5"
                       fill="none"
@@ -422,7 +446,7 @@ export default function PagePolitiqueConfidentialite() {
                     ============================================ */}
                 <section id="partage" className="scroll-mt-28">
                   <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                    <span className="bg-blue-100 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
+                    <span className="bg-brand-blue/10 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
                       03
                     </span>
                     Qui a accès à vos données et combien de temps ?
@@ -482,7 +506,7 @@ export default function PagePolitiqueConfidentialite() {
                     ============================================ */}
                 <section id="cookies" className="scroll-mt-28">
                   <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                    <span className="bg-blue-100 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
+                    <span className="bg-brand-blue/10 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
                       04
                     </span>
                     Cookies et Sécurité
@@ -520,11 +544,11 @@ export default function PagePolitiqueConfidentialite() {
                     ============================================ */}
                 <Card
                   id="droits"
-                  className="bg-blue-50 border-blue-100 scroll-mt-28"
+                  className="bg-brand-blue/10 border-brand-blue/20 scroll-mt-28"
                 >
                   <CardContent className="p-8">
                     <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                    <span className="bg-blue-200 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
+                    <span className="bg-brand-blue/20 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
                       05
                     </span>
                     Vos droits sur vos données
@@ -561,7 +585,7 @@ export default function PagePolitiqueConfidentialite() {
                     <div className="flex flex-col md:flex-row gap-4">
                       <a
                         href="mailto:contact@ar-solution.fr"
-                        className="flex items-center justify-center px-4 py-2 border border-brand-blue text-brand-blue rounded font-bold hover:bg-blue-50 transition"
+                        className="flex items-center justify-center px-4 py-2 border border-brand-blue text-brand-blue rounded font-bold hover:bg-brand-blue/10 transition"
                       >
                         <svg
                           className="w-4 h-4 mr-2"
@@ -608,7 +632,7 @@ export default function PagePolitiqueConfidentialite() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile pour appeler ou demander un devis
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"

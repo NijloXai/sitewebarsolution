@@ -19,6 +19,7 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import GridScan from "@/components/GridScan";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -150,39 +151,60 @@ export default function PageMentionsLegales() {
           ============================================ */}
       <main className="mt-20">
         {/* ============================================
-            HEADER DE PAGE - Fil d'ariane et titre
+            HEADER DE PAGE - Fil d'ariane et titre avec GridScan
             ============================================ */}
-        <header className="bg-slate-50 border-b border-slate-200 py-12">
-          <div className="max-w-4xl mx-auto px-4">
+        <section className="relative bg-slate-900 overflow-hidden">
+          {/* Animation 3D GridScan en arrière-plan */}
+          <div className="absolute inset-0">
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
+            />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
+          </div>
+
+          {/* Contenu du hero */}
+          <div className="relative max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40">
             {/* Breadcrumb - Navigation fil d'ariane */}
             <nav aria-label="Breadcrumb" className="mb-4">
-              <ol className="flex items-center space-x-2 text-sm text-slate-500">
+              <ol className="flex items-center space-x-2 text-sm text-slate-400">
                 <li>
                   <Link
                     href="/"
-                    className="hover:text-brand-blue transition-colors"
+                    className="hover:text-white transition-colors"
                   >
                     Accueil
                   </Link>
                 </li>
                 <li>
-                  <span className="text-slate-300">/</span>
+                  <span className="text-slate-500">/</span>
                 </li>
-                <li className="font-medium text-slate-800">Mentions Légales</li>
+                <li className="font-medium text-slate-300">Mentions Légales</li>
               </ol>
             </nav>
 
             {/* Titre et introduction */}
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+            <h1 className="text-3xl md:text-4xl font-bold text-white mb-4">
               Mentions Légales
             </h1>
-            <p className="text-lg text-slate-600 leading-relaxed">
+            <p className="text-lg text-gray-300 leading-relaxed">
               Informations juridiques, administratives et garanties relatives à
               l&apos;entreprise{" "}
-              <span className="font-semibold text-slate-900">AR+SOLUTION</span>.
+              <span className="font-semibold text-white">AR+SOLUTION</span>.
             </p>
           </div>
-        </header>
+        </section>
 
         {/* ============================================
             SECTIONS DU CONTENU LÉGAL
@@ -523,7 +545,7 @@ export default function PageMentionsLegales() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile pour appeler ou demander un devis
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"

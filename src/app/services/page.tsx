@@ -22,6 +22,7 @@ import Link from "next/link";
 import CtaBlock from "@/components/CtaBlock";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import GridScan from "@/components/GridScan";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
@@ -36,7 +37,7 @@ const servicesData = [
     title: "Plâtrerie & Faux-plafonds",
     accroche: "Redistribuez vos volumes sans gros œuvre.",
     tag: "TECHNIQUE",
-    tagColor: "bg-blue-600",
+    tagColor: "badge-tag-technique",
     image: "https://placehold.co/600x400?text=Platrerie+Plafond",
     imageAlt: "Travaux de plâtrerie et faux-plafonds",
     points: [
@@ -51,7 +52,7 @@ const servicesData = [
     title: "Isolation Thermique & Phonique",
     accroche: "Réduisez votre facture énergétique de 30%.",
     tag: "ÉCONOMIES",
-    tagColor: "bg-green-600",
+    tagColor: "badge-tag-economies",
     image: "https://placehold.co/600x400?text=Isolation+RGE",
     imageAlt: "Travaux d'isolation thermique certifiés RGE",
     points: [
@@ -66,7 +67,7 @@ const servicesData = [
     title: "Peinture & Décoration",
     accroche: "Des murs lisses et des finitions durables.",
     tag: "FINITIONS",
-    tagColor: "bg-purple-600",
+    tagColor: "badge-tag-finitions",
     image: "https://placehold.co/600x400?text=Peinture+Finition",
     imageAlt: "Travaux de peinture et finitions",
     points: [
@@ -81,7 +82,7 @@ const servicesData = [
     title: "Aménagement Intérieur",
     accroche: "Optimisez chaque m² de votre bien.",
     tag: "ESPACE",
-    tagColor: "bg-amber-500",
+    tagColor: "badge-tag-espace",
     image: "https://placehold.co/600x400?text=Amenagement+Combles",
     imageAlt: "Aménagement intérieur et combles",
     points: [
@@ -228,21 +229,31 @@ export default function ServicesPage() {
           En-tête avec promesse principale, badges de confiance et boutons d'action
       ======================================== */}
       <section className="relative bg-slate-900 text-white pt-20 pb-24 lg:pt-32 lg:pb-40 overflow-hidden">
-        {/* Image de fond avec superposition sombre */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://placehold.co/1920x1080?text=Chantier+Rénovation+Propre+Strasbourg"
-            alt="Chantier rénovation terminé"
-            className="w-full h-full object-cover opacity-20"
+        {/* Animation 3D GridScan en arrière-plan */}
+        <div className="absolute inset-0">
+          <GridScan
+            sensitivity={0.55}
+            lineThickness={1}
+            linesColor="#1e3a5f"
+            gridScale={0.1}
+            scanColor="#f97316"
+            scanOpacity={0.5}
+            enablePost
+            bloomIntensity={0.6}
+            chromaticAberration={0.002}
+            noiseIntensity={0.01}
+            scanDuration={3.0}
+            scanDelay={1.5}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent"></div>
+          {/* Overlay gradient pour améliorer la lisibilité du texte */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">
           <div className="max-w-3xl">
             {/* Badges de confiance : RGE, Décennale, Site Occupé */}
             <div className="flex flex-wrap gap-3 mb-6">
-              <Badge className="bg-amber-500/10 text-amber-500 border-amber-500/30 hover:bg-amber-500/20 uppercase tracking-wider">
+              <Badge className="badge-accent-light uppercase tracking-wider border-brand-orange/30">
                 ✓ Certifié RGE
               </Badge>
               <Badge variant="outline" className="bg-white/10 text-white border-white/20 hover:bg-white/20 uppercase tracking-wider">
@@ -256,7 +267,7 @@ export default function ServicesPage() {
             {/* Titre principal SEO */}
             <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
               Nos services de rénovation intérieure & isolation{" "}
-              <span className="text-amber-500">Strasbourg / Alsace</span>
+              <span className="text-brand-orange">Strasbourg / Alsace</span>
             </h1>
 
             {/* Sous-titre accroche */}
@@ -268,7 +279,7 @@ export default function ServicesPage() {
 
             {/* Boutons d'action : Devis et Marchés Publics */}
             <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-600 text-white shadow-lg hover:shadow-orange-500/30 text-lg">
+              <Button asChild size="lg" className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg hover:shadow-brand-orange/30 text-lg">
                 <Link href="/contact">
                   Demander mon devis gratuit →
                 </Link>
@@ -310,7 +321,7 @@ export default function ServicesPage() {
             {servicesData.map((service) => (
               <Card
                 key={service.id}
-                className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full overflow-hidden"
+                className="hover:shadow-xl transition-all duration-400 hover:-translate-y-0.5 flex flex-col h-full overflow-hidden"
               >
                 {/* Image avec tag de catégorie */}
                 <div className="h-48 overflow-hidden relative">
@@ -321,7 +332,7 @@ export default function ServicesPage() {
                   />
                   <div className="absolute bottom-0 left-0">
                     <Badge
-                      className={`${service.tagColor} text-white border-0 rounded-tr-lg rounded-bl-none`}
+                      className={`${service.tagColor} border-0 rounded-tr-lg rounded-bl-none`}
                     >
                       {service.tag}
                     </Badge>
@@ -333,7 +344,7 @@ export default function ServicesPage() {
                   <CardTitle className="text-xl mb-2">
                     {service.title}
                   </CardTitle>
-                  <CardDescription className="text-amber-500 font-medium text-sm mb-4">
+                  <CardDescription className="text-brand-orange font-medium text-sm mb-4">
                     {service.accroche}
                   </CardDescription>
                 </CardHeader>
@@ -343,7 +354,7 @@ export default function ServicesPage() {
                   <ul className="text-sm text-slate-600 space-y-2 mb-6 flex-1">
                     {service.points.map((point, index) => (
                       <li key={index} className="flex items-start">
-                        <span className="text-green-500 mt-1 mr-2">✓</span>
+                        <span className="text-status-success mt-1 mr-2">✓</span>
                         {point}
                       </li>
                     ))}
@@ -352,7 +363,7 @@ export default function ServicesPage() {
 
                 {/* Lien vers la page détaillée */}
                 <CardFooter className="mt-auto pt-4 border-t">
-                  <Button asChild variant="link" className="text-blue-600 font-semibold p-0 h-auto">
+                  <Button asChild variant="link" className="text-brand-blue font-semibold p-0 h-auto">
                     <Link href={service.lien} className="flex justify-between items-center w-full">
                       En savoir plus <span>→</span>
                     </Link>
@@ -379,7 +390,7 @@ export default function ServicesPage() {
           <div className="flex flex-col lg:flex-row items-center gap-12">
             {/* Colonne texte */}
             <div className="lg:w-1/2">
-              <Badge className="bg-blue-600 text-white border-0 mb-4 uppercase">
+              <Badge className="badge-primary border-0 mb-4 uppercase">
                 Espace Professionnel
               </Badge>
               <h2 className="text-3xl md:text-4xl font-bold mb-6">
@@ -395,7 +406,7 @@ export default function ServicesPage() {
               <ul className="space-y-4 mb-8">
                 {marchesPublicsAvantages.map((avantage, index) => (
                   <li key={index} className="flex items-start">
-                    <div className="bg-blue-500/20 p-2 rounded-full mr-4 text-blue-400 text-xl">
+                    <div className="bg-brand-blue/20 p-2 rounded-full mr-4 text-brand-blue-light text-xl">
                       {avantage.icone}
                     </div>
                     <div>
@@ -412,7 +423,7 @@ export default function ServicesPage() {
               <Button asChild size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
                 <Link href="/marches-publics">
                   Accéder à l'Espace Marchés Publics
-                  <span className="ml-2 text-blue-600">→</span>
+                  <span className="ml-2 text-brand-blue">→</span>
                 </Link>
               </Button>
             </div>
@@ -457,7 +468,7 @@ export default function ServicesPage() {
                   <div
                     className={`w-16 h-16 mx-auto ${
                       etape.actif
-                        ? "bg-blue-600 text-white"
+                        ? "bg-brand-blue text-white"
                         : "bg-slate-200 text-slate-600"
                     } rounded-full flex items-center justify-center text-xl font-bold mb-4 shadow-lg border-4 border-white`}
                   >
@@ -467,7 +478,7 @@ export default function ServicesPage() {
                   <CardDescription className="text-sm">{etape.description}</CardDescription>
                   {/* Badge spécial si présent */}
                   {etape.badge && (
-                    <Badge className="mt-2 bg-green-100 text-green-700 border-0">
+                    <Badge className="mt-2 badge-success-light border-0">
                       {etape.badge}
                     </Badge>
                   )}
@@ -494,7 +505,7 @@ export default function ServicesPage() {
                 Interventions récentes à Strasbourg, Illkirch, Schiltigheim...
               </p>
             </div>
-            <Button asChild variant="link" className="hidden md:inline-flex text-blue-600 font-bold">
+            <Button asChild variant="link" className="hidden md:inline-flex text-brand-blue font-bold">
               <Link href="/realisations">
                 Voir toutes les réalisations →
               </Link>
@@ -515,7 +526,7 @@ export default function ServicesPage() {
                 />
                 {/* Overlay avec informations du projet */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-                  <span className="text-amber-500 text-xs font-bold uppercase mb-1">
+                  <span className="text-brand-orange text-xs font-bold uppercase mb-1">
                     {projet.lieu}
                   </span>
                   <h3 className="text-white font-bold text-lg">{projet.titre}</h3>
@@ -529,7 +540,7 @@ export default function ServicesPage() {
 
           {/* Lien mobile vers toutes les réalisations */}
           <div className="mt-8 text-center md:hidden">
-            <Button asChild variant="link" className="text-blue-600 font-bold">
+            <Button asChild variant="link" className="text-brand-blue font-bold">
               <Link href="/realisations">
                 Voir toutes les réalisations →
               </Link>
@@ -553,7 +564,7 @@ export default function ServicesPage() {
               <div className="space-y-6">
                 {raisonsChoisir.map((raison, index) => (
                   <div key={index} className="flex">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-500 text-xl mr-4">
+                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-brand-orange/10 flex items-center justify-center text-brand-orange text-xl mr-4">
                       {raison.icone}
                     </div>
                     <div>
@@ -576,7 +587,7 @@ export default function ServicesPage() {
                   >
                     <summary className="flex justify-between items-center font-medium list-none">
                       <span>{item.question}</span>
-                      <span className="transition group-open:rotate-180 text-blue-600">
+                      <span className="transition group-open:rotate-180 text-brand-blue">
                         ▼
                       </span>
                     </summary>
@@ -609,7 +620,7 @@ export default function ServicesPage() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"

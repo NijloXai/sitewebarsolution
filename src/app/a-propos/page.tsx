@@ -22,6 +22,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CtaBlock from "@/components/CtaBlock";
+import GridScan from "@/components/GridScan";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
@@ -225,14 +226,24 @@ export default function PageAPropos() {
             Montre immédiatement les certifications et l'activité principale
             ============================================ */}
         <section className="relative bg-slate-900 overflow-hidden">
-          {/* Image de fond avec overlay pour la lisibilité du texte */}
+          {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
-            <img
-              className="w-full h-full object-cover opacity-40"
-              src="https://placehold.co/1920x1080?text=Chantier+Rénovation+Strasbourg+Haute+Qualité"
-              alt="Rénovation intérieur Strasbourg"
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent" />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
 
           {/* Contenu du hero */}
@@ -372,7 +383,7 @@ export default function PageAPropos() {
                 >
                   {/* Badge RGE si applicable */}
                   {expertise.badge && (
-                    <Badge className="absolute top-0 right-0 bg-brand-orange text-white rounded-bl">
+                    <Badge className="absolute top-0 right-0 badge-accent rounded-bl">
                       {expertise.badge}
                     </Badge>
                   )}
@@ -382,10 +393,10 @@ export default function PageAPropos() {
                   <div
                     className={`w-12 h-12 rounded-full flex items-center justify-center mb-6 ${
                       expertise.iconeColor === "orange"
-                        ? "bg-orange-100 text-brand-orange"
+                        ? "bg-brand-orange/10 text-brand-orange"
                         : expertise.iconeColor === "green"
-                        ? "bg-green-100 text-green-600"
-                        : "bg-blue-100 text-brand-blue"
+                        ? "bg-status-success/10 text-status-success-dark"
+                        : "bg-brand-blue/10 text-brand-blue"
                     }`}
                   >
                     {expertise.iconeColor === "orange" ? (
@@ -496,7 +507,7 @@ export default function PageAPropos() {
                 <ul className="space-y-4 mb-8">
                   {avantagesMarchesPublics.map((avantage) => (
                     <li key={avantage.titre} className="flex items-start">
-                      <div className="flex-shrink-0 w-6 h-6 bg-green-100 rounded-full flex items-center justify-center mt-1 mr-3 text-green-600">
+                      <div className="flex-shrink-0 w-6 h-6 bg-status-success/10 rounded-full flex items-center justify-center mt-1 mr-3 text-status-success-dark">
                         ✓
                       </div>
                       <div>
@@ -514,7 +525,7 @@ export default function PageAPropos() {
                 {/* CTA email */}
                 <a
                   href="mailto:contact@ar-solution.fr"
-                  className="inline-block w-full text-center bg-brand-blue hover:bg-blue-800 text-white font-bold py-3 px-6 rounded transition"
+                  className="inline-block w-full text-center bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-3 px-6 rounded transition"
                 >
                   Contacter le service Appels d&apos;Offres
                 </a>
@@ -532,7 +543,7 @@ export default function PageAPropos() {
                 </p>
 
                 {/* Liste des points forts */}
-                <div className="space-y-4 border-l-4 border-brand-orange pl-6 py-2 bg-orange-50/50 rounded-r-lg">
+                <div className="space-y-4 border-l-4 border-brand-orange pl-6 py-2 bg-brand-orange/10 rounded-r-lg">
                   {avantagesParticuliers.map((avantage) => (
                     <p key={avantage.numero} className="text-gray-800">
                       <strong>
@@ -748,7 +759,7 @@ export default function PageAPropos() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile pour appeler ou demander un devis
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"

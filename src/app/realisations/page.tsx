@@ -19,6 +19,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import CtaBlock from "@/components/CtaBlock";
 import Footer from "@/components/Footer";
+import GridScan from "@/components/GridScan";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -165,14 +166,24 @@ export default function PageRealisations() {
             L'utilisateur comprend immédiatement qu'il s'agit du portfolio
             ============================================ */}
         <section className="relative bg-slate-900 overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24">
-          {/* Image de fond avec overlay pour la lisibilité */}
+          {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
-            <img
-              className="w-full h-full object-cover opacity-30"
-              src="https://placehold.co/1920x800?text=Chantier+Renovation+Strasbourg+Avant+Apres"
-              alt="Rénovation intérieure Alsace"
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-slate-900/60" />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
 
           {/* Contenu du hero */}
@@ -558,7 +569,7 @@ export default function PageRealisations() {
                 <ul className="space-y-4 mb-8">
                   <li className="flex items-start">
                     <svg
-                      className="w-6 h-6 text-green-500 mt-0.5 mr-3 flex-shrink-0"
+                      className="w-6 h-6 text-status-success mt-0.5 mr-3 flex-shrink-0"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -581,7 +592,7 @@ export default function PageRealisations() {
                   </li>
                   <li className="flex items-start">
                     <svg
-                      className="w-6 h-6 text-green-500 mt-0.5 mr-3 flex-shrink-0"
+                      className="w-6 h-6 text-status-success mt-0.5 mr-3 flex-shrink-0"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -604,7 +615,7 @@ export default function PageRealisations() {
                   </li>
                   <li className="flex items-start">
                     <svg
-                      className="w-6 h-6 text-green-500 mt-0.5 mr-3 flex-shrink-0"
+                      className="w-6 h-6 text-status-success mt-0.5 mr-3 flex-shrink-0"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
@@ -628,7 +639,7 @@ export default function PageRealisations() {
                 </ul>
 
                 {/* CTA vers page Marchés Publics */}
-                <Button asChild className="bg-brand-blue hover:bg-blue-800 text-white shadow-md">
+                <Button asChild className="bg-brand-blue hover:bg-brand-blue-dark text-white shadow-md">
                   <Link href="/marches-publics">
                     Contacter notre référent Marchés Publics
                     <svg
@@ -810,7 +821,7 @@ export default function PageRealisations() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"

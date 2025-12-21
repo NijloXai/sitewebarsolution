@@ -26,6 +26,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TrustBar from "@/components/TrustBar";
+import GridScan from "@/components/GridScan";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -208,23 +209,33 @@ export default function PageServiceAmenagement() {
             HERO SECTION - La promesse peinture/aménagement
             L'utilisateur comprend immédiatement le service et peut demander un devis
             ============================================ */}
-        <section className="relative bg-slate-900 min-h-[85vh] flex items-center overflow-hidden">
-          {/* Image de fond avec overlay pour la lisibilité du texte */}
+        <section className="relative bg-slate-900 overflow-hidden">
+          {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
-            <img
-              className="w-full h-full object-cover opacity-50"
-              src="https://placehold.co/1920x1080/1e293b/FFF?text=Interieur+Qualitatif+Mur+Terracotta"
-              alt="Peinture intérieure salon Strasbourg"
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent" />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
 
           {/* Contenu du hero */}
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40">
             <div className="max-w-3xl">
               {/* Badge Argument Santé */}
               <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30 uppercase tracking-wide">
+                <Badge variant="outline" className="badge-success-light border-status-success/30 uppercase tracking-wide">
                   <svg
                     className="w-4 h-4 mr-1"
                     fill="currentColor"
@@ -323,7 +334,7 @@ export default function PageServiceAmenagement() {
             {/* Sous-section Résidentiel */}
             <div className="mb-16">
               <h3 className="text-xl font-bold text-slate-800 mb-6 text-center">
-                <span className="bg-blue-100 text-brand-blue px-4 py-2 rounded-full">
+                <span className="bg-brand-blue/10 text-brand-blue px-4 py-2 rounded-full">
                   Résidentiel (Déco)
                 </span>
               </h3>
@@ -333,7 +344,7 @@ export default function PageServiceAmenagement() {
                     key={prestation.id}
                     className={`${
                       prestation.badge
-                        ? "bg-orange-50 border-orange-100"
+                        ? "bg-brand-orange/10 border-brand-orange/20"
                         : ""
                     } hover:shadow-lg transition duration-300 relative overflow-hidden`}
                   >
@@ -341,7 +352,7 @@ export default function PageServiceAmenagement() {
                       {/* Badge optionnel */}
                       {prestation.badge && (
                         <div className="absolute top-0 right-0">
-                          <Badge className="bg-orange-200 text-orange-800 text-xs font-bold rounded-bl">
+                          <Badge className="badge-accent-light text-xs font-bold rounded-bl">
                             {prestation.badge}
                           </Badge>
                         </div>
@@ -351,8 +362,8 @@ export default function PageServiceAmenagement() {
                     <div
                       className={`h-14 w-14 ${
                         prestation.iconeColor === "orange"
-                          ? "bg-orange-100 text-brand-orange"
-                          : "bg-blue-100 text-brand-blue"
+                          ? "bg-brand-orange/10 text-brand-orange"
+                          : "bg-brand-blue/10 text-brand-blue"
                       } rounded-lg flex items-center justify-center mb-6`}
                     >
                       {prestation.id === "deco" && (
@@ -414,7 +425,7 @@ export default function PageServiceAmenagement() {
                     {prestation.lien && (
                       <Link
                         href={prestation.lien}
-                        className="inline-flex items-center text-orange-700 font-bold hover:text-orange-800 transition"
+                        className="inline-flex items-center text-brand-orange-dark font-bold hover:text-brand-orange transition"
                       >
                         {prestation.lienTexte}
                         <svg
@@ -453,7 +464,7 @@ export default function PageServiceAmenagement() {
                   >
                     <CardContent className="p-8">
                     {/* Icône de la prestation */}
-                    <div className="h-14 w-14 bg-blue-100 text-brand-blue rounded-lg flex items-center justify-center mb-6">
+                    <div className="h-14 w-14 bg-brand-blue/10 text-brand-blue rounded-lg flex items-center justify-center mb-6">
                       {prestation.id === "airless" && (
                         <svg
                           className="w-8 h-8"
@@ -581,7 +592,7 @@ export default function PageServiceAmenagement() {
                 <ul className="space-y-4">
                   {etapesProtection.map((etape) => (
                     <li key={etape.titre} className="flex items-start">
-                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-green-100 text-green-600 flex items-center justify-center mt-1 mr-4">
+                      <div className="flex-shrink-0 w-6 h-6 rounded-full bg-status-success/10 text-status-success-dark flex items-center justify-center mt-1 mr-4">
                         <svg
                           className="w-4 h-4"
                           fill="none"
@@ -630,7 +641,7 @@ export default function PageServiceAmenagement() {
               </div>
               <Link
                 href="/realisations"
-                className="hidden md:inline-flex items-center text-brand-orange font-semibold hover:text-orange-400 mt-4 md:mt-0"
+                className="hidden md:inline-flex items-center text-brand-orange font-semibold hover:text-brand-orange-light mt-4 md:mt-0"
               >
                 Voir tous les chantiers
                 <svg
@@ -684,7 +695,7 @@ export default function PageServiceAmenagement() {
             <div className="mt-8 text-center md:hidden">
               <Link
                 href="/realisations"
-                className="text-brand-orange font-semibold hover:text-orange-400"
+                className="text-brand-orange font-semibold hover:text-brand-orange-light"
               >
                 Voir tous les chantiers →
               </Link>
@@ -802,7 +813,7 @@ export default function PageServiceAmenagement() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"

@@ -25,6 +25,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TrustBar from "@/components/TrustBar";
+import GridScan from "@/components/GridScan";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -195,14 +196,24 @@ export default function PageServiceEnduitsFinitions() {
             L'utilisateur comprend immédiatement le service et peut demander un devis
             ============================================ */}
         <section className="relative bg-slate-900 overflow-hidden min-h-[650px] flex items-center">
-          {/* Image de fond avec overlay pour la lisibilité du texte */}
+          {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
-            <img
-              className="w-full h-full object-cover opacity-30"
-              src="https://placehold.co/1920x1080/cbd5e1/1e293b?text=Macro+Mur+Blanc+Lisse+Lumiere+Rasante"
-              alt="Finition enduit Q4 lumière rasante Strasbourg Alsace"
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent" />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
 
           {/* Contenu du hero */}
@@ -210,7 +221,7 @@ export default function PageServiceEnduitsFinitions() {
             <div className="max-w-3xl">
               {/* Badges RGE et intervention site occupé */}
               <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30 uppercase tracking-wide">
+                <Badge variant="outline" className="badge-success-light border-status-success/30 uppercase tracking-wide">
                   <svg
                     className="w-3 h-3 mr-1"
                     fill="currentColor"
@@ -247,7 +258,7 @@ export default function PageServiceEnduitsFinitions() {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-brand-orange hover:bg-orange-600 text-white shadow-lg"
+                  className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg"
                 >
                   <a href="#devis">Demander un chiffrage (48h)</a>
                 </Button>
@@ -303,7 +314,7 @@ export default function PageServiceEnduitsFinitions() {
                 <ul className="space-y-4">
                   {etapesPreparation.map((etape) => (
                     <li key={etape.numero} className="flex items-start">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-brand-blue mt-1 font-bold">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue mt-1 font-bold">
                         {etape.numero}
                       </div>
                       <div className="ml-4">
@@ -373,8 +384,8 @@ export default function PageServiceEnduitsFinitions() {
                           : solution.iconeColor === "orange"
                           ? "group-hover:bg-brand-orange"
                           : solution.iconeColor === "purple"
-                          ? "group-hover:bg-purple-600"
-                          : "group-hover:bg-green-600"
+                          ? "group-hover:bg-status-warning"
+                          : "group-hover:bg-status-success"
                       }`}
                     >
                       <svg
@@ -384,8 +395,8 @@ export default function PageServiceEnduitsFinitions() {
                             : solution.iconeColor === "orange"
                             ? "text-brand-orange group-hover:text-white"
                             : solution.iconeColor === "purple"
-                            ? "text-purple-600 group-hover:text-white"
-                            : "text-green-600 group-hover:text-white"
+                            ? "text-status-warning group-hover:text-white"
+                            : "text-status-success group-hover:text-white"
                         }`}
                         fill="none"
                         stroke="currentColor"
@@ -440,12 +451,12 @@ export default function PageServiceEnduitsFinitions() {
                         variant="secondary"
                         className={`text-xs font-semibold ${
                           solution.badgeColor === "blue"
-                            ? "text-brand-blue bg-blue-50"
+                            ? "badge-primary-light"
                             : solution.badgeColor === "orange"
-                            ? "text-brand-orange bg-orange-50"
+                            ? "badge-accent-light"
                             : solution.badgeColor === "purple"
-                            ? "text-purple-600 bg-purple-50"
-                            : "text-green-600 bg-green-50"
+                            ? "badge-warning-light"
+                            : "badge-success-light"
                         }`}
                       >
                         {solution.badge}
@@ -481,7 +492,7 @@ export default function PageServiceEnduitsFinitions() {
                   <br />
                   En site occupé ou vide.
                 </h2>
-                <p className="text-blue-100 text-lg mb-8 leading-relaxed">
+                <p className="text-white/90 text-lg mb-8 leading-relaxed">
                   L&apos;enduit effraie souvent pour une raison : la poussière.
                   Nous avons investi dans un parc machine Festool® dernière
                   génération pour garantir une intervention quasi-chirurgicale.
@@ -528,7 +539,7 @@ export default function PageServiceEnduitsFinitions() {
                       </div>
                       <div className="ml-4">
                         <h3 className="text-xl font-bold">{point.titre}</h3>
-                        <p className="text-blue-200">{point.description}</p>
+                        <p className="text-white/80">{point.description}</p>
                       </div>
                     </div>
                   ))}
@@ -584,7 +595,7 @@ export default function PageServiceEnduitsFinitions() {
                     />
                     {/* Badge type de projet */}
                     <div className="absolute top-4 right-4">
-                      <Badge className="bg-brand-orange text-white uppercase">
+                      <Badge className="badge-accent uppercase">
                         {projet.type}
                       </Badge>
                     </div>
@@ -758,7 +769,7 @@ export default function PageServiceEnduitsFinitions() {
             <Button
               asChild
               size="lg"
-              className="bg-brand-orange hover:bg-orange-600 text-white text-xl font-bold shadow-lg"
+              className="bg-brand-orange hover:bg-brand-orange-dark text-white text-xl font-bold shadow-lg"
             >
               <Link href="/contact">Obtenir mon devis maintenant</Link>
             </Button>
@@ -792,7 +803,7 @@ export default function PageServiceEnduitsFinitions() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"

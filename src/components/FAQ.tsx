@@ -23,17 +23,17 @@ const faqItems = [
 
 export function FAQ() {
   return (
-    <Accordion type="single" collapsible className="space-y-4">
+    <Accordion type="single" collapsible className="space-y-3 sm:space-y-4">
       {faqItems.map((item, index) => (
         <AccordionItem
           key={index}
           value={`item-${index}`}
-          className="bg-white rounded-lg shadow-sm px-4"
+          className="bg-white rounded-xl border border-gray-200/60 shadow-md hover:shadow-lg hover:shadow-brand-orange/10 transition-all duration-300 ease-in-out hover:-translate-y-0.5 focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 focus-within:ring-opacity-50 focus-within:outline-none px-4 sm:px-6 py-2"
         >
-          <AccordionTrigger className="font-medium">
+          <AccordionTrigger className="font-semibold text-brand-blue hover:text-brand-orange transition-colors duration-300 ease-in-out text-left py-4 sm:py-5">
             {item.question}
           </AccordionTrigger>
-          <AccordionContent className="text-muted-foreground text-sm">
+          <AccordionContent className="text-gray-600 text-sm sm:text-base leading-relaxed pb-4 sm:pb-5 pt-0">
             {item.reponse}
           </AccordionContent>
         </AccordionItem>
@@ -41,4 +41,5 @@ export function FAQ() {
     </Accordion>
   );
 }
+
 

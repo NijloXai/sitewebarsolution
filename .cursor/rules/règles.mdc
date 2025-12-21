@@ -1,5 +1,5 @@
 ---
-alwaysApply: false
+alwaysApply: true
 ---
 ## 0. Principe général pour Cursor
 
@@ -8,7 +8,6 @@ Quand tu modifies ou ajoutes du code dans ce projet :
 - Suis **toujours** les règles ci-dessous, même si le code existant ne les respecte pas.
 - Objectif : produire un code **professionnel**, propre, maintenable, cohérent, et facile à faire évoluer.
 - La lisibilité est importante, mais **on ne cherche pas à “simplifier à tout prix”** : on vise la **meilleure manière** de faire, comme un développeur expérimenté (structure claire, bons noms, séparation logique, qualité du code).
-
 ---
 
 ## 1. Commentaires (PRIORITÉ ABSOLUE)

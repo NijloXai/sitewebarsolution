@@ -19,6 +19,7 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import GridScan from "@/components/GridScan";
 import { Button } from "@/components/ui/button";
 
 /* ============================================
@@ -168,17 +169,37 @@ export default function PageFicheProjet() {
             SECTION 1 : HERO HEADER
             Présente le projet avec titre, badges, et slider avant/après
             ============================================ */}
-        <section className="relative bg-white pt-12 pb-16 lg:pt-20 lg:pb-24 overflow-hidden">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <section className="relative bg-slate-900 pt-12 pb-16 lg:pt-20 lg:pb-24 overflow-hidden">
+          {/* Animation 3D GridScan en arrière-plan */}
+          <div className="absolute inset-0">
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
+            />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
+          </div>
+
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Fil d'Ariane (Breadcrumb) pour le SEO et la navigation */}
-            <nav className="text-sm text-gray-500 mb-6 flex items-center gap-2">
-              <Link href="/realisations" className="hover:text-brand-blue">
+            <nav className="text-sm text-gray-400 mb-6 flex items-center gap-2">
+              <Link href="/realisations" className="hover:text-brand-orange text-gray-300">
                 Réalisations
               </Link>
-              <span className="text-gray-300">/</span>
-              <span>{projet.categorie}</span>
-              <span className="text-gray-300">/</span>
-              <span className="text-brand-blue font-medium">
+              <span className="text-gray-500">/</span>
+              <span className="text-gray-300">{projet.categorie}</span>
+              <span className="text-gray-500">/</span>
+              <span className="text-brand-orange font-medium">
                 {projet.titre.split(" ").slice(0, 3).join(" ")}...
               </span>
             </nav>
@@ -189,7 +210,7 @@ export default function PageFicheProjet() {
                 {/* Tags / Badges du projet */}
                 <div className="flex flex-wrap gap-2 mb-6">
                   {/* Badge catégorie (Marché Public / Particulier) */}
-                  <span className="bg-brand-blue/10 text-brand-blue text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
+                  <span className="bg-brand-blue/20 text-brand-blue border border-brand-blue/30 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide">
                     {projet.categorie}
                   </span>
 
@@ -197,14 +218,14 @@ export default function PageFicheProjet() {
                   {projet.metiers.map((metier) => (
                     <span
                       key={metier}
-                      className="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide"
+                      className="bg-white/10 text-white border border-white/20 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide"
                     >
                       {metier}
                     </span>
                   ))}
 
                   {/* Badge localisation */}
-                  <span className="bg-gray-100 text-gray-700 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide flex items-center">
+                  <span className="bg-white/10 text-white border border-white/20 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide flex items-center">
                     <svg
                       className="w-3 h-3 mr-1"
                       fill="none"
@@ -229,12 +250,12 @@ export default function PageFicheProjet() {
                 </div>
 
                 {/* Titre principal H1 (SEO Local) */}
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-6">
+                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white leading-tight mb-6">
                   {projet.titre}
                 </h1>
 
                 {/* Sous-titre descriptif du résultat */}
-                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                <p className="text-lg text-gray-300 mb-8 leading-relaxed">
                   {projet.sousTitre}
                 </p>
 
@@ -242,7 +263,7 @@ export default function PageFicheProjet() {
                 <div className="hidden lg:flex gap-4">
                   <Link
                     href="/contact"
-                    className="bg-brand-blue hover:bg-blue-800 text-white font-bold py-3 px-8 rounded shadow-lg transition duration-300 transform hover:-translate-y-1"
+                    className="bg-brand-blue hover:bg-brand-blue-dark text-white font-bold py-3 px-8 rounded shadow-lg transition duration-300 transform hover:-translate-y-1"
                   >
                     Demander un devis similaire
                   </Link>
@@ -298,7 +319,7 @@ export default function PageFicheProjet() {
                   </div>
                 </div>
 
-                <p className="text-center text-xs text-gray-500 mt-2 italic">
+                <p className="text-center text-xs text-gray-400 mt-2 italic">
                   Glissez le curseur pour voir la transformation
                 </p>
               </div>
@@ -469,7 +490,7 @@ export default function PageFicheProjet() {
                       {/* Pastille numéro */}
                       <div
                         className={`w-8 h-8 ${
-                          etape.estFinal ? "bg-green-500" : "bg-brand-blue"
+                          etape.estFinal ? "bg-status-success" : "bg-brand-blue"
                         } rounded-full border-4 border-white z-10 flex items-center justify-center shadow`}
                       >
                         {etape.estFinal ? (
@@ -500,7 +521,7 @@ export default function PageFicheProjet() {
                       {/* Pastille numéro */}
                       <div
                         className={`w-8 h-8 ${
-                          etape.estFinal ? "bg-green-500" : "bg-brand-blue"
+                          etape.estFinal ? "bg-status-success" : "bg-brand-blue"
                         } rounded-full border-4 border-white z-10 flex items-center justify-center shadow`}
                       >
                         {etape.estFinal ? (
@@ -723,7 +744,7 @@ export default function PageFicheProjet() {
             {/* Bouton CTA principal */}
             <Link
               href="/contact"
-              className="inline-block bg-brand-orange hover:bg-orange-500 text-white font-bold py-4 px-10 rounded shadow-lg text-lg transition transform hover:scale-105"
+              className="inline-block bg-brand-orange hover:bg-brand-orange-dark text-white font-bold py-4 px-10 rounded shadow-lg text-lg transition transform hover:scale-105"
             >
               Demander une estimation gratuite
             </Link>
@@ -741,7 +762,7 @@ export default function PageFicheProjet() {
           BARRE STICKY MOBILE
           Visible uniquement sur mobile pour un accès rapide au contact
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"

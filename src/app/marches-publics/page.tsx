@@ -24,6 +24,7 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import GridScan from "@/components/GridScan";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -105,19 +106,19 @@ const referencesPubliques = [
     titre: "École Maternelle - Strasbourg",
     type: "Éducation",
     description: "Isolation phonique & Faux plafonds • 4 semaines",
-    couleurBadge: "bg-orange-500",
+    couleurBadge: "badge-accent",
   },
   {
     titre: "Hôtel de Ville - Sélestat",
     type: "Administration",
     description: "Cloisons modulaires & Peinture • Site occupé",
-    couleurBadge: "bg-slate-800",
+    couleurBadge: "badge-primary",
   },
   {
     titre: "Complexe Sportif - Illkirch",
     type: "Sport & Loisirs",
     description: "Isolation thermique par l'intérieur • RGE",
-    couleurBadge: "bg-orange-500",
+    couleurBadge: "badge-accent",
   },
 ];
 
@@ -209,25 +210,29 @@ export default function MarchesPublicsPage() {
           HERO - Section d'accroche pour les acheteurs publics
           Affiche les badges de confiance et le message principal
           ============================================ */}
-      <section className="relative flex min-h-[600px] items-center bg-slate-900 mt-20">
-        {/* Fond décoratif - motif géométrique évoquant un chantier */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-          {/* Motif de grille évoquant un plan de construction */}
-          <div 
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: `
-                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-              `,
-              backgroundSize: '40px 40px'
-            }}
+      <section className="relative bg-slate-900 overflow-hidden mt-20">
+        {/* Animation 3D GridScan en arrière-plan */}
+        <div className="absolute inset-0">
+          <GridScan
+            sensitivity={0.55}
+            lineThickness={1}
+            linesColor="#1e3a5f"
+            gridScale={0.1}
+            scanColor="#f97316"
+            scanOpacity={0.5}
+            enablePost
+            bloomIntensity={0.6}
+            chromaticAberration={0.002}
+            noiseIntensity={0.01}
+            scanDuration={3.0}
+            scanDelay={1.5}
           />
-          {/* Accent orange subtil */}
-          <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-to-tl from-orange-500/10 to-transparent" />
+          {/* Overlay gradient pour améliorer la lisibilité du texte */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
         </div>
 
-        <div className="container relative z-10 mx-auto px-4 pt-10">
+        {/* Contenu du hero */}
+        <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40">
           <div className="max-w-3xl text-white">
             {/* Badges de réassurance - certifications clés visibles immédiatement */}
             <div className="mb-6 flex flex-wrap gap-3">
@@ -237,7 +242,7 @@ export default function MarchesPublicsPage() {
                   variant="outline"
                   className="border-white/20 bg-white/10 text-white backdrop-blur"
                 >
-                  <span className="text-green-400">{badge.icon}</span> {badge.label}
+                  <span className="text-status-success-light">{badge.icon}</span> {badge.label}
                 </Badge>
               ))}
             </div>
@@ -246,7 +251,7 @@ export default function MarchesPublicsPage() {
             <h1 className="mb-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
               Travaux de plâtrerie, isolation & finitions
               <br />
-              <span className="text-orange-500">Marchés publics Strasbourg / Alsace</span>
+              <span className="text-brand-orange">Marchés publics Strasbourg / Alsace</span>
             </h1>
 
             {/* Proposition de valeur - ce qui différencie l'entreprise */}
@@ -258,7 +263,7 @@ export default function MarchesPublicsPage() {
 
             {/* Boutons d'action principaux */}
             <div className="flex flex-col gap-4 sm:flex-row">
-              <Button asChild size="lg" className="bg-orange-500 hover:bg-orange-600 text-white shadow-lg">
+              <Button asChild size="lg" className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg">
                 <a href="#contact">Contacter pour un marché public</a>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-white/30 bg-white/10 text-white backdrop-blur hover:bg-white/20">
@@ -280,14 +285,14 @@ export default function MarchesPublicsPage() {
               <li key={section.id}>
                 <a
                   href={`#${section.id}`}
-                  className="border-b-2 border-transparent pb-1 transition hover:border-orange-500 hover:text-slate-900"
+                  className="border-b-2 border-transparent pb-1 transition hover:border-brand-orange hover:text-slate-900"
                 >
                   {section.label}
                 </a>
               </li>
             ))}
             <li className="ml-auto">
-              <a href="#contact" className="font-bold text-orange-500">
+              <a href="#contact" className="font-bold text-brand-orange">
                 Demander un chiffrage →
               </a>
             </li>
@@ -322,7 +327,7 @@ export default function MarchesPublicsPage() {
                 >
                   <CardContent className="p-8">
                   {/* Icône du lot */}
-                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-white text-2xl text-orange-500 shadow-sm transition group-hover:bg-orange-500 group-hover:text-white">
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-white text-2xl text-brand-orange shadow-sm transition group-hover:bg-brand-orange group-hover:text-white">
                     {lot.icon}
                   </div>
 
@@ -344,7 +349,7 @@ export default function MarchesPublicsPage() {
             <div className="mt-12 text-center">
               <a
                 href="#contact"
-                className="inline-flex items-center font-bold text-slate-900 transition hover:text-orange-500"
+                className="inline-flex items-center font-bold text-slate-900 transition hover:text-brand-orange"
               >
                 Demander un chiffrage pour un lot →
               </a>
@@ -368,7 +373,7 @@ export default function MarchesPublicsPage() {
               </div>
               <Link
                 href="/realisations"
-                className="mt-4 hidden font-semibold text-orange-500 hover:underline md:mt-0 md:inline-block"
+                className="mt-4 hidden font-semibold text-brand-orange hover:underline md:mt-0 md:inline-block"
               >
                 Voir tout le portfolio
               </Link>
@@ -390,7 +395,7 @@ export default function MarchesPublicsPage() {
 
                   {/* Overlay avec informations du projet */}
                   <div className="absolute inset-0 flex flex-col justify-end bg-gradient-to-t from-black/80 to-transparent p-6">
-                    <Badge className={`mb-2 w-fit ${ref.couleurBadge} text-white`}>
+                    <Badge className={`mb-2 w-fit ${ref.couleurBadge}`}>
                       {ref.type}
                     </Badge>
                     <CardTitle className="text-lg text-white">{ref.titre}</CardTitle>
@@ -404,7 +409,7 @@ export default function MarchesPublicsPage() {
             <div className="mt-8 text-center md:hidden">
               <Link
                 href="/realisations"
-                className="font-semibold text-orange-500 hover:underline"
+                className="font-semibold text-brand-orange hover:underline"
               >
                 Voir toutes les références
               </Link>
@@ -500,7 +505,7 @@ export default function MarchesPublicsPage() {
                       variant="outline"
                       className="border-slate-200 bg-slate-50 text-slate-700"
                     >
-                      <span className="text-orange-500">{garantie.icon}</span> {garantie.label}
+                      <span className="text-brand-orange">{garantie.icon}</span> {garantie.label}
                     </Badge>
                   ))}
                 </div>
@@ -588,7 +593,7 @@ export default function MarchesPublicsPage() {
 
                 {/* Carte du chargé d'affaires */}
                 <div className="mb-8 flex items-center gap-6">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-orange-500 bg-slate-700 text-sm text-slate-400">
+                  <div className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-brand-orange bg-slate-700 text-sm text-slate-400">
                     [Photo]
                   </div>
                   <div>
@@ -596,7 +601,7 @@ export default function MarchesPublicsPage() {
                     <p className="text-sm text-slate-400">Responsable Marchés Publics</p>
                     <a
                       href="tel:0388000000"
-                      className="mt-2 block text-xl font-bold text-orange-500 transition hover:text-white"
+                      className="mt-2 block text-xl font-bold text-brand-orange transition hover:text-white"
                     >
                       03 88 00 00 00
                     </a>
@@ -623,7 +628,7 @@ export default function MarchesPublicsPage() {
                         <Input
                           type="text"
                           placeholder="Mairie, École..."
-                          className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500"
+                          className="bg-slate-50 focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                         />
                       </div>
                       <div className="space-y-2">
@@ -633,7 +638,7 @@ export default function MarchesPublicsPage() {
                         <Input
                           type="text"
                           placeholder="Votre nom"
-                          className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500"
+                          className="bg-slate-50 focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                         />
                       </div>
                     </div>
@@ -647,7 +652,7 @@ export default function MarchesPublicsPage() {
                         <Input
                           type="email"
                           placeholder="email@organisme.fr"
-                          className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500"
+                          className="bg-slate-50 focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                         />
                       </div>
                       <div className="space-y-2">
@@ -657,7 +662,7 @@ export default function MarchesPublicsPage() {
                         <Input
                           type="tel"
                           placeholder="03 88..."
-                          className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500"
+                          className="bg-slate-50 focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                         />
                       </div>
                     </div>
@@ -668,7 +673,7 @@ export default function MarchesPublicsPage() {
                         Type de demande
                       </Label>
                       <Select>
-                        <SelectTrigger className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500">
+                        <SelectTrigger className="bg-slate-50 focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange">
                           <SelectValue placeholder="Sélectionnez..." />
                         </SelectTrigger>
                         <SelectContent>
@@ -685,7 +690,7 @@ export default function MarchesPublicsPage() {
                     <Button
                       type="submit"
                       size="lg"
-                      className="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold"
+                      className="mt-2 w-full bg-brand-orange hover:bg-brand-orange-dark text-white font-bold"
                     >
                       Envoyer ma demande
                     </Button>
@@ -707,7 +712,7 @@ export default function MarchesPublicsPage() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"

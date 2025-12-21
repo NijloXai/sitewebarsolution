@@ -16,6 +16,7 @@
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import GridScan from "@/components/GridScan";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -155,20 +156,30 @@ export default function PageRessources() {
             Présente le but de la page avec une barre de recherche
             ============================================ */}
         <section className="relative bg-slate-900 text-white py-20 lg:py-28 overflow-hidden">
-          {/* Image de fond avec overlay */}
-          <div className="absolute inset-0 z-0">
-            <img
-              src="https://placehold.co/1920x800?text=Texture+Enduit+ou+Chantier+Propre+Alsace"
-              alt="Fond chantier rénovation"
-              className="w-full h-full object-cover opacity-40"
+          {/* Animation 3D GridScan en arrière-plan */}
+          <div className="absolute inset-0">
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
             />
-            <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 to-slate-900/60" />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
 
           {/* Contenu du hero */}
           <div className="max-w-4xl mx-auto px-4 relative z-10 text-center">
             {/* Badge d'introduction */}
-            <Badge className="bg-orange-600/20 text-orange-400 border-orange-600/30 mb-4">
+            <Badge className="badge-accent-light border-brand-orange/30 mb-4">
               Blog & Expertise Technique
             </Badge>
 
@@ -229,7 +240,7 @@ export default function PageRessources() {
                       categorie.actif
                         ? "bg-slate-900 text-white shadow-sm ring-2 ring-slate-900"
                         : categorie.special
-                        ? "bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100"
+                        ? "bg-brand-blue/10 text-brand-blue border border-brand-blue/20 hover:bg-brand-blue/20"
                         : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                     }`}
                   >
@@ -267,7 +278,7 @@ export default function PageRessources() {
                 className="w-full h-full object-cover"
               />
               {/* Badge "Dossier du Mois" */}
-              <Badge className="absolute top-4 left-4 bg-brand-orange text-white shadow">
+              <Badge className="absolute top-4 left-4 badge-accent shadow">
                 Dossier du Mois
               </Badge>
             </div>
@@ -276,7 +287,7 @@ export default function PageRessources() {
             <CardContent className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
               {/* Métadonnées */}
               <div className="flex items-center space-x-2 mb-4 text-sm text-slate-500 font-medium">
-                <span className="text-blue-700">{articleVedette.categorie}</span>
+                <span className="text-brand-blue">{articleVedette.categorie}</span>
                 <span>•</span>
                 <span>Temps de lecture : {articleVedette.tempsLecture}</span>
               </div>
@@ -355,7 +366,7 @@ export default function PageRessources() {
                     <Badge
                       className={`absolute top-3 left-3 ${
                         article.special
-                          ? "bg-blue-100 text-blue-800"
+                          ? "badge-primary-light"
                           : "bg-white/90 backdrop-blur text-slate-700"
                       }`}
                     >
@@ -369,7 +380,7 @@ export default function PageRessources() {
                     <CardTitle
                       className={`text-xl text-slate-900 mb-3 transition ${
                         article.special
-                          ? "group-hover:text-blue-700"
+                          ? "group-hover:text-brand-blue"
                           : "group-hover:text-brand-orange"
                       }`}
                     >
@@ -389,7 +400,7 @@ export default function PageRessources() {
                       <span
                         className={`text-sm font-semibold group-hover:translate-x-1 transition-transform ${
                           article.special
-                            ? "text-blue-700"
+                            ? "text-brand-blue"
                             : "text-brand-orange"
                         }`}
                       >
@@ -486,7 +497,7 @@ export default function PageRessources() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile pour accès rapide aux CTA
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"

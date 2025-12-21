@@ -21,6 +21,7 @@
 import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import GridScan from "@/components/GridScan";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -118,25 +119,35 @@ export default function PageContact() {
             Colonne gauche : Promesse + Accès contact direct
             Colonne droite : Formulaire intelligent avec switcher
             ============================================ */}
-        <section className="relative bg-gray-50 py-12 lg:py-20 overflow-hidden">
-          {/* Fond décoratif subtil (placeholder) */}
-          <div
-            className="absolute inset-0 z-0 opacity-5"
-            style={{
-              backgroundImage: "url('https://placehold.co/1920x1080?text=Plan+Architecte+BTP')",
-              backgroundSize: "cover",
-              backgroundPosition: "center",
-            }}
-          />
+        <section className="relative bg-slate-900 overflow-hidden">
+          {/* Animation 3D GridScan en arrière-plan */}
+          <div className="absolute inset-0">
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
+            />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
+          </div>
 
-          <div className="container mx-auto px-4 relative z-10">
+          <div className="container mx-auto px-4 relative py-12 lg:py-20 z-10">
             <div className="grid lg:grid-cols-12 gap-12 items-start">
               {/* ============================================
                   COLONNE GAUCHE : Promesse & Contact Direct
                   ============================================ */}
               <div className="lg:col-span-5 flex flex-col justify-center h-full pt-4">
                 {/* Badge certification */}
-                <Badge className="bg-blue-100 text-blue-800 mb-4 w-fit">
+                <Badge className="badge-accent-light border-brand-orange/30 mb-4 w-fit">
                   <svg className="w-4 h-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -144,21 +155,21 @@ export default function PageContact() {
                 </Badge>
 
                 {/* Titre principal */}
-                <h1 className="text-4xl lg:text-5xl font-extrabold text-brand-blue leading-tight mb-6">
+                <h1 className="text-4xl lg:text-5xl font-extrabold text-white leading-tight mb-6">
                   Vos projets de plâtrerie et isolation,{" "}
                   <span className="text-brand-orange">chiffrés avec précision</span>.
                 </h1>
 
                 {/* Sous-titre */}
-                <p className="text-lg text-gray-600 mb-8 leading-relaxed">
+                <p className="text-lg text-gray-300 mb-8 leading-relaxed">
                   Mairies, architectes ou particuliers : obtenez une réponse sous 48h.
                   Basés à Strasbourg, nous intervenons dans tout le Bas-Rhin pour vos
                   travaux de rénovation énergétique et aménagement.
                 </p>
 
                 {/* Bloc "Accès Immédiat" - Contact direct */}
-                <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-8">
-                  <h2 className="text-lg font-bold text-brand-blue mb-4 flex items-center">
+                <div className="bg-white/10 backdrop-blur-sm p-6 rounded-xl shadow-sm border border-white/20 mb-8">
+                  <h2 className="text-lg font-bold text-white mb-4 flex items-center">
                     <svg className="w-5 h-5 text-brand-orange mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
@@ -167,28 +178,28 @@ export default function PageContact() {
                   <div className="space-y-4">
                     {/* Lien téléphone */}
                     <a href="tel:0388000000" className="flex items-center gap-4 group">
-                      <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue group-hover:bg-brand-orange group-hover:text-white transition">
+                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-white group-hover:bg-brand-orange group-hover:text-white transition">
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                         </svg>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Appel direct (Lun-Ven 8h-18h)</p>
-                        <p className="text-xl font-bold text-brand-blue group-hover:text-brand-orange transition">
+                        <p className="text-sm text-gray-300">Appel direct (Lun-Ven 8h-18h)</p>
+                        <p className="text-xl font-bold text-white group-hover:text-brand-orange transition">
                           03 88 00 00 00
                         </p>
                       </div>
                     </a>
                     {/* Lien email */}
                     <a href="mailto:contact@ar-solution.fr" className="flex items-center gap-4 group">
-                      <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue group-hover:bg-brand-orange group-hover:text-white transition">
+                      <div className="w-12 h-12 bg-white/20 rounded-full flex items-center justify-center text-white group-hover:bg-brand-orange group-hover:text-white transition">
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
                       </div>
                       <div>
-                        <p className="text-sm text-gray-500">Service Chiffrage</p>
-                        <p className="text-base font-bold text-brand-blue underline decoration-gray-300 underline-offset-4 group-hover:text-brand-orange transition">
+                        <p className="text-sm text-gray-300">Service Chiffrage</p>
+                        <p className="text-base font-bold text-white underline decoration-gray-400 underline-offset-4 group-hover:text-brand-orange transition">
                           contact@ar-solution.fr
                         </p>
                       </div>
@@ -297,9 +308,9 @@ export default function PageContact() {
 
                     {/* Champs Spécifiques "Marchés Publics" (masqués par défaut) */}
                     {/* Note: Ces champs seront affichés via JS quand le mode Marchés Publics est actif */}
-                    <div id="public-fields" className="hidden bg-blue-50 p-4 rounded-lg border border-blue-100 space-y-4">
+                    <div id="public-fields" className="hidden bg-brand-blue/10 p-4 rounded-lg border border-brand-blue/20 space-y-4">
                       <div className="space-y-2">
-                        <Label htmlFor="organisme" className="text-blue-900">
+                        <Label htmlFor="organisme" className="text-brand-blue-dark">
                           Organisme / Mairie
                         </Label>
                         <Input
@@ -311,7 +322,7 @@ export default function PageContact() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="ref-consult" className="text-blue-900">
+                        <Label htmlFor="ref-consult" className="text-brand-blue-dark">
                           Référence Consultation / Marché
                         </Label>
                         <Input
@@ -322,7 +333,7 @@ export default function PageContact() {
                           className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                         />
                       </div>
-                      <p className="text-xs text-blue-700 mt-2 flex items-center">
+                      <p className="text-xs text-brand-blue mt-2 flex items-center">
                         <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -368,7 +379,7 @@ export default function PageContact() {
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full bg-brand-orange hover:bg-orange-700 text-white text-lg font-bold shadow-lg"
+                      className="w-full bg-brand-orange hover:bg-brand-orange-dark text-white text-lg font-bold shadow-button-primary"
                     >
                       <span>Recevoir mon devis gratuit</span>
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -548,7 +559,7 @@ export default function PageContact() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"

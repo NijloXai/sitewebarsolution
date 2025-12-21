@@ -16,6 +16,7 @@
 import Link from "next/link";
 import Footer from "@/components/Footer";
 import Header from "@/components/Header";
+import GridScan from "@/components/GridScan";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -208,16 +209,27 @@ export default function PageFAQ() {
             Permet au visiteur de s'orienter rapidement vers la catégorie qui l'intéresse
             ============================================ */}
         <section className="relative bg-slate-900 text-white py-16 md:py-24 overflow-hidden">
-          {/* Image de fond avec overlay */}
-          <div className="absolute inset-0 opacity-20">
-            <img
-              src="https://placehold.co/1920x600?text=Chantier+Propre+Strasbourg"
-              alt="Arrière plan chantier"
-              className="w-full h-full object-cover"
+          {/* Animation 3D GridScan en arrière-plan */}
+          <div className="absolute inset-0">
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
             />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
 
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             {/* Titre principal */}
             <h1 className="text-3xl md:text-5xl font-bold mb-6">
               Vos questions fréquentes sur nos travaux
@@ -237,11 +249,11 @@ export default function PageFAQ() {
                   href={`#${filtre.id}`}
                   className={`${
                     filtre.special
-                      ? "bg-blue-600 hover:bg-blue-700 border-transparent shadow-lg"
+                      ? "bg-brand-blue hover:bg-brand-blue-dark border-transparent shadow-lg"
                       : "bg-white/10 hover:bg-white/20 border-white/30 backdrop-blur-sm"
                   } border px-5 py-3 rounded-full text-sm md:text-base font-medium transition flex items-center gap-2`}
                 >
-                  <span className={filtre.special ? "text-white" : filtre.icone === "certificat" ? "text-green-400" : "text-brand-orange"}>
+                  <span className={filtre.special ? "text-white" : filtre.icone === "certificat" ? "text-status-success-light" : "text-brand-orange"}>
                     <Icone type={filtre.icone} className="w-4 h-4" />
                   </span>
                   {filtre.label}
@@ -314,7 +326,7 @@ export default function PageFAQ() {
             {/* En-tête avec logos de certification */}
             <div className="flex flex-col md:flex-row items-start md:items-center justify-between mb-10 gap-6">
               <div>
-                <span className="text-green-600 font-bold uppercase tracking-wider text-sm">
+                <span className="text-status-success-dark font-bold uppercase tracking-wider text-sm">
                   Qualité & Aides
                 </span>
                 <h2 className="text-3xl font-bold text-brand-blue mt-2">
@@ -381,7 +393,7 @@ export default function PageFAQ() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* En-tête de section avec icône */}
             <div className="flex items-center gap-4 mb-8">
-              <div className="bg-blue-600 text-white p-3 rounded-lg shadow-md">
+              <div className="bg-brand-blue text-white p-3 rounded-lg shadow-md">
                 <Icone type="batiment" className="w-6 h-6" />
               </div>
               <div>
@@ -428,7 +440,7 @@ export default function PageFAQ() {
 
             {/* CTA vers la page Marchés Publics */}
             <div className="mt-8 text-center">
-              <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
+              <Button asChild className="bg-brand-blue hover:bg-brand-blue-dark text-white">
                 <Link href="/marches-publics">Accéder à l&apos;espace Marchés Publics →</Link>
               </Button>
             </div>
@@ -535,7 +547,7 @@ export default function PageFAQ() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"

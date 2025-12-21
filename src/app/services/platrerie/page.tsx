@@ -26,6 +26,7 @@ import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CtaBlock from "@/components/CtaBlock";
 import TrustBar from "@/components/TrustBar";
+import GridScan from "@/components/GridScan";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
@@ -219,14 +220,24 @@ export default function PageServicePlatrerie() {
             L'utilisateur comprend immédiatement le service et peut demander un devis
             ============================================ */}
         <section className="relative bg-slate-900 overflow-hidden">
-          {/* Image de fond avec overlay pour la lisibilité du texte */}
+          {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
-            <img
-              className="w-full h-full object-cover opacity-30"
-              src="https://placehold.co/1920x1080?text=Chantier+Faux+Plafond+Technique+Bureaux"
-              alt="Plâtrerie technique faux plafonds Strasbourg"
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent" />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
 
           {/* Contenu du hero */}
@@ -333,8 +344,8 @@ export default function PageServicePlatrerie() {
                     <div
                       className={`w-12 h-12 ${
                         prestation.iconeColor === "orange"
-                          ? "bg-orange-100 text-brand-orange group-hover:bg-brand-orange group-hover:text-white"
-                          : "bg-blue-100 text-brand-blue group-hover:bg-brand-blue group-hover:text-white"
+                          ? "bg-brand-orange/10 text-brand-orange group-hover:bg-brand-orange group-hover:text-white"
+                          : "bg-brand-blue/10 text-brand-blue group-hover:bg-brand-blue group-hover:text-white"
                       } rounded-full flex items-center justify-center mb-4 shadow-sm transition`}
                     >
                       {prestation.id === "cloisons" && (
@@ -466,9 +477,9 @@ export default function PageServicePlatrerie() {
                     <div
                       className={`w-10 h-10 mb-4 rounded-full flex items-center justify-center ${
                         profil.id === "public"
-                          ? "bg-blue-100 text-brand-blue"
+                          ? "bg-brand-blue/10 text-brand-blue"
                           : profil.id === "pro"
-                          ? "bg-orange-100 text-brand-orange"
+                          ? "bg-brand-orange/10 text-brand-orange"
                           : "bg-gray-100 text-gray-600"
                       }`}
                     >
@@ -534,7 +545,7 @@ export default function PageServicePlatrerie() {
                           className="flex items-center gap-2 text-sm font-semibold"
                         >
                           <svg
-                            className="w-4 h-4 text-green-500 flex-shrink-0"
+                            className="w-4 h-4 text-status-success flex-shrink-0"
                             fill="currentColor"
                             viewBox="0 0 20 20"
                           >
@@ -599,7 +610,7 @@ export default function PageServicePlatrerie() {
                 <div className="space-y-6">
                   {etapesMethode.map((etape) => (
                     <div key={etape.numero} className="flex gap-4">
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 text-brand-blue flex items-center justify-center font-bold">
+                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold">
                         {etape.numero}
                       </div>
                       <div>
@@ -670,7 +681,7 @@ export default function PageServicePlatrerie() {
                   <div className="text-left">
                     <div className="flex items-center gap-2 mb-1">
                       <h3 className="font-bold text-lg">{projet.titre}</h3>
-                      <Badge variant="secondary" className="text-xs">
+                      <Badge variant="secondary" className="badge-primary-light text-xs">
                         {projet.type}
                       </Badge>
                     </div>
@@ -882,7 +893,7 @@ export default function PageServicePlatrerie() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
+      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-floating z-50 flex gap-3">
         <Button
           asChild
           variant="secondary"
