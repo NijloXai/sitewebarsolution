@@ -19,6 +19,7 @@
 import { useState } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
+import Logo from "@/components/Logo";
 
 /* Types des props du composant Header */
 interface HeaderProps {
@@ -37,17 +38,19 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed w-full top-0 z-50 bg-white border-b border-gray-100 shadow-sm">
+    <header className="fixed w-full top-0 z-50 bg-gradient-to-r from-blue-50 via-white to-orange-50 shadow-lg backdrop-blur-sm header-gradient-border overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-20">
           {/* Logo AR+SOLUTION - lien vers l'accueil */}
           <div className="flex-shrink-0 flex items-center">
-            <Link
-              href="/"
-              className="text-2xl font-bold text-brand-blue tracking-tighter"
-            >
-              AR+<span className="text-brand-orange">SOLUTION</span>
-            </Link>
+            {/* Logo mobile - taille réduite */}
+            <div className="sm:hidden">
+              <Logo variant="full" size="sm" linkToHome={true} interactive={true} />
+            </div>
+            {/* Logo desktop - taille normale */}
+            <div className="hidden sm:block">
+              <Logo variant="full" size="md" linkToHome={true} interactive={true} />
+            </div>
           </div>
 
           {/* Menu de navigation desktop - masqué sur mobile */}
@@ -57,7 +60,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               href="/services"
               className={`text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded ${
                 pageActive === "services"
-                  ? "font-bold text-brand-orange"
+                  ? "font-bold text-brand-orange-dark"
                   : "text-gray-700 hover:text-brand-orange"
               }`}
               aria-current={pageActive === "services" ? "page" : undefined}
@@ -70,7 +73,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               href="/realisations"
               className={`text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded ${
                 pageActive === "realisations"
-                  ? "font-bold text-brand-orange"
+                  ? "font-bold text-brand-orange-dark"
                   : "text-gray-700 hover:text-brand-orange"
               }`}
               aria-current={pageActive === "realisations" ? "page" : undefined}
@@ -83,7 +86,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               href="/marches-publics"
               className={`text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded ${
                 pageActive === "marches-publics"
-                  ? "font-bold text-brand-orange"
+                  ? "font-bold text-brand-orange-dark"
                   : "text-gray-700 hover:text-brand-orange"
               }`}
               aria-current={pageActive === "marches-publics" ? "page" : undefined}
@@ -96,7 +99,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               href="/a-propos"
               className={`text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded ${
                 pageActive === "a-propos"
-                  ? "font-bold text-brand-orange"
+                  ? "font-bold text-brand-orange-dark"
                   : "text-gray-700 hover:text-brand-orange"
               }`}
               aria-current={pageActive === "a-propos" ? "page" : undefined}
@@ -149,7 +152,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               type="button"
               variant="ghost"
               size="icon"
-              className="text-gray-500 hover:text-gray-700"
+              className="text-gray-600 hover:text-gray-700"
               aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
               onClick={() => setMenuOpen(!menuOpen)}
             >
@@ -185,7 +188,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
 
       {/* Menu mobile déroulant avec animation */}
       <div
-        className={`md:hidden bg-white border-t border-gray-100 shadow-lg overflow-hidden transition-all duration-200 ease-in-out ${
+        className={`md:hidden bg-gradient-to-r from-blue-50 via-white to-orange-50 border-t border-gray-200 shadow-lg overflow-hidden transition-all duration-200 ease-in-out ${
           menuOpen
             ? "max-h-[600px] opacity-100"
             : "max-h-0 opacity-0 pointer-events-none"
@@ -201,7 +204,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               asChild
               className={`justify-start w-full ${
                 pageActive === "services"
-                  ? "font-bold text-brand-orange bg-orange-50"
+                  ? "font-bold text-brand-orange-dark bg-orange-50"
                   : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
               }`}
             >
@@ -220,7 +223,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               asChild
               className={`justify-start w-full ${
                 pageActive === "realisations"
-                  ? "font-bold text-brand-orange bg-orange-50"
+                  ? "font-bold text-brand-orange-dark bg-orange-50"
                   : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
               }`}
             >
@@ -239,7 +242,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               asChild
               className={`justify-start w-full ${
                 pageActive === "marches-publics"
-                  ? "font-bold text-brand-orange bg-orange-50"
+                  ? "font-bold text-brand-orange-dark bg-orange-50"
                   : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
               }`}
             >
@@ -258,7 +261,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               asChild
               className={`justify-start w-full ${
                 pageActive === "a-propos"
-                  ? "font-bold text-brand-orange bg-orange-50"
+                  ? "font-bold text-brand-orange-dark bg-orange-50"
                   : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
               }`}
             >

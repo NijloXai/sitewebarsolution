@@ -25,6 +25,7 @@ import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
+import GridScan from "@/components/GridScan";
 
 /* ========================================
    DONNÉES DES 4 SERVICES PRINCIPAUX
@@ -228,14 +229,24 @@ export default function ServicesPage() {
           En-tête avec promesse principale, badges de confiance et boutons d'action
       ======================================== */}
       <section className="relative bg-slate-900 text-white pt-20 pb-24 lg:pt-32 lg:pb-40 overflow-hidden">
-        {/* Image de fond avec superposition sombre */}
-        <div className="absolute inset-0 z-0">
-          <img
-            src="https://placehold.co/1920x1080?text=Chantier+Rénovation+Propre+Strasbourg"
-            alt="Chantier rénovation terminé"
-            className="w-full h-full object-cover opacity-20"
+        {/* Animation 3D GridScan en arrière-plan */}
+        <div className="absolute inset-0">
+          <GridScan
+            sensitivity={0.55}
+            lineThickness={1}
+            linesColor="#1e3a5f"
+            gridScale={0.1}
+            scanColor="#f59e0b"
+            scanOpacity={0.5}
+            enablePost
+            bloomIntensity={0.6}
+            chromaticAberration={0.002}
+            noiseIntensity={0.01}
+            scanDuration={3.0}
+            scanDelay={1.5}
           />
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/90 to-transparent"></div>
+          {/* Overlay gradient pour améliorer la lisibilité du texte */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
         </div>
 
         <div className="container mx-auto px-4 relative z-10">

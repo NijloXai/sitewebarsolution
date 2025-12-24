@@ -30,6 +30,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import GridScan from "@/components/GridScan";
 
 /* ============================================
    DONNÉES DE LA PAGE
@@ -209,14 +210,24 @@ export default function PageServiceAmenagement() {
             L'utilisateur comprend immédiatement le service et peut demander un devis
             ============================================ */}
         <section className="relative bg-slate-900 min-h-[85vh] flex items-center overflow-hidden">
-          {/* Image de fond avec overlay pour la lisibilité du texte */}
+          {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
-            <img
-              className="w-full h-full object-cover opacity-50"
-              src="https://placehold.co/1920x1080/1e293b/FFF?text=Interieur+Qualitatif+Mur+Terracotta"
-              alt="Peinture intérieure salon Strasbourg"
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#f97316"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent" />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
 
           {/* Contenu du hero */}
