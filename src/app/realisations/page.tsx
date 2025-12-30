@@ -23,6 +23,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import GridScan from "@/components/GridScan";
 
 /* ============================================
    DONNÉES DE LA PAGE
@@ -165,14 +166,24 @@ export default function PageRealisations() {
             L'utilisateur comprend immédiatement qu'il s'agit du portfolio
             ============================================ */}
         <section className="relative bg-slate-900 overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24">
-          {/* Image de fond avec overlay pour la lisibilité */}
+          {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
-            <img
-              className="w-full h-full object-cover opacity-30"
-              src="https://placehold.co/1920x800?text=Chantier+Renovation+Strasbourg+Avant+Apres"
-              alt="Rénovation intérieure Alsace"
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#a855f7"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900/90 to-slate-900/60" />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
 
           {/* Contenu du hero */}

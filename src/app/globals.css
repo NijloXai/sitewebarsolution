@@ -152,3 +152,142 @@ textarea {
     scroll-behavior: auto !important;
   }
 }
+
+/* ============================================
+   OPTIMISATIONS PERFORMANCE - Animations
+   ============================================ */
+
+/* Classes pour délais d'animation (remplace les styles inline) */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-delay-0 {
+    animation-delay: 0ms;
+    animation-fill-mode: both;
+  }
+  
+  .animate-delay-100 {
+    animation-delay: 100ms;
+    animation-fill-mode: both;
+  }
+  
+  .animate-delay-200 {
+    animation-delay: 200ms;
+    animation-fill-mode: both;
+  }
+  
+  .animate-delay-300 {
+    animation-delay: 300ms;
+    animation-fill-mode: both;
+  }
+  
+  .animate-delay-400 {
+    animation-delay: 400ms;
+    animation-fill-mode: both;
+  }
+  
+  .animate-delay-500 {
+    animation-delay: 500ms;
+    animation-fill-mode: both;
+  }
+}
+
+/* Désactiver les délais si préférence de mouvement réduit */
+@media (prefers-reduced-motion: reduce) {
+  .animate-delay-0,
+  .animate-delay-100,
+  .animate-delay-200,
+  .animate-delay-300,
+  .animate-delay-400,
+  .animate-delay-500 {
+    animation-delay: 0ms !important;
+  }
+}
+
+/* Optimisation will-change pour les transformations */
+.will-change-transform {
+  will-change: transform;
+}
+
+.will-change-opacity {
+  will-change: opacity;
+}
+
+.will-change-transform-opacity {
+  will-change: transform, opacity;
+}
+
+/* Réinitialiser will-change après animation (pour performance) */
+@media (prefers-reduced-motion: no-preference) {
+  .animate-in {
+    will-change: transform, opacity;
+  }
+  
+  .group:hover .will-change-transform,
+  .group:hover .will-change-transform-opacity {
+    will-change: transform, opacity;
+  }
+  
+  /* Réinitialiser après transition */
+  .transition-transform:not(:hover),
+  .transition-all:not(:hover) {
+    will-change: auto;
+  }
+}
+
+/* ============================================
+   ANIMATIONS FADE-IN ET SLIDE-UP
+   ============================================ */
+
+@keyframes fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+@keyframes slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@keyframes fade-in-slide-up {
+  from {
+    transform: translateY(20px);
+    opacity: 0;
+  }
+  to {
+    transform: translateY(0);
+    opacity: 1;
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .motion-safe\:fade-in {
+    animation: fade-in 0.5s ease-out forwards;
+  }
+  
+  .motion-safe\:slide-up {
+    animation: slide-up 0.5s ease-out forwards;
+  }
+  
+  .motion-safe\:fade-in-slide-up {
+    animation: fade-in-slide-up 0.5s ease-out forwards;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .motion-safe\:fade-in,
+  .motion-safe\:slide-up,
+  .motion-safe\:fade-in-slide-up {
+    animation: none !important;
+    opacity: 1 !important;
+    transform: none !important;
+  }
+}

@@ -32,6 +32,7 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Label } from "@/components/ui/label";
+import GridScan from "@/components/GridScan";
 
 /* Métadonnées spécifiques à la page Marchés Publics pour le référencement */
 export const metadata: Metadata = {
@@ -210,21 +211,24 @@ export default function MarchesPublicsPage() {
           Affiche les badges de confiance et le message principal
           ============================================ */}
       <section className="relative flex min-h-[600px] items-center bg-slate-900 mt-20">
-        {/* Fond décoratif - motif géométrique évoquant un chantier */}
-        <div className="absolute inset-0 z-0 bg-gradient-to-br from-slate-900 via-slate-800 to-slate-900">
-          {/* Motif de grille évoquant un plan de construction */}
-          <div 
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: `
-                linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)
-              `,
-              backgroundSize: '40px 40px'
-            }}
+        {/* Animation 3D GridScan en arrière-plan */}
+        <div className="absolute inset-0">
+          <GridScan
+            sensitivity={0.55}
+            lineThickness={1}
+            linesColor="#1e3a5f"
+            gridScale={0.1}
+            scanColor="#10b981"
+            scanOpacity={0.5}
+            enablePost
+            bloomIntensity={0.6}
+            chromaticAberration={0.002}
+            noiseIntensity={0.01}
+            scanDuration={3.0}
+            scanDelay={1.5}
           />
-          {/* Accent orange subtil */}
-          <div className="absolute bottom-0 right-0 w-1/2 h-1/2 bg-gradient-to-tl from-orange-500/10 to-transparent" />
+          {/* Overlay gradient pour améliorer la lisibilité du texte */}
+          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
         </div>
 
         <div className="container relative z-10 mx-auto px-4 pt-10">

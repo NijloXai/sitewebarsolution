@@ -27,6 +27,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import GridScan from "@/components/GridScan";
 
 /* ============================================
    METADATA SEO
@@ -225,14 +226,24 @@ export default function PageAPropos() {
             Montre immédiatement les certifications et l'activité principale
             ============================================ */}
         <section className="relative bg-slate-900 overflow-hidden">
-          {/* Image de fond avec overlay pour la lisibilité du texte */}
+          {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
-            <img
-              className="w-full h-full object-cover opacity-40"
-              src="https://placehold.co/1920x1080?text=Chantier+Rénovation+Strasbourg+Haute+Qualité"
-              alt="Rénovation intérieur Strasbourg"
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#2563eb"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
             />
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/80 to-transparent" />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
 
           {/* Contenu du hero */}

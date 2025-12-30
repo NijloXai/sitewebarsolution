@@ -20,6 +20,7 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
+import GridScan from "@/components/GridScan";
 
 /* ============================================
    DONNÉES DE LA PAGE FAQ
@@ -208,13 +209,24 @@ export default function PageFAQ() {
             Permet au visiteur de s'orienter rapidement vers la catégorie qui l'intéresse
             ============================================ */}
         <section className="relative bg-slate-900 text-white py-16 md:py-24 overflow-hidden">
-          {/* Image de fond avec overlay */}
-          <div className="absolute inset-0 opacity-20">
-            <img
-              src="https://placehold.co/1920x600?text=Chantier+Propre+Strasbourg"
-              alt="Arrière plan chantier"
-              className="w-full h-full object-cover"
+          {/* Animation 3D GridScan en arrière-plan */}
+          <div className="absolute inset-0">
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#3b82f6"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
             />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">

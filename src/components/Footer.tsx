@@ -1,3 +1,5 @@
+'use client';
+
 /*
   Composant Footer - Pied de page réutilisable sur tout le site AR+SOLUTION.
   
@@ -12,11 +14,35 @@
 
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
+import GridScan from "@/components/GridScan";
 
 export default function Footer() {
   return (
-    <footer className="bg-slate-900 text-slate-300 py-12 pb-24 md:pb-12">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <footer className="relative bg-slate-900 text-slate-300 py-12 pb-24 md:pb-12 overflow-hidden">
+      {/* Animation 3D GridScan en arrière-plan avec les mêmes paramètres que le hero */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 z-0 w-full h-full">
+          <GridScan
+            sensitivity={0.55}
+            lineThickness={1}
+            linesColor="#1e3a5f"
+            gridScale={0.1}
+            scanColor="#f97316"
+            scanOpacity={0.5}
+            enablePost
+            bloomIntensity={0.6}
+            chromaticAberration={0.002}
+            noiseIntensity={0.01}
+            scanDuration={3.0}
+            scanDelay={1.5}
+          />
+        </div>
+        {/* Overlay gradient pour améliorer la lisibilité du contenu du footer - opacité réduite pour voir GridScan */}
+        <div className="absolute inset-0 z-[1] bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
+      </div>
+
+      {/* Contenu du footer avec z-index pour rester au-dessus de l'animation */}
+      <div className="relative z-10 max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 md:grid-cols-3 gap-8 md:gap-12 mb-8">
           {/* Colonne 1 : Logo et description de l'entreprise */}
           <div className="space-y-4">

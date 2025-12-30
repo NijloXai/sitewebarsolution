@@ -23,6 +23,7 @@ import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
+import GridScan from "@/components/GridScan";
 
 /* ============================================
    METADATA SEO
@@ -487,8 +488,27 @@ export default function PageMentionsLegales() {
             FOOTER DE CONVERSION (SOFT CTA)
             Bloc pour contacter le service administratif
             ============================================ */}
-        <section className="bg-slate-900 text-white py-12 mt-12">
-          <div className="max-w-2xl mx-auto px-4 text-center">
+        <section className="relative bg-slate-900 text-white py-12 mt-12 overflow-hidden">
+          {/* Animation 3D GridScan en arrière-plan */}
+          <div className="absolute inset-0">
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#64748b"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
+            />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
+          </div>
+          <div className="relative max-w-2xl mx-auto px-4 text-center">
             <h3 className="text-2xl font-semibold mb-4">
               Besoin d&apos;un document spécifique ?
             </h3>

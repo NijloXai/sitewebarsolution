@@ -20,6 +20,7 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
+import GridScan from "@/components/GridScan";
 
 /* ============================================
    DONNÉES STATIQUES DU PROJET (EXEMPLE)
@@ -696,8 +697,27 @@ export default function PageFicheProjet() {
             ZONE DE RÉASSURANCE AVANT FOOTER
             CTA final avec certifications
             ============================================ */}
-        <section className="bg-slate-900 py-12 text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
+        <section className="relative bg-slate-900 py-12 text-white overflow-hidden">
+          {/* Animation 3D GridScan en arrière-plan */}
+          <div className="absolute inset-0">
+            <GridScan
+              sensitivity={0.55}
+              lineThickness={1}
+              linesColor="#1e3a5f"
+              gridScale={0.1}
+              scanColor="#a855f7"
+              scanOpacity={0.5}
+              enablePost
+              bloomIntensity={0.6}
+              chromaticAberration={0.002}
+              noiseIntensity={0.01}
+              scanDuration={3.0}
+              scanDelay={1.5}
+            />
+            {/* Overlay gradient pour améliorer la lisibilité du texte */}
+            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
+          </div>
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             <h2 className="text-2xl font-bold mb-8">
               Un projet de rénovation en Alsace ?
             </h2>
