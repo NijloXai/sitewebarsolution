@@ -40,7 +40,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
   return (
     <header className="fixed w-full top-0 z-50 bg-gradient-to-r from-blue-50 via-white to-orange-50 shadow-lg backdrop-blur-sm header-gradient-border overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="flex justify-between items-center h-20">
+        <div className="flex justify-between items-center h-16 md:h-20 gap-4 md:gap-8">
           {/* Logo AR+SOLUTION - lien vers l'accueil */}
           <div className="flex-shrink-0 flex items-center">
             {/* Logo mobile - taille réduite */}
@@ -54,68 +54,104 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
           </div>
 
           {/* Menu de navigation desktop - masqué sur mobile */}
-          <nav className="hidden md:flex space-x-8 items-center">
+          <nav className="hidden md:flex gap-6 items-center">
             {/* Lien vers les services */}
             <Link
               href="/services"
-              className={`text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded ${
+              className={`group relative text-sm font-medium py-2 px-1 transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded ${
                 pageActive === "services"
                   ? "font-bold text-brand-orange-dark"
                   : "text-gray-700 hover:text-brand-orange"
               }`}
               aria-current={pageActive === "services" ? "page" : undefined}
             >
-              Nos Services
+              <span className="relative inline-block">
+                Nos Services
+                {/* Indicateur actif - soulignement permanent */}
+                {pageActive === "services" ? (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-orange-dark rounded-full transition-all duration-300 ease-out" />
+                ) : (
+                  /* Animation hover - soulignement animé avec transition fluide */
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-orange rounded-full transform scale-x-0 transition-transform duration-300 ease-out origin-left group-hover:scale-x-100 will-change-transform" />
+                )}
+              </span>
             </Link>
 
             {/* Lien vers les réalisations */}
             <Link
               href="/realisations"
-              className={`text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded ${
+              className={`group relative text-sm font-medium py-2 px-1 transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded ${
                 pageActive === "realisations"
                   ? "font-bold text-brand-orange-dark"
                   : "text-gray-700 hover:text-brand-orange"
               }`}
               aria-current={pageActive === "realisations" ? "page" : undefined}
             >
-              Réalisations
+              <span className="relative inline-block">
+                Réalisations
+                {/* Indicateur actif - soulignement permanent */}
+                {pageActive === "realisations" ? (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-orange-dark rounded-full transition-all duration-300 ease-out" />
+                ) : (
+                  /* Animation hover - soulignement animé avec transition fluide */
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-orange rounded-full transform scale-x-0 transition-transform duration-300 ease-out origin-left group-hover:scale-x-100 will-change-transform" />
+                )}
+              </span>
             </Link>
 
             {/* Lien vers les marchés publics */}
             <Link
               href="/marches-publics"
-              className={`text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded ${
+              className={`group relative text-sm font-medium py-2 px-1 transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded ${
                 pageActive === "marches-publics"
                   ? "font-bold text-brand-orange-dark"
                   : "text-gray-700 hover:text-brand-orange"
               }`}
               aria-current={pageActive === "marches-publics" ? "page" : undefined}
             >
-              Marchés Publics
+              <span className="relative inline-block">
+                Marchés Publics
+                {/* Indicateur actif - soulignement permanent */}
+                {pageActive === "marches-publics" ? (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-orange-dark rounded-full transition-all duration-300 ease-out" />
+                ) : (
+                  /* Animation hover - soulignement animé avec transition fluide */
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-orange rounded-full transform scale-x-0 transition-transform duration-300 ease-out origin-left group-hover:scale-x-100 will-change-transform" />
+                )}
+              </span>
             </Link>
 
             {/* Lien vers la page À propos */}
             <Link
               href="/a-propos"
-              className={`text-sm font-medium transition-colors duration-200 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded ${
+              className={`group relative text-sm font-medium py-2 px-1 transition-colors duration-200 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded ${
                 pageActive === "a-propos"
                   ? "font-bold text-brand-orange-dark"
                   : "text-gray-700 hover:text-brand-orange"
               }`}
               aria-current={pageActive === "a-propos" ? "page" : undefined}
             >
-              À propos
+              <span className="relative inline-block">
+                À propos
+                {/* Indicateur actif - soulignement permanent */}
+                {pageActive === "a-propos" ? (
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-orange-dark rounded-full transition-all duration-300 ease-out" />
+                ) : (
+                  /* Animation hover - soulignement animé avec transition fluide */
+                  <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-brand-orange rounded-full transform scale-x-0 transition-transform duration-300 ease-out origin-left group-hover:scale-x-100 will-change-transform" />
+                )}
+              </span>
             </Link>
           </nav>
 
           {/* Boutons CTA header (téléphone + devis) - masqués sur mobile */}
-          <div className="hidden md:flex items-center space-x-4">
+          <div className="hidden md:flex items-center gap-3">
             {/* Lien téléphone avec icône */}
             <Button
               variant="ghost"
               size="sm"
               asChild
-              className="text-gray-600 hover:text-brand-blue"
+              className="text-gray-600 hover:text-brand-blue transition-colors duration-200 ease-out"
             >
               <a href={TELEPHONE_LIEN}>
                 {/* Icône téléphone SVG */}
@@ -139,7 +175,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
             {/* Bouton CTA principal - Demander un devis */}
             <Button
               asChild
-              className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-md hover:shadow-lg transition-all duration-200"
+              className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] active:scale-100 will-change-transform"
               aria-label="Demander un devis gratuit"
             >
               <Link href={ctaHref}>Demander un devis</Link>
@@ -158,7 +194,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
             >
               {/* Icône hamburger ou croix selon l'état avec animation */}
               <svg
-                className={`h-6 w-6 transition-transform duration-300 ${
+                className={`h-6 w-6 transition-transform duration-300 ease-out ${
                   menuOpen ? "rotate-90" : ""
                 }`}
                 fill="none"
@@ -188,7 +224,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
 
       {/* Menu mobile déroulant avec animation */}
       <div
-        className={`md:hidden bg-gradient-to-r from-blue-50 via-white to-orange-50 border-t border-gray-200 shadow-lg overflow-hidden transition-all duration-200 ease-in-out ${
+        className={`md:hidden bg-gradient-to-r from-blue-50/95 via-white/95 to-orange-50/95 backdrop-blur-md border-t border-gray-200 shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${
           menuOpen
             ? "max-h-[600px] opacity-100"
             : "max-h-0 opacity-0 pointer-events-none"
@@ -197,21 +233,29 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
         role="region"
         aria-label="Menu de navigation mobile"
       >
-        <nav className="flex flex-col px-4 py-4 space-y-3">
+        <nav className="flex flex-col px-4 py-5 space-y-2">
             {/* Lien vers les services */}
             <Button
               variant="ghost"
               asChild
-              className={`justify-start w-full ${
-                pageActive === "services"
-                  ? "font-bold text-brand-orange-dark bg-orange-50"
-                  : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
+              className={`justify-start w-full py-3 px-4 transition-all duration-300 ease-out ${
+                menuOpen
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-4"
               }`}
+              style={{
+                transitionDelay: menuOpen ? "0.05s" : "0s",
+                willChange: "transform, opacity",
+              }}
             >
               <Link
                 href="/services"
                 onClick={() => setMenuOpen(false)}
-                className="transition-all duration-200"
+                className={`transition-colors duration-200 ease-out ${
+                  pageActive === "services"
+                    ? "font-bold text-brand-orange-dark bg-orange-50"
+                    : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
+                }`}
               >
                 Nos Services
               </Link>
@@ -221,16 +265,24 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
             <Button
               variant="ghost"
               asChild
-              className={`justify-start w-full ${
-                pageActive === "realisations"
-                  ? "font-bold text-brand-orange-dark bg-orange-50"
-                  : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
+              className={`justify-start w-full py-3 px-4 transition-all duration-300 ease-out ${
+                menuOpen
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-4"
               }`}
+              style={{
+                transitionDelay: menuOpen ? "0.1s" : "0s",
+                willChange: "transform, opacity",
+              }}
             >
               <Link
                 href="/realisations"
                 onClick={() => setMenuOpen(false)}
-                className="transition-all duration-200"
+                className={`transition-colors duration-200 ease-out ${
+                  pageActive === "realisations"
+                    ? "font-bold text-brand-orange-dark bg-orange-50"
+                    : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
+                }`}
               >
                 Réalisations
               </Link>
@@ -240,16 +292,24 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
             <Button
               variant="ghost"
               asChild
-              className={`justify-start w-full ${
-                pageActive === "marches-publics"
-                  ? "font-bold text-brand-orange-dark bg-orange-50"
-                  : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
+              className={`justify-start w-full py-3 px-4 transition-all duration-300 ease-out ${
+                menuOpen
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-4"
               }`}
+              style={{
+                transitionDelay: menuOpen ? "0.15s" : "0s",
+                willChange: "transform, opacity",
+              }}
             >
               <Link
                 href="/marches-publics"
                 onClick={() => setMenuOpen(false)}
-                className="transition-all duration-200"
+                className={`transition-colors duration-200 ease-out ${
+                  pageActive === "marches-publics"
+                    ? "font-bold text-brand-orange-dark bg-orange-50"
+                    : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
+                }`}
               >
                 Marchés Publics
               </Link>
@@ -259,31 +319,57 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
             <Button
               variant="ghost"
               asChild
-              className={`justify-start w-full ${
-                pageActive === "a-propos"
-                  ? "font-bold text-brand-orange-dark bg-orange-50"
-                  : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
+              className={`justify-start w-full py-3 px-4 transition-all duration-300 ease-out ${
+                menuOpen
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-4"
               }`}
+              style={{
+                transitionDelay: menuOpen ? "0.2s" : "0s",
+                willChange: "transform, opacity",
+              }}
             >
               <Link
                 href="/a-propos"
                 onClick={() => setMenuOpen(false)}
-                className="transition-all duration-200"
+                className={`transition-colors duration-200 ease-out ${
+                  pageActive === "a-propos"
+                    ? "font-bold text-brand-orange-dark bg-orange-50"
+                    : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
+                }`}
               >
                 À propos
               </Link>
             </Button>
 
             {/* Séparateur */}
-            <hr className="border-gray-200 my-2" />
+            <hr
+              className={`border-gray-200 my-3 transition-all duration-300 ease-out ${
+                menuOpen
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-4"
+              }`}
+              style={{
+                transitionDelay: menuOpen ? "0.25s" : "0s",
+                willChange: "transform, opacity",
+              }}
+            />
 
             {/* Lien téléphone */}
             <Button
               variant="ghost"
               asChild
-              className="justify-start w-full text-gray-600 hover:text-brand-blue"
+              className={`justify-start w-full py-3 px-4 text-gray-600 hover:text-brand-blue transition-all duration-300 ease-out ${
+                menuOpen
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-4"
+              }`}
+              style={{
+                transitionDelay: menuOpen ? "0.3s" : "0s",
+                willChange: "transform, opacity",
+              }}
             >
-              <a href={TELEPHONE_LIEN} className="flex items-center gap-2">
+              <a href={TELEPHONE_LIEN} className="flex items-center gap-2 transition-colors duration-200 ease-out">
                 <svg
                   className="w-5 h-5"
                   fill="none"
@@ -304,7 +390,14 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
             {/* Bouton CTA - Demander un devis */}
             <Button
               asChild
-              className="w-full bg-brand-orange hover:bg-brand-orange-dark text-white shadow-md hover:shadow-lg transition-all duration-200"
+              className={`w-full py-3 px-4 bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] active:scale-100 will-change-transform ${
+                menuOpen
+                  ? "opacity-100 translate-x-0"
+                  : "opacity-0 -translate-x-4"
+              }`}
+              style={{
+                transitionDelay: menuOpen ? "0.35s" : "0s",
+              }}
             >
               <Link href={ctaHref} onClick={() => setMenuOpen(false)}>
                 Demander un devis

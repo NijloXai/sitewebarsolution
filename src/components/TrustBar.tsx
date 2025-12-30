@@ -27,17 +27,17 @@ interface TrustBarProps {
 
 export default function TrustBar({ items }: TrustBarProps) {
   return (
-    <section className="bg-muted/30 border-b">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
+    <section className="bg-muted/10 border-b">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6">
         <div className="grid grid-cols-2 md:grid-cols-4 gap-4 md:gap-6">
           {items.map((item) => (
             <Card
               key={item.label}
               className="border-0 shadow-none bg-transparent text-center"
             >
-              <CardContent className="flex flex-col items-center justify-center p-4 md:p-6">
+              <CardContent className="flex flex-col items-center justify-center p-3 md:p-4">
                 {/* Valeur principale (chiffre ou sigle) */}
-                <span className="text-3xl md:text-4xl font-bold text-brand-blue mb-2">
+                <span className="text-2xl md:text-3xl font-bold text-brand-blue/80 mb-2">
                   {item.valeur}
                 </span>
                 {/* Label descriptif */}
