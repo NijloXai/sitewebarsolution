@@ -617,27 +617,33 @@ export default function MarchesPublicsPage() {
               {/* Colonne droite : Formulaire de contact */}
               <Card className="bg-white text-slate-800 shadow-2xl">
                 <CardContent className="p-6 md:p-8">
-                  <form className="space-y-4">
+                  <form className="space-y-4" aria-label="Formulaire de contact pour marchés publics">
                     {/* Ligne 1 : Organisme et Nom */}
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label className="text-xs font-bold uppercase text-slate-500">
+                        <Label htmlFor="organisme" className="text-xs font-bold uppercase text-slate-500">
                           Organisme
                         </Label>
                         <Input
+                          id="organisme"
+                          name="organisme"
                           type="text"
                           placeholder="Mairie, École..."
-                          className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500"
+                          className="bg-slate-50 focus-visible:ring-brand-orange-dark/50 focus-visible:border-brand-orange-dark"
+                          aria-required="true"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-xs font-bold uppercase text-slate-500">
+                        <Label htmlFor="nom-contact" className="text-xs font-bold uppercase text-slate-500">
                           Nom du contact
                         </Label>
                         <Input
+                          id="nom-contact"
+                          name="nom-contact"
                           type="text"
                           placeholder="Votre nom"
-                          className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500"
+                          className="bg-slate-50 focus-visible:ring-brand-orange-dark/50 focus-visible:border-brand-orange-dark"
+                          aria-required="true"
                         />
                       </div>
                     </div>
@@ -645,34 +651,40 @@ export default function MarchesPublicsPage() {
                     {/* Ligne 2 : Email et Téléphone */}
                     <div className="grid grid-cols-2 gap-4">
                       <div className="space-y-2">
-                        <Label className="text-xs font-bold uppercase text-slate-500">
+                        <Label htmlFor="email-mp" className="text-xs font-bold uppercase text-slate-500">
                           Email
                         </Label>
                         <Input
+                          id="email-mp"
+                          name="email"
                           type="email"
                           placeholder="email@organisme.fr"
-                          className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500"
+                          className="bg-slate-50 focus-visible:ring-brand-orange-dark/50 focus-visible:border-brand-orange-dark"
+                          aria-required="true"
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label className="text-xs font-bold uppercase text-slate-500">
+                        <Label htmlFor="tel-mp" className="text-xs font-bold uppercase text-slate-500">
                           Téléphone
                         </Label>
                         <Input
+                          id="tel-mp"
+                          name="tel"
                           type="tel"
                           placeholder="03 88..."
-                          className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500"
+                          className="bg-slate-50 focus-visible:ring-brand-orange-dark/50 focus-visible:border-brand-orange-dark"
+                          aria-required="true"
                         />
                       </div>
                     </div>
 
                     {/* Type de demande */}
                     <div className="space-y-2">
-                      <Label className="text-xs font-bold uppercase text-slate-500">
+                      <Label htmlFor="type-demande" className="text-xs font-bold uppercase text-slate-500">
                         Type de demande
                       </Label>
-                      <Select>
-                        <SelectTrigger className="bg-slate-50 focus-visible:ring-orange-500/50 focus-visible:border-orange-500">
+                      <Select name="type-demande">
+                        <SelectTrigger id="type-demande" className="bg-slate-50 focus-visible:ring-brand-orange-dark/50 focus-visible:border-brand-orange-dark">
                           <SelectValue placeholder="Sélectionnez..." />
                         </SelectTrigger>
                         <SelectContent>
@@ -689,7 +701,8 @@ export default function MarchesPublicsPage() {
                     <Button
                       type="submit"
                       size="lg"
-                      className="mt-2 w-full bg-orange-500 hover:bg-orange-600 text-white font-bold"
+                      className="mt-2 w-full bg-brand-orange-dark hover:bg-brand-orange text-white font-bold"
+                      aria-label="Envoyer la demande de contact"
                     >
                       Envoyer ma demande
                     </Button>

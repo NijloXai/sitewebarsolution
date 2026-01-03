@@ -152,6 +152,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               size="sm"
               asChild
               className="text-gray-600 hover:text-brand-blue transition-colors duration-200 ease-out"
+              aria-label={`Appeler ${TELEPHONE}`}
             >
               <a href={TELEPHONE_LIEN}>
                 {/* Icône téléphone SVG */}
@@ -160,6 +161,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"
@@ -175,7 +177,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
             {/* Bouton CTA principal - Demander un devis */}
             <Button
               asChild
-              className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] active:scale-100 will-change-transform"
+              className="bg-brand-orange-dark hover:bg-brand-orange text-white shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] active:scale-100 will-change-transform"
               aria-label="Demander un devis gratuit"
             >
               <Link href={ctaHref}>Demander un devis</Link>
@@ -200,6 +202,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
                 fill="none"
                 viewBox="0 0 24 24"
                 stroke="currentColor"
+                aria-hidden="true"
               >
                 {menuOpen ? (
                   <path
@@ -390,7 +393,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
             {/* Bouton CTA - Demander un devis */}
             <Button
               asChild
-              className={`w-full py-3 px-4 bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] active:scale-100 will-change-transform ${
+              className={`w-full py-3 px-4 bg-brand-orange-dark hover:bg-brand-orange text-white shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] active:scale-100 will-change-transform ${
                 menuOpen
                   ? "opacity-100 translate-x-0"
                   : "opacity-0 -translate-x-4"
@@ -398,6 +401,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               style={{
                 transitionDelay: menuOpen ? "0.35s" : "0s",
               }}
+              aria-label="Demander un devis gratuit"
             >
               <Link href={ctaHref} onClick={() => setMenuOpen(false)}>
                 Demander un devis

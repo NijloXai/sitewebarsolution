@@ -73,7 +73,8 @@ export default function CtaBlock({
           <Button
             asChild
             size="lg"
-            className="bg-brand-orange hover:bg-brand-orange-dark text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 min-w-[200px]"
+            className="bg-brand-orange-dark hover:bg-brand-orange text-white font-semibold shadow-lg hover:shadow-xl transition-all duration-200 min-w-[200px]"
+            aria-label={texteDevis}
           >
             <Link href={lienDevis}>
               {texteDevis}
@@ -90,9 +91,10 @@ export default function CtaBlock({
                 ? "bg-white text-brand-blue hover:bg-blue-50 border-white min-w-[200px]"
                 : "bg-transparent border-2 border-white text-white hover:bg-white hover:text-slate-900 min-w-[200px]"
             }
+            aria-label={`Appeler ${texteTelephone || telephone}`}
           >
             <a href={telephoneHref}>
-              <Phone className="w-5 h-5" />
+              <Phone className="w-5 h-5" aria-hidden="true" />
               {texteTelephone || telephone}
             </a>
           </Button>

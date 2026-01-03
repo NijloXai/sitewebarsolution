@@ -120,6 +120,31 @@ body {
 *:focus-visible {
   outline: 2px solid hsl(var(--ring));
   outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Focus states améliorés pour les éléments interactifs */
+a:focus-visible,
+button:focus-visible,
+[role="button"]:focus-visible,
+input:focus-visible,
+select:focus-visible,
+textarea:focus-visible {
+  outline: 2px solid hsl(var(--ring));
+  outline-offset: 2px;
+  border-radius: 0.25rem;
+}
+
+/* Focus states pour les liens */
+a:focus-visible {
+  outline-color: hsl(222.2 47.4% 11.2%);
+}
+
+/* Focus states pour les boutons primaires */
+button[class*="bg-brand-orange"]:focus-visible,
+button[class*="bg-brand-orange-dark"]:focus-visible {
+  outline-color: hsl(222.2 47.4% 11.2%);
+  outline-offset: 3px;
 }
 
 /* Amélioration des transitions sur les éléments interactifs */

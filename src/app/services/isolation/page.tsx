@@ -21,204 +21,52 @@
   - Contacter le service Marchés Publics s'il est acheteur public
 */
 
+import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TrustBar from "@/components/TrustBar";
 import CtaBlock from "@/components/CtaBlock";
-import { Button } from "@/components/ui/button";
+import ServiceHero from "@/components/services/ServiceHero";
+import ServiceFeaturesGrid from "@/components/services/ServiceFeaturesGrid";
+import MobileStickyBar from "@/components/services/MobileStickyBar";
+
+// Code splitting dynamique pour les composants lourds
+const ServiceFAQSection = dynamic(
+  () => import("@/components/services/ServiceFAQSection"),
+  { ssr: true }
+);
+const ServiceRealisationsSection = dynamic(
+  () => import("@/components/services/ServiceRealisationsSection"),
+  { ssr: true }
+);
+const ServiceMethodSection = dynamic(
+  () => import("@/components/services/ServiceMethodSection"),
+  { ssr: true }
+);
+const ServiceStructuredData = dynamic(
+  () => import("@/components/services/ServiceStructuredData"),
+  { ssr: true }
+);
+const MarchesPublicsSection = dynamic(
+  () => import("@/components/services/MarchesPublicsSection"),
+  { ssr: true }
+);
+import { isolationPageMetadata } from "@/lib/services-metadata";
+import { barreConfianceIsolation, marchesPublicsAvantages, documentsMarchesPublicsIsolation } from "@/lib/services-data";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import GridScan from "@/components/GridScan";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 
-/* ============================================
-   HELPERS ET ICÔNES POUR LES SECTIONS COMMUNES
-   ============================================ */
-
-/* Helper pour obtenir les classes CSS selon le type de couleur */
-const getAnimationDelayClass = (index: number) => {
-  const delayClasses = [
-    "animate-delay-0",
-    "animate-delay-100",
-    "animate-delay-200",
-    "animate-delay-300",
-    "animate-delay-400",
-    "animate-delay-500",
-  ];
-  return delayClasses[index] || delayClasses[0];
-};
-
-/* Icône pour les dossiers administratifs */
-const IconeDossiersAdmin = ({ className }: { className?: string }) => (
-  <svg
-    className={className || "w-6 h-6"}
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-    aria-hidden="true"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-    />
-    <circle cx="17" cy="7" r="3" strokeWidth={2} />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M16 7l1 1 2-2"
-      strokeWidth={2}
-    />
-  </svg>
-);
-
-/* Icône pour site occupé et bâtiments ERP */
-const IconeSiteOccupe = ({ className }: { className?: string }) => (
-  <svg
-    className={className || "w-6 h-6"}
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-    aria-hidden="true"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-    />
-    <circle cx="17" cy="7" r="3" strokeWidth={2} fill="currentColor" fillOpacity="0.1" />
-    <circle cx="17" cy="7" r="2" strokeWidth={1.5} />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M17 6v2l1.5 1.5"
-      strokeWidth={1.5}
-    />
-  </svg>
-);
-
-/* Icône pour interlocuteur unique */
-const IconeInterlocuteurUnique = ({ className }: { className?: string }) => (
-  <svg
-    className={className || "w-6 h-6"}
-    fill="none"
-    viewBox="0 0 24 24"
-    stroke="currentColor"
-    strokeWidth={2}
-    aria-hidden="true"
-  >
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
-    />
-    <path
-      strokeLinecap="round"
-      strokeLinejoin="round"
-      d="M17.5 4l1.5 3 3 .5-2.5 2.5.5 3-3-1.5-3 1.5.5-3-2.5-2.5 3-.5 1.5-3z"
-      strokeWidth={2}
-      fill="currentColor"
-      fillOpacity="0.2"
-    />
-  </svg>
-);
-
-/* Fonction pour obtenir l'icône appropriée selon le type de document */
-const getDocumentIcon = (titre: string, className?: string) => {
-  const baseClass = className || "w-8 h-8";
-  
-  if (titre.includes("RGE")) {
-    return (
-      <svg
-        className={baseClass}
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 12l2 2 4-4M7.835 4.697a3.42 3.42 0 001.946-.806 3.42 3.42 0 014.438 0 3.42 3.42 0 001.946.806 3.42 3.42 0 013.138 3.138 3.42 3.42 0 00.806 1.946 3.42 3.42 0 010 4.438 3.42 3.42 0 00-.806 1.946 3.42 3.42 0 01-3.138 3.138 3.42 3.42 0 00-1.946.806 3.42 3.42 0 01-4.438 0 3.42 3.42 0 00-1.946-.806 3.42 3.42 0 01-3.138-3.138 3.42 3.42 0 00-.806-1.946 3.42 3.42 0 010-4.438 3.42 3.42 0 00.806-1.946 3.42 3.42 0 013.138-3.138z"
-        />
-      </svg>
-    );
-  } else if (titre.includes("Décennale")) {
-    return (
-      <svg
-        className={baseClass}
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-        />
-      </svg>
-    );
-  } else if (titre.includes("Fiches techniques") || titre.includes("Références")) {
-    return (
-      <svg
-        className={baseClass}
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-        />
-        <circle cx="18" cy="18" r="2.5" strokeWidth={1.5} />
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M17 18l1 1 2-2"
-          strokeWidth={1.5}
-        />
-      </svg>
-    );
-  } else {
-    return (
-      <svg
-        className={baseClass}
-        fill="none"
-        viewBox="0 0 24 24"
-        stroke="currentColor"
-        strokeWidth={2}
-        aria-hidden="true"
-      >
-        <path
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-        />
-      </svg>
-    );
-  }
-};
+export const metadata: Metadata = isolationPageMetadata;
 
 /* ============================================
    DONNÉES DE LA PAGE
    ============================================ */
 
-/* Éléments de la barre de confiance spécifique isolation */
-const barreConfianceItems = [
-  { valeur: "RGE", label: "Qualibat Reconnu" },
-  { valeur: "10 Ans", label: "Garantie Décennale" },
-  { valeur: "-30%", label: "Économies Énergie" },
-  { valeur: "Aides", label: "MaPrimeRénov'" },
-];
+// Utilisation des données centralisées
+const barreConfianceItems = barreConfianceIsolation;
 
 /* Les 4 types d'isolation proposés */
 const typesIsolation = [
@@ -227,28 +75,28 @@ const typesIsolation = [
     titre: "Isolation Thermique Intérieure (ITI)",
     description:
       "Doublage des murs par l'intérieur avec laine de verre, laine de roche ou isolants biosourcés. Solution efficace pour supprimer les ponts thermiques et réduire votre facture énergétique.",
-    iconeColor: "blue",
+    iconeColor: "blue" as const,
   },
   {
     id: "combles",
     titre: "Isolation des Combles",
     description:
       "Combles perdus (soufflage) ou aménagés (sous rampants). Jusqu'à 30% de déperditions évitées. Travaux rapides avec un minimum de désagréments.",
-    iconeColor: "orange",
+    iconeColor: "orange" as const,
   },
   {
     id: "phonique",
     titre: "Isolation Phonique",
     description:
       "Réduction des nuisances sonores entre étages, avec les voisins ou depuis l'extérieur. Cloisons acoustiques haute performance et faux-plafonds désolidarisés.",
-    iconeColor: "blue",
+    iconeColor: "blue" as const,
   },
   {
     id: "sols",
     titre: "Isolation des Sols & Planchers",
     description:
       "Isolation du plancher bas sur cave, vide sanitaire ou terre-plein. Suppression de la sensation de sol froid et amélioration du confort thermique global.",
-    iconeColor: "orange",
+    iconeColor: "orange" as const,
   },
 ];
 
@@ -310,7 +158,7 @@ const projetsRealises = [
     lieu: "Schiltigheim",
     type: "Particulier",
     description: "R=7 atteint, éligible MaPrimeRénov'. Travaux en 1 journée.",
-    image: "https://placehold.co/800x600?text=Combles+Isolés+R7",
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop&q=80",
   },
   {
     titre: "Doublage ITI bureaux",
@@ -318,7 +166,7 @@ const projetsRealises = [
     type: "Marché Public",
     description:
       "Isolation thermique et acoustique de 400m² en site occupé.",
-    image: "https://placehold.co/800x600?text=Bureaux+Isolation+ITI",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop&q=80",
   },
 ];
 
@@ -346,29 +194,9 @@ const etapesMethode = [
   },
 ];
 
-/* Avantages Marchés Publics */
-const marchesPublicsAvantages = [
-  {
-    icone: <IconeDossiersAdmin className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange" />,
-    texte: "Dossiers administratifs RGE & Assurances à jour"
-  },
-  {
-    icone: <IconeSiteOccupe className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange" />,
-    texte: "Expérience en site occupé et bâtiments ERP"
-  },
-  {
-    icone: <IconeInterlocuteurUnique className="w-5 h-5 sm:w-6 sm:h-6 text-brand-orange" />,
-    texte: "Interlocuteur unique dédié aux marchés"
-  },
-];
-
-/* Documents disponibles pour les marchés publics */
-const documentsMarchesPublics = [
-  { titre: "Attestation RGE", disponibilite: "Disponible" },
-  { titre: "Décennale", disponibilite: "Disponible" },
-  { titre: "Fiches techniques isolants", disponibilite: "Sur demande" },
-  { titre: "Références chantiers publics", disponibilite: "Sur demande" },
-];
+// Utilisation des données centralisées
+const marchesPublicsAvantagesData = marchesPublicsAvantages;
+const documentsMarchesPublicsData = documentsMarchesPublicsIsolation;
 
 /* Questions fréquentes sur l'isolation */
 const faqItems = [
@@ -412,82 +240,12 @@ export default function PageServiceIsolation() {
             HERO SECTION - La promesse isolation
             L'utilisateur comprend immédiatement le service et peut demander un devis
             ============================================ */}
-        <section className="relative bg-slate-900 overflow-hidden min-h-[85vh] flex items-center">
-          {/* Animation 3D GridScan en arrière-plan */}
-          <div className="absolute inset-0">
-            <GridScan
-              sensitivity={0.55}
-              lineThickness={1}
-              linesColor="#1e3a5f"
-              gridScale={0.1}
-              scanColor="#22c55e"
-              scanOpacity={0.5}
-              enablePost
-              bloomIntensity={0.6}
-              chromaticAberration={0.002}
-              noiseIntensity={0.01}
-              scanDuration={3.0}
-              scanDelay={1.5}
-            />
-            {/* Overlay gradient pour améliorer la lisibilité du texte */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
-          </div>
-
-          {/* Contenu du hero */}
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40 w-full">
-            <div className="max-w-2xl">
-              {/* Badges certifications et localisation */}
-              <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <Badge 
-                  variant="outline" 
-                  className="bg-brand-orange/20 text-brand-orange border-brand-orange/30 uppercase tracking-wide"
-                >
-                  Strasbourg & Alsace
-                </Badge>
-                <div className="flex gap-2">
-                  <Badge variant="outline" className="text-white bg-white/10 border-white/20">
-                    RGE Qualibat
-                  </Badge>
-                  <Badge variant="outline" className="text-white bg-white/10 border-white/20">
-                    Décennale
-                  </Badge>
-                </div>
-              </div>
-
-              {/* Titre principal - promesse de valeur */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Isolation Thermique & Phonique à{" "}
-                <span className="text-brand-orange">Strasbourg</span>
-              </h1>
-
-              {/* Sous-titre explicatif */}
-              <p className="text-lg md:text-xl text-gray-300 mb-8 font-light">
-                Réduisez vos factures d&apos;énergie et améliorez votre confort.
-                Certification RGE pour bénéficier de{" "}
-                <strong className="text-white">MaPrimeRénov&apos;</strong> et des aides CEE.
-              </p>
-
-              {/* Boutons d'action principaux */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg"
-                >
-                  <a href="#devis">Demander un devis gratuit</a>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-white/30 text-white hover:bg-white hover:text-brand-blue backdrop-blur-sm"
-                >
-                  <Link href="/marches-publics">Accès Acheteurs Publics</Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ServiceHero
+          title="Isolation Thermique & Phonique à"
+          titleHighlight="Strasbourg"
+          subtitle="Réduisez vos factures d'énergie et améliorez votre confort. Certification RGE pour bénéficier de MaPrimeRénov' et des aides CEE."
+          scanColor="#22c55e"
+        />
 
         {/* ============================================
             BARRE DE CONFIANCE - Preuves sociales isolation
@@ -513,51 +271,11 @@ export default function PageServiceIsolation() {
             </div>
 
             {/* Grille des 4 cartes types d'isolation */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {typesIsolation.map((type) => (
-                <Card
-                  key={type.id}
-                  className="group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col border-2 border-gray-200 hover:border-brand-orange bg-white h-full"
-                >
-                  {/* CardHeader avec icône */}
-                  <CardHeader className="p-4 sm:p-6 pb-3 sm:pb-4">
-                    {/* Icône du type d'isolation - style harmonisé */}
-                    <div
-                      className={`w-12 h-12 sm:w-14 sm:h-14 ${
-                        type.iconeColor === "orange"
-                          ? "bg-brand-orange/10 text-brand-orange"
-                          : "bg-brand-blue/10 text-brand-blue"
-                      } rounded-lg flex items-center justify-center mb-4 shadow-sm transition-all duration-300 group-hover:scale-110`}
-                    >
-                      <svg
-                        className="w-6 h-6 sm:w-7 sm:h-7"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                        strokeWidth={1.5}
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M3 12l2-2m0 0l7-7 7 7M5 10v10a1 1 0 001 1h3m10-11l2 2m-2-2v10a1 1 0 01-1 1h-3m-6 0a1 1 0 001-1v-4a1 1 0 011-1h2a1 1 0 011 1v4a1 1 0 001 1m-6 0h6"
-                        />
-                      </svg>
-                    </div>
-                    {/* Titre */}
-                    <CardTitle className="text-lg sm:text-xl md:text-2xl text-brand-blue-dark font-bold mb-2 sm:mb-3 leading-tight group-hover:text-brand-orange transition-colors duration-300">
-                      {type.titre}
-                    </CardTitle>
-                  </CardHeader>
-
-                  {/* CardContent avec description */}
-                  <CardContent className="px-4 sm:px-6 pb-3 sm:pb-4 flex-1 flex flex-col">
-                    <CardDescription className="text-sm md:text-base text-gray-700 flex-1">
-                      {type.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <ServiceFeaturesGrid
+              features={typesIsolation}
+              columns={4}
+              variant="white"
+            />
           </div>
         </section>
 
@@ -758,325 +476,44 @@ export default function PageServiceIsolation() {
             RÉALISATIONS - Projets d'isolation
             Montre des exemples concrets de chantiers d'isolation réalisés
             ============================================ */}
-        <section className="py-16 md:py-24 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* En-tête */}
-            <div className="flex flex-col md:flex-row justify-between items-end mb-12">
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-brand-blue">
-                  Projets d&apos;isolation réalisés en Alsace
-                </h2>
-                <p className="text-gray-600 mt-2">
-                  Des chantiers concrets avec des résultats mesurables.
-                </p>
-              </div>
-              <Link
-                href="/realisations"
-                className="hidden md:inline-flex text-brand-orange font-semibold hover:underline mt-4 md:mt-0"
-              >
-                Voir toutes nos réalisations →
-              </Link>
-            </div>
-
-            {/* Grille des projets */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {projetsRealises.map((projet) => (
-                <div key={projet.titre} className="group cursor-pointer">
-                  <div className="relative rounded-xl overflow-hidden shadow-lg aspect-video">
-                    <img
-                      src={projet.image}
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                      alt={projet.titre}
-                    />
-                    {/* Badge type de projet */}
-                    <div className="absolute top-4 right-4">
-                      <Badge className="bg-brand-orange text-white uppercase">
-                        {projet.type}
-                      </Badge>
-                    </div>
-                    {/* Label lieu */}
-                    <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-sm font-bold shadow-sm">
-                      {projet.lieu}
-                    </div>
-                  </div>
-                  <h3 className="mt-4 text-lg font-bold text-slate-800">
-                    {projet.titre}
-                  </h3>
-                  <p className="text-sm text-gray-500">{projet.description}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Lien mobile */}
-            <div className="mt-8 text-center md:hidden">
-              <Link
-                href="/realisations"
-                className="text-brand-orange font-semibold hover:underline"
-              >
-                Voir toutes nos réalisations →
-              </Link>
-            </div>
-          </div>
-        </section>
+        <ServiceRealisationsSection
+          title="Projets d'isolation réalisés en Alsace"
+          subtitle="Des chantiers concrets avec des résultats mesurables."
+          realisations={projetsRealises}
+          voirToutLink="/realisations"
+          voirToutText="Voir toutes nos réalisations"
+          variant="gray"
+        />
 
         {/* ============================================
             MÉTHODE DE TRAVAIL - Timeline
             Explique le déroulement d'un projet d'isolation de A à Z
             ============================================ */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-blue text-center mb-8 md:mb-12">
-              Un déroulé clair, de l&apos;audit à la réception
-            </h2>
-
-            <div className="relative">
-              {/* Ligne de temps (desktop) */}
-              <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -translate-y-1/2 z-0" />
-
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
-                {etapesMethode.map((etape, index) => (
-                  <div key={etape.numero} className="bg-white p-4 text-center md:pt-8">
-                    <div
-                      className={`w-12 h-12 mx-auto ${
-                        index === 0
-                          ? "bg-brand-blue text-white"
-                          : "bg-gray-200 text-gray-600"
-                      } rounded-full flex items-center justify-center font-bold text-xl mb-4 border-4 border-white shadow-sm`}
-                    >
-                      {etape.numero}
-                    </div>
-                    <h3 className="font-bold text-lg mb-2">{etape.titre}</h3>
-                    <p className="text-sm text-gray-500">{etape.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        <ServiceMethodSection
+          title="Un déroulé clair, de l'audit à la réception"
+          etapes={etapesMethode}
+          variant="timeline"
+          backgroundVariant="white"
+        />
 
         {/* ============================================
             SECTION MARCHÉS PUBLICS
             Section dédiée aux acheteurs publics avec garanties
             ============================================ */}
-        <section
-          className="py-16 md:py-24 bg-brand-blue text-white relative overflow-hidden"
-          id="marches-publics"
-        >
-          {/* Gradient animé en arrière-plan pour effet de profondeur */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-blue-800/20 opacity-0 hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
-          
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 xl:gap-16 items-start lg:items-center">
-              {/* Contenu texte */}
-              <div className="space-y-6 md:space-y-8">
-                {/* Badge "Espace Collectivités" amélioré avec effet de profondeur et animations */}
-                <Badge
-                  variant="outline"
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-700/90 to-blue-800/90 text-blue-50 border-blue-500/50 text-xs sm:text-sm font-bold px-4 sm:px-5 py-2 sm:py-2.5 rounded-full uppercase tracking-wider shadow-lg shadow-blue-900/30 backdrop-blur-sm hover:shadow-xl hover:shadow-blue-900/40 hover:scale-105 hover:border-blue-400/70 transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 focus-visible:ring-offset-blue-900 group/badge"
-                >
-                  <svg
-                    className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover/badge:rotate-12 group-hover/badge:scale-110"
-                    fill="none"
-                    viewBox="0 0 24 24"
-                    stroke="currentColor"
-                    strokeWidth={2.5}
-                    aria-hidden="true"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                    />
-                  </svg>
-                  Espace Collectivités
-                </Badge>
-                
-                {/* Titre principal avec hiérarchie typographique améliorée */}
-                <div className="space-y-4 md:space-y-6">
-                  <h2 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight text-white">
-                    Acheteurs Publics : un partenaire conforme et réactif.
-                  </h2>
-                  
-                  {/* Description avec typographie optimisée */}
-                  <p className="text-blue-50 sm:text-blue-100 text-base sm:text-lg md:text-xl leading-relaxed tracking-normal max-w-2xl">
-                    Nous connaissons vos contraintes. AR+SOLUTION structure ses
-                    offres pour répondre aux exigences des marchés publics
-                    (Écoles, Mairies, Bâtiments administratifs).
-                  </p>
-                </div>
-
-                {/* Liste des avantages avec icônes améliorées et animations */}
-                <div className="space-y-4 md:space-y-5 pt-2">
-                  {marchesPublicsAvantages.map((item, index) => (
-                    <div 
-                      key={index}
-                      className={`flex items-start gap-3 sm:gap-4 group/advantage transition-all duration-300 will-change-transform ${getAnimationDelayClass(index)}`}
-                    >
-                      <div className="flex-shrink-0 mt-0.5 relative">
-                        <div className="transition-all duration-300 will-change-transform">
-                          {item.icone}
-                        </div>
-                        {/* Cercle de pulsation autour de l'icône au survol */}
-                        <div className="absolute inset-0 rounded-full bg-brand-orange/20 scale-0 opacity-0 transition-all duration-500 -z-10 -m-2 will-change-transform-opacity" />
-                      </div>
-                      <span className="text-white text-sm sm:text-base md:text-lg leading-relaxed font-medium">
-                        {item.texte}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-
-                {/* CTA email avec animations améliorées */}
-                <div className="pt-2 md:pt-4">
-                  <Button
-                    asChild
-                    size="lg"
-                    className="bg-white text-brand-blue hover:bg-gray-100 shadow-lg hover:shadow-xl hover:shadow-white/20 transition-all duration-300 ease-out font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 focus-visible:ring-offset-blue-900 group/button"
-                  >
-                    <Link href="/marches-publics" className="inline-flex items-center gap-2">
-                      <span>Accéder à l&apos;Espace Marchés Publics</span>
-                      <svg
-                        className="w-5 h-5 transition-transform duration-300 group-hover/button:translate-x-1"
-                        fill="none"
-                        viewBox="0 0 24 24"
-                        stroke="currentColor"
-                        strokeWidth={2}
-                        aria-hidden="true"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          d="M14 5l7 7m0 0l-7 7m7-7H3"
-                        />
-                      </svg>
-                    </Link>
-                  </Button>
-                </div>
-              </div>
-
-              {/* Grille des documents disponibles avec animations d'entrée */}
-              <div className="bg-blue-800/50 p-6 sm:p-8 md:p-10 lg:p-12 rounded-xl border border-blue-700 shadow-2xl backdrop-blur-sm">
-                <div className="grid grid-cols-2 gap-4 md:gap-5 lg:gap-6">
-                  {documentsMarchesPublics.map((doc, index) => (
-                    <Card
-                      key={doc.titre}
-                      className="group relative bg-gradient-to-br from-brand-blue via-blue-700 to-brand-blue border-2 border-blue-600/60 flex flex-col items-center text-center overflow-hidden cursor-pointer focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 focus-within:ring-offset-blue-800"
-                      style={{
-                        boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
-                        animationDelay: `${index * 100}ms`,
-                        animationFillMode: "both"
-                      }}
-                      tabIndex={0}
-                      role="button"
-                      aria-label={`Document: ${doc.titre} - ${doc.disponibilite}`}
-                    >
-                      {/* Bordure lumineuse au focus pour l'accessibilité */}
-                      <div className="absolute inset-0 border-2 border-transparent rounded-lg pointer-events-none group-focus-within:border-brand-orange/50" />
-                      
-                      <CardContent className="p-4 md:p-5 lg:p-6 relative z-10 w-full">
-                        {/* Icône document */}
-                        <div className="mb-3 md:mb-4 text-blue-200 flex justify-center group-focus-within:scale-110 group-focus-within:text-brand-orange">
-                          <div className="relative">
-                            <div className="group-focus-within:rotate-6">
-                              {getDocumentIcon(doc.titre, "w-10 h-10 md:w-12 md:h-12")}
-                            </div>
-                            {/* Cercle de pulsation autour de l'icône au focus pour l'accessibilité */}
-                            <div className="absolute inset-0 rounded-full bg-brand-orange/20 scale-0 opacity-0 group-focus-within:opacity-100 group-focus-within:scale-150 transition-all duration-500 -z-10" />
-                          </div>
-                        </div>
-                        
-                        {/* Titre avec meilleure hiérarchie */}
-                        <CardTitle className="text-sm md:text-base lg:text-lg text-white mb-2 md:mb-3 font-bold leading-tight group-focus-within:text-brand-orange">
-                          {doc.titre}
-                        </CardTitle>
-                        
-                        {/* Badge de disponibilité avec design amélioré et animations */}
-                        <div className="flex justify-center">
-                          <Badge
-                            variant="outline"
-                            className={`text-xs md:text-sm px-2 md:px-3 py-1 md:py-1.5 rounded-full font-semibold border-2 ${
-                              doc.disponibilite === "Disponible"
-                                ? "bg-green-500/20 text-green-200 border-green-400/50"
-                                : "bg-brand-orange/20 text-brand-orange/80 border-brand-orange/50"
-                            }`}
-                          >
-                            <span className="flex items-center gap-1.5">
-                              {doc.disponibilite === "Disponible" ? (
-                                <>
-                                  <svg
-                                    className="w-3 h-3 md:w-3.5 md:h-3.5"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth={2.5}
-                                    aria-hidden="true"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    />
-                                  </svg>
-                                  {doc.disponibilite}
-                                </>
-                              ) : (
-                                <>
-                                  <svg
-                                    className="w-3 h-3 md:w-3.5 md:h-3.5"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    stroke="currentColor"
-                                    strokeWidth={2.5}
-                                    aria-hidden="true"
-                                  >
-                                    <path
-                                      strokeLinecap="round"
-                                      strokeLinejoin="round"
-                                      d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                                    />
-                                  </svg>
-                                  {doc.disponibilite}
-                                </>
-                              )}
-                            </span>
-                          </Badge>
-                        </div>
-                      </CardContent>
-                      
-                      {/* Effet de profondeur avec ombre portée au focus pour l'accessibilité */}
-                      <div className="absolute -inset-1 bg-gradient-to-r from-brand-orange/0 via-brand-orange/0 to-brand-orange/0 rounded-lg blur-xl opacity-0 group-focus-within:opacity-100 group-focus-within:from-brand-orange/10 group-focus-within:via-brand-orange/5 group-focus-within:to-brand-orange/10 transition-opacity duration-500 -z-10" />
-                    </Card>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <MarchesPublicsSection
+          avantages={marchesPublicsAvantagesData}
+          documents={documentsMarchesPublicsData}
+        />
 
         {/* ============================================
             FAQ ISOLATION
             Répond aux questions courantes sur l'isolation
             ============================================ */}
-        <section className="py-16 bg-white">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-blue text-center mb-8 md:mb-12">
-              Questions fréquentes sur l&apos;isolation
-            </h2>
-
-            <Accordion type="single" collapsible className="w-full">
-              {faqItems.map((item, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-left font-medium">
-                    {item.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-gray-600 text-sm leading-relaxed">
-                    {item.reponse}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </section>
+        <ServiceFAQSection
+          title="Questions fréquentes sur l'isolation"
+          items={faqItems}
+          variant="white"
+        />
 
         {/* ============================================
             CTA FINAL - Demande de devis
@@ -1097,37 +534,28 @@ export default function PageServiceIsolation() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <Button
-          asChild
-          variant="secondary"
-          className="flex-1 text-brand-blue font-bold"
-        >
-          <a href="tel:0388000000">
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-              />
-            </svg>
-            Appeler
-          </a>
-        </Button>
-        <Button
-          asChild
-          size="lg"
-          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
-        >
-          <a href="#devis">Devis Isolation</a>
-        </Button>
-      </div>
+      <MobileStickyBar
+        phoneNumber="tel:0388000000"
+        devisLink="#devis"
+        devisText="Devis Isolation"
+      />
+
+      {/* ============================================
+          DONNÉES STRUCTURÉES SEO
+          Schema.org pour améliorer le référencement
+          ============================================ */}
+      <ServiceStructuredData
+        serviceName="Isolation Thermique & Phonique"
+        serviceDescription="Isolation thermique et phonique certifiée RGE à Strasbourg. Combles, ITI, sols. Éligible MaPrimeRénov' et aides CEE. Réduction facture énergétique jusqu'à 30%."
+        serviceUrl="/services/isolation"
+        serviceType="Isolation thermique"
+        faqItems={faqItems}
+        breadcrumbs={[
+          { name: "Accueil", url: "/" },
+          { name: "Services", url: "/services" },
+          { name: "Isolation", url: "/services/isolation" },
+        ]}
+      />
     </>
   );
 }
