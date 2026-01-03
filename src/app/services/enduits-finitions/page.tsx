@@ -25,9 +25,10 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TrustBar from "@/components/TrustBar";
+import CtaBlock from "@/components/CtaBlock";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import GridScan from "@/components/GridScan";
 
@@ -88,8 +89,8 @@ const solutionsEnduits = [
     description:
       "Effets matière, stuc, chaux, béton ciré mural. Donnez du caractère à vos murs.",
     badge: "Architecture Intérieure",
-    badgeColor: "purple",
-    iconeColor: "purple",
+    badgeColor: "blue",
+    iconeColor: "blue",
   },
   {
     id: "reparation",
@@ -195,7 +196,7 @@ export default function PageServiceEnduitsFinitions() {
             HERO SECTION - La promesse enduits/finitions
             L'utilisateur comprend immédiatement le service et peut demander un devis
             ============================================ */}
-        <section className="relative bg-slate-900 overflow-hidden min-h-[650px] flex items-center">
+        <section className="relative bg-slate-900 overflow-hidden min-h-[85vh] flex items-center">
           {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
             <GridScan
@@ -217,23 +218,24 @@ export default function PageServiceEnduitsFinitions() {
           </div>
 
           {/* Contenu du hero */}
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 w-full">
-            <div className="max-w-3xl">
-              {/* Badges RGE et intervention site occupé */}
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40 w-full">
+            <div className="max-w-2xl">
+              {/* Badges certifications et localisation */}
               <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30 uppercase tracking-wide">
-                  <svg
-                    className="w-3 h-3 mr-1"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-                  </svg>
-                  Certifié RGE
+                <Badge 
+                  variant="outline" 
+                  className="bg-brand-orange/20 text-brand-orange border-brand-orange/30 uppercase tracking-wide"
+                >
+                  Strasbourg & Alsace
                 </Badge>
-                <Badge variant="outline" className="bg-white/10 text-white border-white/20 backdrop-blur-sm">
-                  Intervention Site Occupé & Milieu Scolaire
-                </Badge>
+                <div className="flex gap-2">
+                  <Badge variant="outline" className="text-white bg-white/10 border-white/20">
+                    RGE Qualibat
+                  </Badge>
+                  <Badge variant="outline" className="text-white bg-white/10 border-white/20">
+                    Décennale
+                  </Badge>
+                </div>
               </div>
 
               {/* Titre principal - promesse de valeur */}
@@ -258,24 +260,19 @@ export default function PageServiceEnduitsFinitions() {
                 <Button
                   asChild
                   size="lg"
-                  className="bg-brand-orange hover:bg-orange-600 text-white shadow-lg"
+                  className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg"
                 >
-                  <a href="#devis">Demander un chiffrage (48h)</a>
+                  <a href="#devis">Demander un devis gratuit</a>
                 </Button>
                 <Button
                   asChild
                   variant="outline"
                   size="lg"
-                  className="border-2 border-slate-400 text-slate-200 hover:bg-white hover:text-slate-900"
+                  className="border-white/30 text-white hover:bg-white hover:text-brand-blue backdrop-blur-sm"
                 >
-                  <a href="#realisations">Voir nos réalisations</a>
+                  <Link href="/marches-publics">Accès Acheteurs Publics</Link>
                 </Button>
               </div>
-
-              {/* Micro-réassurance */}
-              <p className="mt-6 text-xs text-slate-400 uppercase tracking-wide">
-                Pour Particuliers & Marchés Publics (Strasbourg - Bas-Rhin)
-              </p>
             </div>
           </div>
         </section>
@@ -373,40 +370,31 @@ export default function PageServiceEnduitsFinitions() {
               {solutionsEnduits.map((solution) => (
                 <Card
                   key={solution.id}
-                  className="hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
+                  className="group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col border-2 border-gray-200 hover:border-brand-orange bg-white h-full"
                 >
-                  <CardContent className="p-6">
-                    {/* Icône du type de solution */}
+                  {/* CardHeader avec icône */}
+                  <CardHeader className="p-4 sm:p-6 pb-3 sm:pb-4">
+                    {/* Icône du type de solution - style harmonisé */}
                     <div
-                      className={`w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center mb-6 transition-colors ${
+                      className={`w-12 h-12 sm:w-14 sm:h-14 ${
                         solution.iconeColor === "blue"
-                          ? "group-hover:bg-brand-blue"
+                          ? "bg-brand-blue/10 text-brand-blue"
                           : solution.iconeColor === "orange"
-                          ? "group-hover:bg-brand-orange"
-                          : solution.iconeColor === "purple"
-                          ? "group-hover:bg-purple-600"
-                          : "group-hover:bg-green-600"
-                      }`}
+                          ? "bg-brand-orange/10 text-brand-orange"
+                          : "bg-green-50 text-green-600"
+                      } rounded-lg flex items-center justify-center mb-4 shadow-sm transition-all duration-300 group-hover:scale-110`}
                     >
                       <svg
-                        className={`w-6 h-6 transition-colors ${
-                          solution.iconeColor === "blue"
-                            ? "text-brand-blue group-hover:text-white"
-                            : solution.iconeColor === "orange"
-                            ? "text-brand-orange group-hover:text-white"
-                            : solution.iconeColor === "purple"
-                            ? "text-purple-600 group-hover:text-white"
-                            : "text-green-600 group-hover:text-white"
-                        }`}
+                        className="w-6 h-6 sm:w-7 sm:h-7"
                         fill="none"
                         stroke="currentColor"
                         viewBox="0 0 24 24"
+                        strokeWidth={1.5}
                       >
                         {solution.id === "ratissage" && (
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            strokeWidth={2}
                             d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
                           />
                         )}
@@ -414,7 +402,6 @@ export default function PageServiceEnduitsFinitions() {
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            strokeWidth={2}
                             d="M13 10V3L4 14h7v7l9-11h-7z"
                           />
                         )}
@@ -422,7 +409,6 @@ export default function PageServiceEnduitsFinitions() {
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            strokeWidth={2}
                             d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
                           />
                         )}
@@ -430,39 +416,39 @@ export default function PageServiceEnduitsFinitions() {
                           <path
                             strokeLinecap="round"
                             strokeLinejoin="round"
-                            strokeWidth={2}
                             d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
                           />
                         )}
                       </svg>
                     </div>
-
-                    {/* Titre et description */}
-                    <CardTitle className="text-xl mb-2">
+                    {/* Titre */}
+                    <CardTitle className="text-lg sm:text-xl md:text-2xl text-brand-blue-dark font-bold mb-2 sm:mb-3 leading-tight group-hover:text-brand-orange transition-colors duration-300">
                       {solution.titre}
                     </CardTitle>
-                    <CardDescription className="text-sm mb-4">
+                  </CardHeader>
+
+                  {/* CardContent avec description */}
+                  <CardContent className="px-4 sm:px-6 pb-3 sm:pb-4 flex-1 flex flex-col">
+                    <CardDescription className="text-sm md:text-base text-gray-700 mb-3 sm:mb-4 flex-1">
                       {solution.description}
                     </CardDescription>
-
-                    {/* Badge cible client */}
-                    <div className="border-t border-slate-200 pt-3">
-                      <Badge
-                        variant="secondary"
-                        className={`text-xs font-semibold ${
-                          solution.badgeColor === "blue"
-                            ? "text-brand-blue bg-blue-50"
-                            : solution.badgeColor === "orange"
-                            ? "text-brand-orange bg-orange-50"
-                            : solution.badgeColor === "purple"
-                            ? "text-purple-600 bg-purple-50"
-                            : "text-green-600 bg-green-50"
-                        }`}
-                      >
-                        {solution.badge}
-                      </Badge>
-                    </div>
                   </CardContent>
+
+                  {/* CardFooter avec badge */}
+                  <CardFooter className="px-4 sm:px-6 pb-4 sm:pb-6 pt-3 sm:pt-4 border-t border-gray-100 mt-auto">
+                    <Badge
+                      variant="outline"
+                      className={`text-xs font-semibold ${
+                        solution.badgeColor === "blue"
+                          ? "text-brand-blue bg-blue-50 border-brand-blue/30"
+                          : solution.badgeColor === "orange"
+                          ? "text-brand-orange bg-orange-50 border-brand-orange/30"
+                          : "text-green-700 bg-green-50 border-green-200"
+                      }`}
+                    >
+                      {solution.badge}
+                    </Badge>
+                  </CardFooter>
                 </Card>
               ))}
             </div>
@@ -575,7 +561,7 @@ export default function PageServiceEnduitsFinitions() {
             ============================================ */}
         <section className="py-16 md:py-24 bg-slate-50" id="realisations">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8 md:mb-12">
               Le pouvoir de l&apos;enduit :{" "}
               <span className="text-brand-blue">Avant / Après</span>
             </h2>
@@ -665,7 +651,7 @@ export default function PageServiceEnduitsFinitions() {
             BLOC MARCHÉS PUBLICS - Focus admin
             Section dédiée aux acheteurs publics avec documents disponibles
             ============================================ */}
-        <section className="py-12 bg-slate-100 border-y border-slate-200">
+        <section className="py-16 md:py-24 bg-slate-100 border-y border-slate-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-8">
               {/* Contenu texte */}
@@ -729,7 +715,7 @@ export default function PageServiceEnduitsFinitions() {
             ============================================ */}
         <section className="py-16 md:py-24 bg-white border-t border-slate-100">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-center text-slate-900 mb-8 md:mb-12">
               Vos questions fréquentes
             </h2>
 
@@ -752,48 +738,13 @@ export default function PageServiceEnduitsFinitions() {
             CTA FINAL - Demande de devis
             Section d'appel à l'action final pour convertir le visiteur
             ============================================ */}
-        <section
-          className="py-20 md:py-24 bg-slate-900 text-center px-4"
+        <CtaBlock
+          titre="Vos murs méritent la perfection."
+          description="Ne confiez pas vos finitions au hasard. Devis gratuit sous 48h. Intervention sur Strasbourg, CUS et tout le Bas-Rhin."
+          texteDevis="Obtenir mon devis maintenant"
+          variante="sombre"
           id="devis"
-        >
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              Vos murs méritent la perfection.
-            </h2>
-            <p className="text-slate-300 text-lg mb-10">
-              Ne confiez pas vos finitions au hasard. Devis gratuit sous 48h.
-              <br />
-              Intervention sur Strasbourg, CUS et tout le Bas-Rhin.
-            </p>
-
-            <Button
-              asChild
-              size="lg"
-              className="bg-brand-orange hover:bg-orange-600 text-white text-xl font-bold shadow-lg"
-            >
-              <Link href="/contact">Obtenir mon devis maintenant</Link>
-            </Button>
-
-            {/* Logos garanties */}
-            <div className="mt-12 flex justify-center gap-8 opacity-60 grayscale hover:grayscale-0 transition-all">
-              <img
-                src="https://placehold.co/100x50/334155/fff?text=RGE"
-                alt="RGE"
-                className="h-12"
-              />
-              <img
-                src="https://placehold.co/100x50/334155/fff?text=Decennale"
-                alt="Garantie Décennale"
-                className="h-12"
-              />
-              <img
-                src="https://placehold.co/100x50/334155/fff?text=Qualibat"
-                alt="Qualibat"
-                className="h-12"
-              />
-            </div>
-          </div>
-        </section>
+        />
       </main>
 
       {/* Footer réutilisable */}

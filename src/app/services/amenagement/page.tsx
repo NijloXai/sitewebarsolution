@@ -26,9 +26,10 @@ import Link from "next/link";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TrustBar from "@/components/TrustBar";
+import CtaBlock from "@/components/CtaBlock";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
+import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
 import GridScan from "@/components/GridScan";
 
@@ -209,7 +210,7 @@ export default function PageServiceAmenagement() {
             HERO SECTION - La promesse peinture/aménagement
             L'utilisateur comprend immédiatement le service et peut demander un devis
             ============================================ */}
-        <section className="relative bg-slate-900 min-h-[85vh] flex items-center overflow-hidden">
+        <section className="relative bg-slate-900 overflow-hidden min-h-[85vh] flex items-center">
           {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
             <GridScan
@@ -231,24 +232,24 @@ export default function PageServiceAmenagement() {
           </div>
 
           {/* Contenu du hero */}
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32">
-            <div className="max-w-3xl">
-              {/* Badge Argument Santé */}
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40 w-full">
+            <div className="max-w-2xl">
+              {/* Badges certifications et localisation */}
               <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30 uppercase tracking-wide">
-                  <svg
-                    className="w-4 h-4 mr-1"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M6.267 3.455a3.066 3.066 0 001.745-.723 3.066 3.066 0 013.976 0 3.066 3.066 0 001.745.723 3.066 3.066 0 012.812 2.812c.051.643.304 1.254.723 1.745a3.066 3.066 0 010 3.976 3.066 3.066 0 00-.723 1.745 3.066 3.066 0 01-2.812 2.812 3.066 3.066 0 00-1.745.723 3.066 3.066 0 01-3.976 0 3.066 3.066 0 00-1.745-.723 3.066 3.066 0 01-2.812-2.812 3.066 3.066 0 00-.723-1.745 3.066 3.066 0 010-3.976 3.066 3.066 0 00.723-1.745 3.066 3.066 0 012.812-2.812zm7.44 5.252a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Peintures Écolabel / A+
+                <Badge 
+                  variant="outline" 
+                  className="bg-brand-orange/20 text-brand-orange border-brand-orange/30 uppercase tracking-wide"
+                >
+                  Strasbourg & Alsace
                 </Badge>
+                <div className="flex gap-2">
+                  <Badge variant="outline" className="text-white bg-white/10 border-white/20">
+                    RGE Qualibat
+                  </Badge>
+                  <Badge variant="outline" className="text-white bg-white/10 border-white/20">
+                    Décennale
+                  </Badge>
+                </div>
               </div>
 
               {/* Titre principal - promesse de valeur */}
@@ -264,45 +265,22 @@ export default function PageServiceAmenagement() {
               </p>
 
               {/* Boutons d'action principaux */}
-              <div className="flex flex-col sm:flex-row gap-4 items-start">
+              <div className="flex flex-col sm:flex-row gap-4">
                 <Button
                   asChild
                   size="lg"
                   className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg"
                 >
-                  <a href="#devis">
-                    Demander mon devis peinture
-                    <svg
-                      className="w-5 h-5 ml-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M17 8l4 4m0 0l-4 4m4-4H3"
-                      />
-                    </svg>
-                  </a>
+                  <a href="#devis">Demander un devis gratuit</a>
                 </Button>
-                <span className="text-sm text-slate-300 mt-2 sm:mt-4 flex items-center bg-slate-800/50 px-3 py-2 rounded">
-                  <svg
-                    className="w-4 h-4 mr-1 text-brand-orange"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Intervention possible en site occupé & meublé
-                </span>
+                <Button
+                  asChild
+                  variant="outline"
+                  size="lg"
+                  className="border-white/30 text-white hover:bg-white hover:text-brand-blue backdrop-blur-sm"
+                >
+                  <Link href="/marches-publics">Accès Acheteurs Publics</Link>
+                </Button>
               </div>
             </div>
           </div>
@@ -342,109 +320,105 @@ export default function PageServiceAmenagement() {
                 {prestationsResidentiel.map((prestation) => (
                   <Card
                     key={prestation.id}
-                    className={`${
+                    className={`group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col border-2 ${
                       prestation.badge
-                        ? "bg-orange-50 border-orange-100"
-                        : ""
-                    } hover:shadow-lg transition duration-300 relative overflow-hidden`}
+                        ? "border-orange-200 bg-orange-50/50"
+                        : "border-gray-200"
+                    } hover:border-brand-orange bg-white h-full`}
                   >
-                    <CardContent className="p-8">
-                      {/* Badge optionnel */}
-                      {prestation.badge && (
-                        <div className="absolute top-0 right-0">
-                          <Badge className="bg-orange-200 text-orange-800 text-xs font-bold rounded-bl">
-                            {prestation.badge}
-                          </Badge>
-                        </div>
-                      )}
-
-                    {/* Icône de la prestation */}
-                    <div
-                      className={`h-14 w-14 ${
-                        prestation.iconeColor === "orange"
-                          ? "bg-orange-100 text-brand-orange"
-                          : "bg-blue-100 text-brand-blue"
-                      } rounded-lg flex items-center justify-center mb-6`}
-                    >
-                      {prestation.id === "deco" && (
-                        <svg
-                          className="w-8 h-8"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-                          />
-                        </svg>
-                      )}
-                      {prestation.id === "preparation" && (
-                        <svg
-                          className="w-8 h-8"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                          />
-                        </svg>
-                      )}
-                      {prestation.id === "finitions" && (
-                        <svg
-                          className="w-8 h-8"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                          />
-                        </svg>
-                      )}
-                    </div>
-
-                    {/* Titre et description */}
-                    <CardTitle className="text-xl mb-3 text-slate-900">
-                      {prestation.titre}
-                    </CardTitle>
-                    <CardDescription className="leading-relaxed mb-4">
-                      {prestation.description}
-                    </CardDescription>
-
-                    {/* Lien optionnel */}
-                    {prestation.lien && (
-                      <Link
-                        href={prestation.lien}
-                        className="inline-flex items-center text-orange-700 font-bold hover:text-orange-800 transition"
-                      >
-                        {prestation.lienTexte}
-                        <svg
-                          className="w-4 h-4 ml-1"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M17 8l4 4m0 0l-4 4m4-4H3"
-                          />
-                        </svg>
-                      </Link>
+                    {/* Badge optionnel en overlay */}
+                    {prestation.badge && (
+                      <div className="absolute top-3 right-3 z-10">
+                        <Badge className="bg-brand-orange text-white text-xs font-bold shadow-lg">
+                          {prestation.badge}
+                        </Badge>
+                      </div>
                     )}
-                  </CardContent>
-                </Card>
+
+                    {/* CardHeader avec icône */}
+                    <CardHeader className="p-4 sm:p-6 pb-3 sm:pb-4">
+                      {/* Icône de la prestation - style harmonisé */}
+                      <div
+                        className={`w-12 h-12 sm:w-14 sm:h-14 ${
+                          prestation.iconeColor === "orange"
+                            ? "bg-brand-orange/10 text-brand-orange"
+                            : "bg-brand-blue/10 text-brand-blue"
+                        } rounded-lg flex items-center justify-center mb-4 shadow-sm transition-all duration-300 group-hover:scale-110`}
+                      >
+                        {prestation.id === "deco" && (
+                          <svg
+                            className="w-6 h-6 sm:w-7 sm:h-7"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
+                            />
+                          </svg>
+                        )}
+                        {prestation.id === "preparation" && (
+                          <svg
+                            className="w-6 h-6 sm:w-7 sm:h-7"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
+                            />
+                          </svg>
+                        )}
+                        {prestation.id === "finitions" && (
+                          <svg
+                            className="w-6 h-6 sm:w-7 sm:h-7"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+                            />
+                          </svg>
+                        )}
+                      </div>
+                      {/* Titre */}
+                      <CardTitle className="text-lg sm:text-xl md:text-2xl text-brand-blue-dark font-bold mb-2 sm:mb-3 leading-tight group-hover:text-brand-orange transition-colors duration-300">
+                        {prestation.titre}
+                      </CardTitle>
+                    </CardHeader>
+
+                    {/* CardContent avec description */}
+                    <CardContent className="px-4 sm:px-6 pb-3 sm:pb-4 flex-1 flex flex-col">
+                      <CardDescription className="text-sm md:text-base text-gray-700 mb-3 sm:mb-4 flex-1 leading-relaxed">
+                        {prestation.description}
+                      </CardDescription>
+                    </CardContent>
+
+                    {/* CardFooter avec lien */}
+                    {prestation.lien && (
+                      <CardFooter className="px-4 sm:px-6 pb-4 sm:pb-6 pt-3 sm:pt-4 border-t border-gray-100 mt-auto">
+                        <Link
+                          href={prestation.lien}
+                          className="inline-flex items-center text-brand-orange font-bold hover:text-brand-orange-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded transition-all duration-300 group/link w-full justify-between text-sm sm:text-base"
+                        >
+                          <span>{prestation.lienTexte}</span>
+                          <span className="ml-2 motion-safe:group-hover/link:translate-x-1 motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out" aria-hidden="true">
+                            →
+                          </span>
+                        </Link>
+                      </CardFooter>
+                    )}
+                  </Card>
                 ))}
               </div>
             </div>
@@ -460,67 +434,71 @@ export default function PageServiceAmenagement() {
                 {prestationsTertiaire.map((prestation) => (
                   <Card
                     key={prestation.id}
-                    className="hover:shadow-lg transition duration-300"
+                    className="group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col border-2 border-gray-200 hover:border-brand-orange bg-white h-full"
                   >
-                    <CardContent className="p-8">
-                    {/* Icône de la prestation */}
-                    <div className="h-14 w-14 bg-blue-100 text-brand-blue rounded-lg flex items-center justify-center mb-6">
-                      {prestation.id === "airless" && (
-                        <svg
-                          className="w-8 h-8"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M13 10V3L4 14h7v7l9-11h-7z"
-                          />
-                        </svg>
-                      )}
-                      {prestation.id === "bureaux" && (
-                        <svg
-                          className="w-8 h-8"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                          />
-                        </svg>
-                      )}
-                      {prestation.id === "erp" && (
-                        <svg
-                          className="w-8 h-8"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                          />
-                        </svg>
-                      )}
-                    </div>
+                    {/* CardHeader avec icône */}
+                    <CardHeader className="p-4 sm:p-6 pb-3 sm:pb-4">
+                      {/* Icône de la prestation - style harmonisé */}
+                      <div className="w-12 h-12 sm:w-14 sm:h-14 bg-brand-blue/10 text-brand-blue rounded-lg flex items-center justify-center mb-4 shadow-sm transition-all duration-300 group-hover:scale-110">
+                        {prestation.id === "airless" && (
+                          <svg
+                            className="w-6 h-6 sm:w-7 sm:h-7"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M13 10V3L4 14h7v7l9-11h-7z"
+                            />
+                          </svg>
+                        )}
+                        {prestation.id === "bureaux" && (
+                          <svg
+                            className="w-6 h-6 sm:w-7 sm:h-7"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
+                            />
+                          </svg>
+                        )}
+                        {prestation.id === "erp" && (
+                          <svg
+                            className="w-6 h-6 sm:w-7 sm:h-7"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                            />
+                          </svg>
+                        )}
+                      </div>
+                      {/* Titre */}
+                      <CardTitle className="text-lg sm:text-xl md:text-2xl text-brand-blue-dark font-bold mb-2 sm:mb-3 leading-tight group-hover:text-brand-orange transition-colors duration-300">
+                        {prestation.titre}
+                      </CardTitle>
+                    </CardHeader>
 
-                    {/* Titre et description */}
-                    <CardTitle className="text-xl mb-3 text-slate-900">
-                      {prestation.titre}
-                    </CardTitle>
-                    <CardDescription className="leading-relaxed">
-                      {prestation.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
+                    {/* CardContent avec description */}
+                    <CardContent className="px-4 sm:px-6 pb-3 sm:pb-4 flex-1 flex flex-col">
+                      <CardDescription className="text-sm md:text-base text-gray-700 flex-1 leading-relaxed">
+                        {prestation.description}
+                      </CardDescription>
+                    </CardContent>
+                  </Card>
                 ))}
               </div>
             </div>
@@ -581,7 +559,7 @@ export default function PageServiceAmenagement() {
 
               {/* Contenu texte à droite */}
               <div className="w-full lg:w-1/2">
-                <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-4 md:mb-6">
                   Nous protégeons votre intérieur comme le nôtre
                 </h2>
                 <p className="text-lg text-gray-600 mb-8">
@@ -674,11 +652,11 @@ export default function PageServiceAmenagement() {
                   />
                   <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900 to-transparent">
                     <Badge
-                      variant="secondary"
+                      variant="outline"
                       className={`${
                         projet.type === "Résidentiel"
-                          ? "text-blue-400"
-                          : "text-brand-orange"
+                          ? "bg-brand-blue/10 text-brand-blue border-brand-blue/30"
+                          : "bg-brand-orange/10 text-brand-orange border-brand-orange/30"
                       } text-xs font-bold uppercase tracking-wider mb-1`}
                     >
                       {projet.type}
@@ -709,7 +687,7 @@ export default function PageServiceAmenagement() {
             ============================================ */}
         <section className="py-16 md:py-24 bg-white">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl md:text-4xl font-bold text-center mb-12 text-brand-blue">
+            <h2 className="text-3xl md:text-4xl font-bold text-center mb-8 md:mb-12 text-brand-blue">
               Questions fréquentes
             </h2>
 
@@ -749,61 +727,13 @@ export default function PageServiceAmenagement() {
             CTA FINAL - Demande de devis
             Appel à l'action final pour convertir le visiteur
             ============================================ */}
-        <section className="py-20 bg-gray-50 border-t border-gray-200" id="devis">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <div className="max-w-2xl mx-auto">
-              {/* Portrait dirigeant */}
-              <div className="w-24 h-24 bg-slate-200 rounded-full mx-auto mb-6 overflow-hidden border-4 border-white shadow-lg">
-                <img
-                  src="https://placehold.co/150x150?text=Portrait+Dirigeant"
-                  alt="Artisan peintre Strasbourg"
-                  className="w-full h-full object-cover"
-                />
-              </div>
-
-              <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-4">
-                Prêt à changer d&apos;ambiance ?
-              </h2>
-              <p className="text-lg text-gray-600 mb-8">
-                Obtenez un devis gratuit, détaillé et sans surprise pour vos
-                travaux de peinture à Strasbourg et environs.
-              </p>
-
-              <div className="flex flex-col sm:flex-row justify-center gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-brand-orange hover:bg-brand-orange-dark text-white font-bold text-lg shadow-lg"
-                >
-                  <Link href="/contact">Obtenir un chiffrage</Link>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="bg-white hover:bg-slate-50 text-slate-900 border-slate-300 font-bold text-lg shadow"
-                >
-                  <a href="tel:0388000000">
-                    <svg
-                      className="w-5 h-5 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-                      />
-                    </svg>
-                    03 88 00 00 00
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <CtaBlock
+          titre="Prêt à changer d'ambiance ?"
+          description="Obtenez un devis gratuit, détaillé et sans surprise pour vos travaux de peinture à Strasbourg et environs."
+          texteDevis="Obtenir un chiffrage"
+          variante="sombre"
+          id="devis"
+        />
       </main>
 
       {/* Footer réutilisable */}
