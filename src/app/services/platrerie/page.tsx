@@ -21,28 +21,57 @@
   - Contacter le service Marchés Publics s'il est acheteur public
 */
 
+import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import CtaBlock from "@/components/CtaBlock";
 import TrustBar from "@/components/TrustBar";
+import ServiceHero from "@/components/services/ServiceHero";
+import ServiceFeaturesGrid from "@/components/services/ServiceFeaturesGrid";
+import MobileStickyBar from "@/components/services/MobileStickyBar";
+
+// Code splitting dynamique pour les composants lourds
+const ServiceFAQSection = dynamic(
+  () => import("@/components/services/ServiceFAQSection"),
+  { ssr: true }
+);
+const ServiceRealisationsSection = dynamic(
+  () => import("@/components/services/ServiceRealisationsSection"),
+  { ssr: true }
+);
+const ServiceMethodSection = dynamic(
+  () => import("@/components/services/ServiceMethodSection"),
+  { ssr: true }
+);
+const ServiceStructuredData = dynamic(
+  () => import("@/components/services/ServiceStructuredData"),
+  { ssr: true }
+);
+const MarchesPublicsSection = dynamic(
+  () => import("@/components/services/MarchesPublicsSection"),
+  { ssr: true }
+);
+import { platreriePageMetadata } from "@/lib/services-metadata";
+import { barreConfianceGenerique, marchesPublicsAvantages, documentsMarchesPublicsPlatrerie } from "@/lib/services-data";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import GridScan from "@/components/GridScan";
+import { Card, CardContent, CardTitle, CardDescription } from "@/components/ui/card";
+
+export const metadata: Metadata = platreriePageMetadata;
 
 /* ============================================
    DONNÉES DE LA PAGE
    ============================================ */
 
-/* Éléments de la barre de confiance spécifique plâtrerie */
-const barreConfianceItems = [
-  { valeur: "RGE", label: "Certifié Qualibat" },
-  { valeur: "10 Ans", label: "Garantie Décennale" },
-  { valeur: "150+", label: "Chantiers Réalisés" },
-  { valeur: "Alsace", label: "Intervention Rapide" },
-];
+/* ============================================
+   DONNÉES DE LA PAGE
+   ============================================ */
+
+// Utilisation des données centralisées
+const barreConfianceItems = barreConfianceGenerique;
 
 /* Les 4 prestations de plâtrerie proposées */
 const prestationsPlatrerie = [
@@ -51,23 +80,21 @@ const prestationsPlatrerie = [
     titre: "Cloisons & Distribution",
     description:
       "Création d'espaces, cloisons séparatives, doublage BA13, cloisons courbes ou grande hauteur. Redistribution complète de l'espace intérieur.",
-    iconeColor: "blue",
-    lien: null,
+    iconeColor: "blue" as const,
   },
   {
     id: "faux-plafonds",
     titre: "Faux Plafonds Techniques",
     description:
       "Dalles 600x600, plafonds suspendus acoustiques, coupe-feu et intégration luminaires. Solutions pour bureaux, commerces et ERP.",
-    iconeColor: "orange",
-    lien: null,
+    iconeColor: "orange" as const,
   },
   {
     id: "finitions",
     titre: "Préparation & Finitions",
     description:
       "Ratissage complet, bandes à joint, enduits de lissage prêts à peindre (Q4). Surfaces parfaites pour vos finitions de peinture.",
-    iconeColor: "blue",
+    iconeColor: "blue" as const,
     lienTexte: "Voir aussi : Notre lot Peinture",
     lien: "/services/enduits-finitions",
   },
@@ -76,7 +103,7 @@ const prestationsPlatrerie = [
     titre: "Isolation Intérieure",
     description:
       "Doublage thermique des murs, laine de verre, bio-sourcés. Conformité RE2020 et éligibilité aux aides MaPrimeRénov'.",
-    iconeColor: "orange",
+    iconeColor: "orange" as const,
     lienTexte: "Voir aussi : Isolation RGE",
     lien: "/services/isolation",
   },
@@ -96,7 +123,7 @@ const profilsClients = [
       "Normes Feu & Acoustique ERP",
       "Gestion stricte des plannings",
     ],
-    image: "https://placehold.co/600x400?text=Ecole+Faux+Plafond+Acoustique",
+    image: "https://images.unsplash.com/photo-1580587771525-78b9dba3b914?w=600&h=400&fit=crop&q=80",
     lien: "/marches-publics",
     lienTexte: "Accéder à l'espace Marchés Publics",
   },
@@ -112,7 +139,7 @@ const profilsClients = [
       "Correction acoustique open-space",
       "Intégration esthétique des réseaux",
     ],
-    image: "https://placehold.co/600x400?text=Plateau+Bureaux+Open+Space",
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=600&h=400&fit=crop&q=80",
     lien: null,
     lienTexte: null,
   },
@@ -128,7 +155,7 @@ const profilsClients = [
       "Finitions Q4 (Prêt à peindre)",
       "Création de niches et déco",
     ],
-    image: "https://placehold.co/600x400?text=Salon+Renove+Placo+Design",
+    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=400&fit=crop&q=80",
     lien: "#devis",
     lienTexte: "Demander un devis rénovation",
   },
@@ -164,6 +191,7 @@ const projetsRealises = [
     type: "Marché Public",
     description:
       "Installation de dalles acoustiques Rockfon pour réduire le brouhaha de 50%.",
+    image: "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=600&h=400&fit=crop&q=80",
   },
   {
     titre: "Aménagement de Combles",
@@ -171,16 +199,13 @@ const projetsRealises = [
     type: "Particulier",
     description:
       "Création d'une suite parentale avec isolation RGE (R=7) et dressing intégré.",
+    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=400&fit=crop&q=80",
   },
 ];
 
-/* Documents disponibles pour les marchés publics */
-const documentsMarchesPublics = [
-  { titre: "Attestation URSSAF", disponibilite: "Disponible" },
-  { titre: "Décennale", disponibilite: "Disponible" },
-  { titre: "RC Pro", disponibilite: "Disponible" },
-  { titre: "PV réaction au feu", disponibilite: "Sur demande" },
-];
+// Utilisation des données centralisées
+const marchesPublicsAvantagesData = marchesPublicsAvantages;
+const documentsMarchesPublicsData = documentsMarchesPublicsPlatrerie;
 
 /* Questions fréquentes sur la plâtrerie */
 const faqItems = [
@@ -219,95 +244,20 @@ export default function PageServicePlatrerie() {
             HERO SECTION - La promesse plâtrerie
             L'utilisateur comprend immédiatement le service et peut demander un devis
             ============================================ */}
-        <section className="relative bg-slate-900 overflow-hidden">
-          {/* Animation 3D GridScan en arrière-plan */}
-          <div className="absolute inset-0">
-            <GridScan
-              sensitivity={0.55}
-              lineThickness={1}
-              linesColor="#1e3a5f"
-              gridScale={0.1}
-              scanColor="#f97316"
-              scanOpacity={0.5}
-              enablePost
-              bloomIntensity={0.6}
-              chromaticAberration={0.002}
-              noiseIntensity={0.01}
-              scanDuration={3.0}
-              scanDelay={1.5}
-            />
-            {/* Overlay gradient pour améliorer la lisibilité du texte */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
-          </div>
-
-          {/* Contenu du hero */}
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40">
-            <div className="max-w-3xl">
-              {/* Badges certifications et localisation */}
-              <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <Badge variant="outline" className="bg-white/10 backdrop-blur-sm border-white/20 text-white uppercase tracking-wide">
-                  <svg
-                    className="w-3 h-3 text-brand-orange mr-1"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path
-                      fillRule="evenodd"
-                      d="M10 18a8 8 0 100-16 8 8 0 000 16zm3.707-9.293a1 1 0 00-1.414-1.414L9 10.586 7.707 9.293a1 1 0 00-1.414 1.414l2 2a1 1 0 001.414 0l4-4z"
-                      clipRule="evenodd"
-                    />
-                  </svg>
-                  Intervention Alsace
-                </Badge>
-                <Badge variant="outline" className="bg-white/10 backdrop-blur-sm border-white/20 text-white uppercase tracking-wide">
-                  <svg
-                    className="w-3 h-3 text-brand-orange mr-1"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M9.049 2.927c.3-.921 1.603-.921 1.902 0l1.07 3.292a1 1 0 00.95.69h3.462c.969 0 1.371 1.24.588 1.81l-2.8 2.034a1 1 0 00-.364 1.118l1.07 3.292c.3.921-.755 1.688-1.54 1.118l-2.8-2.034a1 1 0 00-1.175 0l-2.8 2.034c-.784.57-1.838-.197-1.539-1.118l1.07-3.292a1 1 0 00-.364-1.118L2.98 8.72c-.783-.57-.38-1.81.588-1.81h3.461a1 1 0 00.951-.69l1.07-3.292z" />
-                  </svg>
-                  Certifié RGE & Qualibat
-                </Badge>
-              </div>
-
-              {/* Titre principal - promesse de valeur */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Plâtrerie technique, cloisons & faux plafonds{" "}
-                <span className="text-brand-orange">
-                  à Strasbourg et en Alsace
-                </span>
-                .
-              </h1>
-
-              {/* Sous-titre explicatif */}
-              <p className="text-lg md:text-xl text-gray-300 mb-8 font-light max-w-2xl">
-                De la rénovation de l&apos;habitat aux marchés publics :
-                expertise acoustique, coupe-feu et agencement d&apos;espaces.
-                Intervention en site occupé.
-              </p>
-
-              {/* Boutons d'action principaux */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg"
-                >
-                  <a href="#devis">Demander un devis (Réponse 48h)</a>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-2 border-white/30 text-white hover:bg-white hover:text-brand-blue backdrop-blur-sm"
-                >
-                  <Link href="/marches-publics">Accès Marchés Publics & Pros</Link>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ServiceHero
+          title="Plâtrerie technique, cloisons & faux plafonds"
+          titleHighlight="à Strasbourg et en Alsace"
+          subtitle="De la rénovation de l'habitat aux marchés publics : expertise acoustique, coupe-feu et agencement d'espaces. Intervention en site occupé."
+          badges={[
+            { label: "Strasbourg & Alsace", variant: "location" },
+            { label: "RGE Qualibat", variant: "certification" },
+            { label: "Décennale", variant: "certification" },
+          ]}
+          ctaLinks={[
+            { label: "Demander un devis gratuit", href: "#devis", variant: "primary" },
+            { label: "Accès Acheteurs Publics", href: "/marches-publics", variant: "secondary" },
+          ]}
+        />
 
         {/* ============================================
             BARRE DE CONFIANCE - Preuves sociales plâtrerie
@@ -333,119 +283,11 @@ export default function PageServicePlatrerie() {
             </div>
 
             {/* Grille des 4 cartes prestations */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {prestationsPlatrerie.map((prestation) => (
-                <Card
-                  key={prestation.id}
-                  className="hover:shadow-lg hover:border-brand-orange transition duration-300 group"
-                >
-                  <CardContent className="p-6">
-                    {/* Icône de la prestation */}
-                    <div
-                      className={`w-12 h-12 ${
-                        prestation.iconeColor === "orange"
-                          ? "bg-orange-100 text-brand-orange group-hover:bg-brand-orange group-hover:text-white"
-                          : "bg-blue-100 text-brand-blue group-hover:bg-brand-blue group-hover:text-white"
-                      } rounded-full flex items-center justify-center mb-4 shadow-sm transition`}
-                    >
-                      {prestation.id === "cloisons" && (
-                        <svg
-                          className="w-6 h-6"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 5a1 1 0 011-1h14a1 1 0 011 1v2a1 1 0 01-1 1H5a1 1 0 01-1-1V5zM4 13a1 1 0 011-1h6a1 1 0 011 1v6a1 1 0 01-1 1H5a1 1 0 01-1-1v-6zM16 13a1 1 0 011-1h2a1 1 0 011 1v6a1 1 0 01-1 1h-2a1 1 0 01-1-1v-6z"
-                          />
-                        </svg>
-                      )}
-                      {prestation.id === "faux-plafonds" && (
-                        <svg
-                          className="w-6 h-6"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M19 11H5m14 0a2 2 0 012 2v6a2 2 0 01-2 2H5a2 2 0 01-2-2v-6a2 2 0 012-2m14 0V9a2 2 0 00-2-2M5 11V9a2 2 0 012-2m0 0V5a2 2 0 012-2h6a2 2 0 012 2v2M7 7h10"
-                          />
-                        </svg>
-                      )}
-                      {prestation.id === "finitions" && (
-                        <svg
-                          className="w-6 h-6"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-                          />
-                        </svg>
-                      )}
-                      {prestation.id === "isolation" && (
-                        <svg
-                          className="w-6 h-6"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                          />
-                        </svg>
-                      )}
-                    </div>
-                    {/* Titre et description */}
-                    <CardTitle className="text-xl mb-2">
-                      {prestation.titre}
-                    </CardTitle>
-                    <CardDescription className="text-sm mb-4">
-                      {prestation.description}
-                    </CardDescription>
-                    {/* Lien optionnel vers un service lié */}
-                    {prestation.lien ? (
-                      <Link
-                        href={prestation.lien}
-                        className="text-brand-blue font-semibold text-sm underline hover:text-brand-orange transition"
-                      >
-                        {prestation.lienTexte}
-                      </Link>
-                    ) : (
-                      <span className="text-brand-orange font-semibold text-sm flex items-center gap-1">
-                        Plus de détails
-                        <svg
-                          className="w-3 h-3"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M9 5l7 7-7 7"
-                          />
-                        </svg>
-                      </span>
-                    )}
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <ServiceFeaturesGrid
+              features={prestationsPlatrerie}
+              columns={4}
+              variant="white"
+            />
           </div>
         </section>
 
@@ -453,7 +295,7 @@ export default function PageServicePlatrerie() {
             SOLUTIONS PAR PROFIL - Tabs Public/Pro/Particulier
             L'utilisateur peut voir les avantages spécifiques à son profil
             ============================================ */}
-        <section className="py-16 bg-gray-50 border-y border-gray-200">
+        <section className="py-16 md:py-24 bg-gray-50 border-y border-gray-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <h2 className="text-center text-3xl md:text-4xl font-bold text-brand-blue mb-8">
               Des solutions adaptées à votre profil
@@ -580,299 +422,50 @@ export default function PageServicePlatrerie() {
             MÉTHODE - Propreté et délais (Réassurance)
             Explique l'engagement sur la propreté du chantier
             ============================================ */}
-        <section className="py-16 md:py-24 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row gap-12 items-center">
-              {/* Image de gauche */}
-              <div className="lg:w-1/2">
-                <div className="rounded-xl overflow-hidden shadow-xl border-4 border-white">
-                  <img
-                    src="https://placehold.co/600x500?text=Protection+Sols+Proprete"
-                    alt="Protection de chantier plâtrerie"
-                    className="w-full h-full object-cover"
-                  />
-                </div>
-              </div>
-
-              {/* Contenu texte à droite */}
-              <div className="lg:w-1/2">
-                <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-6">
-                  Un chantier propre et des délais tenus : notre engagement.
-                </h2>
-
-                <p className="text-gray-600 mb-8 italic border-l-4 border-brand-orange pl-4">
-                  &quot;Le frein n°1 aux travaux est la peur de la poussière.
-                  Chez nous, la protection est la première étape du chantier,
-                  pas une option.&quot;
-                </p>
-
-                {/* Timeline des étapes */}
-                <div className="space-y-6">
-                  {etapesMethode.map((etape) => (
-                    <div key={etape.numero} className="flex gap-4">
-                      <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 text-brand-blue flex items-center justify-center font-bold">
-                        {etape.numero}
-                      </div>
-                      <div>
-                        <h4 className="font-bold text-lg">{etape.titre}</h4>
-                        <p className="text-sm text-gray-600">
-                          {etape.description}
-                        </p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ServiceMethodSection
+          title="Un chantier propre et des délais tenus : notre engagement."
+          subtitle="Le frein n°1 aux travaux est la peur de la poussière. Chez nous, la protection est la première étape du chantier, pas une option."
+          etapes={etapesMethode}
+          image={{
+            src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=600&h=500&fit=crop&q=80",
+            alt: "Protection de chantier plâtrerie",
+          }}
+          imagePosition="left"
+          variant="list"
+          backgroundVariant="white"
+        />
 
         {/* ============================================
             RÉALISATIONS - Projets Avant/Après
             Montre des exemples concrets de chantiers de plâtrerie réalisés
             ============================================ */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-3xl font-bold text-brand-blue mb-2">
-              La précision se voit dans les détails
-            </h2>
-            <p className="text-gray-600 mb-10">
-              Quelques exemples de transformations réalisées en Alsace.
-            </p>
-
-            {/* Grille des projets */}
-            <div className="grid md:grid-cols-2 gap-8 max-w-5xl mx-auto">
-              {projetsRealises.map((projet) => (
-                <div
-                  key={projet.titre}
-                  className="bg-white p-4 rounded-lg shadow-md"
-                >
-                  {/* Simulation Avant/Après avec 2 images côte à côte */}
-                  <div className="mb-4">
-                    <div className="flex gap-1">
-                      <div className="w-1/2 relative">
-                        <img
-                          src={`https://placehold.co/300x250?text=AVANT+${encodeURIComponent(
-                            projet.titre
-                          )}`}
-                          alt={`Avant - ${projet.titre}`}
-                          className="w-full h-48 object-cover rounded-l"
-                        />
-                        <span className="absolute top-2 left-2 bg-black/50 text-white text-xs px-2 py-1 rounded">
-                          AVANT
-                        </span>
-                      </div>
-                      <div className="w-1/2 relative">
-                        <img
-                          src={`https://placehold.co/300x250?text=APRES+${encodeURIComponent(
-                            projet.titre
-                          )}`}
-                          alt={`Après - ${projet.titre}`}
-                          className="w-full h-48 object-cover rounded-r"
-                        />
-                        <span className="absolute top-2 right-2 bg-brand-orange text-white text-xs px-2 py-1 rounded">
-                          APRÈS
-                        </span>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* Infos du projet */}
-                  <div className="text-left">
-                    <div className="flex items-center gap-2 mb-1">
-                      <h3 className="font-bold text-lg">{projet.titre}</h3>
-                      <Badge variant="secondary" className="text-xs">
-                        {projet.type}
-                      </Badge>
-                    </div>
-                    <p className="text-sm text-gray-500 mb-1">
-                      📍 {projet.lieu}
-                    </p>
-                    <p className="text-sm text-gray-600">{projet.description}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-
-            {/* Bouton vers toutes les réalisations */}
-            <div className="mt-10">
-              <Button
-                asChild
-                variant="outline"
-                size="lg"
-                className="border-2 border-brand-blue text-brand-blue hover:bg-brand-blue hover:text-white"
-              >
-                <Link href="/realisations">Voir tous nos projets plâtrerie</Link>
-              </Button>
-            </div>
-          </div>
-        </section>
+        <ServiceRealisationsSection
+          title="La précision se voit dans les détails"
+          subtitle="Quelques exemples de transformations réalisées en Alsace."
+          realisations={projetsRealises}
+          voirToutLink="/realisations"
+          voirToutText="Voir tous nos projets plâtrerie"
+          variant="gray"
+        />
 
         {/* ============================================
-            BLOC MARCHÉS PUBLICS - Focus administratif
+            SECTION MARCHÉS PUBLICS
             Section dédiée aux acheteurs publics avec garanties
             ============================================ */}
-        <section className="py-16 bg-brand-blue text-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-10">
-              {/* Contenu texte */}
-              <div className="md:w-2/3">
-                <h2 className="text-3xl font-bold mb-4">
-                  Acheteurs publics & Architectes : vos garanties
-                </h2>
-                <p className="text-slate-300 mb-8">
-                  Nous savons que la conformité administrative est aussi
-                  importante que la qualité technique pour vos appels
-                  d&apos;offres.
-                </p>
-
-                {/* Grille des garanties */}
-                <div className="grid sm:grid-cols-2 gap-4">
-                  <div className="flex items-start gap-3">
-                    <svg
-                      className="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z"
-                      />
-                    </svg>
-                    <div>
-                      <h4 className="font-bold">Dossier administratif à jour</h4>
-                      <p className="text-sm text-slate-400">
-                        Attestations URSSAF, Décennale, RC Pro disponibles sous
-                        24h.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <svg
-                      className="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                      />
-                    </svg>
-                    <div>
-                      <h4 className="font-bold">Maîtrise des normes ERP</h4>
-                      <p className="text-sm text-slate-400">
-                        PV de réaction au feu, degrés coupe-feu, accessibilité
-                        PMR.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <svg
-                      className="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M5 3v4M3 5h4M6 17v4m-2-2h4m5-16l2.286 6.857L21 12l-5.714 2.143L13 21l-2.286-6.857L5 12l5.714-2.143L13 3z"
-                      />
-                    </svg>
-                    <div>
-                      <h4 className="font-bold">Certifié RGE</h4>
-                      <p className="text-sm text-slate-400">
-                        Indispensable pour les subventions et la rénovation
-                        énergétique.
-                      </p>
-                    </div>
-                  </div>
-                  <div className="flex items-start gap-3">
-                    <svg
-                      className="w-5 h-5 text-brand-orange mt-0.5 flex-shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <div>
-                      <h4 className="font-bold">Réactivité chiffrage</h4>
-                      <p className="text-sm text-slate-400">
-                        Réponse aux appels d&apos;offres et DPGF précises.
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* Encart contact service Pro */}
-              <div className="md:w-1/3 bg-white/10 p-6 rounded-lg border border-white/20 text-center backdrop-blur-sm">
-                <p className="mb-4 font-semibold">
-                  Besoin d&apos;un dossier technique ?
-                </p>
-                <div className="flex flex-wrap gap-2 justify-center mb-4">
-                  {documentsMarchesPublics.map((doc) => (
-                    <Badge
-                      key={doc.titre}
-                      variant="outline"
-                      className="text-xs bg-white/10 border-white/20 text-white/80"
-                    >
-                      {doc.titre}
-                    </Badge>
-                  ))}
-                </div>
-                <Button
-                  asChild
-                  className="w-full bg-white text-brand-blue hover:bg-gray-100 mb-3"
-                >
-                  <a href="mailto:pro@ar-solution.fr">Contacter le service Pro</a>
-                </Button>
-                <p className="text-xs text-slate-400">
-                  Ligne directe réservée aux maîtres d&apos;œuvre et
-                  collectivités.
-                </p>
-              </div>
-            </div>
-          </div>
-        </section>
+        <MarchesPublicsSection
+          avantages={marchesPublicsAvantagesData}
+          documents={documentsMarchesPublicsData}
+        />
 
         {/* ============================================
             FAQ PLÂTRERIE
             Répond aux questions courantes sur la plâtrerie
             ============================================ */}
-        <section className="py-16 bg-white">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-brand-blue text-center mb-10">
-              Questions fréquentes
-            </h2>
-
-            <Accordion type="single" collapsible className="w-full">
-              {faqItems.map((item, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-left font-bold text-lg text-brand-blue">
-                    {item.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-gray-600 leading-relaxed">
-                    {item.reponse}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </section>
+        <ServiceFAQSection
+          title="Questions fréquentes"
+          items={faqItems}
+          variant="white"
+        />
 
         {/* ============================================
             CTA FINAL - Demande de devis
@@ -893,37 +486,28 @@ export default function PageServicePlatrerie() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <Button
-          asChild
-          variant="secondary"
-          className="flex-1 text-brand-blue font-bold"
-        >
-          <a href="tel:0388000000">
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-              />
-            </svg>
-            Appeler
-          </a>
-        </Button>
-        <Button
-          asChild
-          size="lg"
-          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
-        >
-          <a href="#devis">Devis Plâtrerie</a>
-        </Button>
-      </div>
+      <MobileStickyBar
+        phoneNumber="tel:0388000000"
+        devisLink="#devis"
+        devisText="Devis Plâtrerie"
+      />
+
+      {/* ============================================
+          DONNÉES STRUCTURÉES SEO
+          Schema.org pour améliorer le référencement
+          ============================================ */}
+      <ServiceStructuredData
+        serviceName="Plâtrerie & Faux-plafonds"
+        serviceDescription="Plâtrerie technique à Strasbourg : cloisons BA13, faux-plafonds acoustiques, doublage thermique. Intervention en site occupé. Certifié RGE Qualibat, garantie décennale."
+        serviceUrl="/services/platrerie"
+        serviceType="Plâtrerie"
+        faqItems={faqItems}
+        breadcrumbs={[
+          { name: "Accueil", url: "/" },
+          { name: "Services", url: "/services" },
+          { name: "Plâtrerie", url: "/services/platrerie" },
+        ]}
+      />
     </>
   );
 }

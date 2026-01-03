@@ -31,6 +31,72 @@ export const metadata: Metadata = {
   title: "AR+SOLUTION | Plâtrerie, Isolation & Rénovation à Strasbourg",
   description:
     "Entreprise de rénovation, plâtrerie et isolation à Strasbourg (67). Certifiée RGE. Partenaires des marchés publics et des particuliers. Devis gratuit.",
+  keywords: [
+    "plâtrerie Strasbourg",
+    "isolation Strasbourg",
+    "rénovation Strasbourg",
+    "entreprise RGE Strasbourg",
+    "marchés publics Alsace",
+    "enduits finitions",
+    "peinture rénovation",
+    "aménagement intérieur",
+    "devis gratuit Strasbourg",
+    "artisan plâtrier 67",
+  ],
+  authors: [{ name: "AR+SOLUTION" }],
+  creator: "AR+SOLUTION",
+  publisher: "AR+SOLUTION",
+  formatDetection: {
+    email: false,
+    address: false,
+    telephone: false,
+  },
+  metadataBase: new URL(process.env.NEXT_PUBLIC_SITE_URL || "https://ar-solution.fr"),
+  alternates: {
+    canonical: "/",
+  },
+  openGraph: {
+    type: "website",
+    locale: "fr_FR",
+    url: "/",
+    siteName: "AR+SOLUTION",
+    title: "AR+SOLUTION | Plâtrerie, Isolation & Rénovation à Strasbourg",
+    description:
+      "Entreprise de rénovation, plâtrerie et isolation à Strasbourg (67). Certifiée RGE. Partenaires des marchés publics et des particuliers. Devis gratuit.",
+    images: [
+      {
+        url: "/og-image.jpg",
+        width: 1200,
+        height: 630,
+        alt: "AR+SOLUTION - Expert en rénovation, plâtrerie et isolation à Strasbourg",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "AR+SOLUTION | Plâtrerie, Isolation & Rénovation à Strasbourg",
+    description:
+      "Entreprise de rénovation, plâtrerie et isolation à Strasbourg (67). Certifiée RGE. Partenaires des marchés publics et des particuliers. Devis gratuit.",
+    images: ["/og-image.jpg"],
+    creator: "@arsolution",
+  },
+  robots: {
+    index: true,
+    follow: true,
+    googleBot: {
+      index: true,
+      follow: true,
+      "max-video-preview": -1,
+      "max-image-preview": "large",
+      "max-snippet": -1,
+    },
+  },
+  verification: {
+    // À compléter avec les codes de vérification réels
+    // google: "votre-code-google",
+    // yandex: "votre-code-yandex",
+    // bing: "votre-code-bing",
+  },
 };
 
 export default function RootLayout({

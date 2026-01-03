@@ -365,9 +365,9 @@ export default function PageRealisations() {
               {realisations.map((projet) => (
                 <Card
                   key={projet.id}
-                  className={`group hover:shadow-xl transition-all duration-300 overflow-hidden flex flex-col h-full ${
+                  className={`group transition-all duration-300 overflow-hidden flex flex-col h-full ${
                     projet.secteur === "public"
-                      ? "ring-2 ring-transparent hover:ring-brand-blue/20"
+                      ? "ring-2 ring-transparent"
                       : ""
                   }`}
                 >
@@ -376,7 +376,7 @@ export default function PageRealisations() {
                     <img
                       src={projet.image}
                       alt={projet.titre}
-                      className="w-full h-full object-cover transform group-hover:scale-105 transition-transform duration-500"
+                      className="w-full h-full object-cover"
                     />
 
                     {/* Badge Avant/Après si disponible */}
@@ -459,7 +459,7 @@ export default function PageRealisations() {
                     </div>
 
                     {/* Titre du projet */}
-                    <CardTitle className="text-xl mb-3 text-slate-800 group-hover:text-brand-blue transition-colors">
+                    <CardTitle className="text-xl mb-3 text-slate-800">
                       {projet.titre}
                     </CardTitle>
 

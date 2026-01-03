@@ -21,27 +21,47 @@
   - Être rassuré sur la propreté d'intervention
 */
 
+import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TrustBar from "@/components/TrustBar";
-import { Button } from "@/components/ui/button";
+import CtaBlock from "@/components/CtaBlock";
+import ServiceHero from "@/components/services/ServiceHero";
+import ServiceFeaturesGrid from "@/components/services/ServiceFeaturesGrid";
+import MobileStickyBar from "@/components/services/MobileStickyBar";
+
+// Code splitting dynamique pour les composants lourds
+const ServiceFAQSection = dynamic(
+  () => import("@/components/services/ServiceFAQSection"),
+  { ssr: true }
+);
+const ServiceRealisationsSection = dynamic(
+  () => import("@/components/services/ServiceRealisationsSection"),
+  { ssr: true }
+);
+const ServiceStructuredData = dynamic(
+  () => import("@/components/services/ServiceStructuredData"),
+  { ssr: true }
+);
+const MarchesPublicsSection = dynamic(
+  () => import("@/components/services/MarchesPublicsSection"),
+  { ssr: true }
+);
+import { enduitsFinitionsPageMetadata } from "@/lib/services-metadata";
+import { barreConfianceEnduits, marchesPublicsAvantages, documentsMarchesPublicsEnduits } from "@/lib/services-data";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import GridScan from "@/components/GridScan";
+
+export const metadata: Metadata = enduitsFinitionsPageMetadata;
 
 /* ============================================
    DONNÉES DE LA PAGE
    ============================================ */
 
-/* Éléments de la barre de confiance spécifique enduits/finitions */
-const barreConfianceItems = [
-  { valeur: "RGE", label: "Qualibat Reconnu" },
-  { valeur: "10 Ans", label: "Garantie Décennale" },
-  { valeur: "Q4", label: "Finition Premium" },
-  { valeur: "48h", label: "Devis Rapide" },
-];
+// Utilisation des données centralisées
+const barreConfianceItems = barreConfianceEnduits;
 
 /* Les étapes de préparation du mur (section pédagogie) */
 const etapesPreparation = [
@@ -88,8 +108,8 @@ const solutionsEnduits = [
     description:
       "Effets matière, stuc, chaux, béton ciré mural. Donnez du caractère à vos murs.",
     badge: "Architecture Intérieure",
-    badgeColor: "purple",
-    iconeColor: "purple",
+    badgeColor: "blue",
+    iconeColor: "blue",
   },
   {
     id: "reparation",
@@ -128,14 +148,14 @@ const projetsRealises = [
     lieu: "Strasbourg Centre",
     type: "Particulier",
     description: "Ratissage intégral des murs avant laque satinée.",
-    image: "https://placehold.co/800x600/f8fafc/475569?text=Appartement+Haussmannien+Ratissage",
+    image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=800&h=600&fit=crop&q=80",
   },
   {
     titre: "Salle du Conseil - Mairie",
     lieu: "Bas-Rhin",
     type: "Marché Public",
     description: "Enduit Airless mécanisé pour uniformité parfaite.",
-    image: "https://placehold.co/800x600/f8fafc/475569?text=Salle+Conseil+Mairie+Airless",
+    image: "https://images.unsplash.com/photo-1497366216548-37526070297c?w=800&h=600&fit=crop&q=80",
   },
 ];
 
@@ -147,16 +167,12 @@ const casClient = {
   solution:
     "Déploiement de 2 équipes en 2x8 et utilisation de l'enduit projeté Airless.",
   resultat: "Livraison avec 1 jour d'avance, zéro poussière à la rentrée.",
-  image: "https://placehold.co/600x600/f97316/ffffff?text=École+Schiltigheim+400m²",
+  image: "https://images.unsplash.com/photo-1503676260728-1c00da094a0b?w=600&h=600&fit=crop&q=80",
 };
 
-/* Documents disponibles pour les marchés publics */
-const documentsMarchesPublics = [
-  { titre: "Attestation RGE", disponibilite: "Disponible" },
-  { titre: "Décennale", disponibilite: "Disponible" },
-  { titre: "Fiches techniques enduits", disponibilite: "Sur demande" },
-  { titre: "Références chantiers publics", disponibilite: "Sur demande" },
-];
+// Utilisation des données centralisées
+const marchesPublicsAvantagesData = marchesPublicsAvantages;
+const documentsMarchesPublicsData = documentsMarchesPublicsEnduits;
 
 /* Questions fréquentes sur les enduits */
 const faqItems = [
@@ -195,90 +211,21 @@ export default function PageServiceEnduitsFinitions() {
             HERO SECTION - La promesse enduits/finitions
             L'utilisateur comprend immédiatement le service et peut demander un devis
             ============================================ */}
-        <section className="relative bg-slate-900 overflow-hidden min-h-[650px] flex items-center">
-          {/* Animation 3D GridScan en arrière-plan */}
-          <div className="absolute inset-0">
-            <GridScan
-              sensitivity={0.55}
-              lineThickness={1}
-              linesColor="#1e3a5f"
-              gridScale={0.1}
-              scanColor="#3b82f6"
-              scanOpacity={0.5}
-              enablePost
-              bloomIntensity={0.6}
-              chromaticAberration={0.002}
-              noiseIntensity={0.01}
-              scanDuration={3.0}
-              scanDelay={1.5}
-            />
-            {/* Overlay gradient pour améliorer la lisibilité du texte */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
-          </div>
-
-          {/* Contenu du hero */}
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 w-full">
-            <div className="max-w-3xl">
-              {/* Badges RGE et intervention site occupé */}
-              <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30 uppercase tracking-wide">
-                  <svg
-                    className="w-3 h-3 mr-1"
-                    fill="currentColor"
-                    viewBox="0 0 20 20"
-                  >
-                    <path d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" />
-                  </svg>
-                  Certifié RGE
-                </Badge>
-                <Badge variant="outline" className="bg-white/10 text-white border-white/20 backdrop-blur-sm">
-                  Intervention Site Occupé & Milieu Scolaire
-                </Badge>
-              </div>
-
-              {/* Titre principal - promesse de valeur */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-white leading-tight mb-6">
-                Plâtrerie fine et{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-blue-200">
-                  Enduits de finition
-                </span>{" "}
-                en Alsace.
-              </h1>
-
-              {/* Sous-titre explicatif avec mention DTU */}
-              <p className="text-lg md:text-xl text-slate-300 mb-8 font-light max-w-2xl">
-                Du ratissage complet (Q4) à l&apos;enduit mécanisé Airless. La
-                préparation indispensable selon le{" "}
-                <strong className="text-white">DTU 59.1</strong> pour des
-                peintures sublimées.
-              </p>
-
-              {/* Boutons d'action principaux */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-brand-orange hover:bg-orange-600 text-white shadow-lg"
-                >
-                  <a href="#devis">Demander un chiffrage (48h)</a>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-2 border-slate-400 text-slate-200 hover:bg-white hover:text-slate-900"
-                >
-                  <a href="#realisations">Voir nos réalisations</a>
-                </Button>
-              </div>
-
-              {/* Micro-réassurance */}
-              <p className="mt-6 text-xs text-slate-400 uppercase tracking-wide">
-                Pour Particuliers & Marchés Publics (Strasbourg - Bas-Rhin)
-              </p>
-            </div>
-          </div>
-        </section>
+        <ServiceHero
+          title="Plâtrerie fine et"
+          titleHighlight="Enduits de finition en Alsace."
+          subtitle="Du ratissage complet (Q4) à l'enduit mécanisé Airless. La préparation indispensable selon le DTU 59.1 pour des peintures sublimées."
+          badges={[
+            { label: "Strasbourg & Alsace", variant: "location" },
+            { label: "RGE Qualibat", variant: "certification" },
+            { label: "Décennale", variant: "certification" },
+          ]}
+          ctaLinks={[
+            { label: "Demander un devis gratuit", href: "#devis", variant: "primary" },
+            { label: "Accès Acheteurs Publics", href: "/marches-publics", variant: "secondary" },
+          ]}
+          scanColor="#3b82f6"
+        />
 
         {/* ============================================
             BARRE DE CONFIANCE - Preuves sociales enduits
@@ -332,10 +279,12 @@ export default function PageServiceEnduitsFinitions() {
 
               {/* Visuel comparatif */}
               <div className="relative rounded-2xl overflow-hidden shadow-2xl h-[500px] group">
-                <img
-                  src="https://placehold.co/800x1000/e2e8f0/64748b?text=GAUCHE:+Mur+Brut+|+DROITE:+Finition+Miroir"
+                <Image
+                  src="https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=1000&fit=crop&q=80"
                   alt="Comparaison mur brut vs enduit lissé"
-                  className="w-full h-full object-cover transform transition duration-700 group-hover:scale-105"
+                  fill
+                  loading="lazy"
+                  className="object-cover transform transition duration-700 group-hover:scale-105"
                 />
 
                 {/* Label flottant */}
@@ -369,103 +318,15 @@ export default function PageServiceEnduitsFinitions() {
             </div>
 
             {/* Grille des 4 cartes solutions */}
-            <div className="grid md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {solutionsEnduits.map((solution) => (
-                <Card
-                  key={solution.id}
-                  className="hover:shadow-lg hover:-translate-y-1 transition-all duration-300 group"
-                >
-                  <CardContent className="p-6">
-                    {/* Icône du type de solution */}
-                    <div
-                      className={`w-12 h-12 bg-white rounded-lg shadow-sm flex items-center justify-center mb-6 transition-colors ${
-                        solution.iconeColor === "blue"
-                          ? "group-hover:bg-brand-blue"
-                          : solution.iconeColor === "orange"
-                          ? "group-hover:bg-brand-orange"
-                          : solution.iconeColor === "purple"
-                          ? "group-hover:bg-purple-600"
-                          : "group-hover:bg-green-600"
-                      }`}
-                    >
-                      <svg
-                        className={`w-6 h-6 transition-colors ${
-                          solution.iconeColor === "blue"
-                            ? "text-brand-blue group-hover:text-white"
-                            : solution.iconeColor === "orange"
-                            ? "text-brand-orange group-hover:text-white"
-                            : solution.iconeColor === "purple"
-                            ? "text-purple-600 group-hover:text-white"
-                            : "text-green-600 group-hover:text-white"
-                        }`}
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        {solution.id === "ratissage" && (
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M7 21a4 4 0 01-4-4V5a2 2 0 012-2h4a2 2 0 012 2v12a4 4 0 01-4 4zm0 0h12a2 2 0 002-2v-4a2 2 0 00-2-2h-2.343M11 7.343l1.657-1.657a2 2 0 012.828 0l2.829 2.829a2 2 0 010 2.828l-8.486 8.485M7 17h.01"
-                          />
-                        )}
-                        {solution.id === "airless" && (
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M13 10V3L4 14h7v7l9-11h-7z"
-                          />
-                        )}
-                        {solution.id === "decoratif" && (
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"
-                          />
-                        )}
-                        {solution.id === "reparation" && (
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M11 5H6a2 2 0 00-2 2v11a2 2 0 002 2h11a2 2 0 002-2v-5m-1.414-9.414a2 2 0 112.828 2.828L11.828 15H9v-2.828l8.586-8.586z"
-                          />
-                        )}
-                      </svg>
-                    </div>
-
-                    {/* Titre et description */}
-                    <CardTitle className="text-xl mb-2">
-                      {solution.titre}
-                    </CardTitle>
-                    <CardDescription className="text-sm mb-4">
-                      {solution.description}
-                    </CardDescription>
-
-                    {/* Badge cible client */}
-                    <div className="border-t border-slate-200 pt-3">
-                      <Badge
-                        variant="secondary"
-                        className={`text-xs font-semibold ${
-                          solution.badgeColor === "blue"
-                            ? "text-brand-blue bg-blue-50"
-                            : solution.badgeColor === "orange"
-                            ? "text-brand-orange bg-orange-50"
-                            : solution.badgeColor === "purple"
-                            ? "text-purple-600 bg-purple-50"
-                            : "text-green-600 bg-green-50"
-                        }`}
-                      >
-                        {solution.badge}
-                      </Badge>
-                    </div>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <ServiceFeaturesGrid
+              features={solutionsEnduits.map((s) => ({
+                ...s,
+                iconeColor: s.iconeColor as "blue" | "orange" | "green",
+                badgeColor: s.badgeColor as "blue" | "orange" | "green",
+              }))}
+              columns={4}
+              variant="white"
+            />
           </div>
         </section>
 
@@ -547,11 +408,13 @@ export default function PageServiceEnduitsFinitions() {
               </div>
 
               {/* Visuel chantier protégé + témoignage */}
-              <div className="relative">
-                <img
-                  src="https://placehold.co/800x600/1e40af/93c5fd?text=Chantier+Protege+Baches+Sol+Machine+Aspirante"
+              <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-2xl border-4 border-white/20">
+                <Image
+                  src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&q=80"
                   alt="Chantier enduit propre Strasbourg avec protection et aspiration"
-                  className="rounded-xl shadow-2xl border-4 border-white/20"
+                  fill
+                  loading="lazy"
+                  className="object-cover"
                 />
 
                 {/* Témoignage flottant */}
@@ -573,50 +436,25 @@ export default function PageServiceEnduitsFinitions() {
             GALERIE & PREUVE - Avant/Après
             Montre des exemples visuels de transformations
             ============================================ */}
-        <section className="py-16 md:py-24 bg-slate-50" id="realisations">
+        <ServiceRealisationsSection
+          title="Le pouvoir de l'enduit : Avant / Après"
+          realisations={projetsRealises}
+          voirToutLink="/realisations"
+          voirToutText="Voir toutes nos réalisations"
+          variant="gray"
+        />
+
+        {/* Cas client mis en avant */}
+        <section className="py-16 md:py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
-              Le pouvoir de l&apos;enduit :{" "}
-              <span className="text-brand-blue">Avant / Après</span>
-            </h2>
-
-            {/* Grille des projets */}
-            <div className="grid md:grid-cols-2 gap-8 mb-16">
-              {projetsRealises.map((projet) => (
-                <div
-                  key={projet.titre}
-                  className="bg-white p-4 rounded-xl shadow-sm border border-slate-200"
-                >
-                  <div className="relative h-64 w-full overflow-hidden rounded mb-4 group">
-                    <img
-                      src={projet.image}
-                      alt={projet.titre}
-                      className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-105"
-                    />
-                    {/* Badge type de projet */}
-                    <div className="absolute top-4 right-4">
-                      <Badge className="bg-brand-orange text-white uppercase">
-                        {projet.type}
-                      </Badge>
-                    </div>
-                  </div>
-                  <h3 className="font-bold text-lg text-slate-800">
-                    {projet.titre}
-                  </h3>
-                  <p className="text-sm text-slate-500">
-                    {projet.lieu} • {projet.description}
-                  </p>
-                </div>
-              ))}
-            </div>
-
-            {/* Cas client mis en avant */}
             <div className="bg-white rounded-2xl shadow-xl overflow-hidden border border-slate-100 flex flex-col md:flex-row">
-              <div className="md:w-1/3">
-                <img
+              <div className="md:w-1/3 relative aspect-square md:aspect-auto">
+                <Image
                   src={casClient.image}
                   alt={casClient.titre}
-                  className="h-full w-full object-cover"
+                  fill
+                  loading="lazy"
+                  className="object-cover"
                 />
               </div>
               <div className="p-8 md:w-2/3 flex flex-col justify-center">
@@ -665,135 +503,32 @@ export default function PageServiceEnduitsFinitions() {
             BLOC MARCHÉS PUBLICS - Focus admin
             Section dédiée aux acheteurs publics avec documents disponibles
             ============================================ */}
-        <section className="py-12 bg-slate-100 border-y border-slate-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-              {/* Contenu texte */}
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="bg-brand-blue text-white text-xs font-bold px-2 py-1 rounded uppercase">
-                    Espace Pro / Public
-                  </span>
-                </div>
-                <h3 className="text-2xl font-bold text-brand-blue mb-2">
-                  Acheteurs publics : Dossiers conformes et complets
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Nous connaissons vos impératifs pour les travaux de finition
-                  en milieu scolaire ou bâtiments administratifs. Tous nos
-                  documents sont à jour.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {documentsMarchesPublics.map((doc) => (
-                    <span
-                      key={doc.titre}
-                      className="text-xs bg-white px-2 py-1 rounded border border-slate-200 text-slate-500"
-                    >
-                      {doc.titre}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* CTA */}
-              <div>
-                <Button
-                  asChild
-                  className="bg-slate-800 text-white hover:bg-slate-900"
-                >
-                  <a href="mailto:marches@ar-solution.fr">
-                    <svg
-                      className="w-5 h-5 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
-                    Contacter le service Marchés
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <MarchesPublicsSection
+          avantages={marchesPublicsAvantagesData}
+          documents={documentsMarchesPublicsData}
+        />
 
         {/* ============================================
             FAQ ENDUITS
             Répond aux questions courantes sur les enduits et la propreté
             ============================================ */}
-        <section className="py-16 md:py-24 bg-white border-t border-slate-100">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-center text-slate-900 mb-12">
-              Vos questions fréquentes
-            </h2>
-
-            <Accordion type="single" collapsible className="w-full">
-              {faqItems.map((item, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-left font-bold text-slate-800">
-                    {item.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-slate-600 leading-relaxed">
-                    {item.reponse}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </section>
+        <ServiceFAQSection
+          title="Vos questions fréquentes"
+          items={faqItems}
+          variant="white"
+        />
 
         {/* ============================================
             CTA FINAL - Demande de devis
             Section d'appel à l'action final pour convertir le visiteur
             ============================================ */}
-        <section
-          className="py-20 md:py-24 bg-slate-900 text-center px-4"
+        <CtaBlock
+          titre="Vos murs méritent la perfection."
+          description="Ne confiez pas vos finitions au hasard. Devis gratuit sous 48h. Intervention sur Strasbourg, CUS et tout le Bas-Rhin."
+          texteDevis="Obtenir mon devis maintenant"
+          variante="sombre"
           id="devis"
-        >
-          <div className="max-w-4xl mx-auto">
-            <h2 className="text-3xl md:text-5xl font-bold text-white mb-6">
-              Vos murs méritent la perfection.
-            </h2>
-            <p className="text-slate-300 text-lg mb-10">
-              Ne confiez pas vos finitions au hasard. Devis gratuit sous 48h.
-              <br />
-              Intervention sur Strasbourg, CUS et tout le Bas-Rhin.
-            </p>
-
-            <Button
-              asChild
-              size="lg"
-              className="bg-brand-orange hover:bg-orange-600 text-white text-xl font-bold shadow-lg"
-            >
-              <Link href="/contact">Obtenir mon devis maintenant</Link>
-            </Button>
-
-            {/* Logos garanties */}
-            <div className="mt-12 flex justify-center gap-8 opacity-60 grayscale hover:grayscale-0 transition-all">
-              <img
-                src="https://placehold.co/100x50/334155/fff?text=RGE"
-                alt="RGE"
-                className="h-12"
-              />
-              <img
-                src="https://placehold.co/100x50/334155/fff?text=Decennale"
-                alt="Garantie Décennale"
-                className="h-12"
-              />
-              <img
-                src="https://placehold.co/100x50/334155/fff?text=Qualibat"
-                alt="Qualibat"
-                className="h-12"
-              />
-            </div>
-          </div>
-        </section>
+        />
       </main>
 
       {/* Footer réutilisable */}
@@ -803,37 +538,28 @@ export default function PageServiceEnduitsFinitions() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <Button
-          asChild
-          variant="secondary"
-          className="flex-1 text-brand-blue font-bold"
-        >
-          <a href="tel:0388000000">
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-              />
-            </svg>
-            Appeler
-          </a>
-        </Button>
-        <Button
-          asChild
-          size="lg"
-          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
-        >
-          <a href="#devis">Devis Enduits</a>
-        </Button>
-      </div>
+      <MobileStickyBar
+        phoneNumber="tel:0388000000"
+        devisLink="#devis"
+        devisText="Devis Enduits"
+      />
+
+      {/* ============================================
+          DONNÉES STRUCTURÉES SEO
+          Schema.org pour améliorer le référencement
+          ============================================ */}
+      <ServiceStructuredData
+        serviceName="Enduits & Finitions"
+        serviceDescription="Plâtrerie fine et enduits de finition à Strasbourg : ratissage Q4, enduit projeté Airless, finitions décoratives. Chantier propre garanti, site occupé."
+        serviceUrl="/services/enduits-finitions"
+        serviceType="Plâtrerie fine"
+        faqItems={faqItems}
+        breadcrumbs={[
+          { name: "Accueil", url: "/" },
+          { name: "Services", url: "/services" },
+          { name: "Enduits & Finitions", url: "/services/enduits-finitions" },
+        ]}
+      />
     </>
   );
 }

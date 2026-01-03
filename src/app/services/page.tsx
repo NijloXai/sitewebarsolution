@@ -18,204 +18,75 @@
   - Demander un devis gratuit via le CTA
 */
 
+import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import CtaBlock from "@/components/CtaBlock";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
+import TrustBar from "@/components/TrustBar";
+import ServiceHero from "@/components/services/ServiceHero";
+import MobileStickyBar from "@/components/services/MobileStickyBar";
+
+// Code splitting dynamique pour les composants lourds
+const MarchesPublicsSection = dynamic(
+  () => import("@/components/services/MarchesPublicsSection"),
+  { ssr: true }
+);
+const ServiceStructuredData = dynamic(
+  () => import("@/components/services/ServiceStructuredData"),
+  { ssr: true }
+);
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent, CardHeader, CardTitle, CardDescription, CardFooter } from "@/components/ui/card";
-import GridScan from "@/components/GridScan";
+import { getAnimationDelayClass, getCouleurClasses } from "@/lib/services-helpers";
+import {
+  servicesData,
+  barreConfianceGenerique,
+  marchesPublicsAvantages,
+  documentsMarchesPublicsGenerique,
+  methodeEtapes,
+  realisationsApercu,
+  raisonsChoisir,
+  faqRapide,
+} from "@/lib/services-data";
 
-/* ========================================
-   DONNÉES DES 4 SERVICES PRINCIPAUX
-   Chaque carte affiche un aperçu du service avec lien vers la page détaillée
-======================================== */
-const servicesData = [
-  {
-    id: "platrerie",
-    title: "Plâtrerie & Faux-plafonds",
-    accroche: "Redistribuez vos volumes sans gros œuvre.",
-    tag: "TECHNIQUE",
-    tagColor: "bg-blue-600",
-    image: "https://placehold.co/600x400?text=Platrerie+Plafond",
-    imageAlt: "Travaux de plâtrerie et faux-plafonds",
-    points: [
-      "Cloisons sèches & distribution",
-      "Faux-plafonds design/acoustiques",
-      "Doublage des murs",
+export const metadata: Metadata = {
+  title: "Nos Services | Plâtrerie, Isolation, Peinture & Aménagement à Strasbourg | AR+SOLUTION",
+  description:
+    "Découvrez nos services de rénovation intérieure à Strasbourg : plâtrerie, isolation thermique RGE, peinture et aménagement. Certifié Qualibat, garantie décennale. Devis gratuit.",
+  openGraph: {
+    title: "Nos Services | Plâtrerie, Isolation, Peinture & Aménagement à Strasbourg | AR+SOLUTION",
+    description:
+      "Découvrez nos services de rénovation intérieure à Strasbourg : plâtrerie, isolation thermique RGE, peinture et aménagement. Certifié Qualibat, garantie décennale.",
+    type: "website",
+    locale: "fr_FR",
+    url: "https://ar-solution.fr/services",
+    siteName: "AR+SOLUTION",
+    images: [
+      {
+        url: "https://ar-solution.fr/og-services.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Services AR+SOLUTION - Rénovation intérieure Strasbourg",
+      },
     ],
-    lien: "/services/platrerie",
   },
-  {
-    id: "isolation",
-    title: "Isolation Thermique & Phonique",
-    accroche: "Réduisez votre facture énergétique de 30%.",
-    tag: "ÉCONOMIES",
-    tagColor: "bg-green-600",
-    image: "https://placehold.co/600x400?text=Isolation+RGE",
-    imageAlt: "Travaux d'isolation thermique certifiés RGE",
-    points: [
-      "Laine de bois, verre ou roche",
-      "Soufflage de combles",
-      "Correction acoustique",
-    ],
-    lien: "/services/isolation",
+  twitter: {
+    card: "summary_large_image",
+    title: "Nos Services | Plâtrerie, Isolation, Peinture & Aménagement à Strasbourg | AR+SOLUTION",
+    description:
+      "Découvrez nos services de rénovation intérieure à Strasbourg : plâtrerie, isolation thermique RGE, peinture et aménagement. Certifié Qualibat, garantie décennale.",
+    images: ["https://ar-solution.fr/og-services.jpg"],
   },
-  {
-    id: "peinture",
-    title: "Peinture & Décoration",
-    accroche: "Des murs lisses et des finitions durables.",
-    tag: "FINITIONS",
-    tagColor: "bg-purple-600",
-    image: "https://placehold.co/600x400?text=Peinture+Finition",
-    imageAlt: "Travaux de peinture et finitions",
-    points: [
-      "Ratissage & Lissage complet",
-      "Peintures écologiques (A+)",
-      "Pose de revêtements muraux",
-    ],
-    lien: "/services/enduits-finitions",
+  alternates: {
+    canonical: "https://ar-solution.fr/services",
   },
-  {
-    id: "amenagement",
-    title: "Aménagement Intérieur",
-    accroche: "Optimisez chaque m² de votre bien.",
-    tag: "ESPACE",
-    tagColor: "bg-amber-500",
-    image: "https://placehold.co/600x400?text=Amenagement+Combles",
-    imageAlt: "Aménagement intérieur et combles",
-    points: [
-      "Aménagement de combles",
-      "Création de placards/dressings",
-      "Agencement global",
-    ],
-    lien: "/services/amenagement",
-  },
-];
+};
 
-/* ========================================
-   DONNÉES DES AVANTAGES MARCHÉS PUBLICS
-   Liste des points forts pour les collectivités et gestionnaires
-======================================== */
-const marchesPublicsAvantages = [
-  {
-    icone: "📄",
-    titre: "Dossiers Administratifs Carrés",
-    description: "Mémoires techniques précis, CCAP respecté à la lettre.",
-  },
-  {
-    icone: "🏫",
-    titre: "Intervention en Site Occupé / Scolaire",
-    description: "Sécurisation des zones, discrétion des équipes, nettoyage quotidien.",
-  },
-  {
-    icone: "⏱️",
-    titre: "Respect strict des délais",
-    description: "Planning tenu pour les ouvertures de classes ou bureaux.",
-  },
-];
 
-/* ========================================
-   DONNÉES DES 4 ÉTAPES DE LA MÉTHODE
-   Le processus de travail expliqué simplement au client
-======================================== */
-const methodeEtapes = [
-  {
-    numero: 1,
-    titre: "Contact & Visite",
-    description: "Réponse sous 24h. Visite technique pour métré précis.",
-    actif: true,
-  },
-  {
-    numero: 2,
-    titre: "Devis & Planning",
-    description: "Devis détaillé par lot. Validation d'un planning réaliste.",
-    actif: false,
-  },
-  {
-    numero: 3,
-    titre: "Travaux Soignés",
-    description: "Protections installées. Chantier nettoyé chaque soir.",
-    badge: "Site Occupé OK",
-    actif: false,
-  },
-  {
-    numero: 4,
-    titre: "Réception",
-    description: "Validation des finitions. Activation de la garantie décennale.",
-    actif: false,
-  },
-];
-
-/* ========================================
-   DONNÉES DES RÉALISATIONS À AFFICHER
-   Aperçu de 3 projets récents pour donner confiance
-======================================== */
-const realisationsApercu = [
-  {
-    id: 1,
-    titre: "Rénovation complète Haussmannien",
-    lieu: "Strasbourg Centre",
-    description: "Plâtrerie, Corniches, Peinture",
-    image: "https://placehold.co/600x500?text=Appartement+Haussmann",
-  },
-  {
-    id: 2,
-    titre: "Isolation combles perdus",
-    lieu: "Obernai",
-    description: "Laine soufflée, RGE, Gain 35%",
-    image: "https://placehold.co/600x500?text=Isolation+Combles",
-  },
-  {
-    id: 3,
-    titre: "Réaménagement Bureaux Mairie",
-    lieu: "Marché Public",
-    description: "Cloisons modulaires, Faux-plafonds, Site occupé",
-    image: "https://placehold.co/600x500?text=Bureaux+Mairie",
-  },
-];
-
-/* ========================================
-   DONNÉES DES RAISONS DE NOUS CHOISIR
-   Les arguments différenciants pour convaincre le visiteur
-======================================== */
-const raisonsChoisir = [
-  {
-    icone: "🏅",
-    titre: "Certifications RGE & Garanties",
-    description: "Qualification Qualibat RGE pour vos aides (MaPrimeRénov'). Garantie décennale et RC Pro incluses.",
-  },
-  {
-    icone: "🧹",
-    titre: "Propreté Irréprochable",
-    description: "C'est notre marque de fabrique. Protection des sols, sas anti-poussière et nettoyage quotidien.",
-  },
-  {
-    icone: "🤝",
-    titre: "Interlocuteur Unique",
-    description: "Un seul chef de chantier gère la plâtrerie, l'isolation et la peinture. Pas de rejet de faute entre artisans.",
-  },
-];
-
-/* ========================================
-   DONNÉES DE LA FAQ RAPIDE
-   Questions fréquentes avec réponses courtes pour rassurer
-======================================== */
-const faqRapide = [
-  {
-    question: "Quels sont vos délais d'intervention ?",
-    reponse: "Nous intervenons généralement sous 2 à 4 semaines après signature du devis. Pour les urgences ou petits chantiers, contactez-nous.",
-  },
-  {
-    question: "Intervenez-vous en site occupé ?",
-    reponse: "Oui, c'est notre spécialité. Nous adaptons nos horaires et créons des zones de confinement pour minimiser la gêne.",
-  },
-  {
-    question: "Gérez-vous les dossiers MaPrimeRénov' ?",
-    reponse: "En tant qu'entreprise RGE, nous vous fournissons tous les justificatifs techniques nécessaires pour monter votre dossier d'aides.",
-  },
-];
 
 export default function ServicesPage() {
   return (
@@ -228,146 +99,156 @@ export default function ServicesPage() {
           SECTION 1 : HERO HEADER
           En-tête avec promesse principale, badges de confiance et boutons d'action
       ======================================== */}
-      <section className="relative bg-slate-900 text-white pt-20 pb-24 lg:pt-32 lg:pb-40 overflow-hidden">
-        {/* Animation 3D GridScan en arrière-plan */}
-        <div className="absolute inset-0">
-          <GridScan
-            sensitivity={0.55}
-            lineThickness={1}
-            linesColor="#1e3a5f"
-            gridScale={0.1}
-            scanColor="#f59e0b"
-            scanOpacity={0.5}
-            enablePost
-            bloomIntensity={0.6}
-            chromaticAberration={0.002}
-            noiseIntensity={0.01}
-            scanDuration={3.0}
-            scanDelay={1.5}
-          />
-          {/* Overlay gradient pour améliorer la lisibilité du texte */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
-        </div>
+      <ServiceHero
+        title="Nos services de rénovation intérieure & isolation"
+        titleHighlight="Strasbourg / Alsace"
+        subtitle="Plâtrerie, Isolation, Peinture. Nous transformons vos espaces avec une exigence absolue sur les finitions et la propreté. Pour les particuliers et les marchés publics."
+        badges={[
+          { label: "Strasbourg & Alsace", variant: "location" },
+          { label: "RGE Qualibat", variant: "certification" },
+          { label: "Décennale", variant: "certification" },
+        ]}
+        ctaLinks={[
+          { label: "Demander un devis gratuit", href: "/contact", variant: "primary" },
+          { label: "Accès Acheteurs Publics", href: "/marches-publics", variant: "secondary" },
+        ]}
+      />
 
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="max-w-3xl">
-            {/* Badges de confiance : RGE, Décennale, Site Occupé */}
-            <div className="flex flex-wrap gap-3 mb-6">
-              <Badge className="bg-amber-500/10 text-amber-500 border-amber-500/30 hover:bg-amber-500/20 uppercase tracking-wider">
-                ✓ Certifié RGE
-              </Badge>
-              <Badge variant="outline" className="bg-white/10 text-white border-white/20 hover:bg-white/20 uppercase tracking-wider">
-                Garantie Décennale
-              </Badge>
-              <Badge variant="outline" className="bg-white/10 text-white border-white/20 hover:bg-white/20 uppercase tracking-wider">
-                Intervention Site Occupé
-              </Badge>
-            </div>
-
-            {/* Titre principal SEO */}
-            <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold leading-tight mb-6">
-              Nos services de rénovation intérieure & isolation{" "}
-              <span className="text-amber-500">Strasbourg / Alsace</span>
-            </h1>
-
-            {/* Sous-titre accroche */}
-            <p className="text-lg md:text-xl text-slate-300 mb-10 max-w-2xl">
-              Plâtrerie, Isolation, Peinture. Nous transformons vos espaces avec une
-              exigence absolue sur les finitions et la propreté. Pour les particuliers
-              et les marchés publics.
-            </p>
-
-            {/* Boutons d'action : Devis et Marchés Publics */}
-            <div className="flex flex-col sm:flex-row gap-4">
-              <Button asChild size="lg" className="bg-amber-500 hover:bg-amber-600 text-white shadow-lg hover:shadow-orange-500/30 text-lg">
-                <Link href="/contact">
-                  Demander mon devis gratuit →
-                </Link>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="bg-transparent border-2 border-slate-500 hover:border-white text-slate-300 hover:text-white">
-                <Link href="/marches-publics">
-                  🏛️ Accès Marchés Publics
-                </Link>
-              </Button>
-            </div>
-
-            {/* Mention temps de réponse */}
-            <p className="mt-4 text-sm text-slate-400 flex items-center gap-2">
-              ⏰ Réponse sous 24h ouvrées
-            </p>
-          </div>
-        </div>
-      </section>
+      {/* ========================================
+          BARRE DE CONFIANCE - Preuves sociales
+          Affiche les certifications et avantages clés
+      ======================================== */}
+      <TrustBar items={barreConfianceGenerique} />
 
       {/* ========================================
           SECTION 2 : GRILLE DES SERVICES
           4 cartes présentant chaque service avec lien vers la page détaillée
       ======================================== */}
-      <section className="py-20 bg-slate-50" id="services">
-        <div className="container mx-auto px-4">
+      <section 
+        className="py-16 md:py-24 bg-gray-100" 
+        id="services"
+        aria-labelledby="services-title"
+      >
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* En-tête de section */}
-          <div className="text-center max-w-3xl mx-auto mb-16">
-            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
+          <div className="text-center mb-12 sm:mb-16 md:mb-20">
+            <h2 
+              id="services-title"
+              className="text-3xl md:text-4xl font-bold text-brand-blue mb-4 sm:mb-5 md:mb-6"
+            >
               Une expertise complète pour vos travaux de second œuvre
             </h2>
-            <p className="text-slate-600">
+            <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0">
               Nous coordonnons l'ensemble de ces lots pour vous offrir un interlocuteur
               unique et un chantier fluide.
             </p>
           </div>
 
-          {/* Grille des 4 cartes services */}
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {servicesData.map((service) => (
+          {/* Grille des 4 cartes services avec design moderne */}
+          <div 
+            className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-4 sm:gap-6 md:gap-8"
+            role="list"
+            aria-label="Liste des services proposés"
+          >
+            {servicesData.map((service, index) => (
               <Card
                 key={service.id}
-                className="hover:shadow-xl transition-all duration-300 hover:-translate-y-1 flex flex-col h-full overflow-hidden"
+                role="listitem"
+                className="group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white pt-0 h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none"
+                style={{
+                  boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
+                }}
               >
-                {/* Image avec tag de catégorie */}
-                <div className="h-48 overflow-hidden relative">
-                  <img
+                {/* Image en en-tête avec effet zoom au survol */}
+                <div className="relative h-44 sm:h-48 md:h-52 overflow-hidden bg-gray-200">
+                  <Image
                     src={service.image}
                     alt={service.imageAlt}
-                    className="w-full h-full object-cover hover:scale-105 transition-transform duration-500"
+                    fill
+                    priority={index < 4}
+                    loading={index < 4 ? "eager" : "lazy"}
+                    className="object-cover object-center motion-safe:group-hover:scale-110 motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out"
                   />
-                  <div className="absolute bottom-0 left-0">
+                  {/* Overlay gradient pour améliorer la lisibilité */}
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/50 via-black/20 to-transparent opacity-70 motion-safe:group-hover:opacity-50 motion-safe:transition-opacity motion-safe:duration-500 motion-safe:ease-out" />
+                  {/* Tag/Badge coloré en overlay sur l'image */}
+                  <div className="absolute top-3 left-3 sm:top-4 sm:left-4">
                     <Badge
-                      className={`${service.tagColor} text-white border-0 rounded-tr-lg rounded-bl-none`}
+                      className={`${service.tagColor} text-white border-0 rounded-md shadow-lg uppercase font-bold tracking-wide text-[10px] sm:text-xs px-2 sm:px-3 py-0.5 sm:py-1`}
+                      aria-label={`Catégorie: ${service.tag}`}
                     >
                       {service.tag}
                     </Badge>
                   </div>
+                  {/* Icône du service en overlay sur l'image */}
+                  <div
+                    className={`absolute bottom-3 right-3 sm:bottom-4 sm:right-4 w-10 h-10 sm:w-12 sm:h-12 ${
+                      service.iconeColor === "orange"
+                        ? "bg-brand-orange/90 text-white"
+                        : "bg-brand-blue/90 text-white"
+                    } rounded-lg flex items-center justify-center shadow-xl backdrop-blur-sm motion-safe:group-hover:scale-110 motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out`}
+                    aria-hidden="true"
+                  >
+                    {service.icone}
+                  </div>
                 </div>
 
-                {/* Contenu de la carte */}
-                <CardHeader className="flex-1 flex flex-col">
-                  <CardTitle className="text-xl mb-2">
+                {/* Contenu de la carte avec structure CardHeader/CardContent/CardFooter */}
+                <CardHeader className="p-4 sm:p-6 pb-3 sm:pb-4 flex-1 flex flex-col">
+                  <h3 
+                    className="text-lg sm:text-xl md:text-2xl text-brand-blue-dark font-bold mb-2 sm:mb-3 leading-tight motion-safe:group-hover:text-brand-orange motion-safe:transition-colors motion-safe:duration-300"
+                  >
                     {service.title}
-                  </CardTitle>
-                  <CardDescription className="text-amber-500 font-medium text-sm mb-4">
+                  </h3>
+                  <CardDescription 
+                    className="text-brand-orange font-semibold text-xs sm:text-sm md:text-base mb-3 sm:mb-4"
+                    id={`${service.id}-description`}
+                  >
                     {service.accroche}
                   </CardDescription>
                 </CardHeader>
 
-                <CardContent className="flex-1 flex flex-col">
-                  {/* Liste des points clés du service */}
-                  <ul className="text-sm text-slate-600 space-y-2 mb-6 flex-1">
-                    {service.points.map((point, index) => (
-                      <li key={index} className="flex items-start">
-                        <span className="text-green-500 mt-1 mr-2">✓</span>
-                        {point}
+                <CardContent className="px-4 sm:px-6 pb-3 sm:pb-4 flex-1 flex flex-col">
+                  {/* Liste des prestations */}
+                  <ul 
+                    className="text-xs sm:text-sm md:text-base text-gray-700 space-y-1.5 sm:space-y-2 mb-3 sm:mb-4 flex-1"
+                    role="list"
+                    aria-label={`Prestations incluses dans ${service.title}`}
+                  >
+                    {service.points.map((point) => (
+                      <li 
+                        key={point} 
+                        className="flex items-start"
+                        role="listitem"
+                      >
+                        <span 
+                          className="text-brand-orange mt-1 sm:mt-1.5 mr-2 font-bold flex-shrink-0" 
+                          aria-hidden="true"
+                        >
+                          •
+                        </span>
+                        <span>{point}</span>
                       </li>
                     ))}
                   </ul>
                 </CardContent>
 
-                {/* Lien vers la page détaillée */}
-                <CardFooter className="mt-auto pt-4 border-t">
-                  <Button asChild variant="link" className="text-blue-600 font-semibold p-0 h-auto">
-                    <Link href={service.lien} className="flex justify-between items-center w-full">
-                      En savoir plus <span>→</span>
-                    </Link>
-                  </Button>
+                {/* Footer avec bouton "En savoir plus" amélioré */}
+                <CardFooter className="px-4 sm:px-6 pb-4 sm:pb-6 pt-3 sm:pt-4 border-t border-gray-100 mt-auto">
+                  <Link
+                    href={service.lien}
+                    className="inline-flex items-center text-brand-orange font-bold hover:text-brand-orange-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded transition-all duration-300 group/link w-full justify-between text-sm sm:text-base"
+                    aria-label={`En savoir plus sur ${service.title} - ${service.accroche}`}
+                    aria-describedby={`${service.id}-description`}
+                  >
+                    <span>En savoir plus</span>
+                    <span 
+                      className="ml-2 motion-safe:group-hover/link:translate-x-1 motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out" 
+                      aria-hidden="true"
+                    >
+                      →
+                    </span>
+                  </Link>
                 </CardFooter>
               </Card>
             ))}
@@ -379,113 +260,100 @@ export default function ServicesPage() {
           SECTION 3 : FOCUS MARCHÉS PUBLICS
           Section dédiée aux collectivités et gestionnaires publics
       ======================================== */}
-      <section
-        id="marches-publics"
-        className="py-20 bg-slate-800 text-white relative overflow-hidden"
-      >
-        {/* Élément décoratif en arrière-plan */}
-        <div className="absolute top-0 right-0 w-1/3 h-full bg-slate-700/30 -skew-x-12 transform origin-top translate-x-20"></div>
-
-        <div className="container mx-auto px-4 relative z-10">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            {/* Colonne texte */}
-            <div className="lg:w-1/2">
-              <Badge className="bg-blue-600 text-white border-0 mb-4 uppercase">
-                Espace Professionnel
-              </Badge>
-              <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                Mairies, Collectivités, Gestionnaires : un partenaire fiable en Alsace
-              </h2>
-              <p className="text-slate-300 mb-6 text-lg">
-                Nous connaissons vos contraintes. Au-delà de la technique, nous vous
-                apportons la rigueur administrative et opérationnelle nécessaire aux
-                marchés publics.
-              </p>
-
-              {/* Liste des avantages pour les marchés publics */}
-              <ul className="space-y-4 mb-8">
-                {marchesPublicsAvantages.map((avantage, index) => (
-                  <li key={index} className="flex items-start">
-                    <div className="bg-blue-500/20 p-2 rounded-full mr-4 text-blue-400 text-xl">
-                      {avantage.icone}
-                    </div>
-                    <div>
-                      <strong className="block text-white">{avantage.titre}</strong>
-                      <span className="text-sm text-slate-400">
-                        {avantage.description}
-                      </span>
-                    </div>
-                  </li>
-                ))}
-              </ul>
-
-              {/* Bouton vers la page Marchés Publics */}
-              <Button asChild size="lg" className="bg-white text-slate-900 hover:bg-slate-100">
-                <Link href="/marches-publics">
-                  Accéder à l'Espace Marchés Publics
-                  <span className="ml-2 text-blue-600">→</span>
-                </Link>
-              </Button>
-            </div>
-
-            {/* Colonne image */}
-            <div className="lg:w-1/2">
-              <img
-                src="https://placehold.co/800x600?text=Ecole+Strasbourg+Renovation"
-                alt="Rénovation école Strasbourg"
-                className="rounded-xl shadow-2xl border-4 border-slate-700"
-              />
-            </div>
-          </div>
-        </div>
-      </section>
+      <MarchesPublicsSection
+        avantages={marchesPublicsAvantages}
+        documents={documentsMarchesPublicsGenerique}
+      />
 
       {/* ========================================
           SECTION 4 : LA MÉTHODE
           Les 4 étapes du processus de travail pour rassurer le client
       ======================================== */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
+      <section className="py-16 md:py-24 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {/* En-tête de section */}
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-slate-900 mb-4">
+          <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-4 md:mb-6">
               Votre projet en 4 étapes claires
             </h2>
-            <p className="text-slate-600">
+            <p className="text-gray-600 text-lg">
               Fini le stress des travaux. Nous balisons chaque étape pour votre sérénité.
             </p>
           </div>
 
-          {/* Grille des 4 étapes */}
-          <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative">
-            {/* Ligne de connexion horizontale (visible sur desktop) */}
-            <div className="hidden md:block absolute top-8 left-0 w-full h-1 bg-slate-100 -z-10"></div>
-
-            {methodeEtapes.map((etape) => (
-              <Card key={etape.numero} className="text-center">
-                <CardContent className="pt-6">
-                  {/* Numéro de l'étape dans un cercle */}
-                  <div
-                    className={`w-16 h-16 mx-auto ${
-                      etape.actif
-                        ? "bg-blue-600 text-white"
-                        : "bg-slate-200 text-slate-600"
-                    } rounded-full flex items-center justify-center text-xl font-bold mb-4 shadow-lg border-4 border-white`}
+          {/* Cartes empilées avec icônes SVG et numéros en overlay */}
+          <Card className="shadow-sm border border-gray-200 transition-shadow duration-500 ease-in-out max-w-4xl mx-auto">
+            <CardContent className="p-5 md:p-6 lg:p-7">
+              {/* Timeline modernisée : cartes empilées avec numéros discrets */}
+              <div className="space-y-5 md:space-y-6">
+                {methodeEtapes.map((etape, index) => (
+                  <div 
+                    key={etape.numero} 
+                    className={`group relative motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-bottom will-change-transform-opacity ${getAnimationDelayClass(index)}`}
                   >
-                    {etape.numero}
+                    <div className="bg-white rounded-lg p-4 md:p-5 border border-gray-100 group-hover:border-brand-orange group-hover:shadow-xl group-hover:shadow-brand-orange/20 motion-safe:group-hover:scale-[1.02] transition-all duration-300 ease-in-out">
+                      <div className="flex items-start gap-4">
+                        {/* Conteneur avec icône SVG et numéro en overlay */}
+                        <div className="flex-shrink-0 relative">
+                          <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-xl bg-gradient-to-br from-brand-orange/10 to-brand-orange/5 border-2 border-brand-orange/20 flex items-center justify-center transition-all duration-300 ease-in-out will-change-transform">
+                            {/* Icône SVG avec rotation au hover */}
+                            <div className="absolute inset-0 flex items-center justify-center text-brand-orange transition-transform duration-300 ease-in-out">
+                              <div className="w-6 h-6 md:w-7 md:h-7">
+                                {etape.icone}
+                              </div>
+                            </div>
+                            {/* Numéro en overlay (coin supérieur droit) */}
+                            <div className="absolute -top-1.5 -right-1.5 w-6 h-6 md:w-7 md:h-7 rounded-full bg-brand-orange text-white flex items-center justify-center text-xs md:text-sm font-bold shadow-md transition-all duration-300 ease-in-out z-10">
+                              {etape.numero}
+                            </div>
+                          </div>
+                        </div>
+                        {/* Contenu de l'étape */}
+                        <div className="flex-1 pt-0.5">
+                          <div className="flex items-start justify-between gap-2">
+                            <div className="flex-1">
+                              <h5 className="font-bold text-brand-blue text-base md:text-lg mb-1.5 md:mb-2 transition-colors duration-300 ease-in-out">
+                                {etape.titre}
+                              </h5>
+                              <p className="text-sm md:text-base text-gray-600 leading-relaxed">
+                                {etape.description}
+                              </p>
+                            </div>
+                            {/* Badge spécial si présent */}
+                            {etape.badge && (
+                              <Badge variant="outline" className="bg-green-50 text-green-700 border-green-200 flex-shrink-0">
+                                {etape.badge}
+                              </Badge>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                    </div>
                   </div>
-                  <CardTitle className="text-lg mb-2">{etape.titre}</CardTitle>
-                  <CardDescription className="text-sm">{etape.description}</CardDescription>
-                  {/* Badge spécial si présent */}
-                  {etape.badge && (
-                    <Badge className="mt-2 bg-green-100 text-green-700 border-0">
-                      {etape.badge}
-                    </Badge>
-                  )}
-                </CardContent>
-              </Card>
-            ))}
-          </div>
+                ))}
+              </div>
+              {/* Badge de confiance intégré de manière discrète */}
+              <div className="mt-6 pt-4 border-t border-gray-100">
+                <div className="flex items-center gap-1.5 text-xs text-gray-500">
+                  <svg
+                    className="w-3.5 h-3.5 text-gray-400"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                    strokeWidth={2}
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+                    />
+                  </svg>
+                  <span>Processus éprouvé</span>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
         </div>
       </section>
 
@@ -493,58 +361,86 @@ export default function ServicesPage() {
           SECTION 5 : RÉALISATIONS
           Aperçu de 3 projets récents pour montrer le savoir-faire
       ======================================== */}
-      <section className="py-20 bg-slate-50">
-        <div className="container mx-auto px-4">
-          {/* En-tête avec lien vers toutes les réalisations */}
-          <div className="flex flex-col md:flex-row justify-between items-end mb-10">
-            <div>
-              <h2 className="text-3xl font-bold text-slate-900 mb-2">
-                Nos dernières réalisations en images
+      <section className="py-16 md:py-24 bg-gray-50" id="realisations">
+        <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8">
+          {/* En-tête amélioré avec badge contextuel, meilleure hiérarchie visuelle et bouton CTA - Optimisé mobile */}
+          <div className="text-center md:text-left mb-8 sm:mb-10 md:mb-12 lg:mb-16">
+            {/* Badge contextuel */}
+            <div className="flex justify-center md:justify-start mb-3 sm:mb-4">
+              <Badge 
+                variant="outline" 
+                className="bg-brand-orange/10 text-brand-orange border-brand-orange/30 uppercase tracking-wide font-semibold px-3 sm:px-4 py-1 sm:py-1.5 text-xs sm:text-sm"
+              >
+                Portfolio
+              </Badge>
+            </div>
+            
+            {/* Titre principal avec meilleure hiérarchie */}
+            <div className="mb-4 sm:mb-5 md:mb-6 lg:mb-8 px-2 sm:px-0">
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-2 sm:mb-3 md:mb-4 leading-tight">
+                Nos réalisations parlent pour nous
               </h2>
-              <p className="text-slate-600">
-                Interventions récentes à Strasbourg, Illkirch, Schiltigheim...
+              <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl md:max-w-3xl mx-auto md:mx-0 leading-relaxed">
+                Découvrez la qualité de nos finitions sur des chantiers récents à Strasbourg, Illkirch, Schiltigheim...
               </p>
             </div>
-            <Button asChild variant="link" className="hidden md:inline-flex text-blue-600 font-bold">
-              <Link href="/realisations">
-                Voir toutes les réalisations →
-              </Link>
-            </Button>
+
+            {/* Bouton CTA visible sur toutes les tailles d'écran - Optimisé mobile */}
+            <div className="flex justify-center md:justify-start px-2 sm:px-0">
+              <Button
+                asChild
+                size="lg"
+                className="bg-brand-orange-dark hover:bg-brand-orange text-white shadow-lg hover:shadow-xl transition-all duration-300 font-bold w-full sm:w-auto min-h-[48px] sm:min-h-auto px-5 sm:px-6 text-sm sm:text-base"
+                aria-label="Explorer le portfolio de réalisations"
+              >
+                <Link href="/realisations">
+                  Explorer le portfolio
+                  <svg
+                    className="w-4 h-4 sm:w-5 sm:h-5 ml-2 flex-shrink-0"
+                    fill="none"
+                    stroke="currentColor"
+                    viewBox="0 0 24 24"
+                    aria-hidden="true"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M14 5l7 7m0 0l-7 7m7-7H3"
+                    />
+                  </svg>
+                </Link>
+              </Button>
+            </div>
           </div>
 
           {/* Grille des 3 projets */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            {realisationsApercu.map((projet) => (
+            {realisationsApercu.map((projet, index) => (
               <div
                 key={projet.id}
-                className="group relative overflow-hidden rounded-xl shadow-md cursor-pointer"
+                className="group relative overflow-hidden rounded-xl shadow-md"
               >
-                <img
+                <Image
                   src={projet.image}
                   alt={projet.titre}
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+                  width={600}
+                  height={500}
+                  loading="lazy"
+                  className="w-full h-80 object-cover transition-transform duration-500"
                 />
                 {/* Overlay avec informations du projet */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
-                  <span className="text-amber-500 text-xs font-bold uppercase mb-1">
+                  <span className="text-brand-orange text-xs font-bold uppercase mb-1">
                     {projet.lieu}
                   </span>
                   <h3 className="text-white font-bold text-lg">{projet.titre}</h3>
-                  <p className="text-slate-300 text-sm mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <p className="text-slate-300 text-sm mt-1 opacity-0 transition-opacity">
                     {projet.description}
                   </p>
                 </div>
               </div>
             ))}
-          </div>
-
-          {/* Lien mobile vers toutes les réalisations */}
-          <div className="mt-8 text-center md:hidden">
-            <Button asChild variant="link" className="text-blue-600 font-bold">
-              <Link href="/realisations">
-                Voir toutes les réalisations →
-              </Link>
-            </Button>
           </div>
         </div>
       </section>
@@ -553,24 +449,44 @@ export default function ServicesPage() {
           SECTION 6 : POURQUOI NOUS + FAQ RAPIDE
           Arguments de différenciation et réponses aux questions fréquentes
       ======================================== */}
-      <section className="py-20 bg-white">
-        <div className="container mx-auto px-4">
-          <div className="flex flex-col lg:flex-row items-center gap-12">
-            {/* Colonne gauche : Raisons de nous choisir */}
-            <div className="lg:w-1/2">
-              <h2 className="text-3xl font-bold text-slate-900 mb-6">
-                Pourquoi choisir notre entreprise pour vos travaux ?
-              </h2>
-              <div className="space-y-6">
-                {raisonsChoisir.map((raison, index) => (
-                  <div key={index} className="flex">
-                    <div className="flex-shrink-0 w-12 h-12 rounded-full bg-amber-500/10 flex items-center justify-center text-amber-500 text-xl mr-4">
-                      {raison.icone}
+      <section className="py-16 md:py-24 bg-gray-50 overflow-hidden" id="pourquoi-choisir" aria-labelledby="pourquoi-choisir-title">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start">
+            {/* Colonne gauche : Pourquoi nous choisir */}
+            <div>
+              <div className="mb-8 md:mb-10">
+                <h2 id="pourquoi-choisir-title" className="text-3xl md:text-4xl font-bold text-brand-blue mb-4 md:mb-6">
+                  Pourquoi choisir AR+SOLUTION ?
+                </h2>
+                <p className="text-gray-600 text-lg">
+                  Des engagements concrets qui font la différence
+                </p>
+              </div>
+              <div className="space-y-4 md:space-y-5">
+                {raisonsChoisir.map((argument, index) => (
+                  <div
+                    key={argument.titre}
+                    className={`group relative bg-white rounded-xl border-2 p-4 md:p-5 transition-all duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-left will-change-transform-opacity ${getAnimationDelayClass(index)}`}
+                  >
+                    <div className="flex items-start gap-4">
+                      {/* Icône avec couleur spécifique */}
+                      <div className="flex-shrink-0">
+                        <div className={`flex items-center justify-center h-12 w-12 rounded-xl border-2 ${getCouleurClasses(argument.couleurType)} transition-all duration-300 will-change-transform`}>
+                          {argument.icone}
+                        </div>
+                      </div>
+                      {/* Texte de l'argument */}
+                      <div className="flex-1 pt-1">
+                        <h4 className="text-lg md:text-xl font-bold text-brand-blue mb-2 transition-colors duration-300">
+                          {argument.titre}
+                        </h4>
+                        <p className="text-gray-600 text-sm md:text-base leading-relaxed">
+                          {argument.description}
+                        </p>
+                      </div>
                     </div>
-                    <div>
-                      <h4 className="font-bold text-slate-900">{raison.titre}</h4>
-                      <p className="text-sm text-slate-600">{raison.description}</p>
-                    </div>
+                    {/* Ligne décorative au survol */}
+                    <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-orange via-brand-blue to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-xl will-change-opacity" />
                   </div>
                 ))}
               </div>
@@ -585,9 +501,9 @@ export default function ServicesPage() {
                     key={index}
                     className="group bg-white rounded-lg p-4 shadow-sm cursor-pointer"
                   >
-                    <summary className="flex justify-between items-center font-medium list-none">
+                    <summary className="flex justify-between items-center font-medium list-none focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange-dark focus-visible:ring-offset-2 rounded">
                       <span>{item.question}</span>
-                      <span className="transition group-open:rotate-180 text-blue-600">
+                      <span className="transition group-open:rotate-180 text-blue-600" aria-hidden="true">
                         ▼
                       </span>
                     </summary>
@@ -620,38 +536,27 @@ export default function ServicesPage() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <Button
-          asChild
-          variant="secondary"
-          className="flex-1 bg-gray-100 text-brand-blue font-bold"
-        >
-          <a href="tel:0388000000">
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-              />
-            </svg>
-            Appeler
-          </a>
-        </Button>
-        <Button
-          asChild
-          className="flex-1 bg-brand-orange text-white font-bold shadow-md hover:bg-brand-orange/90"
-        >
-          <Link href="/contact">
-            Devis Gratuit
-          </Link>
-        </Button>
-      </div>
+      <MobileStickyBar
+        phoneNumber="tel:0388000000"
+        devisLink="/contact"
+        devisText="Devis Gratuit"
+      />
+
+      {/* ============================================
+          DONNÉES STRUCTURÉES SEO
+          Schema.org pour améliorer le référencement
+          ============================================ */}
+      <ServiceStructuredData
+        serviceName="Services de Rénovation Intérieure"
+        serviceDescription="Services de rénovation intérieure à Strasbourg : plâtrerie, isolation thermique RGE, peinture et aménagement. Certifié Qualibat, garantie décennale. Devis gratuit."
+        serviceUrl="/services"
+        serviceType="Rénovation intérieure"
+        faqItems={faqRapide}
+        breadcrumbs={[
+          { name: "Accueil", url: "/" },
+          { name: "Services", url: "/services" },
+        ]}
+      />
     </>
   );
 }

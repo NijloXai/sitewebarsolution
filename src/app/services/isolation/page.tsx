@@ -21,28 +21,52 @@
   - Contacter le service Marchés Publics s'il est acheteur public
 */
 
+import type { Metadata } from "next";
 import Link from "next/link";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import Footer from "@/components/Footer";
 import TrustBar from "@/components/TrustBar";
 import CtaBlock from "@/components/CtaBlock";
-import { Button } from "@/components/ui/button";
+import ServiceHero from "@/components/services/ServiceHero";
+import ServiceFeaturesGrid from "@/components/services/ServiceFeaturesGrid";
+import MobileStickyBar from "@/components/services/MobileStickyBar";
+
+// Code splitting dynamique pour les composants lourds
+const ServiceFAQSection = dynamic(
+  () => import("@/components/services/ServiceFAQSection"),
+  { ssr: true }
+);
+const ServiceRealisationsSection = dynamic(
+  () => import("@/components/services/ServiceRealisationsSection"),
+  { ssr: true }
+);
+const ServiceMethodSection = dynamic(
+  () => import("@/components/services/ServiceMethodSection"),
+  { ssr: true }
+);
+const ServiceStructuredData = dynamic(
+  () => import("@/components/services/ServiceStructuredData"),
+  { ssr: true }
+);
+const MarchesPublicsSection = dynamic(
+  () => import("@/components/services/MarchesPublicsSection"),
+  { ssr: true }
+);
+import { isolationPageMetadata } from "@/lib/services-metadata";
+import { barreConfianceIsolation, marchesPublicsAvantages, documentsMarchesPublicsIsolation } from "@/lib/services-data";
 import { Badge } from "@/components/ui/badge";
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/components/ui/card";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import GridScan from "@/components/GridScan";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
+
+export const metadata: Metadata = isolationPageMetadata;
 
 /* ============================================
    DONNÉES DE LA PAGE
    ============================================ */
 
-/* Éléments de la barre de confiance spécifique isolation */
-const barreConfianceItems = [
-  { valeur: "RGE", label: "Qualibat Reconnu" },
-  { valeur: "10 Ans", label: "Garantie Décennale" },
-  { valeur: "-30%", label: "Économies Énergie" },
-  { valeur: "Aides", label: "MaPrimeRénov'" },
-];
+// Utilisation des données centralisées
+const barreConfianceItems = barreConfianceIsolation;
 
 /* Les 4 types d'isolation proposés */
 const typesIsolation = [
@@ -51,28 +75,28 @@ const typesIsolation = [
     titre: "Isolation Thermique Intérieure (ITI)",
     description:
       "Doublage des murs par l'intérieur avec laine de verre, laine de roche ou isolants biosourcés. Solution efficace pour supprimer les ponts thermiques et réduire votre facture énergétique.",
-    iconeColor: "blue",
+    iconeColor: "blue" as const,
   },
   {
     id: "combles",
     titre: "Isolation des Combles",
     description:
       "Combles perdus (soufflage) ou aménagés (sous rampants). Jusqu'à 30% de déperditions évitées. Travaux rapides avec un minimum de désagréments.",
-    iconeColor: "orange",
+    iconeColor: "orange" as const,
   },
   {
     id: "phonique",
     titre: "Isolation Phonique",
     description:
       "Réduction des nuisances sonores entre étages, avec les voisins ou depuis l'extérieur. Cloisons acoustiques haute performance et faux-plafonds désolidarisés.",
-    iconeColor: "blue",
+    iconeColor: "blue" as const,
   },
   {
     id: "sols",
     titre: "Isolation des Sols & Planchers",
     description:
       "Isolation du plancher bas sur cave, vide sanitaire ou terre-plein. Suppression de la sensation de sol froid et amélioration du confort thermique global.",
-    iconeColor: "orange",
+    iconeColor: "orange" as const,
   },
 ];
 
@@ -134,7 +158,7 @@ const projetsRealises = [
     lieu: "Schiltigheim",
     type: "Particulier",
     description: "R=7 atteint, éligible MaPrimeRénov'. Travaux en 1 journée.",
-    image: "https://placehold.co/800x600?text=Combles+Isolés+R7",
+    image: "https://images.unsplash.com/photo-1581578731548-c64695cc6952?w=800&h=600&fit=crop&q=80",
   },
   {
     titre: "Doublage ITI bureaux",
@@ -142,7 +166,7 @@ const projetsRealises = [
     type: "Marché Public",
     description:
       "Isolation thermique et acoustique de 400m² en site occupé.",
-    image: "https://placehold.co/800x600?text=Bureaux+Isolation+ITI",
+    image: "https://images.unsplash.com/photo-1486406146926-c627a92ad1ab?w=800&h=600&fit=crop&q=80",
   },
 ];
 
@@ -170,13 +194,9 @@ const etapesMethode = [
   },
 ];
 
-/* Documents disponibles pour les marchés publics */
-const documentsMarchesPublics = [
-  { titre: "Attestation RGE", disponibilite: "Disponible" },
-  { titre: "Décennale", disponibilite: "Disponible" },
-  { titre: "Fiches techniques isolants", disponibilite: "Sur demande" },
-  { titre: "Références chantiers publics", disponibilite: "Sur demande" },
-];
+// Utilisation des données centralisées
+const marchesPublicsAvantagesData = marchesPublicsAvantages;
+const documentsMarchesPublicsData = documentsMarchesPublicsIsolation;
 
 /* Questions fréquentes sur l'isolation */
 const faqItems = [
@@ -220,110 +240,12 @@ export default function PageServiceIsolation() {
             HERO SECTION - La promesse isolation
             L'utilisateur comprend immédiatement le service et peut demander un devis
             ============================================ */}
-        <section className="relative bg-slate-900 overflow-hidden">
-          {/* Animation 3D GridScan en arrière-plan */}
-          <div className="absolute inset-0">
-            <GridScan
-              sensitivity={0.55}
-              lineThickness={1}
-              linesColor="#1e3a5f"
-              gridScale={0.1}
-              scanColor="#22c55e"
-              scanOpacity={0.5}
-              enablePost
-              bloomIntensity={0.6}
-              chromaticAberration={0.002}
-              noiseIntensity={0.01}
-              scanDuration={3.0}
-              scanDelay={1.5}
-            />
-            {/* Overlay gradient pour améliorer la lisibilité du texte */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
-          </div>
-
-          {/* Contenu du hero */}
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40">
-            <div className="max-w-2xl">
-              {/* Badges RGE et localisation */}
-              <div className="flex items-center gap-3 mb-6 flex-wrap">
-                <Badge variant="outline" className="bg-green-500/20 text-green-400 border-green-500/30 uppercase tracking-wide">
-                  Certifié RGE
-                </Badge>
-                <Badge variant="outline" className="bg-brand-orange/20 text-brand-orange border-brand-orange/30 uppercase tracking-wide">
-                  Strasbourg & Alsace
-                </Badge>
-              </div>
-
-              {/* Titre principal - promesse de valeur */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
-                Isolation Thermique & Phonique à{" "}
-                <span className="text-brand-orange">Strasbourg</span>
-              </h1>
-
-              {/* Sous-titre explicatif */}
-              <p className="text-lg md:text-xl text-gray-300 mb-8 font-light">
-                Réduisez vos factures d&apos;énergie et améliorez votre confort.
-                Certification RGE pour bénéficier de{" "}
-                <strong className="text-white">MaPrimeRénov&apos;</strong> et des aides CEE.
-              </p>
-
-              {/* Boutons d'action principaux */}
-              <div className="flex flex-col sm:flex-row gap-4">
-                <Button
-                  asChild
-                  size="lg"
-                  className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg"
-                >
-                  <a href="#devis">Demander mon devis isolation</a>
-                </Button>
-                <Button
-                  asChild
-                  variant="outline"
-                  size="lg"
-                  className="border-2 border-white/30 text-white hover:bg-white hover:text-brand-blue backdrop-blur-sm"
-                >
-                  <Link href="/marches-publics">Espace Marchés Publics</Link>
-                </Button>
-              </div>
-
-              {/* Micro-réassurance */}
-              <div className="mt-6 flex items-center gap-4 text-sm text-gray-300 flex-wrap">
-                <span className="flex items-center gap-2">
-                  <svg
-                    className="w-4 h-4 text-green-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Réponse sous 48h
-                </span>
-                <span className="flex items-center gap-2">
-                  <svg
-                    className="w-4 h-4 text-green-400"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M5 13l4 4L19 7"
-                    />
-                  </svg>
-                  Intervention en site occupé
-                </span>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ServiceHero
+          title="Isolation Thermique & Phonique à"
+          titleHighlight="Strasbourg"
+          subtitle="Réduisez vos factures d'énergie et améliorez votre confort. Certification RGE pour bénéficier de MaPrimeRénov' et des aides CEE."
+          scanColor="#22c55e"
+        />
 
         {/* ============================================
             BARRE DE CONFIANCE - Preuves sociales isolation
@@ -349,46 +271,11 @@ export default function PageServiceIsolation() {
             </div>
 
             {/* Grille des 4 cartes types d'isolation */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-              {typesIsolation.map((type) => (
-                <Card
-                  key={type.id}
-                  className="hover:shadow-lg hover:border-brand-orange transition duration-300 group"
-                >
-                  <CardContent className="p-6">
-                    {/* Icône du type d'isolation */}
-                    <div
-                      className={`w-12 h-12 ${
-                        type.iconeColor === "orange"
-                          ? "bg-orange-100 text-brand-orange group-hover:bg-brand-orange group-hover:text-white"
-                          : "bg-blue-100 text-brand-blue group-hover:bg-brand-blue group-hover:text-white"
-                      } rounded-lg flex items-center justify-center mb-4 transition`}
-                    >
-                      <svg
-                        className="w-6 h-6"
-                        fill="none"
-                        stroke="currentColor"
-                        viewBox="0 0 24 24"
-                      >
-                        <path
-                          strokeLinecap="round"
-                          strokeLinejoin="round"
-                          strokeWidth={2}
-                          d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                        />
-                      </svg>
-                    </div>
-                    {/* Titre et description */}
-                    <CardTitle className="text-xl mb-2">
-                      {type.titre}
-                    </CardTitle>
-                    <CardDescription className="text-sm">
-                      {type.description}
-                    </CardDescription>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
+            <ServiceFeaturesGrid
+              features={typesIsolation}
+              columns={4}
+              variant="white"
+            />
           </div>
         </section>
 
@@ -396,12 +283,12 @@ export default function PageServiceIsolation() {
             CIBLES CLIENTS - Adaptation à chaque profil
             3 colonnes présentant les avantages spécifiques pour chaque type de client
             ============================================ */}
-        <section className="py-16 bg-gray-50 border-y border-gray-100">
+        <section className="py-16 md:py-24 bg-gray-50 border-y border-gray-100">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-12">
               {/* Texte intro à gauche */}
               <div className="lg:col-span-4">
-                <h2 className="text-3xl font-bold text-brand-blue mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-4 md:mb-6">
                   Une solution adaptée à vos contraintes
                 </h2>
                 <p className="text-gray-600 mb-6">
@@ -589,188 +476,44 @@ export default function PageServiceIsolation() {
             RÉALISATIONS - Projets d'isolation
             Montre des exemples concrets de chantiers d'isolation réalisés
             ============================================ */}
-        <section className="py-16 bg-gray-50">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            {/* En-tête */}
-            <div className="flex flex-col md:flex-row justify-between items-end mb-12">
-              <div>
-                <h2 className="text-3xl font-bold text-brand-blue">
-                  Projets d&apos;isolation réalisés en Alsace
-                </h2>
-                <p className="text-gray-600 mt-2">
-                  Des chantiers concrets avec des résultats mesurables.
-                </p>
-              </div>
-              <Link
-                href="/realisations"
-                className="hidden md:inline-flex text-brand-orange font-semibold hover:underline mt-4 md:mt-0"
-              >
-                Voir toutes nos réalisations →
-              </Link>
-            </div>
-
-            {/* Grille des projets */}
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-              {projetsRealises.map((projet) => (
-                <div key={projet.titre} className="group cursor-pointer">
-                  <div className="relative rounded-xl overflow-hidden shadow-lg aspect-video">
-                    <img
-                      src={projet.image}
-                      className="w-full h-full object-cover group-hover:scale-105 transition duration-500"
-                      alt={projet.titre}
-                    />
-                    {/* Badge type de projet */}
-                    <div className="absolute top-4 right-4">
-                      <Badge className="bg-brand-orange text-white uppercase">
-                        {projet.type}
-                      </Badge>
-                    </div>
-                    {/* Label lieu */}
-                    <div className="absolute bottom-4 left-4 bg-white/90 backdrop-blur px-3 py-1 rounded text-sm font-bold shadow-sm">
-                      {projet.lieu}
-                    </div>
-                  </div>
-                  <h3 className="mt-4 text-lg font-bold text-slate-800">
-                    {projet.titre}
-                  </h3>
-                  <p className="text-sm text-gray-500">{projet.description}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* Lien mobile */}
-            <div className="mt-8 text-center md:hidden">
-              <Link
-                href="/realisations"
-                className="text-brand-orange font-semibold hover:underline"
-              >
-                Voir toutes nos réalisations →
-              </Link>
-            </div>
-          </div>
-        </section>
+        <ServiceRealisationsSection
+          title="Projets d'isolation réalisés en Alsace"
+          subtitle="Des chantiers concrets avec des résultats mesurables."
+          realisations={projetsRealises}
+          voirToutLink="/realisations"
+          voirToutText="Voir toutes nos réalisations"
+          variant="gray"
+        />
 
         {/* ============================================
             MÉTHODE DE TRAVAIL - Timeline
             Explique le déroulement d'un projet d'isolation de A à Z
             ============================================ */}
-        <section className="py-16 bg-white">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-brand-blue text-center mb-12">
-              Un déroulé clair, de l&apos;audit à la réception
-            </h2>
-
-            <div className="relative">
-              {/* Ligne de temps (desktop) */}
-              <div className="hidden md:block absolute top-1/2 left-0 w-full h-0.5 bg-gray-200 -translate-y-1/2 z-0" />
-
-              <div className="grid grid-cols-1 md:grid-cols-4 gap-8 relative z-10">
-                {etapesMethode.map((etape, index) => (
-                  <div key={etape.numero} className="bg-white p-4 text-center md:pt-8">
-                    <div
-                      className={`w-12 h-12 mx-auto ${
-                        index === 0
-                          ? "bg-brand-blue text-white"
-                          : "bg-gray-200 text-gray-600"
-                      } rounded-full flex items-center justify-center font-bold text-xl mb-4 border-4 border-white shadow-sm`}
-                    >
-                      {etape.numero}
-                    </div>
-                    <h3 className="font-bold text-lg mb-2">{etape.titre}</h3>
-                    <p className="text-sm text-gray-500">{etape.description}</p>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
+        <ServiceMethodSection
+          title="Un déroulé clair, de l'audit à la réception"
+          etapes={etapesMethode}
+          variant="timeline"
+          backgroundVariant="white"
+        />
 
         {/* ============================================
-            BLOC MARCHÉS PUBLICS - Focus admin
-            Section dédiée aux acheteurs publics avec documents disponibles
+            SECTION MARCHÉS PUBLICS
+            Section dédiée aux acheteurs publics avec garanties
             ============================================ */}
-        <section className="py-12 bg-slate-100 border-y border-slate-200">
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row items-center justify-between gap-8">
-              {/* Contenu texte */}
-              <div className="flex-1">
-                <div className="flex items-center gap-3 mb-3">
-                  <span className="bg-brand-blue text-white text-xs font-bold px-2 py-1 rounded uppercase">
-                    Espace Pro / Public
-                  </span>
-                </div>
-                <h3 className="text-2xl font-bold text-brand-blue mb-2">
-                  Acheteurs publics : Dossiers conformes et complets
-                </h3>
-                <p className="text-gray-600 mb-4">
-                  Nous connaissons vos impératifs en matière d&apos;isolation des
-                  bâtiments publics. Tous nos documents administratifs et
-                  techniques sont à jour.
-                </p>
-                <div className="flex flex-wrap gap-2">
-                  {documentsMarchesPublics.map((doc) => (
-                    <span
-                      key={doc.titre}
-                      className="text-xs bg-white px-2 py-1 rounded border border-slate-200 text-slate-500"
-                    >
-                      {doc.titre}
-                    </span>
-                  ))}
-                </div>
-              </div>
-
-              {/* CTA */}
-              <div>
-                <Button
-                  asChild
-                  className="bg-slate-800 text-white hover:bg-slate-900"
-                >
-                  <a href="mailto:marches@ar-solution.fr">
-                    <svg
-                      className="w-5 h-5 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                      />
-                    </svg>
-                    Contacter le service Marchés
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <MarchesPublicsSection
+          avantages={marchesPublicsAvantagesData}
+          documents={documentsMarchesPublicsData}
+        />
 
         {/* ============================================
             FAQ ISOLATION
             Répond aux questions courantes sur l'isolation
             ============================================ */}
-        <section className="py-16 bg-white">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-brand-blue text-center mb-8">
-              Questions fréquentes sur l&apos;isolation
-            </h2>
-
-            <Accordion type="single" collapsible className="w-full">
-              {faqItems.map((item, index) => (
-                <AccordionItem key={index} value={`item-${index}`}>
-                  <AccordionTrigger className="text-left font-medium">
-                    {item.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-gray-600 text-sm leading-relaxed">
-                    {item.reponse}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </section>
+        <ServiceFAQSection
+          title="Questions fréquentes sur l'isolation"
+          items={faqItems}
+          variant="white"
+        />
 
         {/* ============================================
             CTA FINAL - Demande de devis
@@ -791,38 +534,30 @@ export default function PageServiceIsolation() {
           BARRE STICKY MOBILE
           Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
           ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <Button
-          asChild
-          variant="secondary"
-          className="flex-1 text-brand-blue font-bold"
-        >
-          <a href="tel:0388000000">
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-              />
-            </svg>
-            Appeler
-          </a>
-        </Button>
-        <Button
-          asChild
-          size="lg"
-          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
-        >
-          <a href="#devis">Devis Isolation</a>
-        </Button>
-      </div>
+      <MobileStickyBar
+        phoneNumber="tel:0388000000"
+        devisLink="#devis"
+        devisText="Devis Isolation"
+      />
+
+      {/* ============================================
+          DONNÉES STRUCTURÉES SEO
+          Schema.org pour améliorer le référencement
+          ============================================ */}
+      <ServiceStructuredData
+        serviceName="Isolation Thermique & Phonique"
+        serviceDescription="Isolation thermique et phonique certifiée RGE à Strasbourg. Combles, ITI, sols. Éligible MaPrimeRénov' et aides CEE. Réduction facture énergétique jusqu'à 30%."
+        serviceUrl="/services/isolation"
+        serviceType="Isolation thermique"
+        faqItems={faqItems}
+        breadcrumbs={[
+          { name: "Accueil", url: "/" },
+          { name: "Services", url: "/services" },
+          { name: "Isolation", url: "/services/isolation" },
+        ]}
+      />
     </>
   );
 }
+
 

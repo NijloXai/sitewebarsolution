@@ -1,6 +1,7 @@
 "use client";
 
 import { useState } from "react";
+import Image from "next/image";
 
 interface BeforeAfterSliderProps {
   imageAvant: string;
@@ -39,10 +40,12 @@ export function BeforeAfterSlider({
           modeActuel === "avant" ? "opacity-100 z-10" : "opacity-0 z-0"
         }`}
       >
-        <img
+        <Image
           src={imageAvant}
           alt={altAvant}
-          className="w-full h-full object-cover select-none"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+          className="object-cover select-none"
           draggable={false}
         />
       </div>
@@ -53,10 +56,12 @@ export function BeforeAfterSlider({
           modeActuel === "apres" ? "opacity-100 z-10" : "opacity-0 z-0"
         }`}
       >
-        <img
+        <Image
           src={imageApres}
           alt={altApres}
-          className="w-full h-full object-cover select-none"
+          fill
+          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 90vw, 80vw"
+          className="object-cover select-none"
           draggable={false}
         />
       </div>
@@ -73,9 +78,9 @@ export function BeforeAfterSlider({
           onTouchEnd={(e) => {
             e.currentTarget.style.transform = "";
           }}
-          className={`px-3 py-2 sm:px-5 md:px-6 sm:py-2.5 md:py-3 rounded-lg font-bold text-[11px] sm:text-xs md:text-sm uppercase tracking-wider shadow-xl transition-all duration-300 flex items-center gap-1 sm:gap-2 flex-1 sm:flex-initial justify-center min-h-[44px] sm:min-h-[48px] touch-manipulation ${
+          className={`px-3 py-2 sm:px-5 md:px-6 sm:py-2.5 md:py-3 rounded-lg font-bold text-[11px] sm:text-xs md:text-sm uppercase tracking-wider shadow-xl transition-all duration-300 flex items-center gap-1 sm:gap-2 flex-1 sm:flex-initial justify-center min-h-[44px] sm:min-h-[48px] touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-blue focus-visible:ring-offset-2 ${
             modeActuel === "avant"
-              ? "bg-brand-blue text-white ring-2 ring-brand-orange ring-offset-1 sm:ring-offset-2 scale-105"
+              ? "bg-brand-blue text-white ring-2 ring-brand-orange-dark ring-offset-1 sm:ring-offset-2 scale-105"
               : "bg-white/90 backdrop-blur-md text-brand-blue hover:bg-white hover:scale-105 active:scale-95"
           }`}
           aria-label="Afficher l'image avant travaux"
@@ -108,10 +113,10 @@ export function BeforeAfterSlider({
           onTouchEnd={(e) => {
             e.currentTarget.style.transform = "";
           }}
-          className={`px-3 py-2 sm:px-5 md:px-6 sm:py-2.5 md:py-3 rounded-lg font-bold text-[11px] sm:text-xs md:text-sm uppercase tracking-wider shadow-xl transition-all duration-300 flex items-center gap-1 sm:gap-2 flex-1 sm:flex-initial justify-center min-h-[44px] sm:min-h-[48px] touch-manipulation ${
+          className={`px-3 py-2 sm:px-5 md:px-6 sm:py-2.5 md:py-3 rounded-lg font-bold text-[11px] sm:text-xs md:text-sm uppercase tracking-wider shadow-xl transition-all duration-300 flex items-center gap-1 sm:gap-2 flex-1 sm:flex-initial justify-center min-h-[44px] sm:min-h-[48px] touch-manipulation focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange-dark focus-visible:ring-offset-2 ${
             modeActuel === "apres"
-              ? "bg-brand-orange text-white ring-2 ring-brand-blue ring-offset-1 sm:ring-offset-2 scale-105"
-              : "bg-white/90 backdrop-blur-md text-brand-orange hover:bg-white hover:scale-105 active:scale-95"
+              ? "bg-brand-orange-dark text-white ring-2 ring-brand-blue ring-offset-1 sm:ring-offset-2 scale-105"
+              : "bg-white/90 backdrop-blur-md text-brand-orange-dark hover:bg-white hover:scale-105 active:scale-95"
           }`}
           aria-label="Afficher l'image après travaux"
           aria-pressed={modeActuel === "apres"}
