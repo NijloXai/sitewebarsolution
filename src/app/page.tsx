@@ -403,10 +403,10 @@ const argumentsChoix = [
 /* Helper pour obtenir les classes CSS selon le type de couleur */
 const getCouleurClasses = (type: string) => {
   const classes = {
-    green: "bg-green-50 text-green-600 border-green-200 group-hover:bg-green-100 group-hover:border-green-300",
-    blue: "bg-blue-50 text-blue-600 border-blue-200 group-hover:bg-blue-100 group-hover:border-blue-300",
-    amber: "bg-amber-50 text-amber-600 border-amber-200 group-hover:bg-amber-100 group-hover:border-amber-300",
-    purple: "bg-purple-50 text-purple-600 border-purple-200 group-hover:bg-purple-100 group-hover:border-purple-300",
+    green: "bg-green-50 text-green-600 border-green-200",
+    blue: "bg-blue-50 text-blue-600 border-blue-200",
+    amber: "bg-amber-50 text-amber-600 border-amber-200",
+    purple: "bg-purple-50 text-purple-600 border-purple-200",
   };
   return classes[type as keyof typeof classes] || classes.blue;
 };
@@ -1280,18 +1280,18 @@ export default function PageAccueil() {
                   {argumentsChoix.map((argument, index) => (
                     <div
                       key={argument.titre}
-                      className={`group relative bg-white rounded-xl border-2 p-4 md:p-5 transition-all duration-300 hover:shadow-lg hover:-translate-y-1 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-left will-change-transform-opacity ${getAnimationDelayClass(index)}`}
+                      className={`group relative bg-white rounded-xl border-2 p-4 md:p-5 transition-all duration-300 motion-safe:animate-in motion-safe:fade-in motion-safe:slide-in-from-left will-change-transform-opacity ${getAnimationDelayClass(index)}`}
                     >
                       <div className="flex items-start gap-4">
                         {/* Icône avec couleur spécifique */}
                         <div className="flex-shrink-0">
-                          <div className={`flex items-center justify-center h-12 w-12 rounded-xl border-2 ${getCouleurClasses(argument.couleurType)} transition-all duration-300 motion-safe:group-hover:scale-110 motion-safe:group-hover:rotate-3 will-change-transform`}>
+                          <div className={`flex items-center justify-center h-12 w-12 rounded-xl border-2 ${getCouleurClasses(argument.couleurType)} transition-all duration-300 will-change-transform`}>
                             {argument.icone}
                           </div>
                         </div>
                         {/* Texte de l'argument */}
                         <div className="flex-1 pt-1">
-                          <h4 className="text-lg md:text-xl font-bold text-brand-blue mb-2 group-hover:text-brand-orange-dark transition-colors duration-300">
+                          <h4 className="text-lg md:text-xl font-bold text-brand-blue mb-2 transition-colors duration-300">
                             {argument.titre}
                           </h4>
                           <p className="text-gray-600 text-sm md:text-base leading-relaxed">
@@ -1300,14 +1300,14 @@ export default function PageAccueil() {
                         </div>
                       </div>
                       {/* Ligne décorative au survol */}
-                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-orange via-brand-blue to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 rounded-b-xl will-change-opacity" />
+                      <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-brand-orange via-brand-blue to-transparent opacity-0 transition-opacity duration-300 rounded-b-xl will-change-opacity" />
                     </div>
                   ))}
                 </div>
               </div>
 
               {/* Colonne droite : Méthode de travail (stepper) */}
-              <Card className="shadow-sm border border-gray-200 hover:shadow-md transition-shadow duration-500 ease-in-out">
+              <Card className="shadow-sm border border-gray-200 transition-shadow duration-500 ease-in-out">
                 <CardHeader className="bg-white border-b border-brand-orange/20 rounded-t-lg p-5 md:p-6 lg:p-7">
                   <CardTitle className="text-xl md:text-2xl font-bold text-brand-blue">
                     Notre méthode de travail
@@ -1328,22 +1328,22 @@ export default function PageAccueil() {
                           <div className="flex items-start gap-4">
                             {/* Conteneur avec icône SVG et numéro en overlay */}
                             <div className="flex-shrink-0 relative">
-                              <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-xl bg-gradient-to-br from-brand-orange/10 to-brand-orange/5 border-2 border-brand-orange/20 flex items-center justify-center group-hover:bg-gradient-to-br group-hover:from-brand-orange/20 group-hover:to-brand-orange/10 group-hover:border-brand-orange group-hover:shadow-md group-hover:shadow-brand-orange/30 transition-all duration-300 ease-in-out will-change-transform">
+                              <div className="relative w-12 h-12 md:w-14 md:h-14 rounded-xl bg-gradient-to-br from-brand-orange/10 to-brand-orange/5 border-2 border-brand-orange/20 flex items-center justify-center transition-all duration-300 ease-in-out will-change-transform">
                                 {/* Icône SVG avec rotation au hover */}
-                                <div className="absolute inset-0 flex items-center justify-center text-brand-orange motion-safe:group-hover:rotate-[5deg] transition-transform duration-300 ease-in-out">
+                                <div className="absolute inset-0 flex items-center justify-center text-brand-orange transition-transform duration-300 ease-in-out">
                                   <div className="w-6 h-6 md:w-7 md:h-7">
                                     {etape.icone}
                                   </div>
                                 </div>
                                 {/* Numéro en overlay (coin supérieur droit) */}
-                                <div className="absolute -top-1.5 -right-1.5 w-6 h-6 md:w-7 md:h-7 rounded-full bg-brand-orange text-white flex items-center justify-center text-xs md:text-sm font-bold shadow-md motion-safe:group-hover:scale-110 group-hover:shadow-lg group-hover:shadow-brand-orange/50 transition-all duration-300 ease-in-out z-10">
+                                <div className="absolute -top-1.5 -right-1.5 w-6 h-6 md:w-7 md:h-7 rounded-full bg-brand-orange text-white flex items-center justify-center text-xs md:text-sm font-bold shadow-md transition-all duration-300 ease-in-out z-10">
                                   {etape.numero}
                                 </div>
                               </div>
                             </div>
                             {/* Contenu de l'étape */}
                             <div className="flex-1 pt-0.5">
-                              <h5 className="font-bold text-brand-blue text-base md:text-lg mb-1.5 md:mb-2 group-hover:text-brand-orange transition-colors duration-300 ease-in-out">
+                              <h5 className="font-bold text-brand-blue text-base md:text-lg mb-1.5 md:mb-2 transition-colors duration-300 ease-in-out">
                                 {etape.titre}
                               </h5>
                               <p className="text-sm md:text-base text-gray-600 leading-relaxed">
@@ -1450,16 +1450,16 @@ export default function PageAccueil() {
                   ].map((item, index) => (
                     <div 
                       key={index}
-                      className={`flex items-start gap-3 sm:gap-4 group/advantage transition-all duration-300 hover:translate-x-1 will-change-transform ${getAnimationDelayClass(index)}`}
+                      className={`flex items-start gap-3 sm:gap-4 group/advantage transition-all duration-300 will-change-transform ${getAnimationDelayClass(index)}`}
                     >
                       <div className="flex-shrink-0 mt-0.5 relative">
-                        <div className="transition-all duration-300 group-hover/advantage:scale-110 group-hover/advantage:rotate-6 group-hover/advantage:drop-shadow-lg will-change-transform">
+                        <div className="transition-all duration-300 will-change-transform">
                           {item.icone}
                         </div>
                         {/* Cercle de pulsation autour de l'icône au survol */}
-                        <div className="absolute inset-0 rounded-full bg-brand-orange/20 scale-0 group-hover/advantage:scale-150 opacity-0 group-hover/advantage:opacity-100 transition-all duration-500 -z-10 -m-2 will-change-transform-opacity" />
+                        <div className="absolute inset-0 rounded-full bg-brand-orange/20 scale-0 opacity-0 transition-all duration-500 -z-10 -m-2 will-change-transform-opacity" />
                       </div>
-                      <span className="text-white text-sm sm:text-base md:text-lg leading-relaxed font-medium transition-colors duration-300 group-hover/advantage:text-brand-orange/90">
+                      <span className="text-white text-sm sm:text-base md:text-lg leading-relaxed font-medium">
                         {item.texte}
                       </span>
                     </div>
@@ -1471,7 +1471,7 @@ export default function PageAccueil() {
                   <Button
                     asChild
                     size="lg"
-                    className="bg-white text-brand-blue hover:bg-gray-100 shadow-lg hover:shadow-xl hover:shadow-white/20 hover:-translate-y-1 hover:scale-[1.02] transition-all duration-300 ease-out font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 focus-visible:ring-offset-blue-900 group/button"
+                    className="bg-white text-brand-blue hover:bg-gray-100 shadow-lg hover:shadow-xl hover:shadow-white/20 transition-all duration-300 ease-out font-bold focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 focus-visible:ring-offset-blue-900 group/button"
                   >
                     <a href="mailto:marches@ar-solution.fr" className="inline-flex items-center gap-2">
                       <span>Contacter le service Marchés Publics</span>
@@ -1495,12 +1495,12 @@ export default function PageAccueil() {
               </div>
 
               {/* Grille des documents disponibles avec animations d'entrée */}
-              <div className="bg-blue-800/50 p-6 sm:p-8 md:p-10 lg:p-12 rounded-xl border border-blue-700 shadow-2xl backdrop-blur-sm hover:border-blue-600/80 transition-all duration-500">
+              <div className="bg-blue-800/50 p-6 sm:p-8 md:p-10 lg:p-12 rounded-xl border border-blue-700 shadow-2xl backdrop-blur-sm">
                 <div className="grid grid-cols-2 gap-4 md:gap-5 lg:gap-6">
                   {documentsMarchesPublics.map((doc, index) => (
                     <Card
                       key={doc.titre}
-                      className="group relative bg-gradient-to-br from-brand-blue via-blue-700 to-brand-blue border-2 border-blue-600/60 flex flex-col items-center text-center overflow-hidden cursor-pointer hover:border-brand-orange/60 hover:shadow-2xl hover:shadow-brand-orange/20 hover:-translate-y-2 hover:scale-[1.03] transition-all duration-300 ease-out motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.03] focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 focus-within:ring-offset-blue-800"
+                      className="group relative bg-gradient-to-br from-brand-blue via-blue-700 to-brand-blue border-2 border-blue-600/60 flex flex-col items-center text-center overflow-hidden cursor-pointer focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 focus-within:ring-offset-blue-800"
                       style={{
                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                         animationDelay: `${index * 100}ms`,
@@ -1510,33 +1510,23 @@ export default function PageAccueil() {
                       role="button"
                       aria-label={`Document: ${doc.titre} - ${doc.disponibilite}`}
                     >
-                      {/* Effet de brillance au survol avec animation fluide */}
-                      <div className="absolute inset-0 bg-gradient-to-br from-white/0 via-white/0 to-white/0 group-hover:from-white/5 group-hover:via-white/10 group-hover:to-white/5 transition-all duration-500 pointer-events-none" />
-                      
-                      {/* Bordure lumineuse au survol avec animation */}
-                      <div className="absolute inset-0 border-2 border-transparent group-hover:border-brand-orange/30 rounded-lg transition-all duration-300 pointer-events-none group-focus-within:border-brand-orange/50" />
-                      
-                      {/* Effet de brillance animé qui traverse la carte */}
-                      <div className="absolute inset-0 opacity-0 group-hover:opacity-100 transition-opacity duration-700 pointer-events-none">
-                        <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000 ease-in-out" />
-                      </div>
+                      {/* Bordure lumineuse au focus pour l'accessibilité */}
+                      <div className="absolute inset-0 border-2 border-transparent rounded-lg pointer-events-none group-focus-within:border-brand-orange/50" />
                       
                       <CardContent className="p-4 md:p-5 lg:p-6 relative z-10 w-full">
-                        {/* Icône document avec animation améliorée */}
-                        <div className="mb-3 md:mb-4 text-blue-200 flex justify-center transition-all duration-300 group-hover:scale-110 group-hover:text-brand-orange group-hover:drop-shadow-lg group-focus-within:scale-110 group-focus-within:text-brand-orange">
+                        {/* Icône document */}
+                        <div className="mb-3 md:mb-4 text-blue-200 flex justify-center group-focus-within:scale-110 group-focus-within:text-brand-orange">
                           <div className="relative">
-                            <div className="transition-transform duration-300 group-hover:rotate-6 group-focus-within:rotate-6">
+                            <div className="group-focus-within:rotate-6">
                               {getDocumentIcon(doc.titre, "w-10 h-10 md:w-12 md:h-12")}
                             </div>
-                            {/* Cercle de pulsation autour de l'icône au survol */}
-                            <div className="absolute inset-0 rounded-full bg-brand-orange/20 scale-0 group-hover:scale-150 opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 group-focus-within:scale-150 transition-all duration-500 -z-10" />
-                            {/* Anneau de pulsation supplémentaire */}
-                            <div className="absolute inset-0 rounded-full bg-brand-orange/10 scale-0 group-hover:scale-[1.8] opacity-0 group-hover:opacity-100 transition-all duration-700 -z-10" />
+                            {/* Cercle de pulsation autour de l'icône au focus pour l'accessibilité */}
+                            <div className="absolute inset-0 rounded-full bg-brand-orange/20 scale-0 opacity-0 group-focus-within:opacity-100 group-focus-within:scale-150 transition-all duration-500 -z-10" />
                           </div>
                         </div>
                         
-                        {/* Titre avec meilleure hiérarchie et animation */}
-                        <CardTitle className="text-sm md:text-base lg:text-lg text-white mb-2 md:mb-3 font-bold leading-tight group-hover:text-brand-orange group-focus-within:text-brand-orange transition-colors duration-300">
+                        {/* Titre avec meilleure hiérarchie */}
+                        <CardTitle className="text-sm md:text-base lg:text-lg text-white mb-2 md:mb-3 font-bold leading-tight group-focus-within:text-brand-orange">
                           {doc.titre}
                         </CardTitle>
                         
@@ -1544,17 +1534,17 @@ export default function PageAccueil() {
                         <div className="flex justify-center">
                           <Badge
                             variant="outline"
-                            className={`text-xs md:text-sm px-2 md:px-3 py-1 md:py-1.5 rounded-full font-semibold border-2 transition-all duration-300 ${
+                            className={`text-xs md:text-sm px-2 md:px-3 py-1 md:py-1.5 rounded-full font-semibold border-2 ${
                               doc.disponibilite === "Disponible"
-                                ? "bg-green-500/20 text-green-200 border-green-400/50 group-hover:bg-green-500/30 group-hover:border-green-400 group-hover:shadow-lg group-hover:shadow-green-500/20 group-hover:scale-105"
-                                : "bg-amber-500/20 text-amber-200 border-amber-400/50 group-hover:bg-amber-500/30 group-hover:border-amber-400 group-hover:shadow-lg group-hover:shadow-amber-500/20 group-hover:scale-105"
+                                ? "bg-green-500/20 text-green-200 border-green-400/50"
+                                : "bg-amber-500/20 text-amber-200 border-amber-400/50"
                             }`}
                           >
                             <span className="flex items-center gap-1.5">
                               {doc.disponibilite === "Disponible" ? (
                                 <>
                                   <svg
-                                    className="w-3 h-3 md:w-3.5 md:h-3.5 transition-transform duration-300 group-hover:rotate-12"
+                                    className="w-3 h-3 md:w-3.5 md:h-3.5"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
@@ -1572,7 +1562,7 @@ export default function PageAccueil() {
                               ) : (
                                 <>
                                   <svg
-                                    className="w-3 h-3 md:w-3.5 md:h-3.5 transition-transform duration-300 group-hover:rotate-12"
+                                    className="w-3 h-3 md:w-3.5 md:h-3.5"
                                     fill="none"
                                     viewBox="0 0 24 24"
                                     stroke="currentColor"
@@ -1593,8 +1583,8 @@ export default function PageAccueil() {
                         </div>
                       </CardContent>
                       
-                      {/* Effet de profondeur avec ombre portée au survol */}
-                      <div className="absolute -inset-1 bg-gradient-to-r from-brand-orange/0 via-brand-orange/0 to-brand-orange/0 group-hover:from-brand-orange/10 group-hover:via-brand-orange/5 group-hover:to-brand-orange/10 rounded-lg blur-xl opacity-0 group-hover:opacity-100 group-focus-within:opacity-100 transition-opacity duration-500 -z-10" />
+                      {/* Effet de profondeur avec ombre portée au focus pour l'accessibilité */}
+                      <div className="absolute -inset-1 bg-gradient-to-r from-brand-orange/0 via-brand-orange/0 to-brand-orange/0 rounded-lg blur-xl opacity-0 group-focus-within:opacity-100 group-focus-within:from-brand-orange/10 group-focus-within:via-brand-orange/5 group-focus-within:to-brand-orange/10 transition-opacity duration-500 -z-10" />
                     </Card>
                   ))}
                 </div>

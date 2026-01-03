@@ -517,12 +517,12 @@ export default function ServicesPage() {
             {realisationsApercu.map((projet) => (
               <div
                 key={projet.id}
-                className="group relative overflow-hidden rounded-xl shadow-md cursor-pointer"
+                className="group relative overflow-hidden rounded-xl shadow-md"
               >
                 <img
                   src={projet.image}
                   alt={projet.titre}
-                  className="w-full h-80 object-cover transition-transform duration-500 group-hover:scale-110"
+                  className="w-full h-80 object-cover transition-transform duration-500"
                 />
                 {/* Overlay avec informations du projet */}
                 <div className="absolute inset-0 bg-gradient-to-t from-black/80 to-transparent flex flex-col justify-end p-6">
@@ -530,7 +530,7 @@ export default function ServicesPage() {
                     {projet.lieu}
                   </span>
                   <h3 className="text-white font-bold text-lg">{projet.titre}</h3>
-                  <p className="text-slate-300 text-sm mt-1 opacity-0 group-hover:opacity-100 transition-opacity">
+                  <p className="text-slate-300 text-sm mt-1 opacity-0 transition-opacity">
                     {projet.description}
                   </p>
                 </div>
