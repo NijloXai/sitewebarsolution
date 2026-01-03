@@ -391,9 +391,8 @@ export default function ServicesPage() {
                 asChild
                 size="lg"
                 className="bg-brand-orange-dark hover:bg-brand-orange text-white shadow-lg hover:shadow-xl transition-all duration-300 font-bold w-full sm:w-auto min-h-[48px] sm:min-h-auto px-5 sm:px-6 text-sm sm:text-base"
-                aria-label="Explorer le portfolio de réalisations"
               >
-                <Link href="/realisations">
+                <Link href="/realisations" aria-label="Explorer le portfolio de réalisations">
                   Explorer le portfolio
                   <svg
                     className="w-4 h-4 sm:w-5 sm:h-5 ml-2 flex-shrink-0"

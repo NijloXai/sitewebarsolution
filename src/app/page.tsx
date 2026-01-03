@@ -342,9 +342,8 @@ export default function PageAccueil() {
           asChild
           size="lg"
           className="flex-1 bg-brand-orange-dark hover:bg-brand-orange text-white font-bold shadow-md"
-          aria-label="Demander un devis gratuit"
         >
-          <a href="#contact">Devis Gratuit</a>
+          <a href="#contact" aria-label="Demander un devis gratuit">Devis Gratuit</a>
         </Button>
       </div>
     </>

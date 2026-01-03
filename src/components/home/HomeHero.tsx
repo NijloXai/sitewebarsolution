@@ -75,9 +75,8 @@ export default function HomeHero() {
               asChild
               size="lg"
               className="bg-brand-orange-dark hover:bg-brand-orange text-white shadow-lg"
-              aria-label="Demander un devis gratuit"
             >
-              <a href="#contact">Demander un devis gratuit</a>
+              <a href="#contact" aria-label="Demander un devis gratuit">Demander un devis gratuit</a>
             </Button>
             <Button
               asChild

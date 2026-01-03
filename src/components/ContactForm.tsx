@@ -109,7 +109,6 @@ export function ContactForm() {
             type="checkbox"
             required
             className="h-4 w-4 rounded border-gray-300 text-brand-orange-dark focus:ring-brand-orange-dark focus-visible:ring-2 focus-visible:ring-brand-orange-dark focus-visible:ring-offset-2"
-            aria-required="true"
           />
         </div>
         <div className="ml-3 text-sm">
@@ -125,7 +124,7 @@ export function ContactForm() {
         type="submit"
         size="lg"
         className="w-full bg-brand-orange-dark hover:bg-brand-orange text-white text-lg font-bold"
-        aria-label="Envoyer la demande de devis gratuit"
+        aria-label="Recevoir mon devis gratuit"
       >
         Recevoir mon devis gratuit
       </Button>

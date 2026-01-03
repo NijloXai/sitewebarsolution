@@ -152,9 +152,8 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               size="sm"
               asChild
               className="text-gray-600 hover:text-brand-blue transition-colors duration-200 ease-out"
-              aria-label={`Appeler ${TELEPHONE}`}
             >
-              <a href={TELEPHONE_LIEN}>
+              <a href={TELEPHONE_LIEN} aria-label={`Appeler ${TELEPHONE}`}>
                 {/* Icône téléphone SVG */}
                 <svg
                   className="w-4 h-4"
@@ -178,9 +177,10 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
             <Button
               asChild
               className="bg-brand-orange-dark hover:bg-brand-orange text-white shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] active:scale-100 will-change-transform"
-              aria-label="Demander un devis gratuit"
             >
-              <Link href={ctaHref}>Demander un devis</Link>
+              <Link href={ctaHref} aria-label="Demander un devis gratuit">
+                Demander un devis
+              </Link>
             </Button>
           </div>
 
@@ -401,9 +401,8 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               style={{
                 transitionDelay: menuOpen ? "0.35s" : "0s",
               }}
-              aria-label="Demander un devis gratuit"
             >
-              <Link href={ctaHref} onClick={() => setMenuOpen(false)}>
+              <Link href={ctaHref} onClick={() => setMenuOpen(false)} aria-label="Demander un devis gratuit">
                 Demander un devis
               </Link>
             </Button>
