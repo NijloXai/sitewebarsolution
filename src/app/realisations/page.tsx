@@ -16,14 +16,28 @@
 */
 
 import Link from "next/link";
+import dynamic from "next/dynamic";
 import Header from "@/components/Header";
 import CtaBlock from "@/components/CtaBlock";
 import Footer from "@/components/Footer";
+import ServiceHero from "@/components/services/ServiceHero";
+import MobileStickyBar from "@/components/services/MobileStickyBar";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import GridScan from "@/components/GridScan";
+import { marchesPublicsAvantages, documentsMarchesPublicsGenerique } from "@/lib/services-data";
+
+// Code splitting dynamique pour le composant MarchesPublicsSection
+const MarchesPublicsSection = dynamic(
+  () => import("@/components/services/MarchesPublicsSection"),
+  { ssr: true }
+);
+
+// Code splitting dynamique pour le composant ServiceFAQSection
+const ServiceFAQSection = dynamic(
+  () => import("@/components/services/ServiceFAQSection"),
+  { ssr: true }
+);
 
 /* ============================================
    DONNÉES DE LA PAGE
@@ -165,97 +179,19 @@ export default function PageRealisations() {
             HERO SECTION - Promesse et accroche visuelle
             L'utilisateur comprend immédiatement qu'il s'agit du portfolio
             ============================================ */}
-        <section className="relative bg-slate-900 overflow-hidden pt-24 pb-16 lg:pt-32 lg:pb-24">
-          {/* Animation 3D GridScan en arrière-plan */}
-          <div className="absolute inset-0">
-            <GridScan
-              sensitivity={0.55}
-              lineThickness={1}
-              linesColor="#1e3a5f"
-              gridScale={0.1}
-              scanColor="#a855f7"
-              scanOpacity={0.5}
-              enablePost
-              bloomIntensity={0.6}
-              chromaticAberration={0.002}
-              noiseIntensity={0.01}
-              scanDuration={3.0}
-              scanDelay={1.5}
-            />
-            {/* Overlay gradient pour améliorer la lisibilité du texte */}
-            <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
-          </div>
-
-          {/* Contenu du hero */}
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="max-w-3xl mx-auto text-center">
-              {/* Badge localisation */}
-              <span className="inline-block bg-brand-orange/20 text-brand-orange border border-brand-orange/30 rounded-full px-4 py-1.5 text-sm font-semibold mb-6">
-                <svg
-                  className="w-4 h-4 inline mr-2"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"
-                  />
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth={2}
-                    d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"
-                  />
-                </svg>
-                Intervention à Strasbourg & dans toute l&apos;Alsace
-              </span>
-
-              {/* Titre principal */}
-              <h1 className="text-4xl md:text-5xl font-bold text-white mb-6 leading-tight">
-                Nos Réalisations :{" "}
-                <span className="text-transparent bg-clip-text bg-gradient-to-r from-white to-gray-300">
-                  L&apos;exigence du détail.
-                </span>
-              </h1>
-
-              {/* Sous-titre explicatif */}
-              <p className="text-lg md:text-xl text-gray-300 mb-8 max-w-2xl mx-auto">
-                Rénovation thermique, plâtrerie technique, aménagement :
-                découvrez comment nous transformons les espaces de vie et les
-                bâtiments publics. Des chantiers livrés propres, conformes et
-                dans les délais.
-              </p>
-
-              {/* Boutons d'action */}
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Button asChild size="lg" className="bg-brand-orange hover:bg-brand-orange-dark text-white">
-                  <Link href="/contact">Demander un devis chiffré</Link>
-                </Button>
-                <Button asChild variant="outline" size="lg" className="border-white/30 text-white hover:bg-white hover:text-brand-blue backdrop-blur-sm">
-                  <a href="#public-focus">
-                    <svg
-                      className="w-5 h-5 mr-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4"
-                      />
-                    </svg>
-                    Accès Marchés Publics
-                  </a>
-                </Button>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ServiceHero
+          title="Nos Réalisations :"
+          titleHighlight="L'exigence du détail."
+          subtitle="Rénovation thermique, plâtrerie technique, aménagement : découvrez comment nous transformons les espaces de vie et les bâtiments publics. Des chantiers livrés propres, conformes et dans les délais."
+          badges={[
+            { label: "Intervention à Strasbourg & dans toute l'Alsace", variant: "location" },
+          ]}
+          ctaLinks={[
+            { label: "Demander un devis chiffré", href: "/contact", variant: "primary" },
+            { label: "Accès Marchés Publics", href: "#public-focus", variant: "secondary" },
+          ]}
+          scanColor="#f97316"
+        />
 
         {/* ============================================
             FILTRES STICKY - Navigation rapide dans le portfolio
@@ -358,25 +294,28 @@ export default function PageRealisations() {
             GRILLE DES RÉALISATIONS - Portfolio visuel
             Affiche les cartes projets avec images, métiers et descriptions
             ============================================ */}
-        <section className="py-16 bg-gray-50">
+        <section className="py-16 md:py-24 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Grille de cartes */}
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-6 md:gap-8">
               {realisations.map((projet) => (
                 <Card
                   key={projet.id}
-                  className={`group transition-all duration-300 overflow-hidden flex flex-col h-full ${
+                  className={`group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white pt-0 h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none ${
                     projet.secteur === "public"
                       ? "ring-2 ring-transparent"
                       : ""
                   }`}
+                  style={{
+                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
+                  }}
                 >
                   {/* Image du projet */}
-                  <div className="relative h-64 overflow-hidden">
+                  <div className="relative h-64 overflow-hidden bg-gray-200">
                     <img
                       src={projet.image}
                       alt={projet.titre}
-                      className="w-full h-full object-cover"
+                      className="w-full h-full object-cover motion-safe:group-hover:scale-110 motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out"
                     />
 
                     {/* Badge Avant/Après si disponible */}
@@ -459,7 +398,7 @@ export default function PageRealisations() {
                     </div>
 
                     {/* Titre du projet */}
-                    <CardTitle className="text-xl mb-3 text-slate-800">
+                    <CardTitle className="text-xl mb-3 text-slate-800 motion-safe:group-hover:text-brand-orange motion-safe:transition-colors motion-safe:duration-300">
                       {projet.titre}
                     </CardTitle>
 
@@ -478,22 +417,12 @@ export default function PageRealisations() {
                     <div className="mt-auto pt-4 border-t border-gray-100">
                       <Link
                         href={`/realisations/${projet.id}`}
-                        className="inline-flex items-center font-semibold text-brand-blue hover:text-brand-orange transition-colors"
+                        className="inline-flex items-center font-semibold text-brand-blue hover:text-brand-orange focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 rounded transition-all duration-300 group/link w-full justify-between"
                       >
-                        Voir le projet complet
-                        <svg
-                          className="w-4 h-4 ml-2"
-                          fill="none"
-                          stroke="currentColor"
-                          viewBox="0 0 24 24"
-                        >
-                          <path
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                            strokeWidth={2}
-                            d="M14 5l7 7m0 0l-7 7m7-7H3"
-                          />
-                        </svg>
+                        <span>Voir le projet complet</span>
+                        <span className="ml-2 motion-safe:group-hover/link:translate-x-1 motion-safe:transition-transform motion-safe:duration-300 motion-safe:ease-out">
+                          →
+                        </span>
                       </Link>
                     </div>
                   </CardContent>
@@ -524,208 +453,55 @@ export default function PageRealisations() {
         </section>
 
         {/* ============================================
-            FOCUS MARCHÉS PUBLICS - Espace dédié aux collectivités
-            Rassure les acheteurs publics avec les compétences et les références
+            SECTION MARCHÉS PUBLICS
+            Section dédiée aux acheteurs publics avec garanties
             ============================================ */}
-        <section
+        <MarchesPublicsSection
+          avantages={marchesPublicsAvantages}
+          documents={documentsMarchesPublicsGenerique}
           id="public-focus"
-          className="py-16 bg-gradient-to-br from-slate-100 to-white border-y border-gray-200"
-        >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col lg:flex-row items-center gap-12">
-              {/* Colonne texte */}
-              <div className="lg:w-1/2">
-                <span className="inline-block bg-brand-blue/10 text-brand-blue font-bold px-3 py-1 rounded-full text-sm mb-4">
-                  <svg
-                    className="w-4 h-4 inline mr-2"
-                    fill="none"
-                    stroke="currentColor"
-                    viewBox="0 0 24 24"
-                  >
-                    <path
-                      strokeLinecap="round"
-                      strokeLinejoin="round"
-                      strokeWidth={2}
-                      d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"
-                    />
-                  </svg>
-                  Espace Collectivités & Bailleurs
-                </span>
-
-                <h2 className="text-3xl font-bold mb-6 text-slate-800">
-                  Partenaire de confiance des{" "}
-                  <span className="text-brand-blue">
-                    Collectivités Alsaciennes
-                  </span>
-                </h2>
-
-                <p className="text-gray-600 mb-8 text-lg">
-                  Nous comprenons les exigences spécifiques des marchés publics.
-                  Au-delà de la technique, nous garantissons une gestion
-                  administrative rigoureuse et un respect absolu des normes ERP.
-                </p>
-
-                {/* Liste des avantages */}
-                <ul className="space-y-4 mb-8">
-                  <li className="flex items-start">
-                    <svg
-                      className="w-6 h-6 text-green-500 mt-0.5 mr-3 flex-shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <div>
-                      <strong className="text-slate-800">
-                        Gestion administrative maîtrisée
-                      </strong>
-                      <p className="text-sm text-gray-500">
-                        Dossiers d&apos;appels d&apos;offres, DOE, PPSPS.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <svg
-                      className="w-6 h-6 text-green-500 mt-0.5 mr-3 flex-shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <div>
-                      <strong className="text-slate-800">
-                        Intervention en site occupé
-                      </strong>
-                      <p className="text-sm text-gray-500">
-                        Sécurité des usagers (écoles, bureaux) et discrétion.
-                      </p>
-                    </div>
-                  </li>
-                  <li className="flex items-start">
-                    <svg
-                      className="w-6 h-6 text-green-500 mt-0.5 mr-3 flex-shrink-0"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                      />
-                    </svg>
-                    <div>
-                      <strong className="text-slate-800">
-                        Respect des délais et budgets
-                      </strong>
-                      <p className="text-sm text-gray-500">
-                        Pas de dépassement, planning tenu.
-                      </p>
-                    </div>
-                  </li>
-                </ul>
-
-                {/* CTA vers page Marchés Publics */}
-                <Button asChild className="bg-brand-blue hover:bg-blue-800 text-white shadow-md">
-                  <Link href="/marches-publics">
-                    Contacter notre référent Marchés Publics
-                    <svg
-                      className="w-4 h-4 ml-2"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                    >
-                      <path
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                        strokeWidth={2}
-                        d="M9 5l7 7-7 7"
-                      />
-                    </svg>
-                  </Link>
-                </Button>
-              </div>
-
-              {/* Colonne logos collectivités */}
-              <div className="lg:w-1/2 w-full">
-                <div className="bg-white p-8 rounded-2xl shadow-lg border border-gray-100 relative">
-                  {/* Élément décoratif */}
-                  <div className="absolute -top-4 -right-4 w-24 h-24 bg-brand-orange/10 rounded-full blur-xl" />
-
-                  <h4 className="text-sm font-bold text-gray-400 uppercase mb-6 tracking-wider text-center">
-                    Ils nous font confiance
-                  </h4>
-
-                  {/* Grille de logos */}
-                  <div className="grid grid-cols-2 gap-8 items-center">
-                    {logosCollectivites.map((logo) => (
-                      <img
-                        key={logo.nom}
-                        src={logo.image}
-                        alt={logo.nom}
-                        className="mx-auto grayscale hover:grayscale-0 transition-all opacity-80 hover:opacity-100"
-                      />
-                    ))}
-                  </div>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        />
 
         {/* ============================================
             BARRE DE RÉASSURANCE - Certifications et garanties
             Rappel rapide des garanties pour rassurer avant le CTA final
             ============================================ */}
-        <section className="py-10 bg-slate-800 text-white">
+        <section className="py-16 md:py-24 bg-gray-50 border-y border-gray-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="flex flex-col md:flex-row justify-between items-center gap-6">
-              {/* Logos certifications */}
-              <div className="flex items-center gap-6">
+            <div className="flex flex-col md:flex-row justify-between items-center gap-8 md:gap-12">
+              {/* Badges certifications */}
+              <div className="flex items-center gap-4 md:gap-6">
                 {certifications.map((cert) => (
                   <div
                     key={cert.nom}
-                    className="bg-white/10 p-2 rounded text-xs font-bold text-center w-16 h-16 flex items-center justify-center border border-white/20"
+                    className="bg-white p-4 rounded-lg text-xs font-bold text-center min-w-[80px] flex items-center justify-center border-2 border-brand-blue/20 shadow-sm hover:border-brand-orange/50 transition-colors"
                   >
                     {cert.abrege === "Décennale" ? (
-                      <>
+                      <span className="text-slate-800 leading-tight">
                         Garantie
                         <br />
                         Décennale
-                      </>
+                      </span>
                     ) : cert.abrege === "RC Pro" ? (
-                      <>
+                      <span className="text-slate-800 leading-tight">
                         RC
                         <br />
                         Pro
-                      </>
+                      </span>
                     ) : (
-                      <>
+                      <span className="text-slate-800 leading-tight">
                         RGE
                         <br />
                         Qualibat
-                      </>
+                      </span>
                     )}
                   </div>
                 ))}
               </div>
 
               {/* Texte central */}
-              <div className="text-center md:text-left">
-                <p className="font-medium text-lg">
+              <div className="text-center md:text-left flex-1">
+                <p className="font-semibold text-lg text-slate-800 mb-2">
                   <svg
                     className="w-5 h-5 inline mr-2 text-brand-orange"
                     fill="none"
@@ -741,7 +517,7 @@ export default function PageRealisations() {
                   </svg>
                   Entreprise certifiée et assurée
                 </p>
-                <p className="text-sm text-gray-400 mt-1">
+                <p className="text-sm text-gray-600">
                   Tous nos chantiers sont couverts. Attestations à jour
                   disponibles sur simple demande.
                 </p>
@@ -749,12 +525,12 @@ export default function PageRealisations() {
 
               {/* Lien vers certificats */}
               <div>
-                <a
+                <Link
                   href="/a-propos"
-                  className="text-sm text-white underline hover:text-brand-orange transition-colors"
+                  className="inline-flex items-center text-sm font-medium text-brand-blue hover:text-brand-orange transition-colors"
                 >
                   <svg
-                    className="w-4 h-4 inline mr-1"
+                    className="w-4 h-4 mr-1"
                     fill="none"
                     stroke="currentColor"
                     viewBox="0 0 24 24"
@@ -767,40 +543,21 @@ export default function PageRealisations() {
                     />
                   </svg>
                   Voir nos certificats
-                </a>
+                </Link>
               </div>
             </div>
           </div>
         </section>
 
         {/* ============================================
-            FAQ MINI - Questions sur les réalisations
+            FAQ - Questions sur les réalisations
             Répond aux questions courantes pour lever les derniers freins
             ============================================ */}
-        <section className="py-16 bg-white">
-          <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-center mb-10 text-slate-800">
-              Questions fréquentes sur nos réalisations
-            </h2>
-
-            <Accordion type="single" collapsible className="space-y-4">
-              {faqRealisations.map((item, index) => (
-                <AccordionItem
-                  key={index}
-                  value={`item-${index}`}
-                  className="bg-gray-50 rounded-lg px-4 data-[state=open]:ring-2 data-[state=open]:ring-brand-blue/20 data-[state=open]:bg-white transition-all"
-                >
-                  <AccordionTrigger className="text-slate-800 hover:text-brand-blue font-medium">
-                    {item.question}
-                  </AccordionTrigger>
-                  <AccordionContent className="text-gray-600 text-sm">
-                    {item.reponse}
-                  </AccordionContent>
-                </AccordionItem>
-              ))}
-            </Accordion>
-          </div>
-        </section>
+        <ServiceFAQSection
+          title="Questions fréquentes sur nos réalisations"
+          items={faqRealisations}
+          variant="white"
+        />
 
         {/* ============================================
             CTA FINAL - Appel à l'action pour demander un devis
@@ -817,41 +574,8 @@ export default function PageRealisations() {
       {/* Footer réutilisable */}
       <Footer />
 
-      {/* ============================================
-          BARRE STICKY MOBILE
-          Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
-          ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <Button
-          asChild
-          variant="secondary"
-          className="flex-1 text-brand-blue font-bold"
-        >
-          <a href="tel:0388000000">
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-              />
-            </svg>
-            Appeler
-          </a>
-        </Button>
-        <Button
-          asChild
-          size="lg"
-          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
-        >
-          <Link href="/contact">Devis Gratuit</Link>
-        </Button>
-      </div>
+      {/* Barre sticky mobile */}
+      <MobileStickyBar />
     </>
   );
 }
