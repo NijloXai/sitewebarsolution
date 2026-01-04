@@ -23,14 +23,14 @@ const faqItems = [
 
 export function FAQ() {
   return (
-    <Accordion type="single" collapsible className="space-y-4" aria-label="Questions fréquentes">
+    <Accordion type="single" collapsible className="space-y-4">
       {faqItems.map((item, index) => (
         <AccordionItem
           key={index}
           value={`item-${index}`}
           className="bg-white rounded-lg shadow-sm px-4"
         >
-          <AccordionTrigger className="font-medium" aria-label={`${item.question}, cliquer pour ${item.question.includes("?") ? "voir la réponse" : "développer"}`}>
+          <AccordionTrigger className="font-medium">
             {item.question}
           </AccordionTrigger>
           <AccordionContent className="text-muted-foreground text-sm">

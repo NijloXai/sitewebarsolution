@@ -19,8 +19,8 @@ export interface DocumentMarchesPublics {
 }
 
 export interface MarchesPublicsSectionProps {
-  avantages: AvantageMarchesPublics[];
-  documents: DocumentMarchesPublics[];
+  avantages: readonly AvantageMarchesPublics[];
+  documents: readonly DocumentMarchesPublics[];
   id?: string;
 }
 

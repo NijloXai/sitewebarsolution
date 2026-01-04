@@ -14,7 +14,7 @@ interface ServiceMethodSectionProps {
   /** Sous-titre descriptif */
   subtitle?: string;
   /** Liste des étapes de la méthode */
-  etapes: EtapeMethode[];
+  etapes: readonly EtapeMethode[];
   /** Image d'illustration (optionnel) */
   image?: {
     src: string;

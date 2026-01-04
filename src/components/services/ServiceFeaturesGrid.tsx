@@ -26,7 +26,7 @@ interface ServiceFeaturesGridProps {
   /** Sous-titre descriptif */
   subtitle?: string;
   /** Liste des features/prestations à afficher */
-  features: Feature[];
+  features: readonly Feature[];
   /** Nombre de colonnes sur desktop */
   columns?: 2 | 3 | 4;
   /** Classe CSS personnalisée */

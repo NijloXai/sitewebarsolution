@@ -9,7 +9,7 @@ interface ServiceFAQSectionProps {
   /** Titre principal de la section FAQ */
   title?: string;
   /** Liste des questions et réponses */
-  items: FAQItem[];
+  items: readonly FAQItem[];
   /** Classe CSS personnalisée pour le conteneur */
   className?: string;
   /** Style de fond de la section */

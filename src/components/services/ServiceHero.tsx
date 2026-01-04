@@ -39,8 +39,8 @@ export interface ServiceHeroProps {
   title: string;
   titleHighlight?: string;
   subtitle: string;
-  badges?: BadgeConfig[];
-  ctaLinks?: CtaLink[];
+  badges?: readonly BadgeConfig[];
+  ctaLinks?: readonly CtaLink[];
   scanColor?: string;
 }
 

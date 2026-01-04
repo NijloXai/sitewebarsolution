@@ -22,7 +22,7 @@ interface TrustBarItem {
 
 /* Props du composant TrustBar */
 interface TrustBarProps {
-  items: TrustBarItem[];
+  items: readonly TrustBarItem[];
 }
 
 export default function TrustBar({ items }: TrustBarProps) {

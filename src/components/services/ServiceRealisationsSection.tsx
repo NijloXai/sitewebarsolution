@@ -19,7 +19,7 @@ interface ServiceRealisationsSectionProps {
   /** Sous-titre descriptif */
   subtitle?: string;
   /** Liste des réalisations à afficher */
-  realisations: Realisation[];
+  realisations: readonly Realisation[];
   /** Lien vers la page complète des réalisations */
   voirToutLink?: string;
   /** Texte du lien "Voir tout" */

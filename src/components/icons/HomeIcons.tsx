@@ -2,6 +2,8 @@
    ICÔNES SVG POUR LA PAGE D'ACCUEIL
    ============================================ */
 
+import { ReactElement } from "react";
+
 /* Icônes SVG spécifiques et représentatives pour chaque service */
 export const IconePlatrerie = () => (
   <svg
@@ -133,7 +135,7 @@ export const IconeEnduits = () => (
 );
 
 /* Mapping des icônes pour les services */
-export const iconesServices: Record<string, () => JSX.Element> = {
+export const iconesServices: Record<string, () => ReactElement> = {
   platrerie: IconePlatrerie,
   isolation: IconeIsolation,
   peinture: IconePeinture,
@@ -238,7 +240,7 @@ export const IconeDevis = () => (
 );
 
 /* Mapping des icônes pour les arguments */
-export const iconesArguments: Record<string, () => JSX.Element> = {
+export const iconesArguments: Record<string, () => ReactElement> = {
   "chantier-propre": IconeChantierPropre,
   planning: IconePlanning,
   finitions: IconeFinitions,
@@ -349,7 +351,7 @@ export const IconeRealisation = () => (
 );
 
 /* Mapping des icônes pour les étapes */
-export const iconesEtapes: Record<string, () => JSX.Element> = {
+export const iconesEtapes: Record<string, () => ReactElement> = {
   "prise-contact": IconePriseContact,
   "visite-technique": IconeVisiteTechnique,
   "devis-planification": IconeDevisPlanification,
