@@ -54,7 +54,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
           </div>
 
           {/* Menu de navigation desktop - masqué sur mobile */}
-          <nav className="hidden md:flex gap-6 items-center">
+          <nav className="hidden md:flex gap-6 items-center" aria-label="Navigation principale">
             {/* Lien vers les services */}
             <Link
               href="/services"
@@ -372,12 +372,13 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
                 willChange: "transform, opacity",
               }}
             >
-              <a href={TELEPHONE_LIEN} className="flex items-center gap-2 transition-colors duration-200 ease-out">
+              <a href={TELEPHONE_LIEN} aria-label={`Appeler ${TELEPHONE}`} className="flex items-center gap-2 transition-colors duration-200 ease-out">
                 <svg
                   className="w-5 h-5"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
+                  aria-hidden="true"
                 >
                   <path
                     strokeLinecap="round"

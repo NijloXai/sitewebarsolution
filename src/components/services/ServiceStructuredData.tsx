@@ -46,9 +46,9 @@ export interface ServiceStructuredDataProps {
   /** Type de service pour Schema.org (ex: "Plâtrerie", "Isolation thermique") */
   serviceType?: string;
   /** Liste des questions/réponses pour générer FAQPage (optionnel) */
-  faqItems?: FAQItem[];
+  faqItems?: readonly FAQItem[];
   /** Fil d'Ariane pour BreadcrumbList (optionnel) */
-  breadcrumbs?: BreadcrumbItem[];
+  breadcrumbs?: readonly BreadcrumbItem[];
   /** URL de base du site (par défaut: https://ar-solution.fr) */
   baseUrl?: string;
 }
