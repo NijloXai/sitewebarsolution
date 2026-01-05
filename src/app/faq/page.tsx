@@ -13,14 +13,40 @@
   - Contacter l'entreprise s'il n'a pas trouvé sa réponse
 */
 
+import type { Metadata } from "next";
 import Link from "next/link";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+
+/* ============================================
+   METADATA SEO
+   Informations pour le référencement et le partage social
+   ============================================ */
+
+export const metadata: Metadata = {
+  title: "FAQ | Questions Fréquentes Plâtrerie & Isolation | AR+SOLUTION",
+  description:
+    "Retrouvez les réponses à vos questions sur nos travaux de plâtrerie, isolation RGE, devis, délais et interventions à Strasbourg et en Alsace.",
+  keywords: [
+    "FAQ plâtrerie Strasbourg",
+    "questions isolation thermique",
+    "RGE Qualibat Alsace",
+    "MaPrimeRénov Bas-Rhin",
+    "garantie décennale plaquiste",
+  ],
+  openGraph: {
+    title: "FAQ | AR+SOLUTION Plâtrerie & Isolation Strasbourg",
+    description:
+      "Toutes les réponses à vos questions sur nos services de plâtrerie, isolation et rénovation en Alsace.",
+    type: "website",
+    locale: "fr_FR",
+  },
+};
+import Footer from "@/components/common/Footer";
+import Header from "@/components/common/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import GridScan from "@/components/GridScan";
+import GridScan from "@/components/common/GridScan";
 
 /* ============================================
    DONNÉES DE LA PAGE FAQ
@@ -191,12 +217,108 @@ function Icone({ type, className = "w-5 h-5" }: { type: string; className?: stri
 }
 
 /* ============================================
+   DONNÉES STRUCTURÉES JSON-LD (SEO)
+   Schéma FAQPage pour Google et les moteurs de recherche
+   Combine toutes les questions de la page pour un meilleur référencement
+   ============================================ */
+
+function genererSchemaFAQ() {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ar-solution.fr";
+  
+  /* Fonction utilitaire pour formater une réponse structurée en texte brut */
+  const formaterReponse = (reponse: {
+    intro: string;
+    details?: string;
+    liste?: string[];
+    note?: string;
+    lien?: { texte: string; url: string };
+  }): string => {
+    let texte = reponse.intro;
+    if (reponse.details) texte += ` ${reponse.details}`;
+    if (reponse.liste) texte += ` ${reponse.liste.join(" ")}`;
+    if (reponse.note) texte += ` ${reponse.note}`;
+    if (reponse.lien) texte += ` En savoir plus : ${reponse.lien.texte}.`;
+    return texte;
+  };
+
+  /* Collecte toutes les questions-réponses de la page */
+  const toutesLesQuestions = [
+    ...questionsProcessus.map((q) => ({
+      question: q.question,
+      reponse: formaterReponse(q.reponse),
+    })),
+    ...questionsTechniques.map((q) => ({
+      question: q.question,
+      reponse: formaterReponse(q.reponse),
+    })),
+    ...cartesMarchesPublics
+      .filter((c) => c.question !== null)
+      .map((c) => ({
+        question: c.question!,
+        reponse: c.reponse,
+      })),
+  ];
+
+  /* Schema FAQPage principal */
+  const faqPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "FAQPage",
+    mainEntity: toutesLesQuestions.map((item) => ({
+      "@type": "Question",
+      name: item.question,
+      acceptedAnswer: {
+        "@type": "Answer",
+        text: item.reponse,
+      },
+    })),
+  };
+
+  /* Schema BreadcrumbList pour le fil d'Ariane */
+  const breadcrumbSchema = {
+    "@context": "https://schema.org",
+    "@type": "BreadcrumbList",
+    itemListElement: [
+      {
+        "@type": "ListItem",
+        position: 1,
+        name: "Accueil",
+        item: baseUrl,
+      },
+      {
+        "@type": "ListItem",
+        position: 2,
+        name: "FAQ",
+        item: `${baseUrl}/faq`,
+      },
+    ],
+  };
+
+  return { faqPageSchema, breadcrumbSchema };
+}
+
+/* ============================================
    PAGE FAQ GÉNÉRALE
    ============================================ */
 
 export default function PageFAQ() {
+  const { faqPageSchema, breadcrumbSchema } = genererSchemaFAQ();
+
   return (
     <>
+      {/* Données structurées JSON-LD pour le SEO */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(faqPageSchema, null, 0),
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(breadcrumbSchema, null, 0),
+        }}
+      />
+
       {/* Header - Navigation principale sticky */}
       <Header pageActive="faq" />
 

@@ -26,10 +26,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import TrustBar from "@/components/TrustBar";
-import CtaBlock from "@/components/CtaBlock";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
+import TrustBar from "@/components/common/TrustBar";
+import CtaBlock from "@/components/common/CtaBlock";
 import ServiceHero from "@/components/services/ServiceHero";
 import ServiceFeaturesGrid from "@/components/services/ServiceFeaturesGrid";
 import MobileStickyBar from "@/components/services/MobileStickyBar";
@@ -45,6 +45,10 @@ const ServiceRealisationsSection = dynamic(
 );
 const ServiceMethodSection = dynamic(
   () => import("@/components/services/ServiceMethodSection"),
+  { ssr: true }
+);
+const MarchesPublicsSection = dynamic(
+  () => import("@/components/services/MarchesPublicsSection"),
   { ssr: true }
 );
 const ServiceStructuredData = dynamic(
@@ -396,6 +400,15 @@ export default function PageServiceAmenagement() {
           voirToutLink="/realisations"
           voirToutText="Voir tous les chantiers"
           variant="dark"
+        />
+
+        {/* ============================================
+            MARCHÉS PUBLICS
+            Section dédiée aux acheteurs publics avec avantages et documents
+            ============================================ */}
+        <MarchesPublicsSection
+          avantages={marchesPublicsAvantages}
+          documents={documentsMarchesPublicsGenerique}
         />
 
         {/* ============================================

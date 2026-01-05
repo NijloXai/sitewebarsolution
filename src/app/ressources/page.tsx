@@ -13,14 +13,40 @@
   - Accéder aux CTA (Devis ou Marchés Publics)
 */
 
+import type { Metadata } from "next";
 import Link from "next/link";
-import Footer from "@/components/Footer";
-import Header from "@/components/Header";
+
+/* ============================================
+   METADATA SEO
+   Informations pour le référencement et le partage social
+   ============================================ */
+
+export const metadata: Metadata = {
+  title: "Blog & Ressources | Conseils Rénovation & Isolation | AR+SOLUTION",
+  description:
+    "Guides, conseils et actualités sur la rénovation, l'isolation RGE et la plâtrerie en Alsace. Expertise technique pour particuliers et collectivités.",
+  keywords: [
+    "blog rénovation Alsace",
+    "conseils isolation thermique",
+    "guide MaPrimeRénov",
+    "actualités BTP Strasbourg",
+    "RGE Qualibat articles",
+  ],
+  openGraph: {
+    title: "Blog & Ressources | AR+SOLUTION Strasbourg",
+    description:
+      "Conseils d'experts en rénovation, isolation et plâtrerie. Guides pratiques pour vos projets en Alsace.",
+    type: "website",
+    locale: "fr_FR",
+  },
+};
+import Footer from "@/components/common/Footer";
+import Header from "@/components/common/Header";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
-import GridScan from "@/components/GridScan";
+import GridScan from "@/components/common/GridScan";
 
 /* ============================================
    DONNÉES DE LA PAGE
@@ -142,8 +168,79 @@ const reassuranceItems = [
    ============================================ */
 
 export default function PageRessources() {
+  /* Données structurées JSON-LD pour le SEO
+     Schema CollectionPage pour indiquer qu'il s'agit d'une collection d'articles/ressources */
+  const jsonLdCollectionPage = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Blog & Ressources | Conseils Rénovation & Isolation",
+    description: "Guides, conseils et actualités sur la rénovation, l'isolation RGE et la plâtrerie en Alsace. Expertise technique pour particuliers et collectivités.",
+    url: "https://www.arsolution.fr/ressources",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: articles.map((article, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "Article",
+          headline: article.titre,
+          description: article.description,
+          image: article.image,
+          articleSection: article.categorie,
+          author: {
+            "@type": "Organization",
+            name: "AR+SOLUTION",
+            url: "https://www.arsolution.fr",
+          },
+          publisher: {
+            "@type": "Organization",
+            name: "AR+SOLUTION",
+            url: "https://www.arsolution.fr",
+            logo: {
+              "@type": "ImageObject",
+              url: "https://www.arsolution.fr/logo.png",
+            },
+          },
+          audience: {
+            "@type": "Audience",
+            audienceType: article.cible,
+          },
+          timeRequired: article.tempsLecture,
+        },
+      })),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "AR+SOLUTION",
+      url: "https://www.arsolution.fr",
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: "https://www.arsolution.fr",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Ressources",
+          item: "https://www.arsolution.fr/ressources",
+        },
+      ],
+    },
+  };
+
   return (
     <>
+      {/* Données structurées JSON-LD pour les moteurs de recherche */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdCollectionPage) }}
+      />
+
       {/* Header - Navigation principale sticky */}
       <Header pageActive="ressources" />
 

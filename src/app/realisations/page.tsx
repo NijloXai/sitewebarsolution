@@ -15,11 +15,37 @@
   - Appeler directement l'agence
 */
 
+import type { Metadata } from "next";
 import Link from "next/link";
+
+/* ============================================
+   METADATA SEO
+   Informations pour le référencement et le partage social
+   ============================================ */
+
+export const metadata: Metadata = {
+  title: "Nos Réalisations | Portfolio Plâtrerie & Isolation | AR+SOLUTION",
+  description:
+    "Découvrez nos chantiers de plâtrerie, isolation et aménagement à Strasbourg et en Alsace. Photos avant/après, projets particuliers et marchés publics.",
+  keywords: [
+    "réalisations plâtrerie Strasbourg",
+    "portfolio isolation Alsace",
+    "chantiers rénovation Bas-Rhin",
+    "avant après plaquiste",
+    "travaux collectivités Eurométropole",
+  ],
+  openGraph: {
+    title: "Nos Réalisations | AR+SOLUTION Strasbourg",
+    description:
+      "Portfolio de nos chantiers de plâtrerie, isolation et finitions en Alsace. Particuliers et collectivités.",
+    type: "website",
+    locale: "fr_FR",
+  },
+};
 import dynamic from "next/dynamic";
-import Header from "@/components/Header";
-import CtaBlock from "@/components/CtaBlock";
-import Footer from "@/components/Footer";
+import Header from "@/components/common/Header";
+import CtaBlock from "@/components/common/CtaBlock";
+import Footer from "@/components/common/Footer";
 import ServiceHero from "@/components/services/ServiceHero";
 import MobileStickyBar from "@/components/services/MobileStickyBar";
 import { Button } from "@/components/ui/button";
@@ -166,8 +192,72 @@ const faqRealisations = [
    ============================================ */
 
 export default function PageRealisations() {
+  /* Données structurées JSON-LD pour le SEO
+     Schema CollectionPage pour indiquer qu'il s'agit d'une collection de réalisations */
+  const jsonLdCollectionPage = {
+    "@context": "https://schema.org",
+    "@type": "CollectionPage",
+    name: "Nos Réalisations | Portfolio Plâtrerie & Isolation",
+    description: "Découvrez nos chantiers de plâtrerie, isolation et aménagement à Strasbourg et en Alsace. Photos avant/après, projets particuliers et marchés publics.",
+    url: "https://www.arsolution.fr/realisations",
+    mainEntity: {
+      "@type": "ItemList",
+      itemListElement: realisations.map((realisation, index) => ({
+        "@type": "ListItem",
+        position: index + 1,
+        item: {
+          "@type": "CreativeWork",
+          name: realisation.titre,
+          description: realisation.description,
+          image: realisation.image,
+          url: `https://www.arsolution.fr/realisations/${realisation.id}`,
+          about: {
+            "@type": "Service",
+            name: realisation.metier,
+            areaServed: {
+              "@type": "Place",
+              name: realisation.lieu,
+            },
+          },
+          audience: {
+            "@type": "Audience",
+            audienceType: realisation.secteur === "public" ? "Collectivités publiques" : "Particuliers",
+          },
+        },
+      })),
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "AR+SOLUTION",
+      url: "https://www.arsolution.fr",
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: "https://www.arsolution.fr",
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Réalisations",
+          item: "https://www.arsolution.fr/realisations",
+        },
+      ],
+    },
+  };
+
   return (
     <>
+      {/* Données structurées JSON-LD pour les moteurs de recherche */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdCollectionPage) }}
+      />
+
       {/* Header - Navigation principale sticky */}
       <Header pageActive="realisations" />
 

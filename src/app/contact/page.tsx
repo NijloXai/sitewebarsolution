@@ -18,9 +18,35 @@
   - Les coordonnées directes pour un contact immédiat
 */
 
+import type { Metadata } from "next";
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+
+/* ============================================
+   METADATA SEO
+   Informations pour le référencement et le partage social
+   ============================================ */
+
+export const metadata: Metadata = {
+  title: "Contact & Devis Gratuit | AR+SOLUTION Plâtrerie Isolation Strasbourg",
+  description:
+    "Demandez un devis gratuit pour vos travaux de plâtrerie, isolation et aménagement à Strasbourg et en Alsace. Réponse sous 48h. Certifié RGE Qualibat.",
+  keywords: [
+    "devis plâtrerie Strasbourg",
+    "contact artisan isolation Alsace",
+    "devis gratuit rénovation",
+    "plaquiste Strasbourg",
+    "isolation RGE Bas-Rhin",
+  ],
+  openGraph: {
+    title: "Contact & Devis Gratuit | AR+SOLUTION",
+    description:
+      "Obtenez un devis gratuit pour vos travaux de plâtrerie et isolation à Strasbourg. Entreprise certifiée RGE, réponse sous 48h.",
+    type: "website",
+    locale: "fr_FR",
+  },
+};
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -543,6 +569,61 @@ export default function PageContact() {
 
       {/* Footer réutilisable */}
       <Footer />
+
+      {/* ============================================
+          DONNÉES STRUCTURÉES JSON-LD
+          Schema ContactPage pour améliorer le référencement local
+          ============================================ */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "ContactPage",
+            "name": "Contact & Devis Gratuit | AR+SOLUTION",
+            "description": "Demandez un devis gratuit pour vos travaux de plâtrerie, isolation et aménagement à Strasbourg et en Alsace. Réponse sous 48h.",
+            "url": "https://www.ar-solution.fr/contact",
+            "mainEntity": {
+              "@type": "Organization",
+              "name": "AR+SOLUTION",
+              "description": "Entreprise de plâtrerie, isolation et aménagement intérieur certifiée RGE Qualibat à Strasbourg",
+              "url": "https://www.ar-solution.fr",
+              "logo": "https://www.ar-solution.fr/logo.png",
+              "telephone": "+33388000000",
+              "email": "contact@ar-solution.fr",
+              "address": {
+                "@type": "PostalAddress",
+                "addressLocality": "Strasbourg",
+                "postalCode": "67000",
+                "addressCountry": "FR",
+                "addressRegion": "Alsace"
+              },
+              "areaServed": {
+                "@type": "GeoCircle",
+                "geoMidpoint": {
+                  "@type": "GeoCoordinates",
+                  "latitude": "48.5734",
+                  "longitude": "7.7521"
+                },
+                "geoRadius": "50000",
+                "name": "Bas-Rhin, Alsace"
+              },
+              "openingHoursSpecification": [
+                {
+                  "@type": "OpeningHoursSpecification",
+                  "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                  "opens": "08:00",
+                  "closes": "18:00"
+                }
+              ],
+              "sameAs": [
+                "https://www.facebook.com/arsolution",
+                "https://www.linkedin.com/company/arsolution"
+              ]
+            }
+          })
+        }}
+      />
 
       {/* ============================================
           BARRE STICKY MOBILE

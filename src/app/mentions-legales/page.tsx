@@ -17,13 +17,14 @@
 */
 
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
+import ServiceHero from "@/components/services/ServiceHero";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
-import GridScan from "@/components/GridScan";
+import GridScan from "@/components/common/GridScan";
 
 /* ============================================
    METADATA SEO
@@ -151,39 +152,15 @@ export default function PageMentionsLegales() {
           ============================================ */}
       <main className="mt-20">
         {/* ============================================
-            HEADER DE PAGE - Fil d'ariane et titre
+            HERO - Section d'en-tête harmonisée
             ============================================ */}
-        <header className="bg-slate-50 border-b border-slate-200 py-12">
-          <div className="max-w-4xl mx-auto px-4">
-            {/* Breadcrumb - Navigation fil d'ariane */}
-            <nav aria-label="Breadcrumb" className="mb-4">
-              <ol className="flex items-center space-x-2 text-sm text-slate-500">
-                <li>
-                  <Link
-                    href="/"
-                    className="hover:text-brand-blue transition-colors"
-                  >
-                    Accueil
-                  </Link>
-                </li>
-                <li>
-                  <span className="text-slate-300">/</span>
-                </li>
-                <li className="font-medium text-slate-800">Mentions Légales</li>
-              </ol>
-            </nav>
-
-            {/* Titre et introduction */}
-            <h1 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
-              Mentions Légales
-            </h1>
-            <p className="text-lg text-slate-600 leading-relaxed">
-              Informations juridiques, administratives et garanties relatives à
-              l&apos;entreprise{" "}
-              <span className="font-semibold text-slate-900">AR+SOLUTION</span>.
-            </p>
-          </div>
-        </header>
+        <ServiceHero
+          title="Mentions Légales"
+          subtitle="Informations juridiques, administratives et garanties relatives à l'entreprise AR+SOLUTION. Transparence totale sur notre structure et nos engagements."
+          badges={[]}
+          ctaLinks={[]}
+          scanColor="#64748b"
+        />
 
         {/* ============================================
             SECTIONS DU CONTENU LÉGAL

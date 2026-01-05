@@ -10,29 +10,27 @@
   - La méthode de travail et les engagements (site occupé, délais)
   - Les garanties administratives
   - Une zone d'intervention + FAQ
-  - Un formulaire de contact dédié marchés publics
+  - Un bloc d'appel à l'action pour contacter l'entreprise
 
   L'utilisateur peut :
   - Naviguer rapidement entre les sections via la navigation sticky
   - Voir les références de chantiers publics
   - Comprendre la méthode et les engagements
-  - Contacter l'entreprise via le formulaire ou par téléphone
+  - Contacter l'entreprise via le formulaire de contact ou par téléphone
   - Demander les pièces administratives
 */
 
 import type { Metadata } from "next";
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
+import ServiceHero from "@/components/services/ServiceHero";
+import MobileStickyBar from "@/components/services/MobileStickyBar";
+import CtaBlock from "@/components/common/CtaBlock";
 import { Button } from "@/components/ui/button";
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
+import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import { Input } from "@/components/ui/input";
-import { Textarea } from "@/components/ui/textarea";
-import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Label } from "@/components/ui/label";
-import GridScan from "@/components/GridScan";
 
 /* Métadonnées spécifiques à la page Marchés Publics pour le référencement */
 export const metadata: Metadata = {
@@ -40,13 +38,6 @@ export const metadata: Metadata = {
   description:
     "Expertise en plâtrerie, isolation et finitions pour marchés publics à Strasbourg et en Alsace. Intervention en site occupé, respect des délais, certifié RGE.",
 };
-
-/* Badges de réassurance affichés dans le hero - certifications clés pour les acheteurs publics */
-const badgesReassurance = [
-  { label: "Qualibat RGE", icon: "✓" },
-  { label: "Garantie Décennale", icon: "✓" },
-  { label: "RC Pro à jour", icon: "✓" },
-];
 
 /* Navigation intra-page - permet aux acheteurs de naviguer rapidement vers les sections clés */
 const navigationSections = [
@@ -106,19 +97,19 @@ const referencesPubliques = [
     titre: "École Maternelle - Strasbourg",
     type: "Éducation",
     description: "Isolation phonique & Faux plafonds • 4 semaines",
-    couleurBadge: "bg-orange-500",
+    couleurBadge: "bg-brand-orange",
   },
   {
     titre: "Hôtel de Ville - Sélestat",
     type: "Administration",
     description: "Cloisons modulaires & Peinture • Site occupé",
-    couleurBadge: "bg-slate-800",
+    couleurBadge: "bg-brand-blue-dark",
   },
   {
     titre: "Complexe Sportif - Illkirch",
     type: "Sport & Loisirs",
     description: "Isolation thermique par l'intérieur • RGE",
-    couleurBadge: "bg-orange-500",
+    couleurBadge: "bg-brand-orange",
   },
 ];
 
@@ -192,14 +183,6 @@ const faqAcheteurs = [
   },
 ];
 
-/* Options du formulaire de contact - types de demandes possibles */
-const typesDemande = [
-  "Demande de chiffrage / Devis",
-  "Invitation Appel d'Offres",
-  "Demande documents administratifs",
-  "Autre renseignement",
-];
-
 export default function MarchesPublicsPage() {
   return (
     <>
@@ -210,88 +193,42 @@ export default function MarchesPublicsPage() {
           HERO - Section d'accroche pour les acheteurs publics
           Affiche les badges de confiance et le message principal
           ============================================ */}
-      <section className="relative flex min-h-[600px] items-center bg-slate-900 mt-20">
-        {/* Animation 3D GridScan en arrière-plan */}
-        <div className="absolute inset-0">
-          <GridScan
-            sensitivity={0.55}
-            lineThickness={1}
-            linesColor="#1e3a5f"
-            gridScale={0.1}
-            scanColor="#10b981"
-            scanOpacity={0.5}
-            enablePost
-            bloomIntensity={0.6}
-            chromaticAberration={0.002}
-            noiseIntensity={0.01}
-            scanDuration={3.0}
-            scanDelay={1.5}
-          />
-          {/* Overlay gradient pour améliorer la lisibilité du texte */}
-          <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
-        </div>
-
-        <div className="container relative z-10 mx-auto px-4 pt-10">
-          <div className="max-w-3xl text-white">
-            {/* Badges de réassurance - certifications clés visibles immédiatement */}
-            <div className="mb-6 flex flex-wrap gap-3">
-              {badgesReassurance.map((badge) => (
-                <Badge
-                  key={badge.label}
-                  variant="outline"
-                  className="border-white/20 bg-white/10 text-white backdrop-blur"
-                >
-                  <span className="text-green-400">{badge.icon}</span> {badge.label}
-                </Badge>
-              ))}
-            </div>
-
-            {/* Titre principal optimisé pour le référencement */}
-            <h1 className="mb-6 text-4xl font-bold leading-tight md:text-5xl lg:text-6xl">
-              Travaux de plâtrerie, isolation & finitions
-              <br />
-              <span className="text-orange-500">Marchés publics Strasbourg / Alsace</span>
-            </h1>
-
-            {/* Proposition de valeur - ce qui différencie l'entreprise */}
-            <p className="mb-8 text-xl font-light text-slate-200">
-              Intervention en <strong>site occupé</strong>, respect strict des délais et conformité
-              administrative. Nous répondons aux appels d'offres et marchés à bons de commande sur
-              toute l'Alsace.
-            </p>
-
-            {/* Boutons d'action principaux */}
-            <div className="flex flex-col gap-4 sm:flex-row">
-              <Button asChild size="lg" className="bg-orange-500 hover:bg-orange-600 text-white shadow-lg">
-                <a href="#contact">Contacter pour un marché public</a>
-              </Button>
-              <Button asChild variant="outline" size="lg" className="border-white/30 bg-white/10 text-white backdrop-blur hover:bg-white/20">
-                <a href="#administratif">📄 Dossier Administratif</a>
-              </Button>
-            </div>
-          </div>
-        </div>
-      </section>
+      <div className="mt-20">
+        <ServiceHero
+          title="Travaux de plâtrerie, isolation & finitions"
+          titleHighlight="Marchés publics Strasbourg / Alsace"
+          subtitle="Intervention en site occupé, respect strict des délais et conformité administrative. Nous répondons aux appels d'offres et marchés à bons de commande sur toute l'Alsace."
+          badges={[
+            { label: "Strasbourg & Alsace", variant: "location" },
+            { label: "RGE", variant: "certification" },
+            { label: "Décennale", variant: "certification" },
+          ]}
+          ctaLinks={[
+            { label: "Contacter pour un marché public", href: "#contact", variant: "primary" },
+            { label: "Dossier Administratif", href: "#administratif", variant: "secondary" },
+          ]}
+        />
+      </div>
 
       {/* ============================================
           NAVIGATION STICKY - Navigation rapide intra-page
           Permet aux acheteurs pressés d'accéder directement aux sections
           ============================================ */}
-      <div className="sticky top-0 z-40 hidden border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur md:block">
-        <div className="container mx-auto px-4">
-          <ul className="flex gap-8 py-4 text-sm font-medium text-slate-600">
+      <div className="sticky top-0 z-40 hidden border-b border-gray-200 bg-white/95 shadow-sm backdrop-blur md:block">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          <ul className="flex gap-8 py-4 text-sm font-medium text-gray-600">
             {navigationSections.map((section) => (
               <li key={section.id}>
                 <a
                   href={`#${section.id}`}
-                  className="border-b-2 border-transparent pb-1 transition hover:border-orange-500 hover:text-slate-900"
+                  className="border-b-2 border-transparent pb-1 transition hover:border-brand-orange hover:text-brand-blue"
                 >
                   {section.label}
                 </a>
               </li>
             ))}
             <li className="ml-auto">
-              <a href="#contact" className="font-bold text-orange-500">
+              <a href="#contact" className="font-bold text-brand-orange">
                 Demander un chiffrage →
               </a>
             </li>
@@ -305,13 +242,13 @@ export default function MarchesPublicsPage() {
             Présente les domaines d'expertise pour les marchés publics
             ============================================ */}
         <section id="lots" className="bg-white py-16 md:py-24">
-          <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Titre et introduction de la section */}
             <div className="mx-auto mb-16 max-w-3xl text-center">
-              <h2 className="mb-4 text-3xl font-bold text-slate-900 md:text-4xl">
+              <h2 className="mb-4 text-3xl font-bold text-brand-blue md:text-4xl">
                 Vos lots Plâtrerie, Isolation et Finitions en Alsace
               </h2>
-              <p className="text-slate-500">
+              <p className="text-gray-500">
                 Nous intervenons sur des lots séparés ou groupés pour la rénovation thermique et
                 l'aménagement intérieur de bâtiments publics (Écoles, Bureaux, Gymnases, Mairies).
               </p>
@@ -322,19 +259,22 @@ export default function MarchesPublicsPage() {
               {prestationsLots.map((lot) => (
                 <Card
                   key={lot.titre}
-                  className="group hover:shadow-lg bg-slate-50"
+                  className="group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none"
+                  style={{
+                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
+                  }}
                 >
                   <CardContent className="p-8">
                   {/* Icône du lot */}
-                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-white text-2xl text-orange-500 shadow-sm transition group-hover:bg-orange-500 group-hover:text-white">
+                  <div className="mb-6 flex h-12 w-12 items-center justify-center rounded-lg bg-white text-2xl text-brand-orange shadow-sm transition group-hover:bg-brand-orange group-hover:text-white">
                     {lot.icon}
                   </div>
 
                   {/* Titre du lot */}
-                  <CardTitle className="mb-3 text-xl text-slate-900">{lot.titre}</CardTitle>
+                  <CardTitle className="mb-3 text-xl text-brand-blue">{lot.titre}</CardTitle>
 
                   {/* Liste des services inclus */}
-                  <ul className="space-y-2 text-sm text-slate-500">
+                  <ul className="space-y-2 text-sm text-gray-500">
                     {lot.services.map((service) => (
                       <li key={service}>• {service}</li>
                     ))}
@@ -348,7 +288,7 @@ export default function MarchesPublicsPage() {
             <div className="mt-12 text-center">
               <a
                 href="#contact"
-                className="inline-flex items-center font-bold text-slate-900 transition hover:text-orange-500"
+                className="inline-flex items-center font-bold text-brand-blue transition hover:text-brand-orange"
               >
                 Demander un chiffrage pour un lot →
               </a>
@@ -360,19 +300,19 @@ export default function MarchesPublicsPage() {
             SECTION RÉFÉRENCES - Portfolio des réalisations publiques
             Montre des exemples concrets de chantiers réalisés
             ============================================ */}
-        <section id="references" className="bg-slate-50 py-16 md:py-24">
-          <div className="container mx-auto px-4">
+        <section id="references" className="bg-gray-50 py-16 md:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* En-tête avec titre et lien vers le portfolio complet */}
             <div className="mb-12 flex flex-col items-end justify-between md:flex-row">
               <div>
-                <h2 className="mb-2 text-3xl font-bold text-slate-900 md:text-4xl">
+                <h2 className="mb-2 text-3xl font-bold text-brand-blue md:text-4xl">
                   Réalisations en secteur public
                 </h2>
-                <p className="text-slate-500">Exemples de chantiers livrés en Alsace.</p>
+                <p className="text-gray-500">Exemples de chantiers livrés en Alsace.</p>
               </div>
               <Link
                 href="/realisations"
-                className="mt-4 hidden font-semibold text-orange-500 hover:underline md:mt-0 md:inline-block"
+                className="mt-4 hidden font-semibold text-brand-orange hover:underline md:mt-0 md:inline-block"
               >
                 Voir tout le portfolio
               </Link>
@@ -383,11 +323,14 @@ export default function MarchesPublicsPage() {
               {referencesPubliques.map((ref) => (
                 <Card
                   key={ref.titre}
-                  className="group relative cursor-pointer overflow-hidden p-0"
+                  className="group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white pt-0 h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none"
+                  style={{
+                    boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
+                  }}
                 >
                   {/* Image placeholder - à remplacer par de vraies photos */}
-                  <div className="h-64 w-full bg-slate-300 transition duration-500 group-hover:scale-105">
-                    <div className="flex h-full items-center justify-center text-slate-500">
+                  <div className="h-64 w-full bg-gray-300 transition duration-500 group-hover:scale-105">
+                    <div className="flex h-full items-center justify-center text-gray-500">
                       [Photo: {ref.titre}]
                     </div>
                   </div>
@@ -398,7 +341,7 @@ export default function MarchesPublicsPage() {
                       {ref.type}
                     </Badge>
                     <CardTitle className="text-lg text-white">{ref.titre}</CardTitle>
-                    <p className="text-sm text-slate-300">{ref.description}</p>
+                    <p className="text-sm text-gray-300">{ref.description}</p>
                   </div>
                 </Card>
               ))}
@@ -408,7 +351,7 @@ export default function MarchesPublicsPage() {
             <div className="mt-8 text-center md:hidden">
               <Link
                 href="/realisations"
-                className="font-semibold text-orange-500 hover:underline"
+                className="font-semibold text-brand-orange hover:underline"
               >
                 Voir toutes les références
               </Link>
@@ -421,24 +364,24 @@ export default function MarchesPublicsPage() {
             Rassure l'acheteur sur la gestion des chantiers en site occupé
             ============================================ */}
         <section id="methode" className="bg-white py-16 md:py-24">
-          <div className="container mx-auto px-4">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 items-center gap-16 lg:grid-cols-2">
               {/* Colonne gauche : argumentaire site occupé et engagements */}
               <div>
-                <h2 className="mb-6 text-3xl font-bold text-slate-900 md:text-4xl">
+                <h2 className="mb-6 text-3xl font-bold text-brand-blue md:text-4xl">
                   Une gestion de chantier adaptée aux contraintes du service public
                 </h2>
-                <p className="mb-8 text-lg text-slate-500">
+                <p className="mb-8 text-lg text-gray-500">
                   Nous comprenons que vos bâtiments doivent souvent rester fonctionnels pendant les
                   travaux. Notre organisation est rodée pour minimiser l'impact sur les usagers.
                 </p>
 
                 {/* Encadré spécial "Site Occupé" */}
-                <div className="mb-8 rounded-r-lg border-l-4 border-slate-900 bg-blue-50 p-6">
-                  <h3 className="mb-2 text-lg font-bold text-slate-900">
+                <div className="mb-8 rounded-r-lg border-l-4 border-brand-blue bg-blue-50 p-6">
+                  <h3 className="mb-2 text-lg font-bold text-brand-blue">
                     👥 Expertise en milieu occupé
                   </h3>
-                  <p className="text-sm text-slate-700">
+                  <p className="text-sm text-gray-700">
                     Gestion stricte des nuisances sonores, barrières anti-poussière et adaptation
                     des horaires d'intervention pour assurer la{" "}
                     <strong>continuité de vos services publics</strong>.
@@ -459,19 +402,19 @@ export default function MarchesPublicsPage() {
               </div>
 
               {/* Colonne droite : Timeline verticale du processus */}
-              <div className="relative space-y-12 border-l-2 border-slate-200 pl-8">
+              <div className="relative space-y-12 border-l-2 border-gray-200 pl-8">
                 {etapesTimeline.map((etape) => (
                   <div key={etape.numero} className="relative">
                     {/* Point de la timeline */}
                     <span
                       className={`absolute -left-[41px] h-6 w-6 rounded-full border-4 bg-white ${
-                        etape.actif ? "border-slate-900" : "border-slate-300"
+                        etape.actif ? "border-brand-blue" : "border-gray-300"
                       }`}
                     />
-                    <h4 className="text-lg font-bold text-slate-900">
+                    <h4 className="text-lg font-bold text-brand-blue">
                       {etape.numero}. {etape.titre}
                     </h4>
-                    <p className="text-sm text-slate-500">{etape.description}</p>
+                    <p className="text-sm text-gray-500">{etape.description}</p>
                   </div>
                 ))}
               </div>
@@ -483,15 +426,15 @@ export default function MarchesPublicsPage() {
             SECTION ADMINISTRATIF - Garanties et conformité
             Montre que le dossier administratif est complet et à jour
             ============================================ */}
-        <section id="administratif" className="border-y border-slate-200 bg-slate-100 py-16">
-          <div className="container mx-auto px-4">
+        <section id="administratif" className="border-y border-gray-200 bg-gray-100 py-16 md:py-24">
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col items-center justify-between gap-8 rounded-xl bg-white p-8 shadow-sm md:flex-row md:p-12">
               {/* Texte explicatif et badges */}
               <div className="md:w-2/3">
-                <h2 className="mb-4 text-2xl font-bold text-slate-900 md:text-3xl">
+                <h2 className="mb-4 text-3xl md:text-4xl font-bold text-brand-blue">
                   Dossier administratif & Garanties
                 </h2>
-                <p className="mb-6 text-slate-500">
+                <p className="mb-6 text-gray-500">
                   Nous savons que la conformité administrative est un pré-requis bloquant. Tous nos
                   documents sont à jour et disponibles immédiatement pour valider votre dossier.
                 </p>
@@ -502,9 +445,9 @@ export default function MarchesPublicsPage() {
                     <Badge
                       key={garantie.label}
                       variant="outline"
-                      className="border-slate-200 bg-slate-50 text-slate-700"
+                      className="border-gray-200 bg-gray-50 text-gray-700"
                     >
-                      <span className="text-orange-500">{garantie.icon}</span> {garantie.label}
+                      <span className="text-brand-orange">{garantie.icon}</span> {garantie.label}
                     </Badge>
                   ))}
                 </div>
@@ -512,10 +455,10 @@ export default function MarchesPublicsPage() {
 
               {/* Bouton de téléchargement des pièces administratives */}
               <div className="text-center md:w-1/3">
-                <Button size="lg" className="w-full bg-slate-900 hover:bg-slate-800 text-white shadow-lg">
+                <Button size="lg" className="w-full bg-brand-blue hover:bg-brand-blue-dark text-white shadow-lg">
                   ⬇ Demander les pièces administratives
                 </Button>
-                <p className="mt-3 text-xs text-slate-500">🕐 Envoi par email sous 24h</p>
+                <p className="mt-3 text-xs text-gray-500">🕐 Envoi par email sous 24h</p>
               </div>
             </div>
           </div>
@@ -526,30 +469,30 @@ export default function MarchesPublicsPage() {
             Deux colonnes : carte de la zone + FAQ pour les acheteurs
             ============================================ */}
         <section className="bg-white py-16 md:py-24">
-          <div className="container mx-auto grid grid-cols-1 gap-16 px-4 lg:grid-cols-2">
+          <div className="max-w-7xl mx-auto grid grid-cols-1 gap-16 px-4 sm:px-6 lg:px-8 lg:grid-cols-2">
             {/* Colonne gauche : Zone d'intervention */}
             <div>
-              <h2 className="mb-6 text-2xl font-bold text-slate-900">
+              <h2 className="mb-6 text-3xl md:text-4xl font-bold text-brand-blue">
                 Intervention sur Strasbourg et toute l'Alsace
               </h2>
-              <p className="mb-6 text-slate-500">
+              <p className="mb-6 text-gray-500">
                 Basés au cœur de l'Alsace, nous intervenons avec réactivité pour les collectivités
                 de l'Eurométropole et du Bas-Rhin.
               </p>
 
               {/* Placeholder pour la carte */}
-              <div className="mb-6 flex h-64 items-center justify-center rounded-lg bg-slate-100 p-1">
-                <span className="text-slate-400">[Carte Zone Intervention Alsace]</span>
+              <div className="mb-6 flex h-64 items-center justify-center rounded-lg bg-gray-100 p-1">
+                <span className="text-gray-400">[Carte Zone Intervention Alsace]</span>
               </div>
 
-              <p className="text-sm font-semibold text-slate-700">
+              <p className="text-sm font-semibold text-gray-700">
                 📍 Strasbourg, Schiltigheim, Illkirch, Haguenau, Sélestat...
               </p>
             </div>
 
             {/* Colonne droite : FAQ pour les acheteurs */}
             <div>
-              <h2 className="mb-6 text-2xl font-bold text-slate-900">
+              <h2 className="mb-6 text-3xl md:text-4xl font-bold text-brand-blue">
                 Questions fréquentes des acheteurs
               </h2>
 
@@ -558,12 +501,12 @@ export default function MarchesPublicsPage() {
                   <AccordionItem
                     key={index}
                     value={`item-${index}`}
-                    className="rounded-lg border border-slate-200 bg-slate-50 px-4"
+                    className="rounded-lg border border-gray-200 bg-gray-50 px-4"
                   >
-                    <AccordionTrigger className="font-medium text-slate-900">
+                    <AccordionTrigger className="font-medium text-brand-blue">
                       {faq.question}
                     </AccordionTrigger>
-                    <AccordionContent className="text-sm text-slate-600">
+                    <AccordionContent className="text-sm text-gray-600">
                       {faq.reponse}
                     </AccordionContent>
                   </AccordionItem>
@@ -574,187 +517,29 @@ export default function MarchesPublicsPage() {
         </section>
 
         {/* ============================================
-            SECTION CONTACT - Formulaire et coordonnées
-            CTA final pour convertir les acheteurs intéressés
+            SECTION CONTACT - CTA final
+            Appel à l'action pour convertir les acheteurs intéressés
             ============================================ */}
-        <section id="contact" className="bg-slate-900 py-16 text-white md:py-24">
-          <div className="container mx-auto px-4">
-            <div className="grid grid-cols-1 gap-12 rounded-2xl border border-white/10 bg-white/5 p-8 backdrop-blur-sm lg:grid-cols-2">
-              {/* Colonne gauche : Informations de contact */}
-              <div className="flex flex-col justify-center">
-                <h2 className="mb-6 text-3xl font-bold">
-                  Vos travaux de plâtrerie et rénovation en toute confiance
-                </h2>
-                <p className="mb-8 text-lg text-slate-300">
-                  Vous avez un projet ou un appel d'offres à nous soumettre ? Contactez directement
-                  notre pôle Marchés Publics.
-                </p>
-
-                {/* Carte du chargé d'affaires */}
-                <div className="mb-8 flex items-center gap-6">
-                  <div className="flex h-20 w-20 items-center justify-center rounded-full border-2 border-orange-500 bg-slate-700 text-sm text-slate-400">
-                    [Photo]
-                  </div>
-                  <div>
-                    <p className="text-lg font-bold">M. Stéphane [Nom]</p>
-                    <p className="text-sm text-slate-400">Responsable Marchés Publics</p>
-                    <a
-                      href="tel:0388000000"
-                      className="mt-2 block text-xl font-bold text-orange-500 transition hover:text-white"
-                    >
-                      03 88 00 00 00
-                    </a>
-                    <a
-                      href="mailto:appels-offres@arsolution.fr"
-                      className="block text-slate-300 transition hover:text-white"
-                    >
-                      appels-offres@arsolution.fr
-                    </a>
-                  </div>
-                </div>
-              </div>
-
-              {/* Colonne droite : Formulaire de contact */}
-              <Card className="bg-white text-slate-800 shadow-2xl">
-                <CardContent className="p-6 md:p-8">
-                  <form className="space-y-4" aria-label="Formulaire de contact pour marchés publics">
-                    {/* Ligne 1 : Organisme et Nom */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="organisme" className="text-xs font-bold uppercase text-slate-500">
-                          Organisme
-                        </Label>
-                        <Input
-                          id="organisme"
-                          name="organisme"
-                          type="text"
-                          placeholder="Mairie, École..."
-                          className="bg-slate-50 focus-visible:ring-brand-orange-dark/50 focus-visible:border-brand-orange-dark"
-                          aria-required="true"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="nom-contact" className="text-xs font-bold uppercase text-slate-500">
-                          Nom du contact
-                        </Label>
-                        <Input
-                          id="nom-contact"
-                          name="nom-contact"
-                          type="text"
-                          placeholder="Votre nom"
-                          className="bg-slate-50 focus-visible:ring-brand-orange-dark/50 focus-visible:border-brand-orange-dark"
-                          aria-required="true"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Ligne 2 : Email et Téléphone */}
-                    <div className="grid grid-cols-2 gap-4">
-                      <div className="space-y-2">
-                        <Label htmlFor="email-mp" className="text-xs font-bold uppercase text-slate-500">
-                          Email
-                        </Label>
-                        <Input
-                          id="email-mp"
-                          name="email"
-                          type="email"
-                          placeholder="email@organisme.fr"
-                          className="bg-slate-50 focus-visible:ring-brand-orange-dark/50 focus-visible:border-brand-orange-dark"
-                          aria-required="true"
-                        />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="tel-mp" className="text-xs font-bold uppercase text-slate-500">
-                          Téléphone
-                        </Label>
-                        <Input
-                          id="tel-mp"
-                          name="tel"
-                          type="tel"
-                          placeholder="03 88..."
-                          className="bg-slate-50 focus-visible:ring-brand-orange-dark/50 focus-visible:border-brand-orange-dark"
-                          aria-required="true"
-                        />
-                      </div>
-                    </div>
-
-                    {/* Type de demande */}
-                    <div className="space-y-2">
-                      <Label htmlFor="type-demande" className="text-xs font-bold uppercase text-slate-500">
-                        Type de demande
-                      </Label>
-                      <Select name="type-demande">
-                        <SelectTrigger id="type-demande" className="bg-slate-50 focus-visible:ring-brand-orange-dark/50 focus-visible:border-brand-orange-dark">
-                          <SelectValue placeholder="Sélectionnez..." />
-                        </SelectTrigger>
-                        <SelectContent>
-                          {typesDemande.map((type) => (
-                            <SelectItem key={type} value={type}>
-                              {type}
-                            </SelectItem>
-                          ))}
-                        </SelectContent>
-                      </Select>
-                    </div>
-
-                    {/* Bouton d'envoi */}
-                    <Button
-                      type="submit"
-                      size="lg"
-                      className="mt-2 w-full bg-brand-orange-dark hover:bg-brand-orange text-white font-bold"
-                      aria-label="Envoyer la demande de contact"
-                    >
-                      Envoyer ma demande
-                    </Button>
-                    <p className="mt-2 text-center text-xs text-slate-400">
-                      Réponse garantie sous 24h/48h.
-                    </p>
-                  </form>
-                </CardContent>
-              </Card>
-            </div>
-          </div>
-        </section>
+        <CtaBlock
+          titre="Prêt à lancer votre projet de marché public ?"
+          description="Vous avez un projet ou un appel d'offres à nous soumettre ? Contactez directement notre pôle Marchés Publics pour obtenir un chiffrage personnalisé."
+          lienDevis="/contact"
+          texteDevis="Demander un chiffrage pour un marché public"
+          telephone="03 88 00 00 00"
+          variante="sombre"
+          id="contact"
+        />
       </main>
 
       {/* Footer réutilisable */}
       <Footer />
 
-      {/* ============================================
-          BARRE STICKY MOBILE
-          Affichée uniquement sur mobile, permet d'appeler ou demander un devis rapidement
-          ============================================ */}
-      <div className="md:hidden fixed bottom-0 left-0 w-full bg-white border-t border-gray-200 p-3 shadow-[0_-4px_6px_-1px_rgba(0,0,0,0.1)] z-50 flex gap-3">
-        <Button
-          asChild
-          variant="secondary"
-          className="flex-1 text-brand-blue font-bold"
-        >
-          <a href="tel:0388000000">
-            <svg
-              className="w-5 h-5 mr-2"
-              fill="none"
-              viewBox="0 0 24 24"
-              stroke="currentColor"
-            >
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                strokeWidth={2}
-                d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"
-              />
-            </svg>
-            Appeler
-          </a>
-        </Button>
-        <Button
-          asChild
-          size="lg"
-          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
-        >
-          <Link href="/contact">Devis Gratuit</Link>
-        </Button>
-      </div>
+      {/* Barre sticky mobile - permet d'appeler ou demander un devis rapidement sur mobile */}
+      <MobileStickyBar
+        phoneNumber="tel:0388000000"
+        devisLink="/contact"
+        devisText="Devis Gratuit"
+      />
     </>
   );
 }

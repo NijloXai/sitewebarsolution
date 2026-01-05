@@ -19,15 +19,15 @@
 */
 
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import CtaBlock from "@/components/CtaBlock";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
+import CtaBlock from "@/components/common/CtaBlock";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
-import GridScan from "@/components/GridScan";
+import GridScan from "@/components/common/GridScan";
 
 /* ============================================
    METADATA SEO
@@ -212,8 +212,85 @@ const faqItems = [
    ============================================ */
 
 export default function PageAPropos() {
+  /* Données structurées JSON-LD pour le SEO
+     Schema AboutPage pour indiquer qu'il s'agit d'une page "À propos" */
+  const jsonLdAboutPage = {
+    "@context": "https://schema.org",
+    "@type": "AboutPage",
+    name: "À Propos d'AR+SOLUTION",
+    description: "Entreprise de rénovation intérieure à Strasbourg depuis 2006. Expert en plâtrerie, isolation et aménagement pour marchés publics et particuliers.",
+    url: "https://www.arsolution.fr/a-propos",
+    mainEntity: {
+      "@type": "Organization",
+      "@id": "https://www.arsolution.fr/#organization",
+      name: "AR+SOLUTION",
+      url: "https://www.arsolution.fr",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.arsolution.fr/logo.png",
+      },
+      foundingDate: "2006",
+      description: "Expert en second œuvre depuis 2006 : plâtrerie, isolation thermique et phonique, aménagement intérieur pour collectivités et particuliers en Alsace.",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Strasbourg",
+        addressRegion: "Alsace",
+        addressCountry: "FR",
+      },
+      areaServed: [
+        {
+          "@type": "Place",
+          name: "Strasbourg",
+        },
+        {
+          "@type": "Place",
+          name: "Alsace",
+        },
+        {
+          "@type": "Place",
+          name: "Bas-Rhin",
+        },
+      ],
+      serviceArea: {
+        "@type": "GeoCircle",
+        geoMidpoint: {
+          "@type": "GeoCoordinates",
+          latitude: "48.5734",
+          longitude: "7.7521",
+        },
+        geoRadius: "50000",
+      },
+      hasCredential: [
+        {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "Certification",
+          name: "RGE - Reconnu Garant de l'Environnement",
+        },
+        {
+          "@type": "EducationalOccupationalCredential",
+          credentialCategory: "Qualification",
+          name: "Qualibat",
+        },
+      ],
+      knowsAbout: [
+        "Plâtrerie",
+        "Isolation thermique",
+        "Isolation phonique",
+        "Aménagement intérieur",
+        "Rénovation énergétique",
+        "Marchés publics",
+      ],
+    },
+  };
+
   return (
     <>
+      {/* Données structurées JSON-LD pour les moteurs de recherche */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdAboutPage) }}
+      />
+
       {/* Header - Navigation principale sticky */}
       <Header pageActive="a-propos" />
 

@@ -16,8 +16,10 @@
 */
 
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
+import CtaBlock from "@/components/common/CtaBlock";
+import ServiceHero from "@/components/services/ServiceHero";
 import { Metadata } from "next";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardTitle } from "@/components/ui/card";
@@ -135,25 +137,20 @@ export default function PagePolitiqueConfidentialite() {
       {/* ============================================
           CONTENU PRINCIPAL
           ============================================ */}
-      <main className="mt-20 bg-slate-50">
+      <main className="mt-20">
         {/* ============================================
-            EN-TÊTE DE PAGE
-            Titre principal et introduction
+            HERO - Section d'en-tête harmonisée
             ============================================ */}
-        <section className="py-12 md:py-16">
-          <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h1 className="text-3xl md:text-5xl font-extrabold text-slate-900 mb-6 leading-tight">
-              Politique de Confidentialité &{" "}
-              <br className="hidden md:block" />
-              <span className="text-brand-blue">Protection des Données</span>
-            </h1>
-            <p className="text-lg md:text-xl text-slate-600 max-w-2xl mx-auto">
-              La confiance est la base de tout chantier réussi. Nous appliquons
-              une transparence totale sur la collecte et l&apos;usage de vos
-              données, conformément au RGPD.
-            </p>
-          </div>
-        </section>
+        <ServiceHero
+          title="Politique de Confidentialité"
+          titleHighlight="& Protection des Données"
+          subtitle="La confiance est la base de tout chantier réussi. Nous appliquons une transparence totale sur la collecte et l'usage de vos données, conformément au RGPD."
+          badges={[]}
+          ctaLinks={[]}
+          scanColor="#64748b"
+        />
+
+        <div className="bg-slate-50">
 
         {/* ============================================
             ENCART "L'ESSENTIEL EN 3 POINTS"
@@ -599,7 +596,18 @@ export default function PagePolitiqueConfidentialite() {
             </div>
           </div>
         </section>
+        </div>
       </main>
+
+      {/* ============================================
+          BLOC APPEL À L'ACTION
+          Incite l'utilisateur à contacter l'entreprise pour son projet
+          ============================================ */}
+      <CtaBlock
+        titre="Prêt à lancer votre projet de rénovation ?"
+        description="Notre équipe vous accompagne de A à Z dans vos travaux d'isolation, plâtrerie, enduits et aménagements. Devis gratuit sous 48h."
+        variante="bleu"
+      />
 
       {/* Footer réutilisable */}
       <Footer />

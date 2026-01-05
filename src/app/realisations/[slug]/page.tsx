@@ -17,10 +17,11 @@
 */
 
 import Link from "next/link";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
+import { Metadata } from "next";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
 import { Button } from "@/components/ui/button";
-import GridScan from "@/components/GridScan";
+import GridScan from "@/components/common/GridScan";
 
 /* ============================================
    DONNÉES STATIQUES DU PROJET (EXEMPLE)
@@ -152,12 +153,114 @@ const projetsSimilaires = [
 ];
 
 /* ============================================
+   MÉTADONNÉES DYNAMIQUES (SEO)
+   Génère le titre et la description basés sur le projet affiché.
+   Dans une version avec CMS, les données seraient récupérées via le slug.
+   ============================================ */
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+
+  /*
+    Note : Actuellement les données du projet sont statiques.
+    Dans une vraie implémentation, on récupérerait les données du projet
+    depuis un CMS ou une API en utilisant le slug.
+    Exemple : const projet = await getProjetBySlug(slug);
+  */
+
+  return {
+    title: `${projet.titre} | Réalisations AR+SOLUTION`,
+    description: projet.sousTitre,
+    keywords: [
+      ...projet.metiers,
+      projet.categorie,
+      projet.localisation,
+      "rénovation",
+      "chantier",
+      "Alsace",
+    ],
+    openGraph: {
+      title: projet.titre,
+      description: projet.sousTitre,
+      type: "article",
+      images: [
+        {
+          url: projet.imageApres,
+          width: 800,
+          height: 600,
+          alt: `${projet.titre} - Résultat après travaux`,
+        },
+      ],
+      locale: "fr_FR",
+      siteName: "AR+SOLUTION",
+    },
+    twitter: {
+      card: "summary_large_image",
+      title: projet.titre,
+      description: projet.sousTitre,
+      images: [projet.imageApres],
+    },
+    alternates: {
+      canonical: `https://www.arsolution.fr/realisations/${slug}`,
+    },
+  };
+}
+
+/* ============================================
    PAGE TEMPLATE FICHE PROJET
    ============================================ */
 
 export default function PageFicheProjet() {
+  /* Données structurées JSON-LD pour le SEO (schema.org Article)
+     Permet aux moteurs de recherche de mieux comprendre le contenu de la page */
+  const jsonLdArticle = {
+    "@context": "https://schema.org",
+    "@type": "Article",
+    headline: projet.titre,
+    description: projet.sousTitre,
+    image: [projet.imageApres, projet.imageAvant],
+    datePublished: "2024-01-15",
+    dateModified: "2024-01-15",
+    author: {
+      "@type": "Organization",
+      name: "AR+SOLUTION",
+      url: "https://www.arsolution.fr",
+    },
+    publisher: {
+      "@type": "Organization",
+      name: "AR+SOLUTION",
+      logo: {
+        "@type": "ImageObject",
+        url: "https://www.arsolution.fr/logo.png",
+      },
+    },
+    mainEntityOfPage: {
+      "@type": "WebPage",
+      "@id": `https://www.arsolution.fr/realisations/${projet.slug}`,
+    },
+    articleSection: projet.categorie,
+    keywords: [...projet.metiers, projet.localisation, "rénovation"].join(", "),
+    about: {
+      "@type": "Service",
+      name: projet.metiers.join(", "),
+      areaServed: {
+        "@type": "Place",
+        name: projet.localisation,
+      },
+    },
+  };
+
   return (
     <>
+      {/* Données structurées JSON-LD pour les moteurs de recherche */}
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLdArticle) }}
+      />
+
       {/* Header - Navigation principale sticky */}
       <Header pageActive="realisations" />
 

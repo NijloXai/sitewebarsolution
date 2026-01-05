@@ -25,10 +25,10 @@ import type { Metadata } from "next";
 import Link from "next/link";
 import Image from "next/image";
 import dynamic from "next/dynamic";
-import Header from "@/components/Header";
-import Footer from "@/components/Footer";
-import TrustBar from "@/components/TrustBar";
-import CtaBlock from "@/components/CtaBlock";
+import Header from "@/components/common/Header";
+import Footer from "@/components/common/Footer";
+import TrustBar from "@/components/common/TrustBar";
+import CtaBlock from "@/components/common/CtaBlock";
 import ServiceHero from "@/components/services/ServiceHero";
 import ServiceFeaturesGrid from "@/components/services/ServiceFeaturesGrid";
 import MobileStickyBar from "@/components/services/MobileStickyBar";
@@ -48,6 +48,10 @@ const ServiceStructuredData = dynamic(
 );
 const MarchesPublicsSection = dynamic(
   () => import("@/components/services/MarchesPublicsSection"),
+  { ssr: true }
+);
+const ServiceMethodSection = dynamic(
+  () => import("@/components/services/ServiceMethodSection"),
   { ssr: true }
 );
 import { enduitsFinitionsPageMetadata } from "@/lib/services-metadata";
@@ -125,19 +129,67 @@ const solutionsEnduits = [
 /* Les 3 points clés de la méthode propreté */
 const pointsProprete = [
   {
+    numero: 1,
     titre: "Protection Absolue",
     description:
       "Bâchage intégral des sols, calfeutrage des menuiseries et protection hermétique du mobilier.",
+    icone: (
+      <svg
+        className="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
+        />
+      </svg>
+    ),
   },
   {
+    numero: 2,
     titre: "Aspiration à la source (98%)",
     description:
       "Utilisation systématique de ponceuses girafes reliées à des aspirateurs industriels classe M. Idéal pour les écoles ou bureaux actifs.",
+    icone: (
+      <svg
+        className="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
+        />
+      </svg>
+    ),
   },
   {
+    numero: 3,
     titre: "Contrôle Qualité Lumière",
     description:
       "Vérification de chaque m² à la lampe rasante avant la livraison du support.",
+    icone: (
+      <svg
+        className="w-6 h-6"
+        fill="none"
+        stroke="currentColor"
+        viewBox="0 0 24 24"
+      >
+        <path
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeWidth={2}
+          d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
+        />
+      </svg>
+    ),
   },
 ];
 
@@ -334,103 +386,18 @@ export default function PageServiceEnduitsFinitions() {
             MÉTHODE & PROPRETÉ - Le game changer
             Rassure sur la gestion de la poussière et la propreté du chantier
             ============================================ */}
-        <section className="py-16 md:py-24 bg-brand-blue text-white relative overflow-hidden">
-          {/* Motif de fond subtil */}
-          <div
-            className="absolute inset-0 opacity-10"
-            style={{
-              backgroundImage: "radial-gradient(#fff 1px, transparent 1px)",
-              backgroundSize: "30px 30px",
-            }}
-          />
-
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-            <div className="grid lg:grid-cols-2 gap-16 items-center">
-              {/* Contenu texte */}
-              <div>
-                <h2 className="text-3xl md:text-4xl font-bold mb-6">
-                  Un chantier propre.
-                  <br />
-                  En site occupé ou vide.
-                </h2>
-                <p className="text-blue-100 text-lg mb-8 leading-relaxed">
-                  L&apos;enduit effraie souvent pour une raison : la poussière.
-                  Nous avons investi dans un parc machine Festool® dernière
-                  génération pour garantir une intervention quasi-chirurgicale.
-                </p>
-
-                {/* Liste des 3 points clés */}
-                <div className="space-y-6">
-                  {pointsProprete.map((point, index) => (
-                    <div key={index} className="flex">
-                      <div className="flex-shrink-0">
-                        <div className="w-12 h-12 bg-white/10 rounded-full flex items-center justify-center border border-white/20">
-                          <svg
-                            className="w-6 h-6 text-white"
-                            fill="none"
-                            stroke="currentColor"
-                            viewBox="0 0 24 24"
-                          >
-                            {index === 0 && (
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M9 12l2 2 4-4m5.618-4.016A11.955 11.955 0 0112 2.944a11.955 11.955 0 01-8.618 3.04A12.02 12.02 0 003 9c0 5.591 3.824 10.29 9 11.622 5.176-1.332 9-6.03 9-11.622 0-1.042-.133-2.052-.382-3.016z"
-                              />
-                            )}
-                            {index === 1 && (
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M19.428 15.428a2 2 0 00-1.022-.547l-2.387-.477a6 6 0 00-3.86.517l-.318.158a6 6 0 01-3.86.517L6.05 15.21a2 2 0 00-1.806.547M8 4h8l-1 1v5.172a2 2 0 00.586 1.414l5 5c1.26 1.26.367 3.414-1.415 3.414H4.828c-1.782 0-2.674-2.154-1.414-3.414l5-5A2 2 0 009 10.172V5L8 4z"
-                              />
-                            )}
-                            {index === 2 && (
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                strokeWidth={2}
-                                d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"
-                              />
-                            )}
-                          </svg>
-                        </div>
-                      </div>
-                      <div className="ml-4">
-                        <h3 className="text-xl font-bold">{point.titre}</h3>
-                        <p className="text-blue-200">{point.description}</p>
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
-              {/* Visuel chantier protégé + témoignage */}
-              <div className="relative aspect-[4/3] rounded-xl overflow-hidden shadow-2xl border-4 border-white/20">
-                <Image
-                  src="https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&q=80"
-                  alt="Chantier enduit propre Strasbourg avec protection et aspiration"
-                  fill
-                  loading="lazy"
-                  className="object-cover"
-                />
-
-                {/* Témoignage flottant */}
-                <div className="absolute -bottom-6 -right-6 bg-white text-slate-900 p-6 rounded-lg shadow-xl max-w-xs hidden md:block">
-                  <p className="font-serif italic text-lg">
-                    &quot;Intervention invisible. Nous avons pu continuer les
-                    cours dans les classes voisines.&quot;
-                  </p>
-                  <p className="text-sm text-slate-500 mt-2 font-bold">
-                    — Directeur École Primaire, Strasbourg
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
+        <ServiceMethodSection
+          title="Un chantier propre. En site occupé ou vide."
+          subtitle="L'enduit effraie souvent pour une raison : la poussière. Nous avons investi dans un parc machine Festool® dernière génération pour garantir une intervention quasi-chirurgicale."
+          etapes={pointsProprete}
+          variant="list"
+          backgroundVariant="blue"
+          image={{
+            src: "https://images.unsplash.com/photo-1504307651254-35680f356dfd?w=800&h=600&fit=crop&q=80",
+            alt: "Chantier enduit propre Strasbourg avec protection et aspiration",
+          }}
+          imagePosition="right"
+        />
 
         {/* ============================================
             GALERIE & PREUVE - Avant/Après

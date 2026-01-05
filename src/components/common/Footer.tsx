@@ -14,7 +14,7 @@
 
 import Link from "next/link";
 import { Separator } from "@/components/ui/separator";
-import GridScan from "@/components/GridScan";
+import GridScan from "@/components/common/GridScan";
 
 export default function Footer() {
   return (

@@ -17,7 +17,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 
 // Code splitting dynamique pour GridScan (composant lourd avec 3D)
-const GridScan = dynamic(() => import("@/components/GridScan"), {
+const GridScan = dynamic(() => import("@/components/common/GridScan"), {
   ssr: true,
   loading: () => (
     <div className="absolute inset-0 bg-slate-900 animate-pulse" />
