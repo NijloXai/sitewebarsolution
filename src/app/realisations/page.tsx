@@ -38,8 +38,28 @@ export const metadata: Metadata = {
     title: "Nos Réalisations | AR+SOLUTION Strasbourg",
     description:
       "Portfolio de nos chantiers de plâtrerie, isolation et finitions en Alsace. Particuliers et collectivités.",
+    url: "https://ar-solution.fr/realisations",
+    siteName: "AR+SOLUTION",
     type: "website",
     locale: "fr_FR",
+    images: [
+      {
+        url: "https://ar-solution.fr/og-realisations.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Portfolio des réalisations AR+SOLUTION - Plâtrerie et isolation en Alsace",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Nos Réalisations | AR+SOLUTION Strasbourg",
+    description:
+      "Portfolio de nos chantiers de plâtrerie, isolation et finitions en Alsace. Particuliers et collectivités.",
+    images: ["https://ar-solution.fr/og-realisations.jpg"],
+  },
+  alternates: {
+    canonical: "https://ar-solution.fr/realisations",
   },
 };
 import dynamic from "next/dynamic";
@@ -192,6 +212,9 @@ const faqRealisations = [
    ============================================ */
 
 export default function PageRealisations() {
+  /* URL de base du site pour les schémas JSON-LD */
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ar-solution.fr";
+
   /* Données structurées JSON-LD pour le SEO
      Schema CollectionPage pour indiquer qu'il s'agit d'une collection de réalisations */
   const jsonLdCollectionPage = {
@@ -199,7 +222,7 @@ export default function PageRealisations() {
     "@type": "CollectionPage",
     name: "Nos Réalisations | Portfolio Plâtrerie & Isolation",
     description: "Découvrez nos chantiers de plâtrerie, isolation et aménagement à Strasbourg et en Alsace. Photos avant/après, projets particuliers et marchés publics.",
-    url: "https://www.arsolution.fr/realisations",
+    url: `${baseUrl}/realisations`,
     mainEntity: {
       "@type": "ItemList",
       itemListElement: realisations.map((realisation, index) => ({
@@ -210,7 +233,7 @@ export default function PageRealisations() {
           name: realisation.titre,
           description: realisation.description,
           image: realisation.image,
-          url: `https://www.arsolution.fr/realisations/${realisation.id}`,
+          url: `${baseUrl}/realisations/${realisation.id}`,
           about: {
             "@type": "Service",
             name: realisation.metier,
@@ -229,7 +252,7 @@ export default function PageRealisations() {
     publisher: {
       "@type": "Organization",
       name: "AR+SOLUTION",
-      url: "https://www.arsolution.fr",
+      url: baseUrl,
     },
     breadcrumb: {
       "@type": "BreadcrumbList",
@@ -238,13 +261,13 @@ export default function PageRealisations() {
           "@type": "ListItem",
           position: 1,
           name: "Accueil",
-          item: "https://www.arsolution.fr",
+          item: baseUrl,
         },
         {
           "@type": "ListItem",
           position: 2,
           name: "Réalisations",
-          item: "https://www.arsolution.fr/realisations",
+          item: `${baseUrl}/realisations`,
         },
       ],
     },
@@ -277,7 +300,7 @@ export default function PageRealisations() {
             { label: "Intervention à Strasbourg & dans toute l'Alsace", variant: "location" },
           ]}
           ctaLinks={[
-            { label: "Demander un devis chiffré", href: "/contact", variant: "primary" },
+            { label: "Demander un devis gratuit", href: "/contact", variant: "primary" },
             { label: "Accès Marchés Publics", href: "#public-focus", variant: "secondary" },
           ]}
           scanColor="#f97316"
@@ -306,7 +329,7 @@ export default function PageRealisations() {
                       className={`px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
                         filtre.actif
                           ? "bg-slate-800 text-white shadow-md"
-                          : "bg-gray-100 text-gray-600 hover:bg-blue-50 hover:text-brand-blue"
+                          : "bg-gray-100 text-gray-600 hover:bg-brand-blue/5 hover:text-brand-blue"
                       }`}
                     >
                       {filtre.icone === "users" && (
@@ -391,7 +414,7 @@ export default function PageRealisations() {
               {realisations.map((projet) => (
                 <Card
                   key={projet.id}
-                  className={`group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white pt-0 h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none ${
+                  className={`group relative overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white pt-0 h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none ${
                     projet.secteur === "public"
                       ? "ring-2 ring-transparent"
                       : ""
@@ -656,7 +679,7 @@ export default function PageRealisations() {
         <CtaBlock
           titre="Un projet à Strasbourg ou en Alsace ? Parlons-en."
           description="Que vous soyez un particulier ou une collectivité, nous avons l'équipe adaptée à votre échelle. Devis gratuit sous 5 jours."
-          texteDevis="Demander mon devis gratuit"
+          texteDevis="Demander un devis gratuit"
           texteTelephone="Appeler l'agence"
         />
       </main>

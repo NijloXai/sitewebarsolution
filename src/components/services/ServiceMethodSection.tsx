@@ -93,7 +93,7 @@ export default function ServiceMethodSection({
             </h3>
             <p
               className={`text-sm ${
-                backgroundVariant === "blue" ? "text-blue-100" : "text-gray-500"
+                backgroundVariant === "blue" ? "text-white/90" : "text-gray-500"
               }`}
             >
               {etape.description}
@@ -114,11 +114,11 @@ export default function ServiceMethodSection({
           }`}
         >
           <div className="flex items-start gap-4">
-            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-blue-100 text-brand-blue flex items-center justify-center font-bold">
+            <div className="flex-shrink-0 w-10 h-10 rounded-full bg-brand-blue/10 text-brand-blue flex items-center justify-center font-bold">
               {etape.icone || etape.numero}
             </div>
             <div>
-              <h3 className="font-bold text-lg mb-2 text-slate-900">{etape.titre}</h3>
+              <h3 className="font-semibold text-2xl md:text-3xl mb-2 text-slate-900">{etape.titre}</h3>
               <p className="text-sm text-gray-600">{etape.description}</p>
             </div>
           </div>
@@ -135,7 +135,7 @@ export default function ServiceMethodSection({
             className={`flex-shrink-0 w-10 h-10 rounded-full ${
               backgroundVariant === "blue"
                 ? "bg-white/10 text-white border border-white/20"
-                : "bg-blue-100 text-brand-blue"
+                : "bg-brand-blue/10 text-brand-blue"
             } flex items-center justify-center font-bold`}
           >
             {etape.icone || etape.numero}
@@ -150,7 +150,7 @@ export default function ServiceMethodSection({
             </h4>
             <p
               className={`text-sm ${
-                backgroundVariant === "blue" ? "text-blue-200" : "text-gray-600"
+                backgroundVariant === "blue" ? "text-white/80" : "text-gray-600"
               }`}
             >
               {etape.description}
@@ -203,7 +203,7 @@ export default function ServiceMethodSection({
               {subtitle && (
                 <p
                   className={`text-lg mb-8 ${
-                    backgroundVariant === "blue" ? "text-blue-100" : "text-gray-600"
+                    backgroundVariant === "blue" ? "text-white/90" : "text-gray-600"
                   }`}
                 >
                   {subtitle}
@@ -223,7 +223,7 @@ export default function ServiceMethodSection({
             {subtitle && (
               <p
                 className={`text-center mb-8 ${
-                  backgroundVariant === "blue" ? "text-blue-100" : "text-gray-600"
+                  backgroundVariant === "blue" ? "text-white/90" : "text-gray-600"
                 }`}
               >
                 {subtitle}

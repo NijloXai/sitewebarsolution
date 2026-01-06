@@ -59,6 +59,13 @@ export const metadata: Metadata = {
   title: "Nos Services | Plâtrerie, Isolation, Peinture & Aménagement à Strasbourg | AR+SOLUTION",
   description:
     "Découvrez nos services de rénovation intérieure à Strasbourg : plâtrerie, isolation thermique RGE, peinture et aménagement. Certifié Qualibat, garantie décennale. Devis gratuit.",
+  keywords: [
+    "services rénovation Strasbourg",
+    "plâtrerie isolation aménagement",
+    "travaux intérieurs Alsace",
+    "entreprise RGE Qualibat",
+    "devis gratuit rénovation",
+  ],
   openGraph: {
     title: "Nos Services | Plâtrerie, Isolation, Peinture & Aménagement à Strasbourg | AR+SOLUTION",
     description:
@@ -156,7 +163,7 @@ export default function ServicesPage() {
               <Card
                 key={service.id}
                 role="listitem"
-                className="group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white pt-0 h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none"
+                className="group relative overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white pt-0 h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none"
                 style={{
                   boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
                 }}

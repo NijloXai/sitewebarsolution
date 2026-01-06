@@ -38,6 +38,26 @@ export const metadata: Metadata = {
       "Conseils d'experts en rénovation, isolation et plâtrerie. Guides pratiques pour vos projets en Alsace.",
     type: "website",
     locale: "fr_FR",
+    url: "https://ar-solution.fr/ressources",
+    siteName: "AR+SOLUTION",
+    images: [
+      {
+        url: "https://ar-solution.fr/og-ressources.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Blog et ressources AR+SOLUTION - Conseils en rénovation et isolation",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Blog & Ressources | AR+SOLUTION Strasbourg",
+    description:
+      "Conseils d'experts en rénovation, isolation et plâtrerie. Guides pratiques pour vos projets en Alsace.",
+    images: ["https://ar-solution.fr/og-ressources.jpg"],
+  },
+  alternates: {
+    canonical: "https://ar-solution.fr/ressources",
   },
 };
 import Footer from "@/components/common/Footer";
@@ -252,7 +272,7 @@ export default function PageRessources() {
             SECTION 1 : HERO - Bibliothèque d'Expertise
             Présente le but de la page avec une barre de recherche
             ============================================ */}
-        <section className="relative bg-slate-900 text-white py-20 lg:py-28 overflow-hidden">
+        <section className="relative bg-slate-900 text-white py-16 md:py-24 overflow-hidden">
           {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
             <GridScan
@@ -276,7 +296,7 @@ export default function PageRessources() {
           {/* Contenu du hero */}
           <div className="max-w-4xl mx-auto px-4 relative z-10 text-center">
             {/* Badge d'introduction */}
-            <Badge className="bg-orange-600/20 text-orange-400 border-orange-600/30 mb-4">
+            <Badge className="bg-brand-orange/20 text-brand-orange border-brand-orange/30 mb-4">
               Blog & Expertise Technique
             </Badge>
 
@@ -337,7 +357,7 @@ export default function PageRessources() {
                       categorie.actif
                         ? "bg-slate-900 text-white shadow-sm ring-2 ring-slate-900"
                         : categorie.special
-                        ? "bg-blue-50 text-blue-700 border border-blue-200 hover:bg-blue-100"
+                        ? "bg-brand-blue/5 text-brand-blue border border-brand-blue/20 hover:bg-brand-blue/10"
                         : "bg-slate-100 text-slate-600 hover:bg-slate-200"
                     }`}
                   >
@@ -365,7 +385,7 @@ export default function PageRessources() {
             SECTION 3 : ARTICLE EN VEDETTE (La Une)
             Met en avant le dossier du mois pour l'autorité SEO
             ============================================ */}
-        <section className="py-12 md:py-16 max-w-7xl mx-auto px-4">
+        <section className="py-16 md:py-24 max-w-7xl mx-auto px-4">
           <Card className="shadow-lg overflow-hidden flex flex-col lg:flex-row">
             {/* Image de l'article en vedette */}
             <div className="lg:w-1/2 relative h-64 lg:h-auto">
@@ -384,7 +404,7 @@ export default function PageRessources() {
             <CardContent className="lg:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
               {/* Métadonnées */}
               <div className="flex items-center space-x-2 mb-4 text-sm text-slate-500 font-medium">
-                <span className="text-blue-700">{articleVedette.categorie}</span>
+                <span className="text-brand-blue">{articleVedette.categorie}</span>
                 <span>•</span>
                 <span>Temps de lecture : {articleVedette.tempsLecture}</span>
               </div>
@@ -428,11 +448,11 @@ export default function PageRessources() {
             SECTION 4 : GRILLE D'ARTICLES
             Affiche les derniers conseils et analyses en grille de cartes
             ============================================ */}
-        <section className="py-12 bg-slate-50 border-t border-slate-200">
+        <section className="py-16 md:py-24 bg-slate-50 border-t border-slate-200">
           <div className="max-w-7xl mx-auto px-4">
             {/* En-tête de la section */}
             <div className="flex justify-between items-end mb-10">
-              <h2 className="text-2xl font-bold text-slate-900">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
                 Derniers conseils & analyses
               </h2>
               <a
@@ -449,7 +469,7 @@ export default function PageRessources() {
                 <Card
                   key={article.id}
                   className={`group hover:shadow-xl transition-all duration-300 flex flex-col h-full ${
-                    article.special ? "ring-1 ring-blue-100" : ""
+                    article.special ? "ring-1 ring-brand-blue/10" : ""
                   }`}
                 >
                   {/* Image de l'article */}
@@ -463,7 +483,7 @@ export default function PageRessources() {
                     <Badge
                       className={`absolute top-3 left-3 ${
                         article.special
-                          ? "bg-blue-100 text-blue-800"
+                          ? "bg-brand-blue/10 text-brand-blue"
                           : "bg-white/90 backdrop-blur text-slate-700"
                       }`}
                     >
@@ -477,7 +497,7 @@ export default function PageRessources() {
                     <CardTitle
                       className={`text-xl text-slate-900 mb-3 transition ${
                         article.special
-                          ? "group-hover:text-blue-700"
+                          ? "group-hover:text-brand-blue"
                           : "group-hover:text-brand-orange"
                       }`}
                     >
@@ -497,7 +517,7 @@ export default function PageRessources() {
                       <span
                         className={`text-sm font-semibold group-hover:translate-x-1 transition-transform ${
                           article.special
-                            ? "text-blue-700"
+                            ? "text-brand-blue"
                             : "text-brand-orange"
                         }`}
                       >
@@ -526,7 +546,7 @@ export default function PageRessources() {
 
           <div className="max-w-7xl mx-auto px-4 relative z-10 text-center">
             {/* Titre */}
-            <h2 className="text-3xl md:text-4xl font-bold mb-6">
+            <h2 className="text-3xl md:text-4xl font-bold mb-6 text-white">
               Vous avez un projet de rénovation ou un marché à attribuer ?
             </h2>
 
@@ -539,7 +559,7 @@ export default function PageRessources() {
             {/* Boutons CTA */}
             <div className="flex flex-col md:flex-row justify-center items-center gap-6">
               {/* CTA PRINCIPAL : Devis */}
-              <Button asChild size="lg" className="w-full md:w-auto bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg shadow-orange-900/50 flex flex-col items-center">
+              <Button asChild size="lg" className="w-full md:w-auto bg-brand-orange-dark hover:bg-brand-orange text-white shadow-lg shadow-brand-orange/50 flex flex-col items-center">
                 <Link href="/contact">
                   <span>Demander un devis gratuit</span>
                   <span className="text-xs font-normal opacity-90 mt-1">
@@ -620,7 +640,7 @@ export default function PageRessources() {
         <Button
           asChild
           size="lg"
-          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
+          className="flex-1 bg-brand-orange-dark hover:bg-brand-orange text-white font-bold shadow-md"
         >
           <Link href="/contact">Devis Gratuit</Link>
         </Button>

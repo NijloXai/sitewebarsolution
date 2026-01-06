@@ -346,7 +346,7 @@ export default function PageServiceIsolation() {
                                   ? "text-brand-orange"
                                   : profil.id === "pro"
                                   ? "text-green-500"
-                                  : "text-orange-500"
+                                  : "text-brand-orange"
                               }`}
                             >
                               ✓
@@ -454,7 +454,7 @@ export default function PageServiceIsolation() {
                       <div className="text-brand-orange font-bold mb-2 text-sm uppercase tracking-wide">
                         AR+SOLUTION
                       </div>
-                      <div className="bg-orange-50 p-4 rounded-lg border-2 border-brand-orange h-full flex flex-col justify-center items-center gap-2">
+                      <div className="bg-brand-orange/5 p-4 rounded-lg border-2 border-brand-orange h-full flex flex-col justify-center items-center gap-2">
                         <span className="text-2xl">🏠</span>
                         <span className="font-bold text-brand-blue">
                           1 Équipe Complète

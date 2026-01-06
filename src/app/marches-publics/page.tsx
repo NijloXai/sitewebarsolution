@@ -37,7 +37,185 @@ export const metadata: Metadata = {
   title: "Marchés Publics - Plâtrerie, Isolation & Finitions | AR+SOLUTION Strasbourg",
   description:
     "Expertise en plâtrerie, isolation et finitions pour marchés publics à Strasbourg et en Alsace. Intervention en site occupé, respect des délais, certifié RGE.",
+  keywords: [
+    "marchés publics plâtrerie Strasbourg",
+    "marchés publics isolation Alsace",
+    "travaux publics site occupé",
+    "entreprise RGE marchés publics",
+    "appel d'offres BTP Strasbourg",
+    "collectivités travaux intérieurs",
+    "maintenance bâtiments publics",
+    "lots plâtrerie isolation peinture",
+  ],
+  openGraph: {
+    title: "Marchés Publics - Plâtrerie, Isolation & Finitions | AR+SOLUTION",
+    description:
+      "Expertise en plâtrerie, isolation et finitions pour marchés publics. Intervention en site occupé, respect des délais. Certifié RGE Qualibat.",
+    url: "https://ar-solution.fr/marches-publics",
+    siteName: "AR+SOLUTION",
+    locale: "fr_FR",
+    type: "website",
+    images: [
+      {
+        url: "/og-marches-publics.jpg",
+        width: 1200,
+        height: 630,
+        alt: "AR+SOLUTION - Marchés publics plâtrerie et isolation à Strasbourg",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Marchés Publics - Plâtrerie, Isolation & Finitions | AR+SOLUTION",
+    description:
+      "Expertise en plâtrerie, isolation et finitions pour marchés publics à Strasbourg. Certifié RGE.",
+    images: ["/og-marches-publics.jpg"],
+  },
+  alternates: {
+    canonical: "https://ar-solution.fr/marches-publics",
+  },
 };
+
+/* ============================================
+   DONNÉES STRUCTURÉES JSON-LD (Schema.org)
+   Aide les moteurs de recherche à comprendre le contenu de la page
+   ============================================ */
+function StructuredData() {
+  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || "https://ar-solution.fr";
+
+  // Schema WebPage - décrit la page en tant que page web
+  const webPageSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebPage",
+    name: "Marchés Publics - AR+SOLUTION",
+    description:
+      "Expertise en plâtrerie, isolation et finitions pour marchés publics à Strasbourg et en Alsace. Intervention en site occupé, respect des délais, certifié RGE.",
+    url: `${baseUrl}/marches-publics`,
+    isPartOf: {
+      "@type": "WebSite",
+      name: "AR+SOLUTION",
+      url: baseUrl,
+    },
+    about: {
+      "@type": "Service",
+      name: "Travaux pour marchés publics",
+      provider: {
+        "@type": "LocalBusiness",
+        name: "AR+SOLUTION",
+      },
+    },
+    breadcrumb: {
+      "@type": "BreadcrumbList",
+      itemListElement: [
+        {
+          "@type": "ListItem",
+          position: 1,
+          name: "Accueil",
+          item: baseUrl,
+        },
+        {
+          "@type": "ListItem",
+          position: 2,
+          name: "Marchés Publics",
+          item: `${baseUrl}/marches-publics`,
+        },
+      ],
+    },
+  };
+
+  // Schema Service - décrit les services proposés aux collectivités
+  const serviceSchema = {
+    "@context": "https://schema.org",
+    "@type": "Service",
+    name: "Travaux de plâtrerie, isolation et finitions pour marchés publics",
+    description:
+      "Intervention en site occupé pour collectivités : plâtrerie, faux plafonds, isolation thermique RGE, peinture et finitions, maintenance et entretien.",
+    provider: {
+      "@type": "LocalBusiness",
+      name: "AR+SOLUTION",
+      image: `${baseUrl}/logo.png`,
+      telephone: "+33-3-88-00-00-00",
+      address: {
+        "@type": "PostalAddress",
+        addressLocality: "Strasbourg",
+        addressRegion: "Alsace",
+        postalCode: "67000",
+        addressCountry: "FR",
+      },
+    },
+    areaServed: [
+      {
+        "@type": "City",
+        name: "Strasbourg",
+      },
+      {
+        "@type": "AdministrativeArea",
+        name: "Alsace",
+      },
+    ],
+    serviceType: [
+      "Plâtrerie et faux plafonds",
+      "Isolation thermique RGE",
+      "Peinture et finitions",
+      "Maintenance et entretien",
+    ],
+    hasOfferCatalog: {
+      "@type": "OfferCatalog",
+      name: "Lots marchés publics",
+      itemListElement: [
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Plâtrerie & Faux Plafonds",
+            description:
+              "Cloisons distributives, plafonds démontables, correction acoustique, coupe-feu",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Isolation Thermique",
+            description:
+              "Isolation intérieure ITI, combles perdus, doublage collé ou sur ossature, normes RE2020",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Peinture & Finitions",
+            description:
+              "Préparation des supports, peintures lessivables, revêtements muraux, sols souples",
+          },
+        },
+        {
+          "@type": "Offer",
+          itemOffered: {
+            "@type": "Service",
+            name: "Maintenance & Entretien",
+            description:
+              "Marchés à bons de commande, interventions rapides, remise en état après sinistre",
+          },
+        },
+      ],
+    },
+  };
+
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webPageSchema) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(serviceSchema) }}
+      />
+    </>
+  );
+}
 
 /* Navigation intra-page - permet aux acheteurs de naviguer rapidement vers les sections clés */
 const navigationSections = [
@@ -186,6 +364,9 @@ const faqAcheteurs = [
 export default function MarchesPublicsPage() {
   return (
     <>
+      {/* Données structurées JSON-LD pour le SEO */}
+      <StructuredData />
+
       {/* Header - Navigation principale sticky */}
       <Header pageActive="marches-publics" />
 
@@ -259,7 +440,7 @@ export default function MarchesPublicsPage() {
               {prestationsLots.map((lot) => (
                 <Card
                   key={lot.titre}
-                  className="group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none"
+                  className="group relative overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none"
                   style={{
                     boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
                   }}
@@ -323,7 +504,7 @@ export default function MarchesPublicsPage() {
               {referencesPubliques.map((ref) => (
                 <Card
                   key={ref.titre}
-                  className="group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white pt-0 h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none"
+                  className="group relative overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white pt-0 h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none"
                   style={{
                     boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
                   }}
@@ -377,8 +558,8 @@ export default function MarchesPublicsPage() {
                 </p>
 
                 {/* Encadré spécial "Site Occupé" */}
-                <div className="mb-8 rounded-r-lg border-l-4 border-brand-blue bg-blue-50 p-6">
-                  <h3 className="mb-2 text-lg font-bold text-brand-blue">
+                <div className="mb-8 rounded-r-lg border-l-4 border-brand-blue bg-brand-blue/5 p-6">
+                  <h3 className="mb-2 text-2xl md:text-3xl font-semibold text-brand-blue">
                     👥 Expertise en milieu occupé
                   </h3>
                   <p className="text-sm text-gray-700">

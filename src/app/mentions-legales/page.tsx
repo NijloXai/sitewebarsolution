@@ -34,6 +34,7 @@ export const metadata: Metadata = {
   title: "Mentions Légales - AR+SOLUTION | Entreprise de Rénovation Strasbourg",
   description:
     "Mentions légales, assurances et garanties professionnelles d'AR+SOLUTION, entreprise de rénovation et plâtrerie à Strasbourg. Certifié RGE, Garantie Décennale.",
+  alternates: { canonical: "https://ar-solution.fr/mentions-legales" },
 };
 
 /* ============================================
@@ -165,13 +166,13 @@ export default function PageMentionsLegales() {
         {/* ============================================
             SECTIONS DU CONTENU LÉGAL
             ============================================ */}
-        <div className="max-w-4xl mx-auto px-4 py-12 space-y-12">
+        <div className="max-w-4xl mx-auto px-4 py-16 md:py-24 space-y-12">
           {/* ============================================
               SECTION 1 : ÉDITEUR DU SITE
               Identification de l'entreprise et coordonnées
               ============================================ */}
           <section id="editeur" className="space-y-4">
-            <h2 className="text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 border-b border-slate-200 pb-2">
               1. Édition du site &amp; Identification
             </h2>
             <p className="text-slate-600 mb-4">
@@ -288,7 +289,7 @@ export default function PageMentionsLegales() {
               </div>
 
               <div className="flex-1">
-                <h2 className="text-2xl font-bold text-slate-900 mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-4">
                   2. Assurances &amp; Garanties Professionnelles
                 </h2>
                 <p className="text-slate-700 mb-4 font-medium">
@@ -343,7 +344,7 @@ export default function PageMentionsLegales() {
               Informations sur l'hébergeur et le concepteur du site
               ============================================ */}
           <section id="hebergement" className="space-y-4">
-            <h2 className="text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 border-b border-slate-200 pb-2">
               3. Hébergement &amp; Réalisation
             </h2>
 
@@ -394,7 +395,7 @@ export default function PageMentionsLegales() {
               Droits sur le contenu et les photos de chantiers
               ============================================ */}
           <section id="propriete" className="space-y-4">
-            <h2 className="text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 border-b border-slate-200 pb-2">
               4. Propriété Intellectuelle &amp; Photos de Chantier
             </h2>
 
@@ -426,7 +427,7 @@ export default function PageMentionsLegales() {
               Résumé des pratiques de gestion des données
               ============================================ */}
           <section id="donnees" className="space-y-4">
-            <h2 className="text-2xl font-bold text-slate-900 border-b border-slate-200 pb-2">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 border-b border-slate-200 pb-2">
               5. Gestion des données personnelles
             </h2>
 
@@ -465,7 +466,7 @@ export default function PageMentionsLegales() {
             FOOTER DE CONVERSION (SOFT CTA)
             Bloc pour contacter le service administratif
             ============================================ */}
-        <section className="relative bg-slate-900 text-white py-12 mt-12 overflow-hidden">
+        <section className="relative bg-slate-900 text-white py-16 md:py-24 mt-12 overflow-hidden">
           {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
             <GridScan
@@ -486,7 +487,7 @@ export default function PageMentionsLegales() {
             <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
           <div className="relative max-w-2xl mx-auto px-4 text-center">
-            <h3 className="text-2xl font-semibold mb-4">
+            <h3 className="text-2xl md:text-3xl font-semibold mb-4">
               Besoin d&apos;un document spécifique ?
             </h3>
             <p className="text-slate-300 mb-8">
@@ -494,8 +495,8 @@ export default function PageMentionsLegales() {
               administrative pour un marché public ? Notre service administratif
               est à votre écoute.
             </p>
-            <Button asChild className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg">
-              <Link href="/contact">Contactez-nous</Link>
+            <Button asChild className="bg-brand-orange-dark hover:bg-brand-orange text-white shadow-lg">
+              <Link href="/contact">Nous contacter</Link>
             </Button>
 
             {/* Logos de réassurance */}
@@ -546,7 +547,7 @@ export default function PageMentionsLegales() {
         <Button
           asChild
           size="lg"
-          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
+          className="flex-1 bg-brand-orange-dark hover:bg-brand-orange text-white font-bold shadow-md"
         >
           <Link href="/contact">Devis Gratuit</Link>
         </Button>

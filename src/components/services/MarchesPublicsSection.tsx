@@ -171,7 +171,7 @@ export default function MarchesPublicsSection({
             {/* Badge "Espace Collectivités" amélioré avec effet de profondeur et animations */}
             <Badge
               variant="outline"
-              className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-700/90 to-blue-800/90 text-blue-50 border-blue-500/50 text-xs sm:text-sm font-bold px-4 sm:px-5 py-2 sm:py-2.5 rounded-full uppercase tracking-wider shadow-lg shadow-blue-900/30 backdrop-blur-sm hover:shadow-xl hover:shadow-blue-900/40 hover:scale-105 hover:border-blue-400/70 transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 focus-visible:ring-offset-blue-900 group/badge"
+              className="inline-flex items-center gap-2 bg-gradient-to-r from-brand-blue/90 to-brand-blue text-white border-brand-blue/50 text-xs sm:text-sm font-bold px-4 sm:px-5 py-2 sm:py-2.5 rounded-full uppercase tracking-wider shadow-lg backdrop-blur-sm hover:shadow-xl hover:scale-105 hover:border-brand-blue/70 transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 group/badge"
             >
               <svg
                 className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover/badge:rotate-12 group-hover/badge:scale-110"
@@ -197,7 +197,7 @@ export default function MarchesPublicsSection({
               </h2>
               
               {/* Description avec typographie optimisée */}
-              <p className="text-blue-50 sm:text-blue-100 text-base sm:text-lg md:text-xl leading-relaxed tracking-normal max-w-2xl">
+              <p className="text-white/90 text-base sm:text-lg md:text-xl leading-relaxed tracking-normal max-w-2xl">
                 Nous connaissons vos contraintes. AR+SOLUTION structure ses
                 offres pour répondre aux exigences des marchés publics
                 (Écoles, Mairies, Bâtiments administratifs).
@@ -254,12 +254,12 @@ export default function MarchesPublicsSection({
           </div>
 
           {/* Grille des documents disponibles avec animations d'entrée */}
-          <div className="bg-blue-800/50 p-6 sm:p-8 md:p-10 lg:p-12 rounded-xl border border-blue-700 shadow-2xl backdrop-blur-sm">
+          <div className="bg-brand-blue/50 p-6 sm:p-8 md:p-10 lg:p-12 rounded-xl border border-brand-blue shadow-2xl backdrop-blur-sm">
             <div className="grid grid-cols-2 gap-4 md:gap-5 lg:gap-6">
               {documents.map((doc, index) => (
                 <Card
                   key={doc.titre}
-                  className="group relative bg-gradient-to-br from-brand-blue via-blue-700 to-brand-blue border-2 border-blue-600/60 flex flex-col items-center text-center overflow-hidden cursor-pointer focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 focus-within:ring-offset-blue-800"
+                  className="group relative bg-gradient-to-br from-brand-blue via-brand-blue to-brand-blue border-2 border-brand-blue/60 flex flex-col items-center text-center overflow-hidden cursor-pointer focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 focus-within:ring-offset-brand-blue"
                   style={{
                     boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                     animationDelay: `${index * 100}ms`,
@@ -274,7 +274,7 @@ export default function MarchesPublicsSection({
                   
                   <CardContent className="p-4 md:p-5 lg:p-6 relative z-10 w-full">
                     {/* Icône document */}
-                    <div className="mb-3 md:mb-4 text-blue-200 flex justify-center group-focus-within:scale-110 group-focus-within:text-brand-orange">
+                    <div className="mb-3 md:mb-4 text-white/80 flex justify-center group-focus-within:scale-110 group-focus-within:text-brand-orange">
                       <div className="relative">
                         <div className="group-focus-within:rotate-6">
                           {getDocumentIcon(doc.titre, "w-10 h-10 md:w-12 md:h-12")}

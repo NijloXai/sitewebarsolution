@@ -113,9 +113,9 @@ export default function ServiceFeaturesGrid({
           {features.map((feature) => (
             <Card
               key={feature.id}
-              className={`group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col border-2 ${
+              className={`group relative overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col border-2 ${
                 feature.badge
-                  ? "border-orange-200 bg-orange-50/50"
+                  ? "border-brand-orange/20 bg-brand-orange/5"
                   : "border-gray-200"
               } hover:border-brand-orange bg-white h-full`}
             >

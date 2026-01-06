@@ -30,7 +30,7 @@ export const metadata: Metadata = {
     "questions isolation thermique",
     "RGE Qualibat Alsace",
     "MaPrimeRénov Bas-Rhin",
-    "garantie décennale plaquiste",
+    "Garantie Décennale plaquiste",
   ],
   openGraph: {
     title: "FAQ | AR+SOLUTION Plâtrerie & Isolation Strasbourg",
@@ -38,6 +38,26 @@ export const metadata: Metadata = {
       "Toutes les réponses à vos questions sur nos services de plâtrerie, isolation et rénovation en Alsace.",
     type: "website",
     locale: "fr_FR",
+    url: "https://ar-solution.fr/faq",
+    siteName: "AR+SOLUTION",
+    images: [
+      {
+        url: "https://ar-solution.fr/og-faq.jpg",
+        width: 1200,
+        height: 630,
+        alt: "FAQ AR+SOLUTION - Questions fréquentes sur nos services de rénovation",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "FAQ | AR+SOLUTION Plâtrerie & Isolation Strasbourg",
+    description:
+      "Toutes les réponses à vos questions sur nos services de plâtrerie, isolation et rénovation en Alsace.",
+    images: ["https://ar-solution.fr/og-faq.jpg"],
+  },
+  alternates: {
+    canonical: "https://ar-solution.fr/faq",
   },
 };
 import Footer from "@/components/common/Footer";
@@ -102,9 +122,9 @@ const questionsTechniques = [
     }
   },
   {
-    question: "Êtes-vous couverts en garantie décennale ?",
+    question: "Êtes-vous couverts en Garantie Décennale ?",
     reponse: {
-      intro: "Oui, notre assurance décennale est à jour.",
+      intro: "Oui, notre Garantie Décennale est à jour.",
       details: "Elle couvre l'ensemble de nos interventions (plâtrerie, faux-plafonds, isolation) pendant 10 ans. Une attestation nominative est systématiquement jointe à nos devis pour votre tranquillité d'esprit."
     }
   },
@@ -353,7 +373,7 @@ export default function PageFAQ() {
 
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 text-center">
             {/* Titre principal */}
-            <h1 className="text-3xl md:text-5xl font-bold mb-6">
+            <h1 className="text-4xl md:text-5xl font-bold mb-6">
               Vos questions fréquentes sur nos travaux
             </h1>
 
@@ -366,15 +386,15 @@ export default function PageFAQ() {
             {/* Filtres par catégorie - Navigation rapide vers les sections */}
             <div className="flex flex-wrap justify-center gap-3 md:gap-4">
               {filtresCategories.map((filtre) => (
-                <a
-                  key={filtre.label}
-                  href={`#${filtre.id}`}
-                  className={`${
-                    filtre.special
-                      ? "bg-blue-600 hover:bg-blue-700 border-transparent shadow-lg"
-                      : "bg-white/10 hover:bg-white/20 border-white/30 backdrop-blur-sm"
-                  } border px-5 py-3 rounded-full text-sm md:text-base font-medium transition flex items-center gap-2`}
-                >
+                  <a
+                    key={filtre.label}
+                    href={`#${filtre.id}`}
+                    className={`${
+                      filtre.special
+                        ? "bg-brand-blue hover:bg-brand-blue-dark border-transparent shadow-lg"
+                        : "bg-white/10 hover:bg-white/20 border-white/30 backdrop-blur-sm"
+                    } border px-5 py-3 rounded-full text-sm md:text-base font-medium transition flex items-center gap-2`}
+                  >
                   <span className={filtre.special ? "text-white" : filtre.icone === "certificat" ? "text-green-400" : "text-brand-orange"}>
                     <Icone type={filtre.icone} className="w-4 h-4" />
                   </span>
@@ -396,7 +416,7 @@ export default function PageFAQ() {
               <span className="text-brand-orange font-bold uppercase tracking-wider text-sm">
                 Organisation
               </span>
-              <h2 className="text-3xl font-bold text-brand-blue mt-2">
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mt-2">
                 Votre devis et l&apos;organisation du chantier
               </h2>
               <p className="text-gray-600 mt-4">
@@ -415,7 +435,7 @@ export default function PageFAQ() {
                   <AccordionTrigger className="font-semibold text-brand-blue">
                     {item.question}
                   </AccordionTrigger>
-                  <AccordionContent className="text-gray-600 leading-relaxed pl-4 border-l-2 border-orange-100">
+                  <AccordionContent className="text-gray-600 leading-relaxed pl-4 border-l-2 border-brand-orange/10">
                     <p><strong>{item.reponse.intro}</strong></p>
                     {item.reponse.details && (
                       <p className="mt-2">{item.reponse.details}</p>
@@ -451,7 +471,7 @@ export default function PageFAQ() {
                 <span className="text-green-600 font-bold uppercase tracking-wider text-sm">
                   Qualité & Aides
                 </span>
-                <h2 className="text-3xl font-bold text-brand-blue mt-2">
+                <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mt-2">
                   Certifications, Aides et Garanties
                 </h2>
               </div>
@@ -515,11 +535,11 @@ export default function PageFAQ() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* En-tête de section avec icône */}
             <div className="flex items-center gap-4 mb-8">
-              <div className="bg-blue-600 text-white p-3 rounded-lg shadow-md">
+              <div className="bg-brand-blue text-white p-3 rounded-lg shadow-md">
                 <Icone type="batiment" className="w-6 h-6" />
               </div>
               <div>
-                <h2 className="text-2xl md:text-3xl font-bold text-brand-blue">
+                <h2 className="text-3xl md:text-4xl font-bold text-brand-blue">
                   Collectivités, Mairies et Marchés Publics
                 </h2>
                 <p className="text-gray-600">
@@ -537,7 +557,7 @@ export default function PageFAQ() {
                 >
                   <CardContent className="p-6">
                   <CardTitle className="font-bold text-brand-blue mb-2 flex items-center gap-2">
-                    <span className="text-blue-600">
+                    <span className="text-brand-blue">
                       <Icone type={carte.icone} className="w-5 h-5" />
                     </span>
                     {carte.titre}
@@ -562,7 +582,7 @@ export default function PageFAQ() {
 
             {/* CTA vers la page Marchés Publics */}
             <div className="mt-8 text-center">
-              <Button asChild className="bg-blue-600 hover:bg-blue-700 text-white">
+              <Button asChild className="bg-brand-blue hover:bg-brand-blue/90 text-white">
                 <Link href="/marches-publics">Accéder à l&apos;espace Marchés Publics →</Link>
               </Button>
             </div>
@@ -581,7 +601,7 @@ export default function PageFAQ() {
                 <span className="text-brand-orange font-bold uppercase tracking-wider text-sm">
                   Géographie
                 </span>
-                <h2 className="text-3xl font-bold text-brand-blue mt-2 mb-4">
+                <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mt-2 mb-4">
                   Où intervenons-nous ?
                 </h2>
                 <p className="text-gray-600 mb-6">
@@ -589,7 +609,7 @@ export default function PageFAQ() {
                   garantir réactivité et proximité.
                 </p>
 
-                <h3 className="font-semibold text-brand-blue mb-3">
+                <h3 className="text-2xl md:text-3xl font-semibold text-brand-blue mb-3">
                   Principales zones d&apos;intervention :
                 </h3>
                 <ul className="grid grid-cols-2 gap-y-2 text-gray-600 text-sm">
@@ -623,7 +643,7 @@ export default function PageFAQ() {
             SECTION 6 : CTA FINAL "FILET DE SÉCURITÉ"
             Pour les visiteurs qui n'ont pas trouvé leur réponse
             ============================================ */}
-        <section className="py-16 md:py-20 bg-slate-900 text-white">
+        <section className="py-16 md:py-24 bg-slate-900 text-white">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
             {/* Avatar / Photo de l'équipe */}
             <div className="mb-6 flex justify-center">
@@ -634,7 +654,7 @@ export default function PageFAQ() {
               />
             </div>
 
-            <h2 className="text-3xl font-bold mb-4">
+            <h2 className="text-3xl md:text-4xl font-bold mb-4">
               Vous n&apos;avez pas trouvé votre réponse ?
             </h2>
             <p className="text-slate-300 mb-8 text-lg">
@@ -644,8 +664,8 @@ export default function PageFAQ() {
 
             {/* Boutons CTA */}
             <div className="flex flex-col md:flex-row justify-center gap-4">
-              <Button asChild size="lg" className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg">
-                <Link href="/contact">Demander un devis détaillé</Link>
+              <Button asChild size="lg" className="bg-brand-orange-dark hover:bg-brand-orange text-white shadow-lg">
+                <Link href="/contact">Demander un devis gratuit</Link>
               </Button>
               <Button asChild variant="outline" size="lg" className="border-white hover:bg-white hover:text-slate-900 text-white">
                 <a href="mailto:contact@ar-solution.fr">
@@ -656,7 +676,7 @@ export default function PageFAQ() {
             </div>
 
             <p className="mt-6 text-sm text-slate-500">
-              Réponse sous 24h ouvrées. Service Marchés Publics disponible du Lundi au Vendredi.
+              Réponse sous 48h ouvrées. Service Marchés Publics disponible du Lundi au Vendredi.
             </p>
           </div>
         </section>
@@ -695,7 +715,7 @@ export default function PageFAQ() {
         <Button
           asChild
           size="lg"
-          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
+          className="flex-1 bg-brand-orange-dark hover:bg-brand-orange text-white font-bold shadow-md"
         >
           <Link href="/contact">Devis Gratuit</Link>
         </Button>

@@ -204,7 +204,7 @@ export async function generateMetadata({
       images: [projet.imageApres],
     },
     alternates: {
-      canonical: `https://www.arsolution.fr/realisations/${slug}`,
+      canonical: `https://ar-solution.fr/realisations/${slug}`,
     },
   };
 }
@@ -227,19 +227,19 @@ export default function PageFicheProjet() {
     author: {
       "@type": "Organization",
       name: "AR+SOLUTION",
-      url: "https://www.arsolution.fr",
+      url: "https://ar-solution.fr",
     },
     publisher: {
       "@type": "Organization",
       name: "AR+SOLUTION",
       logo: {
         "@type": "ImageObject",
-        url: "https://www.arsolution.fr/logo.png",
+        url: "https://ar-solution.fr/logo.png",
       },
     },
     mainEntityOfPage: {
       "@type": "WebPage",
-      "@id": `https://www.arsolution.fr/realisations/${projet.slug}`,
+      "@id": `https://ar-solution.fr/realisations/${projet.slug}`,
     },
     articleSection: projet.categorie,
     keywords: [...projet.metiers, projet.localisation, "rénovation"].join(", "),
@@ -301,7 +301,7 @@ export default function PageFicheProjet() {
                   {projet.metiers.map((metier) => (
                     <span
                       key={metier}
-                      className="bg-blue-100 text-blue-800 text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide"
+                      className="bg-brand-blue/10 text-brand-blue text-xs font-bold px-3 py-1 rounded-full uppercase tracking-wide"
                     >
                       {metier}
                     </span>
@@ -333,7 +333,7 @@ export default function PageFicheProjet() {
                 </div>
 
                 {/* Titre principal H1 (SEO Local) */}
-                <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-slate-900 leading-tight mb-6">
+                <h1 className="text-4xl md:text-5xl font-bold text-slate-900 leading-tight mb-6">
                   {projet.titre}
                 </h1>
 
@@ -346,7 +346,7 @@ export default function PageFicheProjet() {
                 <div className="hidden lg:flex gap-4">
                   <Link
                     href="/contact"
-                    className="bg-brand-blue hover:bg-blue-800 text-white font-bold py-3 px-8 rounded shadow-lg transition duration-300 transform hover:-translate-y-1"
+                    className="bg-brand-blue hover:bg-brand-blue text-white font-bold py-3 px-8 rounded shadow-lg transition duration-300 transform hover:-translate-y-1"
                   >
                     Demander un devis similaire
                   </Link>
@@ -414,10 +414,10 @@ export default function PageFicheProjet() {
             SECTION 2 : CARTE D'IDENTITÉ DU CHANTIER
             Résumé rapide "30 secondes" des informations clés
             ============================================ */}
-        <section className="py-12 bg-white">
+        <section className="py-16 md:py-24 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="bg-gray-50 rounded-2xl p-8 border border-gray-100 shadow-sm">
-              <h2 className="text-xl font-bold text-slate-900 mb-6 border-l-4 border-brand-blue pl-4">
+              <h2 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-6 border-l-4 border-brand-blue pl-4">
                 Le Chantier en bref
               </h2>
 
@@ -499,7 +499,7 @@ export default function PageFicheProjet() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-12 gap-12">
             {/* Colonne principale : texte du contexte */}
             <div className="lg:col-span-8">
-              <h2 className="text-2xl md:text-3xl font-bold text-slate-900 mb-6">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6">
                 {contexte.titre}
               </h2>
               <div className="prose prose-lg text-gray-600">
@@ -541,7 +541,7 @@ export default function PageFicheProjet() {
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-slate-900">
+              <h2 className="text-3xl md:text-4xl font-bold text-slate-900">
                 Notre intervention étape par étape
               </h2>
               <p className="text-gray-600 mt-2">
@@ -563,7 +563,7 @@ export default function PageFicheProjet() {
                   {index % 2 === 0 ? (
                     <>
                       <div className="flex-1 md:text-right md:pr-12 mb-4 md:mb-0">
-                        <h3 className="font-bold text-lg text-slate-900">
+                        <h3 className="font-semibold text-2xl md:text-3xl text-slate-900">
                           {etape.titre}
                         </h3>
                         <p className="text-gray-600 text-sm">
@@ -628,7 +628,7 @@ export default function PageFicheProjet() {
                         )}
                       </div>
                       <div className="flex-1 md:pl-12 mb-4 md:mb-0">
-                        <h3 className="font-bold text-lg text-slate-900">
+                        <h3 className="font-semibold text-2xl md:text-3xl text-slate-900">
                           {etape.titre}
                         </h3>
                         <p className="text-gray-600 text-sm">
@@ -647,9 +647,9 @@ export default function PageFicheProjet() {
             SECTION 5 : DÉTAILS TECHNIQUES
             Spécifications des matériaux utilisés
             ============================================ */}
-        <section className="py-12 bg-gray-50">
+        <section className="py-16 md:py-24 bg-gray-50">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h3 className="text-xl font-bold text-slate-900 mb-6 flex items-center">
+            <h3 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-6 flex items-center">
               <svg
                 className="w-6 h-6 mr-2 text-brand-blue"
                 fill="none"
@@ -692,7 +692,7 @@ export default function PageFicheProjet() {
             ============================================ */}
         <section className="py-16 bg-white">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-3xl font-bold text-slate-900 mb-8 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-8 text-center">
               Le Résultat en images
             </h2>
 
@@ -749,9 +749,9 @@ export default function PageFicheProjet() {
             SECTION 7 : MAILLAGE INTERNE
             Projets similaires pour garder l'utilisateur sur le site
             ============================================ */}
-        <section className="py-12 bg-gray-50 border-t border-gray-200">
+        <section className="py-16 md:py-24 bg-gray-50 border-t border-gray-200">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h3 className="text-xl font-bold text-slate-900 mb-6">
+            <h3 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-6">
               Projets similaires en Alsace
             </h3>
 
@@ -800,7 +800,7 @@ export default function PageFicheProjet() {
             ZONE DE RÉASSURANCE AVANT FOOTER
             CTA final avec certifications
             ============================================ */}
-        <section className="relative bg-slate-900 py-12 text-white overflow-hidden">
+        <section className="relative bg-slate-900 py-16 md:py-24 text-white overflow-hidden">
           {/* Animation 3D GridScan en arrière-plan */}
           <div className="absolute inset-0">
             <GridScan
@@ -821,7 +821,7 @@ export default function PageFicheProjet() {
             <div className="absolute inset-0 bg-gradient-to-r from-slate-900 via-slate-900/70 to-slate-900/40" />
           </div>
           <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-            <h2 className="text-2xl font-bold mb-8">
+            <h2 className="text-3xl md:text-4xl font-bold mb-8">
               Un projet de rénovation en Alsace ?
             </h2>
 
@@ -846,7 +846,7 @@ export default function PageFicheProjet() {
             {/* Bouton CTA principal */}
             <Link
               href="/contact"
-              className="inline-block bg-brand-orange hover:bg-orange-500 text-white font-bold py-4 px-10 rounded shadow-lg text-lg transition transform hover:scale-105"
+              className="inline-block bg-brand-orange-dark hover:bg-brand-orange text-white font-bold py-4 px-10 rounded shadow-lg text-lg transition transform hover:scale-105"
             >
               Demander une estimation gratuite
             </Link>
@@ -890,7 +890,7 @@ export default function PageFicheProjet() {
         <Button
           asChild
           size="lg"
-          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
+          className="flex-1 bg-brand-orange-dark hover:bg-brand-orange text-white font-bold shadow-md"
         >
           <Link href="/contact">Devis Gratuit</Link>
         </Button>

@@ -62,7 +62,7 @@ export default function ServiceFAQSection({
               <AccordionTrigger
                 className={`text-left font-semibold ${
                   variant === "blue"
-                    ? "text-white hover:text-blue-100"
+                    ? "text-white hover:text-white/90"
                     : "text-slate-800"
                 }`}
               >
@@ -70,7 +70,7 @@ export default function ServiceFAQSection({
               </AccordionTrigger>
               <AccordionContent
                 className={`text-sm leading-relaxed ${
-                  variant === "blue" ? "text-blue-100" : "text-gray-600"
+                  variant === "blue" ? "text-white/90" : "text-gray-600"
                 }`}
               >
                 {item.reponse}

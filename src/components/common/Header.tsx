@@ -80,7 +80,10 @@ function Logo({
 }: LogoProps) {
   const config = sizeConfig[size];
   
-  /* Rendu du symbole SVG */
+  /* Rendu du symbole SVG
+     Note : Les couleurs hex (#1e3a5f = brand-blue, #f97316 = brand-orange) sont
+     en dur car les SVG inline ne peuvent pas utiliser de variables CSS.
+     Ces valeurs doivent rester synchronisées avec globals.css. */
   const renderIcon = () => (
     <svg
       className={`${config.icon} flex-shrink-0 transition-transform duration-200 group-hover:rotate-3`}
@@ -90,19 +93,19 @@ function Logo({
       aria-hidden="true"
     >
       {/* Forme géométrique représentant un bâtiment/structure moderne */}
-      {/* Carré principal (bleu) */}
+      {/* Carré principal (bleu = #1e3a5f = brand-blue) */}
       <rect x="4" y="12" width="16" height="16" rx="2" fill="#1e3a5f" />
       
-      {/* Rectangle supérieur (orange) */}
+      {/* Rectangle supérieur (orange = #f97316 = brand-orange) */}
       <rect x="20" y="8" width="16" height="12" rx="2" fill="#f97316" />
       
-      {/* Rectangle inférieur droit (bleu) */}
+      {/* Rectangle inférieur droit (bleu = brand-blue) */}
       <rect x="20" y="24" width="12" height="8" rx="2" fill="#1e3a5f" />
       
-      {/* Rectangle inférieur gauche (orange) */}
+      {/* Rectangle inférieur gauche (orange = brand-orange) */}
       <rect x="8" y="28" width="8" height="8" rx="2" fill="#f97316" />
       
-      {/* Ligne horizontale (sépare les blocs) */}
+      {/* Ligne horizontale (sépare les blocs, bleu = brand-blue) */}
       <line x1="4" y1="20" x2="36" y2="20" stroke="#1e3a5f" strokeWidth="1.5" />
     </svg>
   );
@@ -157,7 +160,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
   const [menuOpen, setMenuOpen] = useState(false);
 
   return (
-    <header className="fixed w-full top-0 z-50 bg-gradient-to-r from-blue-50 via-white to-orange-50 shadow-lg backdrop-blur-sm header-gradient-border overflow-hidden">
+    <header className="fixed w-full top-0 z-50 bg-gradient-to-r from-gray-50 via-white to-brand-orange/5 shadow-lg backdrop-blur-sm header-gradient-border overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex justify-between items-center h-16 md:h-20 gap-4 md:gap-8">
           {/* Logo AR+SOLUTION - lien vers l'accueil */}
@@ -292,13 +295,13 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               </a>
             </Button>
 
-            {/* Bouton CTA principal - Demander un devis */}
+            {/* Bouton CTA principal - Demander un devis gratuit */}
             <Button
               asChild
               className="bg-brand-orange-dark hover:bg-brand-orange text-white shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] active:scale-100 will-change-transform"
             >
               <Link href={ctaHref} aria-label="Demander un devis gratuit">
-                Demander un devis
+                Demander un devis gratuit
               </Link>
             </Button>
           </div>
@@ -346,7 +349,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
 
       {/* Menu mobile déroulant avec animation */}
       <div
-        className={`md:hidden bg-gradient-to-r from-blue-50/95 via-white/95 to-orange-50/95 backdrop-blur-md border-t border-gray-200 shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${
+        className={`md:hidden bg-gradient-to-r from-gray-50/95 via-white/95 to-brand-orange/5 backdrop-blur-md border-t border-gray-200 shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${
           menuOpen
             ? "max-h-[600px] opacity-100"
             : "max-h-0 opacity-0 pointer-events-none"
@@ -375,7 +378,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
                 onClick={() => setMenuOpen(false)}
                 className={`transition-colors duration-200 ease-out ${
                   pageActive === "services"
-                    ? "font-bold text-brand-orange-dark bg-orange-50"
+                    ? "font-bold text-brand-orange-dark bg-brand-orange/5"
                     : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
                 }`}
               >
@@ -402,7 +405,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
                 onClick={() => setMenuOpen(false)}
                 className={`transition-colors duration-200 ease-out ${
                   pageActive === "realisations"
-                    ? "font-bold text-brand-orange-dark bg-orange-50"
+                    ? "font-bold text-brand-orange-dark bg-brand-orange/5"
                     : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
                 }`}
               >
@@ -429,7 +432,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
                 onClick={() => setMenuOpen(false)}
                 className={`transition-colors duration-200 ease-out ${
                   pageActive === "marches-publics"
-                    ? "font-bold text-brand-orange-dark bg-orange-50"
+                    ? "font-bold text-brand-orange-dark bg-brand-orange/5"
                     : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
                 }`}
               >
@@ -456,7 +459,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
                 onClick={() => setMenuOpen(false)}
                 className={`transition-colors duration-200 ease-out ${
                   pageActive === "a-propos"
-                    ? "font-bold text-brand-orange-dark bg-orange-50"
+                    ? "font-bold text-brand-orange-dark bg-brand-orange/5"
                     : "text-gray-700 hover:text-brand-orange hover:bg-gray-50"
                 }`}
               >
@@ -510,7 +513,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               </a>
             </Button>
 
-            {/* Bouton CTA - Demander un devis */}
+            {/* Bouton CTA - Demander un devis gratuit */}
             <Button
               asChild
               className={`w-full py-3 px-4 bg-brand-orange-dark hover:bg-brand-orange text-white shadow-lg hover:shadow-2xl transition-all duration-300 ease-out hover:scale-[1.02] active:scale-100 will-change-transform ${
@@ -523,7 +526,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
               }}
             >
               <Link href={ctaHref} onClick={() => setMenuOpen(false)} aria-label="Demander un devis gratuit">
-                Demander un devis
+                Demander un devis gratuit
               </Link>
             </Button>
           </nav>

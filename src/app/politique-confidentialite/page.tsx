@@ -33,6 +33,7 @@ export const metadata: Metadata = {
   title: "Politique de Confidentialité - AR+SOLUTION | Protection des Données",
   description:
     "Politique de confidentialité et gestion des données personnelles. Transparence totale sur l'usage de vos données pour vos projets de rénovation en Alsace. RGPD.",
+  alternates: { canonical: "https://ar-solution.fr/politique-confidentialite" },
 };
 
 /* ============================================
@@ -112,7 +113,7 @@ const dureesConservation = [
     duree: "10 ans",
     couleur: "blue",
     description:
-      "Pour les clients facturés, conformément à nos obligations légales et à la garantie décennale en vigueur dans le BTP.",
+      "Pour les clients facturés, conformément à nos obligations légales et à la Garantie Décennale en vigueur dans le BTP.",
   },
 ];
 
@@ -168,9 +169,9 @@ export default function PagePolitiqueConfidentialite() {
                     <div
                       className={`w-12 h-12 rounded-lg flex items-center justify-center mb-4 ${
                         point.couleur === "blue"
-                          ? "bg-blue-100 text-brand-blue"
+                          ? "bg-brand-blue/10 text-brand-blue"
                           : point.couleur === "orange"
-                          ? "bg-orange-100 text-brand-orange"
+                          ? "bg-brand-orange/10 text-brand-orange"
                           : "bg-green-100 text-green-600"
                       }`}
                     >
@@ -228,7 +229,7 @@ export default function PagePolitiqueConfidentialite() {
                     </div>
 
                     {/* Titre et description */}
-                    <h3 className="font-bold text-slate-900 text-lg mb-2">
+                    <h3 className="font-semibold text-slate-900 text-2xl md:text-3xl mb-2">
                       {point.titre}
                     </h3>
                     <p className="text-sm text-slate-500 leading-relaxed">
@@ -262,7 +263,7 @@ export default function PagePolitiqueConfidentialite() {
                     <a
                       key={item.id}
                       href={`#${item.id}`}
-                      className="block px-3 py-2 text-sm font-medium text-slate-600 hover:bg-blue-50 hover:text-brand-blue rounded-md transition"
+                      className="block px-3 py-2 text-sm font-medium text-slate-600 hover:bg-brand-blue/5 hover:text-brand-blue rounded-md transition"
                     >
                       {item.numero}. {item.titre}
                     </a>
@@ -283,8 +284,8 @@ export default function PagePolitiqueConfidentialite() {
                   className="scroll-mt-28"
                 >
                   <CardContent className="p-8">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                    <span className="bg-blue-100 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 flex items-center">
+                    <span className="bg-brand-blue/10 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
                       01
                     </span>
                     Qui est responsable de vos données ?
@@ -335,8 +336,8 @@ export default function PagePolitiqueConfidentialite() {
                     Tableau des données collectées et leur usage
                     ============================================ */}
                 <section id="collecte" className="scroll-mt-28">
-                  <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                    <span className="bg-blue-100 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
+                  <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 flex items-center">
+                    <span className="bg-brand-blue/10 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
                       02
                     </span>
                     Quelles données collectons-nous et pourquoi ?
@@ -391,7 +392,7 @@ export default function PagePolitiqueConfidentialite() {
                   </div>
 
                   {/* Note sur la base légale */}
-                  <div className="mt-4 flex items-start gap-3 p-4 bg-blue-50 text-brand-blue rounded-md text-sm">
+                  <div className="mt-4 flex items-start gap-3 p-4 bg-brand-blue/5 text-brand-blue rounded-md text-sm">
                     <svg
                       className="w-5 h-5 shrink-0 mt-0.5"
                       fill="none"
@@ -418,8 +419,8 @@ export default function PagePolitiqueConfidentialite() {
                     Destinataires et durées de conservation
                     ============================================ */}
                 <section id="partage" className="scroll-mt-28">
-                  <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                    <span className="bg-blue-100 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
+                  <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 flex items-center">
+                    <span className="bg-brand-blue/10 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
                       03
                     </span>
                     Qui a accès à vos données et combien de temps ?
@@ -478,8 +479,8 @@ export default function PagePolitiqueConfidentialite() {
                     Gestion des cookies et mesures de sécurité
                     ============================================ */}
                 <section id="cookies" className="scroll-mt-28">
-                  <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                    <span className="bg-blue-100 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
+                  <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 flex items-center">
+                    <span className="bg-brand-blue/10 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
                       04
                     </span>
                     Cookies et Sécurité
@@ -517,11 +518,11 @@ export default function PagePolitiqueConfidentialite() {
                     ============================================ */}
                 <Card
                   id="droits"
-                  className="bg-blue-50 border-blue-100 scroll-mt-28"
+                  className="bg-brand-blue/5 border-brand-blue/10 scroll-mt-28"
                 >
                   <CardContent className="p-8">
-                    <h2 className="text-2xl font-bold text-slate-900 mb-6 flex items-center">
-                    <span className="bg-blue-200 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
+                    <h2 className="text-3xl md:text-4xl font-bold text-slate-900 mb-6 flex items-center">
+                    <span className="bg-brand-blue/15 text-brand-blue text-sm font-bold px-2.5 py-0.5 rounded mr-3">
                       05
                     </span>
                     Vos droits sur vos données
@@ -550,7 +551,7 @@ export default function PagePolitiqueConfidentialite() {
                       Comment exercer ces droits ?
                     </h3>
                     <p className="text-slate-600 text-sm mb-4">
-                      Contactez-nous simplement, nous nous engageons à vous
+                      N'hésitez pas à nous contacter, nous nous engageons à vous
                       répondre sous <strong>1 mois maximum</strong>.
                     </p>
 
@@ -558,7 +559,7 @@ export default function PagePolitiqueConfidentialite() {
                     <div className="flex flex-col md:flex-row gap-4">
                       <a
                         href="mailto:contact@ar-solution.fr"
-                        className="flex items-center justify-center px-4 py-2 border border-brand-blue text-brand-blue rounded font-bold hover:bg-blue-50 transition"
+                        className="flex items-center justify-center px-4 py-2 border border-brand-blue text-brand-blue rounded font-bold hover:bg-brand-blue/5 transition"
                       >
                         <svg
                           className="w-4 h-4 mr-2"
@@ -642,7 +643,7 @@ export default function PagePolitiqueConfidentialite() {
         <Button
           asChild
           size="lg"
-          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
+          className="flex-1 bg-brand-orange-dark hover:bg-brand-orange text-white font-bold shadow-md"
         >
           <Link href="/contact">Devis Gratuit</Link>
         </Button>

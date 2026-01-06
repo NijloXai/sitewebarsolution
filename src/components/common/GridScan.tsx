@@ -289,6 +289,14 @@ void main(){
 }
 `;
 
+/*
+  Note sur les couleurs hex en dur :
+  Les valeurs #1e3a5f (brand-blue) et #f97316 (brand-orange) sont identiques aux
+  variables CSS définies dans globals.css. Elles doivent être en dur ici car les
+  shaders WebGL n'ont pas accès aux variables CSS. Toute modification de la palette
+  doit être synchronisée manuellement ici.
+*/
+
 /* Types des propriétés du composant GridScan */
 interface GridScanProps {
   enableWebcam?: boolean;

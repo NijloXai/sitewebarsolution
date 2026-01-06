@@ -18,7 +18,7 @@ import GridScan from "@/components/common/GridScan";
 
 export default function Footer() {
   return (
-    <footer className="relative bg-slate-900 text-slate-300 py-12 pb-24 md:pb-12 overflow-hidden">
+    <footer className="relative bg-slate-900 text-slate-300 py-16 md:py-24 overflow-hidden">
       {/* Animation 3D GridScan en arrière-plan avec les mêmes paramètres que le hero */}
       <div className="absolute inset-0 z-0">
         <div className="absolute inset-0 z-0 w-full h-full">

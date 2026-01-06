@@ -64,7 +64,7 @@ export const services = [
     titre: "Plâtrerie",
     accroche: "Redistribuez vos volumes sans gros œuvre.",
     tag: "TECHNIQUE",
-    tagColor: "bg-blue-600",
+    tagColor: "bg-brand-blue",
     image: "https://images.unsplash.com/photo-1628177142898-93e36e4e3a50?w=600&h=400&fit=crop",
     imageAlt: "Travaux de plâtrerie et création de cloisons",
     prestations: ["Cloisons sèches", "Faux-plafonds", "Doublage murs"],

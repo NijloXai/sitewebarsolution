@@ -127,6 +127,30 @@ function StructuredData() {
     }
   };
 
+  // Schema WebSite avec SearchAction (recommandé par Google pour les sites avec recherche)
+  const webSiteSchema = {
+    "@context": "https://schema.org",
+    "@type": "WebSite",
+    "name": "AR+SOLUTION",
+    "alternateName": "AR+ Solution Strasbourg",
+    "url": baseUrl,
+    "description": "Expert en rénovation intérieure, plâtrerie, isolation et finitions à Strasbourg et en Alsace. Certifié RGE Qualibat.",
+    "publisher": {
+      "@type": "Organization",
+      "name": "AR+SOLUTION",
+      "@id": `${baseUrl}#organization`
+    },
+    "potentialAction": {
+      "@type": "SearchAction",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": `${baseUrl}/recherche?q={search_term_string}`
+      },
+      "query-input": "required name=search_term_string"
+    },
+    "inLanguage": "fr-FR"
+  };
+
   // Schema LocalBusiness
   const localBusinessSchema = {
     "@context": "https://schema.org",
@@ -234,6 +258,10 @@ function StructuredData() {
       />
       <script
         type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(webSiteSchema) }}
+      />
+      <script
+        type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(localBusinessSchema) }}
       />
       {servicesSchema.map((schema, index) => (
@@ -263,7 +291,7 @@ function StructuredData() {
 const getCouleurClasses = (type: string) => {
   const classes = {
     green: "bg-green-50 text-green-600 border-green-200",
-    blue: "bg-blue-50 text-blue-600 border-blue-200",
+    blue: "bg-brand-blue/5 text-brand-blue border-brand-blue/20",
     amber: "bg-amber-50 text-amber-600 border-amber-200",
     purple: "bg-purple-50 text-purple-600 border-purple-200",
   };
@@ -375,7 +403,7 @@ export default function PageAccueil() {
           </div>
 
           {/* Contenu du hero */}
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
             <div className="max-w-2xl">
               {/* Badges de localisation et certifications */}
               <div className="flex items-center gap-3 mb-6 flex-wrap">
@@ -439,11 +467,11 @@ export default function PageAccueil() {
             ENTRÉES PAR PROFILS - Le triage des visiteurs
             3 cartes permettant aux visiteurs de s'identifier (Marchés Publics, Pros, Particuliers)
             ============================================ */}
-        <section className="py-20 md:py-28 bg-white" id="profils">
+        <section className="py-16 md:py-24 bg-white" id="profils">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Titre de la section */}
-            <div className="text-center mb-16 md:mb-20">
-              <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-5 md:mb-6">
+            <div className="text-center mb-12 md:mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-4 md:mb-6">
                 À qui s&apos;adresse notre expertise ?
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
@@ -457,7 +485,7 @@ export default function PageAccueil() {
               {profilsClients.map((profil) => (
                 <Card
                   key={profil.id}
-                  className="group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-500 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange/50 bg-white pt-0"
+                  className="group relative overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-500 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange/50 bg-white pt-0"
                   style={{
                     boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
                   }}
@@ -510,16 +538,16 @@ export default function PageAccueil() {
             Présente les services principaux avec liens vers les pages détaillées
             ============================================ */}
         <section 
-          className="py-16 sm:py-20 md:py-24 bg-gray-100" 
+          className="py-16 md:py-24 bg-gray-100" 
           id="services"
           aria-labelledby="services-title"
         >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Titre de la section */}
-            <div className="text-center mb-12 sm:mb-16 md:mb-20">
+            <div className="text-center mb-12 sm:mb-14 md:mb-16">
               <h2 
                 id="services-title"
-                className="text-2xl sm:text-3xl md:text-4xl lg:text-5xl font-bold text-brand-blue mb-4 sm:mb-5 md:mb-6"
+                className="text-3xl md:text-4xl font-bold text-brand-blue mb-4 md:mb-6"
               >
                 Nos domaines d&apos;intervention en Alsace
               </h2>
@@ -538,7 +566,7 @@ export default function PageAccueil() {
                 <Card
                   key={service.id}
                   role="listitem"
-                  className="group relative overflow-hidden shadow-lg hover:shadow-2xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white pt-0 h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none"
+                  className="group relative overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-300 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange bg-white pt-0 h-full motion-safe:hover:-translate-y-2 motion-safe:hover:scale-[1.02] motion-reduce:transition-none"
                   style={{
                     boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
                   }}
@@ -644,7 +672,7 @@ export default function PageAccueil() {
             Montre un exemple de réalisation avec comparaison avant/après
             Le visiteur peut basculer entre les images Avant et Après
             ============================================ */}
-        <section className="py-12 sm:py-14 md:py-16 lg:py-20 bg-white" id="realisations">
+        <section className="py-16 md:py-24 bg-white" id="realisations">
           <div className="max-w-7xl mx-auto px-4 sm:px-5 md:px-6 lg:px-8">
             {/* En-tête de la section */}
             <div className="text-center md:text-left mb-8 sm:mb-10 md:mb-12 lg:mb-16">
@@ -706,7 +734,7 @@ export default function PageAccueil() {
             POURQUOI NOUS + MÉTHODE
             Section en 2 colonnes : arguments de différenciation à gauche, méthode de travail à droite
             ============================================ */}
-        <section className="py-12 md:py-16 lg:py-20 bg-gray-50 overflow-hidden" id="pourquoi-choisir" aria-labelledby="pourquoi-choisir-title">
+        <section className="py-16 md:py-24 bg-gray-50 overflow-hidden" id="pourquoi-choisir" aria-labelledby="pourquoi-choisir-title">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-12 lg:gap-16 items-start">
               {/* Colonne gauche : Pourquoi nous choisir */}
@@ -829,11 +857,11 @@ export default function PageAccueil() {
             Section mise en avant pour les acheteurs publics avec documents disponibles
             ============================================ */}
         <section
-          className="py-16 sm:py-20 md:py-24 lg:py-28 bg-brand-blue text-white relative overflow-hidden"
+          className="py-16 md:py-24 bg-brand-blue text-white relative overflow-hidden"
           id="marches-publics"
         >
           {/* Gradient animé en arrière-plan pour effet de profondeur */}
-          <div className="absolute inset-0 bg-gradient-to-br from-blue-900/20 via-transparent to-blue-800/20 opacity-0 hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
+          <div className="absolute inset-0 bg-gradient-to-br from-brand-blue-dark/20 via-transparent to-brand-blue-dark/20 opacity-0 hover:opacity-100 transition-opacity duration-1000 pointer-events-none" />
           
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-8 md:gap-10 lg:gap-12 xl:gap-16 items-start lg:items-center">
@@ -842,7 +870,7 @@ export default function PageAccueil() {
                 {/* Badge "Espace Collectivités" */}
                 <Badge
                   variant="outline"
-                  className="inline-flex items-center gap-2 bg-gradient-to-r from-blue-700/90 to-blue-800/90 text-blue-50 border-blue-500/50 text-xs sm:text-sm font-bold px-4 sm:px-5 py-2 sm:py-2.5 rounded-full uppercase tracking-wider shadow-lg shadow-blue-900/30 backdrop-blur-sm hover:shadow-xl hover:shadow-blue-900/40 hover:scale-105 hover:border-blue-400/70 transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 focus-visible:ring-offset-blue-900 group/badge"
+                  className="inline-flex items-center gap-2 bg-gradient-to-r from-brand-blue-light/90 to-brand-blue/90 text-white/90 border-brand-blue-light/50 text-xs sm:text-sm font-bold px-4 sm:px-5 py-2 sm:py-2.5 rounded-full uppercase tracking-wider shadow-lg shadow-brand-blue-dark/30 backdrop-blur-sm hover:shadow-xl hover:shadow-brand-blue-dark/40 hover:scale-105 hover:border-brand-blue-light/70 transition-all duration-300 ease-out focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange focus-visible:ring-offset-2 focus-visible:ring-offset-brand-blue-dark group/badge"
                 >
                   <svg
                     className="w-4 h-4 sm:w-5 sm:h-5 transition-transform duration-300 group-hover/badge:rotate-12 group-hover/badge:scale-110"
@@ -863,12 +891,12 @@ export default function PageAccueil() {
                 
                 {/* Titre principal */}
                 <div className="space-y-4 md:space-y-6">
-                  <h2 className="text-3xl sm:text-4xl md:text-5xl lg:text-4xl xl:text-5xl font-bold leading-tight tracking-tight text-white">
+                  <h2 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight text-white">
                     Acheteurs Publics : un partenaire conforme et réactif.
                   </h2>
                   
                   {/* Description */}
-                  <p className="text-blue-50 sm:text-blue-100 text-base sm:text-lg md:text-xl leading-relaxed tracking-normal max-w-2xl">
+                  <p className="text-white/80 text-base md:text-lg leading-relaxed tracking-normal max-w-2xl">
                     Nous connaissons vos contraintes. AR+SOLUTION structure ses
                     offres pour répondre aux exigences des marchés publics
                     (Écoles, Mairies, Bâtiments administratifs).
@@ -938,12 +966,12 @@ export default function PageAccueil() {
               </div>
 
               {/* Grille des documents disponibles */}
-              <div className="bg-blue-800/50 p-6 sm:p-8 md:p-10 lg:p-12 rounded-xl border border-blue-700 shadow-2xl backdrop-blur-sm">
+              <div className="bg-brand-blue-dark/50 p-6 sm:p-8 md:p-10 lg:p-12 rounded-xl border border-brand-blue-light/30 shadow-2xl backdrop-blur-sm">
                 <div className="grid grid-cols-2 gap-4 md:gap-5 lg:gap-6">
                   {documentsMarchesPublics.map((doc, index) => (
                     <Card
                       key={doc.titre}
-                      className="group relative bg-gradient-to-br from-brand-blue via-blue-700 to-brand-blue border-2 border-blue-600/60 flex flex-col items-center text-center overflow-hidden cursor-pointer focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 focus-within:ring-offset-blue-800"
+                      className="group relative bg-gradient-to-br from-brand-blue via-brand-blue-light to-brand-blue border-2 border-brand-blue-light/60 flex flex-col items-center text-center overflow-hidden cursor-pointer focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 focus-within:ring-offset-brand-blue-dark"
                       style={{
                         boxShadow: '0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -1px rgba(0, 0, 0, 0.06)',
                         animationDelay: `${index * 100}ms`,
@@ -958,7 +986,7 @@ export default function PageAccueil() {
                       
                       <CardContent className="p-4 md:p-5 lg:p-6 relative z-10 w-full">
                         {/* Icône document */}
-                        <div className="mb-3 md:mb-4 text-blue-200 flex justify-center group-focus-within:scale-110 group-focus-within:text-brand-orange">
+                        <div className="mb-3 md:mb-4 text-white/70 flex justify-center group-focus-within:scale-110 group-focus-within:text-brand-orange">
                           <div className="relative">
                             <div className="group-focus-within:rotate-6">
                               {getDocumentIcon(doc.titre, "w-10 h-10 md:w-12 md:h-12")}
@@ -1040,12 +1068,12 @@ export default function PageAccueil() {
             AVIS CLIENTS + ZONE D'INTERVENTION
             Section en 2 colonnes : avis Google à gauche, carte zone à droite (SEO local)
             ============================================ */}
-        <section className="py-16 bg-white" id="avis" role="region" aria-labelledby="avis-title">
+        <section className="py-16 md:py-24 bg-white" id="avis" role="region" aria-labelledby="avis-title">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               {/* Colonne gauche : Avis Google */}
               <div>
-                <h2 id="avis-title" className="text-2xl font-bold text-brand-blue mb-6">
+                <h2 id="avis-title" className="text-3xl md:text-4xl font-bold text-brand-blue mb-6">
                   Ce que disent nos clients
                 </h2>
                 <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
@@ -1151,7 +1179,7 @@ export default function PageAccueil() {
                   <div className="text-center mt-6">
                     <a
                       href="#avis"
-                      className="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm text-brand-blue font-semibold hover:text-brand-orange-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange-dark focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50 rounded-md transition-all duration-300 hover:bg-orange-50 focus-visible:bg-orange-50 underline decoration-2 underline-offset-2 group/link"
+                      className="inline-flex items-center justify-center gap-2 px-4 py-2 text-sm text-brand-blue font-semibold hover:text-brand-orange-dark focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-brand-orange-dark focus-visible:ring-offset-2 focus-visible:ring-offset-gray-50 rounded-md transition-all duration-300 hover:bg-brand-orange/5 focus-visible:bg-brand-orange/5 underline decoration-2 underline-offset-2 group/link"
                       aria-label="Voir tous les avis clients sur Google Avis"
                       aria-describedby="avis-description"
                     >
@@ -1178,10 +1206,10 @@ export default function PageAccueil() {
 
               {/* Colonne droite : Zone d'intervention */}
               <div>
-                <h2 className="text-2xl font-bold text-brand-blue mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-6">
                   Zone d&apos;intervention
                 </h2>
-                <div className="bg-blue-50 p-6 rounded-xl border border-blue-100 h-full">
+                <div className="bg-brand-blue/5 p-6 rounded-xl border border-brand-blue/10 h-full">
                   <p className="text-gray-700 mb-4">
                     Basée à <strong>Strasbourg</strong>, notre équipe intervient
                     dans tout le <strong>Bas-Rhin (67)</strong> pour vos projets
@@ -1216,11 +1244,11 @@ export default function PageAccueil() {
             FAQ + FORMULAIRE DE CONTACT
             FAQ accordéon puis formulaire de demande de devis
             ============================================ */}
-        <section className="py-16 bg-gray-100" id="contact">
+        <section className="py-16 md:py-24 bg-gray-100" id="contact">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* FAQ Accordéon - Répond aux questions courantes avant le formulaire */}
-            <div className="mb-16">
-              <h2 className="text-2xl font-bold text-brand-blue mb-6 text-center">
+            <div className="mb-12 md:mb-16">
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-6 text-center">
                 Questions Fréquentes
               </h2>
 

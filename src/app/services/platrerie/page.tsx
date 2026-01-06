@@ -157,7 +157,7 @@ const profilsClients = [
     ],
     image: "https://images.unsplash.com/photo-1586023492125-27b2c045efd7?w=600&h=400&fit=crop&q=80",
     lien: "#devis",
-    lienTexte: "Demander un devis rénovation",
+    lienTexte: "Demander un devis gratuit",
   },
 ];
 
@@ -319,9 +319,9 @@ export default function PageServicePlatrerie() {
                     <div
                       className={`w-10 h-10 mb-4 rounded-full flex items-center justify-center ${
                         profil.id === "public"
-                          ? "bg-blue-100 text-brand-blue"
+                          ? "bg-brand-blue/10 text-brand-blue"
                           : profil.id === "pro"
-                          ? "bg-orange-100 text-brand-orange"
+                          ? "bg-brand-orange/10 text-brand-orange"
                           : "bg-gray-100 text-gray-600"
                       }`}
                     >

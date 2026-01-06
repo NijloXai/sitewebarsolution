@@ -37,6 +37,40 @@ export const metadata: Metadata = {
   title: "À Propos - AR+SOLUTION | Rénovation & Aménagement Intérieur Strasbourg",
   description:
     "Entreprise de rénovation intérieure à Strasbourg depuis 2006. Expert en plâtrerie, isolation et aménagement pour marchés publics et particuliers. Certifié RGE.",
+  keywords: [
+    "entreprise rénovation Strasbourg",
+    "plâtrerie depuis 2006",
+    "artisan RGE Alsace",
+    "équipe rénovation Bas-Rhin",
+    "histoire AR+SOLUTION",
+  ],
+  openGraph: {
+    title: "À Propos - AR+SOLUTION | Rénovation Strasbourg",
+    description:
+      "Depuis 2006, AR+SOLUTION accompagne particuliers et collectivités en Alsace pour leurs travaux de plâtrerie, isolation et aménagement intérieur.",
+    url: "https://ar-solution.fr/a-propos",
+    siteName: "AR+SOLUTION",
+    locale: "fr_FR",
+    type: "website",
+    images: [
+      {
+        url: "https://ar-solution.fr/og-about.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Équipe AR+SOLUTION - Rénovation intérieure à Strasbourg depuis 2006",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "À Propos - AR+SOLUTION | Rénovation Strasbourg",
+    description:
+      "Depuis 2006, AR+SOLUTION accompagne particuliers et collectivités en Alsace pour leurs travaux de plâtrerie, isolation et aménagement intérieur.",
+    images: ["https://ar-solution.fr/og-about.jpg"],
+  },
+  alternates: {
+    canonical: "https://ar-solution.fr/a-propos",
+  },
 };
 
 /* ============================================
@@ -324,7 +358,7 @@ export default function PageAPropos() {
           </div>
 
           {/* Contenu du hero */}
-          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40">
+          <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24">
             <div className="max-w-3xl text-center mx-auto">
               {/* Badges de réassurance */}
               <div className="flex justify-center gap-4 mb-6 flex-wrap">
@@ -340,7 +374,7 @@ export default function PageAPropos() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                 Aménagement intérieur & Isolation{" "}
                 <br className="hidden md:block" />à{" "}
-                <span className="text-brand-orange">Strasbourg & en Alsace</span>
+                <span className="text-brand-orange">Strasbourg et toute l'Alsace</span>
               </h1>
 
               {/* Sous-titre */}
@@ -352,8 +386,8 @@ export default function PageAPropos() {
 
               {/* Boutons d'action principaux */}
               <div className="flex flex-col md:flex-row gap-4 justify-center items-center">
-                <Button asChild size="lg" className="bg-brand-orange hover:bg-brand-orange-dark text-white shadow-lg">
-                  <Link href="/contact">Demander mon devis</Link>
+                <Button asChild size="lg" className="bg-brand-orange-dark hover:bg-brand-orange text-white shadow-lg">
+                  <Link href="/contact">Demander un devis gratuit</Link>
                 </Button>
                 <Button asChild variant="outline" size="lg" className="border-2 border-white hover:bg-white hover:text-brand-blue text-white">
                   <Link href="/marches-publics">Espace Marchés Publics</Link>
@@ -375,7 +409,7 @@ export default function PageAPropos() {
                 <span className="text-sm font-bold text-brand-blue uppercase tracking-wide mb-2 block">
                   Notre Histoire
                 </span>
-                <h2 className="text-3xl font-bold text-brand-blue mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-6">
                   Expert en second œuvre depuis 2006
                 </h2>
                 <p className="text-gray-600 mb-4 leading-relaxed">
@@ -442,7 +476,7 @@ export default function PageAPropos() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* En-tête de la section */}
             <div className="text-center max-w-3xl mx-auto mb-12">
-              <h2 className="text-3xl font-bold text-brand-blue mb-4">
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-4">
                 Pourquoi choisir un expert global plutôt que 3 artisans ?
               </h2>
               <p className="text-gray-600">
@@ -470,10 +504,10 @@ export default function PageAPropos() {
                   <div
                     className={`w-12 h-12 rounded-full flex items-center justify-center mb-6 ${
                       expertise.iconeColor === "orange"
-                        ? "bg-orange-100 text-brand-orange"
+                        ? "bg-brand-orange/10 text-brand-orange"
                         : expertise.iconeColor === "green"
                         ? "bg-green-100 text-green-600"
-                        : "bg-blue-100 text-brand-blue"
+                        : "bg-brand-blue/10 text-brand-blue"
                     }`}
                   >
                     {expertise.iconeColor === "orange" ? (
@@ -572,7 +606,7 @@ export default function PageAPropos() {
                   Priorité Business
                 </div>
 
-                <h3 className="text-2xl font-bold text-brand-blue mb-6 mt-2">
+                <h3 className="text-2xl md:text-3xl font-semibold text-brand-blue mb-6 mt-2">
                   Collectivités & Marchés Publics
                 </h3>
                 <p className="text-gray-600 mb-6">
@@ -602,7 +636,7 @@ export default function PageAPropos() {
                 {/* CTA email */}
                 <a
                   href="mailto:contact@ar-solution.fr"
-                  className="inline-block w-full text-center bg-brand-blue hover:bg-blue-800 text-white font-bold py-3 px-6 rounded transition"
+                  className="inline-block w-full text-center bg-brand-blue hover:bg-brand-blue text-white font-bold py-3 px-6 rounded transition"
                 >
                   Contacter le service Appels d&apos;Offres
                 </a>
@@ -610,7 +644,7 @@ export default function PageAPropos() {
 
               {/* Bloc 2 : Particuliers & Copro */}
               <div className="p-4 md:p-8">
-                <h3 className="text-2xl font-bold text-brand-blue mb-4">
+                <h3 className="text-2xl md:text-3xl font-semibold text-brand-blue mb-4">
                   Particuliers & Copropriétés
                 </h3>
                 <p className="text-gray-600 mb-6">
@@ -620,7 +654,7 @@ export default function PageAPropos() {
                 </p>
 
                 {/* Liste des points forts */}
-                <div className="space-y-4 border-l-4 border-brand-orange pl-6 py-2 bg-orange-50/50 rounded-r-lg">
+                <div className="space-y-4 border-l-4 border-brand-orange pl-6 py-2 bg-brand-orange/5 rounded-r-lg">
                   {avantagesParticuliers.map((avantage) => (
                     <p key={avantage.numero} className="text-gray-800">
                       <strong>
@@ -669,7 +703,7 @@ export default function PageAPropos() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* En-tête */}
             <div className="text-center mb-12">
-              <h2 className="text-3xl font-bold text-brand-blue">
+              <h2 className="text-3xl md:text-4xl font-bold text-brand-blue">
                 Notre Méthode d&apos;Intervention
               </h2>
               <p className="text-gray-500 mt-2">
@@ -713,16 +747,16 @@ export default function PageAPropos() {
             {/* En-tête avec titre et lien */}
             <div className="flex flex-col md:flex-row justify-between items-end mb-10">
               <div>
-                <h2 className="text-3xl font-bold mb-2">
+                <h2 className="text-3xl md:text-4xl font-bold mb-2">
                   Transformations réalisées en Alsace
                 </h2>
-                <p className="text-blue-200">
+                <p className="text-white/80">
                   Rénovation de bureaux, combles et habitats.
                 </p>
               </div>
               <Link
                 href="/realisations"
-                className="mt-4 md:mt-0 px-6 py-2 border border-blue-400 rounded hover:bg-white hover:text-brand-blue transition text-sm"
+                className="mt-4 md:mt-0 px-6 py-2 border border-white/40 rounded hover:bg-white hover:text-brand-blue transition text-sm"
               >
                 Voir tout le portfolio
               </Link>
@@ -744,14 +778,14 @@ export default function PageAPropos() {
                     <span className="text-xs font-bold text-brand-orange uppercase mb-1">
                       {projet.categorie}
                     </span>
-                    <h3 className="text-lg font-bold">{projet.titre}</h3>
+                    <h3 className="text-2xl md:text-3xl font-semibold">{projet.titre}</h3>
                   </div>
                 </div>
               ))}
             </div>
 
             {/* Note sur le portfolio */}
-            <p className="text-center text-blue-200 text-sm mt-8 italic">
+            <p className="text-center text-white/80 text-sm mt-8 italic">
               * Sur demande, nous fournissons un portfolio détaillé correspondant
               à votre typologie de projet (Public ou Privé).
             </p>
@@ -762,7 +796,7 @@ export default function PageAPropos() {
             SECTION GARANTIES & ASSURANCES
             Affiche les logos des certifications
             ============================================ */}
-        <section className="py-12 bg-gray-50">
+        <section className="py-16 md:py-24 bg-gray-50">
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-wrap justify-center items-center gap-8 md:gap-16 opacity-80 hover:opacity-100 transition duration-500">
               {certifications.map((cert) => (
@@ -795,7 +829,7 @@ export default function PageAPropos() {
             ============================================ */}
         <section className="py-16 bg-white">
           <div className="max-w-3xl mx-auto px-4 sm:px-6 lg:px-8">
-            <h2 className="text-2xl font-bold text-brand-blue mb-8 text-center">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-8 text-center">
               Questions Fréquentes
             </h2>
 
@@ -862,7 +896,7 @@ export default function PageAPropos() {
         <Button
           asChild
           size="lg"
-          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
+          className="flex-1 bg-brand-orange-dark hover:bg-brand-orange text-white font-bold shadow-md"
         >
           <Link href="/contact">Devis Gratuit</Link>
         </Button>

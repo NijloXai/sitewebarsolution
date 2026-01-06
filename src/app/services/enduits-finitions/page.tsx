@@ -313,7 +313,7 @@ export default function PageServiceEnduitsFinitions() {
                 <ul className="space-y-4">
                   {etapesPreparation.map((etape) => (
                     <li key={etape.numero} className="flex items-start">
-                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-blue-100 flex items-center justify-center text-brand-blue mt-1 font-bold">
+                      <div className="flex-shrink-0 w-8 h-8 rounded-full bg-brand-blue/10 flex items-center justify-center text-brand-blue mt-1 font-bold">
                         {etape.numero}
                       </div>
                       <div className="ml-4">
@@ -428,7 +428,7 @@ export default function PageServiceEnduitsFinitions() {
                 <div className="uppercase tracking-wide text-sm text-brand-orange font-bold mb-2">
                   Cas Client : Délais courts
                 </div>
-                <h3 className="text-2xl font-bold text-slate-900 mb-4">
+                <h3 className="text-2xl md:text-3xl font-semibold text-slate-900 mb-4">
                   {casClient.titre}
                 </h3>
                 <div className="text-slate-600 mb-6 space-y-2">

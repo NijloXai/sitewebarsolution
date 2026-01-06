@@ -29,7 +29,7 @@ import Link from "next/link";
 export const metadata: Metadata = {
   title: "Contact & Devis Gratuit | AR+SOLUTION Plâtrerie Isolation Strasbourg",
   description:
-    "Demandez un devis gratuit pour vos travaux de plâtrerie, isolation et aménagement à Strasbourg et en Alsace. Réponse sous 48h. Certifié RGE Qualibat.",
+    "Demander un devis gratuit pour vos travaux de plâtrerie, isolation et aménagement à Strasbourg et en Alsace. Réponse sous 48h. Certifié RGE Qualibat.",
   keywords: [
     "devis plâtrerie Strasbourg",
     "contact artisan isolation Alsace",
@@ -41,8 +41,28 @@ export const metadata: Metadata = {
     title: "Contact & Devis Gratuit | AR+SOLUTION",
     description:
       "Obtenez un devis gratuit pour vos travaux de plâtrerie et isolation à Strasbourg. Entreprise certifiée RGE, réponse sous 48h.",
+    url: "https://ar-solution.fr/contact",
+    siteName: "AR+SOLUTION",
     type: "website",
     locale: "fr_FR",
+    images: [
+      {
+        url: "https://ar-solution.fr/og-contact.jpg",
+        width: 1200,
+        height: 630,
+        alt: "Contact AR+SOLUTION - Devis gratuit plâtrerie isolation Strasbourg",
+      },
+    ],
+  },
+  twitter: {
+    card: "summary_large_image",
+    title: "Contact & Devis Gratuit | AR+SOLUTION",
+    description:
+      "Obtenez un devis gratuit pour vos travaux de plâtrerie et isolation à Strasbourg. Entreprise certifiée RGE, réponse sous 48h.",
+    images: ["https://ar-solution.fr/og-contact.jpg"],
+  },
+  alternates: {
+    canonical: "https://ar-solution.fr/contact",
   },
 };
 import Header from "@/components/common/Header";
@@ -65,7 +85,7 @@ const etapesProcessus = [
   {
     numero: 1,
     titre: "Prise de contact",
-    description: "Analyse de votre demande immédiate. Qualification du besoin sous 24h.",
+    description: "Analyse de votre demande immédiate. Qualification du besoin sous 48h.",
     icone: "paper-plane",
   },
   {
@@ -121,7 +141,7 @@ const faqItems = [
   {
     question: "Fournissez-vous les attestations RGE / Assurances ?",
     reponse:
-      "Oui. Pour les Marchés Publics comme pour les particuliers (aides de l'État), nous joignons systématiquement nos attestations d'assurance Décennale et nos certificats Qualibat RGE à jour au devis ou sur simple demande.",
+      "Oui. Pour les Marchés Publics comme pour les particuliers (aides de l'État), nous joignons systématiquement nos attestations d'assurance Décennale et nos certificats RGE Qualibat à jour au devis ou sur simple demande.",
   },
 ];
 
@@ -144,7 +164,7 @@ export default function PageContact() {
             Colonne gauche : Promesse + Accès contact direct
             Colonne droite : Formulaire intelligent avec switcher
             ============================================ */}
-        <section className="relative bg-gray-50 py-12 lg:py-20 overflow-hidden">
+        <section className="relative bg-gray-50 py-16 md:py-24 overflow-hidden">
           {/* Fond décoratif subtil (placeholder) */}
           <div
             className="absolute inset-0 z-0 opacity-5"
@@ -162,7 +182,7 @@ export default function PageContact() {
                   ============================================ */}
               <div className="lg:col-span-5 flex flex-col justify-center h-full pt-4">
                 {/* Badge certification */}
-                <Badge className="bg-blue-100 text-blue-800 mb-4 w-fit">
+                <Badge className="bg-brand-blue/10 text-brand-blue mb-4 w-fit">
                   <svg className="w-4 h-4 inline mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z" />
                   </svg>
@@ -184,7 +204,7 @@ export default function PageContact() {
 
                 {/* Bloc "Accès Immédiat" - Contact direct */}
                 <div className="bg-white p-6 rounded-xl shadow-sm border border-gray-200 mb-8">
-                  <h2 className="text-lg font-bold text-brand-blue mb-4 flex items-center">
+                  <h2 className="text-2xl md:text-3xl font-semibold text-brand-blue mb-4 flex items-center">
                     <svg className="w-5 h-5 text-brand-orange mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
                     </svg>
@@ -193,7 +213,7 @@ export default function PageContact() {
                   <div className="space-y-4">
                     {/* Lien téléphone */}
                     <a href="tel:0388000000" className="flex items-center gap-4 group">
-                      <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue group-hover:bg-brand-orange group-hover:text-white transition">
+                      <div className="w-12 h-12 bg-brand-blue/5 rounded-full flex items-center justify-center text-brand-blue group-hover:bg-brand-orange group-hover:text-white transition">
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z" />
                         </svg>
@@ -207,7 +227,7 @@ export default function PageContact() {
                     </a>
                     {/* Lien email */}
                     <a href="mailto:contact@ar-solution.fr" className="flex items-center gap-4 group">
-                      <div className="w-12 h-12 bg-blue-50 rounded-full flex items-center justify-center text-brand-blue group-hover:bg-brand-orange group-hover:text-white transition">
+                      <div className="w-12 h-12 bg-brand-blue/5 rounded-full flex items-center justify-center text-brand-blue group-hover:bg-brand-orange group-hover:text-white transition">
                         <svg className="w-6 h-6" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z" />
                         </svg>
@@ -323,9 +343,9 @@ export default function PageContact() {
 
                     {/* Champs Spécifiques "Marchés Publics" (masqués par défaut) */}
                     {/* Note: Ces champs seront affichés via JS quand le mode Marchés Publics est actif */}
-                    <div id="public-fields" className="hidden bg-blue-50 p-4 rounded-lg border border-blue-100 space-y-4">
+                    <div id="public-fields" className="hidden bg-brand-blue/5 p-4 rounded-lg border border-brand-blue/10 space-y-4">
                       <div className="space-y-2">
-                        <Label htmlFor="organisme" className="text-blue-900">
+                        <Label htmlFor="organisme" className="text-brand-blue">
                           Organisme / Mairie
                         </Label>
                         <Input
@@ -337,7 +357,7 @@ export default function PageContact() {
                         />
                       </div>
                       <div className="space-y-2">
-                        <Label htmlFor="ref-consult" className="text-blue-900">
+                        <Label htmlFor="ref-consult" className="text-brand-blue">
                           Référence Consultation / Marché
                         </Label>
                         <Input
@@ -348,7 +368,7 @@ export default function PageContact() {
                           className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                         />
                       </div>
-                      <p className="text-xs text-blue-700 mt-2 flex items-center">
+                      <p className="text-xs text-brand-blue mt-2 flex items-center">
                         <svg className="w-4 h-4 mr-1" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
                         </svg>
@@ -394,9 +414,9 @@ export default function PageContact() {
                     <Button
                       type="submit"
                       size="lg"
-                      className="w-full bg-brand-orange hover:bg-orange-700 text-white text-lg font-bold shadow-lg"
+                      className="w-full bg-brand-orange-dark hover:bg-brand-orange text-white text-lg font-bold shadow-lg"
                     >
-                      <span>Recevoir mon devis gratuit</span>
+                      <span>Demander un devis gratuit</span>
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                         <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M14 5l7 7m0 0l-7 7m7-7H3" />
                       </svg>
@@ -423,7 +443,7 @@ export default function PageContact() {
             ============================================ */}
         <section className="py-16 bg-white border-b border-gray-100">
           <div className="container mx-auto px-4 text-center">
-            <h2 className="text-3xl font-bold text-brand-blue mb-12">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-12">
               Comment se déroule votre demande ?
             </h2>
 
@@ -458,7 +478,7 @@ export default function PageContact() {
                     )}
                   </div>
                   {/* Titre et description de l'étape */}
-                  <h3 className="font-bold text-lg mb-2">
+                  <h3 className="font-semibold text-2xl md:text-3xl mb-2">
                     {etape.numero}. {etape.titre}
                   </h3>
                   <p className="text-sm text-gray-500 px-4">{etape.description}</p>
@@ -477,7 +497,7 @@ export default function PageContact() {
             <div className="bg-white rounded-2xl shadow-sm overflow-hidden flex flex-col md:flex-row">
               {/* Colonne texte */}
               <div className="md:w-1/2 p-8 lg:p-12 flex flex-col justify-center">
-                <h2 className="text-3xl font-bold text-brand-blue mb-6">
+                <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-6">
                   Intervention rapide à Strasbourg et en Alsace
                 </h2>
                 <p className="text-gray-600 mb-6 leading-relaxed">
@@ -533,7 +553,7 @@ export default function PageContact() {
             ============================================ */}
         <section className="py-16 bg-white">
           <div className="container mx-auto px-4 max-w-3xl">
-            <h2 className="text-3xl font-bold text-brand-blue text-center mb-10">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-blue text-center mb-10">
               Questions fréquentes
             </h2>
 
@@ -572,7 +592,7 @@ export default function PageContact() {
 
       {/* ============================================
           DONNÉES STRUCTURÉES JSON-LD
-          Schema ContactPage pour améliorer le référencement local
+          Schema ContactPage + LocalBusiness pour améliorer le référencement local
           ============================================ */}
       <script
         type="application/ld+json"
@@ -582,13 +602,13 @@ export default function PageContact() {
             "@type": "ContactPage",
             "name": "Contact & Devis Gratuit | AR+SOLUTION",
             "description": "Demandez un devis gratuit pour vos travaux de plâtrerie, isolation et aménagement à Strasbourg et en Alsace. Réponse sous 48h.",
-            "url": "https://www.ar-solution.fr/contact",
+            "url": "https://ar-solution.fr/contact",
             "mainEntity": {
               "@type": "Organization",
               "name": "AR+SOLUTION",
               "description": "Entreprise de plâtrerie, isolation et aménagement intérieur certifiée RGE Qualibat à Strasbourg",
-              "url": "https://www.ar-solution.fr",
-              "logo": "https://www.ar-solution.fr/logo.png",
+              "url": "https://ar-solution.fr",
+              "logo": "https://ar-solution.fr/logo.png",
               "telephone": "+33388000000",
               "email": "contact@ar-solution.fr",
               "address": {
@@ -616,10 +636,53 @@ export default function PageContact() {
                   "closes": "18:00"
                 }
               ],
-              "sameAs": [
-                "https://www.facebook.com/arsolution",
-                "https://www.linkedin.com/company/arsolution"
-              ]
+              "sameAs": []
+            }
+          })
+        }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify({
+            "@context": "https://schema.org",
+            "@type": "LocalBusiness",
+            "name": "AR+SOLUTION",
+            "image": "https://ar-solution.fr/logo.png",
+            "description": "Entreprise de plâtrerie, isolation et aménagement intérieur certifiée RGE Qualibat à Strasbourg",
+            "url": "https://ar-solution.fr",
+            "telephone": "+33-3-88-00-00-00",
+            "email": "contact@ar-solution.fr",
+            "priceRange": "€€",
+            "address": {
+              "@type": "PostalAddress",
+              "streetAddress": "Strasbourg",
+              "addressLocality": "Strasbourg",
+              "addressRegion": "Alsace",
+              "postalCode": "67000",
+              "addressCountry": "FR"
+            },
+            "geo": {
+              "@type": "GeoCoordinates",
+              "latitude": 48.5734,
+              "longitude": 7.7521
+            },
+            "openingHoursSpecification": [
+              {
+                "@type": "OpeningHoursSpecification",
+                "dayOfWeek": ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday"],
+                "opens": "08:00",
+                "closes": "18:00"
+              }
+            ],
+            "areaServed": {
+              "@type": "GeoCircle",
+              "geoMidpoint": {
+                "@type": "GeoCoordinates",
+                "latitude": 48.5734,
+                "longitude": 7.7521
+              },
+              "geoRadius": "50000"
             }
           })
         }}
@@ -655,7 +718,7 @@ export default function PageContact() {
         <Button
           asChild
           size="lg"
-          className="flex-1 bg-brand-orange hover:bg-brand-orange-dark text-white font-bold shadow-md"
+          className="flex-1 bg-brand-orange-dark hover:bg-brand-orange text-white font-bold shadow-md"
         >
           <a href="#formulaire">Devis Gratuit</a>
         </Button>

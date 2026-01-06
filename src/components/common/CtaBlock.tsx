@@ -52,10 +52,10 @@ export default function CtaBlock({
   /* Classes CSS selon la variante choisie */
   const bgClass = variante === "bleu" ? "bg-brand-blue" : "bg-slate-900";
   const descriptionClass =
-    variante === "bleu" ? "text-blue-100" : "text-slate-300";
+    variante === "bleu" ? "text-white/90" : "text-slate-300";
 
   return (
-    <section className={`${bgClass} py-16 md:py-20 text-white`} id={id}>
+    <section className={`${bgClass} py-16 md:py-24 text-white`} id={id}>
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
         {/* Titre principal - Hiérarchie améliorée */}
         <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold mb-6 tracking-tight">
@@ -88,7 +88,7 @@ export default function CtaBlock({
             size="lg"
             className={
               variante === "bleu"
-                ? "bg-white text-brand-blue hover:bg-blue-50 border-white min-w-[200px]"
+                ? "bg-white text-brand-blue hover:bg-brand-blue/5 border-white min-w-[200px]"
                 : "bg-transparent border-2 border-white text-white hover:bg-white hover:text-slate-900 min-w-[200px]"
             }
             aria-label={`Appeler ${texteTelephone || telephone}`}

@@ -89,7 +89,7 @@ export default function ServiceHero({
       </div>
 
       {/* Contenu du hero */}
-      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-24 md:py-32 lg:py-40 w-full">
+      <div className="relative max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 md:py-24 w-full">
         <div className="max-w-2xl">
           {/* Badges certifications et localisation */}
           <div className="flex items-center gap-3 mb-6 flex-wrap">

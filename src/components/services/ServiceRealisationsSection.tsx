@@ -93,7 +93,7 @@ export default function ServiceRealisationsSection({
             <Link
               href={voirToutLink}
               className={`hidden md:inline-flex items-center font-semibold hover:underline mt-4 md:mt-0 ${
-                variant === "dark" ? "text-brand-orange hover:text-orange-400" : "text-brand-orange"
+                variant === "dark" ? "text-brand-orange hover:text-brand-orange" : "text-brand-orange"
               }`}
               aria-label={voirToutText}
             >
@@ -169,7 +169,7 @@ export default function ServiceRealisationsSection({
                   {/* Label lieu */}
                   {variant === "dark" ? (
                     <div className="absolute bottom-0 left-0 right-0 p-6 bg-gradient-to-t from-slate-900 to-transparent">
-                      <h3 className="text-lg font-bold">{projet.titre}</h3>
+                      <h3 className="text-2xl md:text-3xl font-semibold">{projet.titre}</h3>
                       <p className="text-sm text-slate-300">{projet.lieu}</p>
                     </div>
                   ) : (
@@ -182,7 +182,7 @@ export default function ServiceRealisationsSection({
                 {/* Contenu texte (uniquement pour variant white/gray) */}
                 {variant !== "dark" && (
                   <div className="p-4">
-                    <h3 className="text-lg font-bold text-slate-800 mb-1">
+                    <h3 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-1">
                       {projet.titre}
                     </h3>
                     {projet.description && (
@@ -209,7 +209,7 @@ export default function ServiceRealisationsSection({
             <Link
               href={voirToutLink}
               className={`font-semibold hover:underline ${
-                variant === "dark" ? "text-brand-orange hover:text-orange-400" : "text-brand-orange"
+                variant === "dark" ? "text-brand-orange hover:text-brand-orange" : "text-brand-orange"
               }`}
             >
               {voirToutText} →

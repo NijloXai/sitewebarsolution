@@ -311,8 +311,8 @@ export default function PageServiceAmenagement() {
 
             {/* Sous-section Résidentiel */}
             <div className="mb-16">
-              <h3 className="text-xl font-bold text-slate-800 mb-6 text-center">
-                <span className="bg-blue-100 text-brand-blue px-4 py-2 rounded-full">
+              <h3 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-6 text-center">
+                <span className="bg-brand-blue/10 text-brand-blue px-4 py-2 rounded-full">
                   Résidentiel (Déco)
                 </span>
               </h3>
@@ -325,7 +325,7 @@ export default function PageServiceAmenagement() {
 
             {/* Sous-section Tertiaire */}
             <div>
-              <h3 className="text-xl font-bold text-slate-800 mb-6 text-center">
+              <h3 className="text-2xl md:text-3xl font-semibold text-slate-800 mb-6 text-center">
                 <span className="bg-slate-200 text-slate-700 px-4 py-2 rounded-full">
                   Tertiaire & Collectivités
                 </span>
@@ -362,7 +362,7 @@ export default function PageServiceAmenagement() {
                       className="object-cover group-hover:scale-105 transition duration-500"
                     />
                   </div>
-                  <h3 className="text-xl font-bold mb-3 text-slate-900">
+                  <h3 className="text-2xl md:text-3xl font-semibold mb-3 text-slate-900">
                     {detail.titre}
                   </h3>
                   <p className="text-slate-600 px-4">{detail.description}</p>
