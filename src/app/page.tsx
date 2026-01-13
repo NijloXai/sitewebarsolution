@@ -20,15 +20,46 @@
 */
 
 import type { Metadata } from "next";
+import dynamic from "next/dynamic";
 import Link from "next/link";
 import Image from "next/image";
 import Header from "@/components/common/Header";
 import TrustBar from "@/components/common/TrustBar";
 import Footer from "@/components/common/Footer";
-import GridScan from "@/components/common/GridScan";
-import ContactFormHome from "@/components/common/ContactFormHome";
-import BeforeAfterSlider from "@/components/common/BeforeAfterSlider";
 import { Button } from "@/components/ui/button";
+
+/* ============================================
+   IMPORTS DYNAMIQUES - Code Splitting
+   Ces composants sont chargés de manière asynchrone pour réduire le bundle initial
+   et améliorer les performances de chargement (FID/INP)
+   ============================================ */
+
+// GridScan : Animation 3D en arrière-plan du hero (composant lourd avec WebGL)
+const GridScan = dynamic(
+  () => import("@/components/common/GridScan"),
+  { 
+    ssr: true, 
+    loading: () => <div className="absolute inset-0 bg-slate-900 animate-pulse" /> 
+  }
+);
+
+// BeforeAfterSlider : Comparateur avant/après interactif (composant client)
+const BeforeAfterSlider = dynamic(
+  () => import("@/components/common/BeforeAfterSlider"),
+  { 
+    ssr: true, 
+    loading: () => <div className="h-[500px] bg-gray-200 animate-pulse rounded-2xl" /> 
+  }
+);
+
+// ContactFormHome : Formulaire de demande de devis (composant client avec état)
+const ContactFormHome = dynamic(
+  () => import("@/components/common/ContactFormHome"),
+  { 
+    ssr: true, 
+    loading: () => <div className="h-[400px] bg-gray-200 animate-pulse rounded-xl" /> 
+  }
+);
 import { Badge } from "@/components/ui/badge";
 import { Card, CardHeader, CardContent, CardFooter, CardTitle, CardDescription } from "@/components/ui/card";
 import { Accordion, AccordionContent, AccordionItem, AccordionTrigger } from "@/components/ui/accordion";
@@ -374,7 +405,7 @@ export default function PageAccueil() {
       {/* ============================================
           CONTENU PRINCIPAL
           ============================================ */}
-      <main className="mt-20">
+      <main id="main-content" className="mt-20">
 
         {/* ============================================
             HERO SECTION - La promesse principale
@@ -424,12 +455,12 @@ export default function PageAccueil() {
               </div>
 
               {/* Titre principal - promesse de valeur */}
-              <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
+              <h1 className="text-3xl sm:text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                 Travaux de Plâtrerie, Isolation & Finitions.
               </h1>
 
               {/* Sous-titre explicatif */}
-              <p className="text-lg md:text-xl text-gray-300 mb-8 font-light">
+              <p className="text-base sm:text-lg md:text-xl text-gray-300 mb-8 font-light">
                 Votre interlocuteur unique pour la rénovation intérieure.
                 Fiabilité technique, certifications RGE et respect strict des
                 délais.
@@ -471,7 +502,7 @@ export default function PageAccueil() {
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* Titre de la section */}
             <div className="text-center mb-12 md:mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-4 md:mb-6">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-blue mb-4 md:mb-6">
                 À qui s&apos;adresse notre expertise ?
               </h2>
               <p className="text-gray-600 max-w-2xl mx-auto text-base md:text-lg leading-relaxed">
@@ -481,8 +512,8 @@ export default function PageAccueil() {
             </div>
 
             {/* Grille des 3 cartes profils */}
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
-              {profilsClients.map((profil) => (
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6 md:gap-8 lg:gap-10">
+              {profilsClients.map((profil, index) => (
                 <Card
                   key={profil.id}
                   className="group relative overflow-hidden shadow-lg hover:shadow-xl hover:-translate-y-2 hover:scale-[1.02] transition-all duration-500 ease-out flex flex-col focus-within:ring-2 focus-within:ring-brand-orange focus-within:ring-offset-2 border-2 border-gray-200 hover:border-brand-orange/50 bg-white pt-0"
@@ -490,12 +521,13 @@ export default function PageAccueil() {
                     boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
                   }}
                 >
-                  {/* Image de la carte */}
+                  {/* Image de la carte - priority sur la première pour optimiser le LCP */}
                   <div className="relative h-52 md:h-56 overflow-hidden bg-gray-200">
                     <Image
                       src={profil.image}
                       alt={profil.titre}
                       fill
+                      priority={index === 0}
                       sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
                       className="object-cover object-center group-hover:scale-110 transition-transform duration-700 ease-out"
                     />
@@ -547,7 +579,7 @@ export default function PageAccueil() {
             <div className="text-center mb-12 sm:mb-14 md:mb-16">
               <h2 
                 id="services-title"
-                className="text-3xl md:text-4xl font-bold text-brand-blue mb-4 md:mb-6"
+                className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-blue mb-4 md:mb-6"
               >
                 Nos domaines d&apos;intervention en Alsace
               </h2>
@@ -562,7 +594,7 @@ export default function PageAccueil() {
               role="list"
               aria-label="Liste des services proposés"
             >
-              {services.map((service) => (
+              {services.map((service, index) => (
                 <Card
                   key={service.id}
                   role="listitem"
@@ -571,12 +603,14 @@ export default function PageAccueil() {
                     boxShadow: '0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1)'
                   }}
                 >
-                  {/* Image avec effet zoom au survol */}
+                  {/* Image avec effet zoom au survol - priority sur les 2 premières pour optimiser le LCP */}
                   <div className="relative h-44 sm:h-48 md:h-52 overflow-hidden bg-gray-200">
                     <Image
                       src={service.image}
                       alt={service.imageAlt}
                       fill
+                      priority={index < 2}
+                      loading={index < 2 ? undefined : "lazy"}
                       sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 25vw"
                       className="object-cover object-center motion-safe:group-hover:scale-110 motion-safe:transition-transform motion-safe:duration-700 motion-safe:ease-out"
                     />
@@ -740,7 +774,7 @@ export default function PageAccueil() {
               {/* Colonne gauche : Pourquoi nous choisir */}
               <div>
                 <div className="mb-8 md:mb-10">
-                  <h2 id="pourquoi-choisir-title" className="text-3xl md:text-4xl font-bold text-brand-blue mb-4">
+                  <h2 id="pourquoi-choisir-title" className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-blue mb-4">
                     Pourquoi choisir AR+SOLUTION ?
                   </h2>
                   <p className="text-gray-600 text-lg">
@@ -891,7 +925,7 @@ export default function PageAccueil() {
                 
                 {/* Titre principal */}
                 <div className="space-y-4 md:space-y-6">
-                  <h2 className="text-3xl md:text-4xl font-bold leading-tight tracking-tight text-white">
+                  <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold leading-tight tracking-tight text-white">
                     Acheteurs Publics : un partenaire conforme et réactif.
                   </h2>
                   
@@ -1073,7 +1107,7 @@ export default function PageAccueil() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               {/* Colonne gauche : Avis Google */}
               <div>
-                <h2 id="avis-title" className="text-3xl md:text-4xl font-bold text-brand-blue mb-6">
+                <h2 id="avis-title" className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-blue mb-6">
                   Ce que disent nos clients
                 </h2>
                 <div className="bg-gray-50 p-6 rounded-xl border border-gray-100">
@@ -1206,7 +1240,7 @@ export default function PageAccueil() {
 
               {/* Colonne droite : Zone d'intervention */}
               <div>
-                <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-6">
+                <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-blue mb-6">
                   Zone d&apos;intervention
                 </h2>
                 <div className="bg-brand-blue/5 p-6 rounded-xl border border-brand-blue/10 h-full">
@@ -1248,7 +1282,7 @@ export default function PageAccueil() {
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
             {/* FAQ Accordéon - Répond aux questions courantes avant le formulaire */}
             <div className="mb-12 md:mb-16">
-              <h2 className="text-3xl md:text-4xl font-bold text-brand-blue mb-6 text-center">
+              <h2 className="text-2xl sm:text-3xl md:text-4xl font-bold text-brand-blue mb-6 text-center">
                 Questions Fréquentes
               </h2>
 

@@ -57,7 +57,7 @@ export default function Footer() {
 
           {/* Colonne 2 : Coordonnées de contact */}
           <div className="space-y-4">
-            <h4 className="text-white font-semibold text-base mb-4">Contact</h4>
+            <p className="text-white font-semibold text-base mb-4">Contact</p>
             <ul className="space-y-3 text-sm">
               <li className="text-slate-400">Strasbourg, Alsace (67)</li>
               <li>
@@ -83,7 +83,7 @@ export default function Footer() {
 
           {/* Colonne 3 : Liens vers les pages légales */}
           <div className="space-y-4">
-            <h4 className="text-white font-semibold text-base mb-4">Légal</h4>
+            <p className="text-white font-semibold text-base mb-4">Légal</p>
             <ul className="space-y-3 text-sm">
               <li>
                 <Link 

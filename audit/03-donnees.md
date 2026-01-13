@@ -184,3 +184,7 @@ Conformité globale :      ██████████████░░░�
 
 **Verdict global :** Le projet est à **70% conforme** pour la gestion des données. Les 2 incohérences critiques (forme juridique et code postal) doivent être corrigées en priorité. La création d'un fichier `company-data.ts` permettrait de centraliser toutes les informations de l'entreprise et d'éviter ces problèmes à l'avenir.
 
+
+
+
+

@@ -146,3 +146,7 @@ Pour une cohérence optimale, utiliser l'échelle suivante :
 
 3. **Valider visuellement** après chaque lot de corrections
 
+
+
+
+

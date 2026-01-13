@@ -267,7 +267,7 @@ export default function PageRessources() {
       {/* ============================================
           CONTENU PRINCIPAL
           ============================================ */}
-      <main className="mt-20">
+      <main id="main-content" className="mt-20">
         {/* ============================================
             SECTION 1 : HERO - Bibliothèque d'Expertise
             Présente le but de la page avec une barre de recherche
@@ -369,7 +369,7 @@ export default function PageRessources() {
               {/* Filtre Profil (select) */}
               <div className="flex items-center space-x-2 text-sm text-slate-500 border-l border-slate-200 pl-0 md:pl-6">
                 <span className="hidden lg:inline">Filtrer par profil :</span>
-                <select className="bg-transparent font-semibold text-slate-700 focus:outline-none cursor-pointer">
+                <select aria-label="Filtrer par profil" className="bg-transparent font-semibold text-slate-700 focus:outline-none cursor-pointer">
                   {profilsFiltres.map((profil) => (
                     <option key={profil.value} value={profil.value}>
                       {profil.label}

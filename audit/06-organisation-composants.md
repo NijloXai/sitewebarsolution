@@ -219,3 +219,7 @@ Selon les règles du projet, ces composants devraient être intégrés directeme
 3. **Vérifier** les icônes `HomeIcons.tsx` (utilisées par composants home/) - devront être déplacées aussi
 4. **Tester** que tout fonctionne après réorganisation
 
+
+
+
+

@@ -103,7 +103,7 @@ export default function ServicesPage() {
       {/* Header - Navigation principale sticky */}
       <Header pageActive="services" />
 
-      <main className="mt-20">
+      <main id="main-content" className="mt-20">
       {/* ========================================
           SECTION 1 : HERO HEADER
           En-tête avec promesse principale, badges de confiance et boutons d'action
@@ -148,7 +148,7 @@ export default function ServicesPage() {
               Une expertise complète pour vos travaux de second œuvre
             </h2>
             <p className="text-sm sm:text-base md:text-lg text-gray-600 max-w-2xl mx-auto leading-relaxed px-4 sm:px-0">
-              Nous coordonnons l'ensemble de ces lots pour vous offrir un interlocuteur
+              Nous coordonnons l&apos;ensemble de ces lots pour vous offrir un interlocuteur
               unique et un chantier fluide.
             </p>
           </div>

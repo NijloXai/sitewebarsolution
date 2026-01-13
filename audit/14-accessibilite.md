@@ -162,3 +162,7 @@
 
 **Score global estimé : 77/100** - Bon niveau mais corrections nécessaires pour conformité WCAG 2.1 AA.
 
+
+
+
+

@@ -173,3 +173,7 @@ Total conformes :     ████████████████░░░�
 
 **Verdict global :** Le projet est à **82% conforme** aux règles de commentaires. Les pages sont parfaitement documentées. Les composants réutilisables nécessitent 14 ajouts de commentaires d'en-tête.
 
+
+
+
+

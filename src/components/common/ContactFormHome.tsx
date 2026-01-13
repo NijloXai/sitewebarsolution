@@ -52,6 +52,8 @@ export default function ContactFormHome() {
               id="nom"
               name="nom"
               placeholder="Votre nom"
+              required
+              aria-required="true"
               className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
             />
           </div>
@@ -62,6 +64,8 @@ export default function ContactFormHome() {
               id="email"
               name="email"
               placeholder="vous@email.com"
+              required
+              aria-required="true"
               className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
             />
           </div>
@@ -76,6 +80,8 @@ export default function ContactFormHome() {
               id="tel"
               name="tel"
               placeholder="06 .. .. .. .."
+              required
+              aria-required="true"
               className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
             />
           </div>
@@ -86,6 +92,8 @@ export default function ContactFormHome() {
               id="cp"
               name="cp"
               placeholder="67000"
+              required
+              aria-required="true"
               className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
             />
           </div>
@@ -94,9 +102,10 @@ export default function ContactFormHome() {
         {/* Type de projet */}
         <div className="space-y-2">
           <Label htmlFor="type">Type de projet</Label>
-          <Select name="type" value={typeProjet} onValueChange={setTypeProjet}>
+          <Select name="type" value={typeProjet} onValueChange={setTypeProjet} required>
             <SelectTrigger
               id="type"
+              aria-required="true"
               className="w-full focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
             >
               <SelectValue placeholder="Sélectionnez un type de projet" />
@@ -130,6 +139,7 @@ export default function ContactFormHome() {
               name="rgpd"
               type="checkbox"
               required
+              aria-required="true"
               className="h-4 w-4 rounded border-gray-300 text-brand-orange-dark focus:ring-brand-orange-dark focus-visible:ring-2 focus-visible:ring-brand-orange-dark focus-visible:ring-offset-2"
             />
           </div>
@@ -154,4 +164,6 @@ export default function ContactFormHome() {
     </div>
   );
 }
+
+
 

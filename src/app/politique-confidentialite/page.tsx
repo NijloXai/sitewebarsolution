@@ -138,7 +138,7 @@ export default function PagePolitiqueConfidentialite() {
       {/* ============================================
           CONTENU PRINCIPAL
           ============================================ */}
-      <main className="mt-20">
+      <main id="main-content" className="mt-20">
         {/* ============================================
             HERO - Section d'en-tête harmonisée
             ============================================ */}
@@ -229,9 +229,9 @@ export default function PagePolitiqueConfidentialite() {
                     </div>
 
                     {/* Titre et description */}
-                    <h3 className="font-semibold text-slate-900 text-2xl md:text-3xl mb-2">
+                    <p className="font-semibold text-slate-900 text-2xl md:text-3xl mb-2">
                       {point.titre}
-                    </h3>
+                    </p>
                     <p className="text-sm text-slate-500 leading-relaxed">
                       {point.description}
                     </p>
@@ -500,9 +500,9 @@ export default function PagePolitiqueConfidentialite() {
 
                   {/* Encart sécurité */}
                   <div className="bg-green-50 border-l-4 border-green-500 p-4">
-                    <h4 className="font-bold text-green-800 mb-1">
+                    <p className="font-bold text-green-800 mb-1">
                       Sécurité Informatique
-                    </h4>
+                    </p>
                     <p className="text-sm text-green-700">
                       Notre site utilise le protocole de chiffrement{" "}
                       <strong>HTTPS</strong> pour protéger les échanges de
@@ -551,7 +551,7 @@ export default function PagePolitiqueConfidentialite() {
                       Comment exercer ces droits ?
                     </h3>
                     <p className="text-slate-600 text-sm mb-4">
-                      N'hésitez pas à nous contacter, nous nous engageons à vous
+                      N&apos;hésitez pas à nous contacter, nous nous engageons à vous
                       répondre sous <strong>1 mois maximum</strong>.
                     </p>
 

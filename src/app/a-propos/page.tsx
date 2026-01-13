@@ -331,7 +331,7 @@ export default function PageAPropos() {
       {/* ============================================
           CONTENU PRINCIPAL
           ============================================ */}
-      <main className="mt-20">
+      <main id="main-content" className="mt-20">
         {/* ============================================
             HERO SECTION - Présentation immersive de l'entreprise
             Montre immédiatement les certifications et l'activité principale
@@ -374,7 +374,7 @@ export default function PageAPropos() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-bold text-white leading-tight mb-6">
                 Aménagement intérieur & Isolation{" "}
                 <br className="hidden md:block" />à{" "}
-                <span className="text-brand-orange">Strasbourg et toute l'Alsace</span>
+                <span className="text-brand-orange">Strasbourg et toute l&apos;Alsace</span>
               </h1>
 
               {/* Sous-titre */}

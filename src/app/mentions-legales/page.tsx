@@ -151,7 +151,7 @@ export default function PageMentionsLegales() {
       {/* ============================================
           CONTENU PRINCIPAL
           ============================================ */}
-      <main className="mt-20">
+      <main id="main-content" className="mt-20">
         {/* ============================================
             HERO - Section d'en-tête harmonisée
             ============================================ */}

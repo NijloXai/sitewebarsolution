@@ -395,7 +395,11 @@ export default function MarchesPublicsPage() {
           NAVIGATION STICKY - Navigation rapide intra-page
           Permet aux acheteurs pressés d'accéder directement aux sections
           ============================================ */}
-      <div className="sticky top-0 z-40 hidden border-b border-gray-200 bg-white/95 shadow-sm backdrop-blur md:block">
+      <nav
+        role="navigation"
+        aria-label="Navigation rapide de la page"
+        className="sticky top-0 z-40 hidden border-b border-gray-200 bg-white/95 shadow-sm backdrop-blur md:block"
+      >
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <ul className="flex gap-8 py-4 text-sm font-medium text-gray-600">
             {navigationSections.map((section) => (
@@ -415,9 +419,9 @@ export default function MarchesPublicsPage() {
             </li>
           </ul>
         </div>
-      </div>
+      </nav>
 
-      <main>
+      <main id="main-content">
         {/* ============================================
             SECTION PRESTATIONS - Les 4 lots proposés
             Présente les domaines d'expertise pour les marchés publics
@@ -431,7 +435,7 @@ export default function MarchesPublicsPage() {
               </h2>
               <p className="text-gray-500">
                 Nous intervenons sur des lots séparés ou groupés pour la rénovation thermique et
-                l'aménagement intérieur de bâtiments publics (Écoles, Bureaux, Gymnases, Mairies).
+                l&apos;aménagement intérieur de bâtiments publics (Écoles, Bureaux, Gymnases, Mairies).
               </p>
             </div>
 
@@ -554,7 +558,7 @@ export default function MarchesPublicsPage() {
                 </h2>
                 <p className="mb-8 text-lg text-gray-500">
                   Nous comprenons que vos bâtiments doivent souvent rester fonctionnels pendant les
-                  travaux. Notre organisation est rodée pour minimiser l'impact sur les usagers.
+                  travaux. Notre organisation est rodée pour minimiser l&apos;impact sur les usagers.
                 </p>
 
                 {/* Encadré spécial "Site Occupé" */}
@@ -564,7 +568,7 @@ export default function MarchesPublicsPage() {
                   </h3>
                   <p className="text-sm text-gray-700">
                     Gestion stricte des nuisances sonores, barrières anti-poussière et adaptation
-                    des horaires d'intervention pour assurer la{" "}
+                    des horaires d&apos;intervention pour assurer la{" "}
                     <strong>continuité de vos services publics</strong>.
                   </p>
                 </div>
@@ -654,11 +658,11 @@ export default function MarchesPublicsPage() {
             {/* Colonne gauche : Zone d'intervention */}
             <div>
               <h2 className="mb-6 text-3xl md:text-4xl font-bold text-brand-blue">
-                Intervention sur Strasbourg et toute l'Alsace
+                Intervention sur Strasbourg et toute l&apos;Alsace
               </h2>
               <p className="mb-6 text-gray-500">
-                Basés au cœur de l'Alsace, nous intervenons avec réactivité pour les collectivités
-                de l'Eurométropole et du Bas-Rhin.
+                Basés au cœur de l&apos;Alsace, nous intervenons avec réactivité pour les collectivités
+                de l&apos;Eurométropole et du Bas-Rhin.
               </p>
 
               {/* Placeholder pour la carte */}

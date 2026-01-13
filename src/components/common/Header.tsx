@@ -16,7 +16,7 @@
 
 "use client";
 
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 
@@ -159,6 +159,18 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
   /* État pour gérer l'ouverture/fermeture du menu mobile */
   const [menuOpen, setMenuOpen] = useState(false);
 
+  /* Ferme automatiquement le menu mobile si la fenêtre passe en mode desktop
+     (par exemple après une rotation d'écran ou un redimensionnement) */
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth >= 768 && menuOpen) {
+        setMenuOpen(false);
+      }
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [menuOpen]);
+
   return (
     <header className="fixed w-full top-0 z-50 bg-gradient-to-r from-gray-50 via-white to-brand-orange/5 shadow-lg backdrop-blur-sm header-gradient-border overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -176,7 +188,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
           </div>
 
           {/* Menu de navigation desktop - masqué sur mobile */}
-          <nav className="hidden md:flex gap-6 items-center" aria-label="Navigation principale">
+          <nav className="!hidden md:!flex gap-6 items-center" aria-label="Navigation principale">
             {/* Lien vers les services */}
             <Link
               href="/services"
@@ -267,7 +279,7 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
           </nav>
 
           {/* Boutons CTA header (téléphone + devis) - masqués sur mobile */}
-          <div className="hidden md:flex items-center gap-3">
+          <div className="!hidden md:!flex items-center gap-3">
             {/* Lien téléphone avec icône */}
             <Button
               variant="ghost"
@@ -307,13 +319,15 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
           </div>
 
           {/* Bouton menu mobile (hamburger) - visible uniquement sur mobile */}
-          <div className="flex items-center md:hidden">
+          <div className="!flex items-center md:!hidden">
             <Button
               type="button"
               variant="ghost"
               size="icon"
               className="text-gray-600 hover:text-gray-700"
               aria-label={menuOpen ? "Fermer le menu" : "Ouvrir le menu"}
+              aria-expanded={menuOpen}
+              aria-controls="mobile-menu"
               onClick={() => setMenuOpen(!menuOpen)}
             >
               {/* Icône hamburger ou croix selon l'état avec animation */}
@@ -349,7 +363,8 @@ export default function Header({ pageActive, ctaHref = "/contact" }: HeaderProps
 
       {/* Menu mobile déroulant avec animation */}
       <div
-        className={`md:hidden bg-gradient-to-r from-gray-50/95 via-white/95 to-brand-orange/5 backdrop-blur-md border-t border-gray-200 shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${
+        id="mobile-menu"
+        className={`md:!hidden bg-gradient-to-r from-gray-50/95 via-white/95 to-brand-orange/5 backdrop-blur-md border-t border-gray-200 shadow-lg overflow-hidden transition-all duration-300 ease-in-out ${
           menuOpen
             ? "max-h-[600px] opacity-100"
             : "max-h-0 opacity-0 pointer-events-none"

@@ -196,3 +196,7 @@ codePostal: "67200" → codePostal: "67000" (si siège à Strasbourg Centre)
 | `app/services/platrerie/page.tsx` | 1 CTA |
 | `app/services/amenagement/page.tsx` | 1 CTA |
 
+
+
+
+

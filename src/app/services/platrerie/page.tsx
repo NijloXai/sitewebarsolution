@@ -33,18 +33,56 @@ import ServiceHero from "@/components/services/ServiceHero";
 import ServiceFeaturesGrid from "@/components/services/ServiceFeaturesGrid";
 import MobileStickyBar from "@/components/services/MobileStickyBar";
 
-// Code splitting dynamique pour les composants lourds
+// Code splitting dynamique pour les composants lourds avec skeleton loaders
 const ServiceFAQSection = dynamic(
   () => import("@/components/services/ServiceFAQSection"),
-  { ssr: true }
+  {
+    ssr: true,
+    loading: () => (
+      <div className="py-16 animate-pulse">
+        <div className="h-8 bg-gray-200 rounded w-1/3 mx-auto mb-8" />
+        <div className="space-y-4 max-w-3xl mx-auto px-4">
+          {[...Array(5)].map((_, i) => (
+            <div key={i} className="h-16 bg-gray-200 rounded" />
+          ))}
+        </div>
+      </div>
+    ),
+  }
 );
 const ServiceRealisationsSection = dynamic(
   () => import("@/components/services/ServiceRealisationsSection"),
-  { ssr: true }
+  {
+    ssr: true,
+    loading: () => (
+      <div className="py-16 animate-pulse">
+        <div className="h-8 bg-gray-200 rounded w-1/4 mx-auto mb-8" />
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-6xl mx-auto px-4">
+          {[...Array(3)].map((_, i) => (
+            <div key={i} className="h-64 bg-gray-200 rounded-xl" />
+          ))}
+        </div>
+      </div>
+    ),
+  }
 );
 const ServiceMethodSection = dynamic(
   () => import("@/components/services/ServiceMethodSection"),
-  { ssr: true }
+  {
+    ssr: true,
+    loading: () => (
+      <div className="py-16 animate-pulse">
+        <div className="max-w-6xl mx-auto px-4 grid grid-cols-1 md:grid-cols-2 gap-8">
+          <div className="h-64 bg-gray-200 rounded-xl" />
+          <div className="space-y-4">
+            <div className="h-8 bg-gray-200 rounded w-3/4" />
+            <div className="h-4 bg-gray-200 rounded w-full" />
+            <div className="h-4 bg-gray-200 rounded w-5/6" />
+          </div>
+        </div>
+      </div>
+    ),
+  }
 );
 const ServiceStructuredData = dynamic(
   () => import("@/components/services/ServiceStructuredData"),
@@ -52,7 +90,21 @@ const ServiceStructuredData = dynamic(
 );
 const MarchesPublicsSection = dynamic(
   () => import("@/components/services/MarchesPublicsSection"),
-  { ssr: true }
+  {
+    ssr: true,
+    loading: () => (
+      <div className="py-16 bg-brand-blue/5 animate-pulse">
+        <div className="max-w-6xl mx-auto px-4">
+          <div className="h-8 bg-gray-200 rounded w-1/3 mx-auto mb-8" />
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            {[...Array(4)].map((_, i) => (
+              <div key={i} className="h-24 bg-gray-200 rounded-lg" />
+            ))}
+          </div>
+        </div>
+      </div>
+    ),
+  }
 );
 import { platreriePageMetadata } from "@/lib/services-metadata";
 import { barreConfianceGenerique, marchesPublicsAvantages, documentsMarchesPublicsPlatrerie } from "@/lib/services-data";
@@ -239,7 +291,7 @@ export default function PageServicePlatrerie() {
       {/* ============================================
           CONTENU PRINCIPAL
           ============================================ */}
-      <main className="mt-20">
+      <main id="main-content" className="mt-20">
         {/* ============================================
             HERO SECTION - La promesse plâtrerie
             L'utilisateur comprend immédiatement le service et peut demander un devis

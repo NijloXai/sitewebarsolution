@@ -252,3 +252,7 @@ sitewebarsolution/
 
 4. **Pages volumineuses** - Plusieurs pages dépassent 500 lignes (notamment `realisations/[slug]` avec 799 lignes). Possibilité d'extraire des sections.
 
+
+
+
+

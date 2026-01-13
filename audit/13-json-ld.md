@@ -269,3 +269,7 @@ Ce composant réutilisable génère automatiquement les schémas suivants :
 
 *Dernière mise à jour : 6 janvier 2026*
 
+
+
+
+

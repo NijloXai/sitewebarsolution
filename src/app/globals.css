@@ -316,3 +316,36 @@ textarea {
     transform: none !important;
   }
 }
+
+/* ============================================
+   OPTIMISATIONS RESPONSIVE - TRÈS PETITS ÉCRANS
+   ============================================ */
+
+/*
+  Ajustements pour les écrans inférieurs à 375px (anciens iPhone SE, 
+  petits smartphones Android). Ces styles assurent une lisibilité 
+  optimale et des boutons accessibles sur les plus petits appareils.
+*/
+@media (max-width: 374px) {
+  /* Réduction de la taille de base pour éviter les débordements */
+  html {
+    font-size: 14px;
+  }
+  
+  /* Titres principaux plus compacts */
+  h1 {
+    font-size: 1.75rem !important;
+    line-height: 1.2;
+  }
+  
+  /* Sous-titres ajustés */
+  h2 {
+    font-size: 1.5rem !important;
+  }
+  
+  /* Boutons CTA plus compacts et faciles à toucher */
+  .btn-cta-mobile {
+    padding: 0.625rem 1rem;
+    font-size: 0.875rem;
+  }
+}

@@ -267,7 +267,7 @@ export default function PageFicheProjet() {
       {/* ============================================
           CONTENU PRINCIPAL
           ============================================ */}
-      <main className="mt-20">
+      <main id="main-content" className="mt-20">
         {/* ============================================
             SECTION 1 : HERO HEADER
             Présente le projet avec titre, badges, et slider avant/après
@@ -363,7 +363,7 @@ export default function PageFicheProjet() {
                   {/* Image APRÈS (fond) */}
                   <img
                     src={projet.imageApres}
-                    alt={`${projet.titre} - Après travaux`}
+                    alt={`Résultat après travaux : ${projet.titre} à ${projet.localisation} - ${projet.metiers.join(", ")}`}
                     className="absolute inset-0 w-full h-full object-cover"
                   />
 
@@ -371,7 +371,7 @@ export default function PageFicheProjet() {
                   <div className="absolute inset-0 w-1/2 overflow-hidden border-r-4 border-white bg-gray-300">
                     <img
                       src={projet.imageAvant}
-                      alt={`${projet.titre} - Avant travaux`}
+                      alt={`État initial avant travaux : ${projet.titre} à ${projet.localisation} - ${projet.metiers.join(", ")}`}
                       className="absolute inset-0 w-[200%] max-w-none h-full object-cover"
                     />
                   </div>
@@ -705,7 +705,7 @@ export default function PageFicheProjet() {
                 >
                   <img
                     src={photo.src}
-                    alt={photo.alt}
+                    alt={`${photo.alt} - ${photo.legende} - Projet ${projet.titre} à ${projet.localisation}`}
                     className="w-full h-full object-cover transform group-hover:scale-105 transition duration-500"
                   />
                   {/* Légende au survol */}
@@ -765,7 +765,7 @@ export default function PageFicheProjet() {
                   <div className="flex">
                     <img
                       src={projetSimilaire.image}
-                      alt={projetSimilaire.titre}
+                      alt={`Photo du projet ${projetSimilaire.titre} réalisé à ${projetSimilaire.lieu} par AR+SOLUTION`}
                       className="w-1/3 object-cover"
                     />
                     <div className="p-4 flex flex-col justify-center">

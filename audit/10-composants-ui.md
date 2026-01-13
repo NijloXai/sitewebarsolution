@@ -299,3 +299,7 @@ Le projet utilise les composants shadcn/ui mais les surcharge massivement avec d
 
 **Effort estimé** : ~2-3 heures pour harmoniser les composants UI de base.
 
+
+
+
+

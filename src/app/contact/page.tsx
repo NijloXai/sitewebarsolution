@@ -158,7 +158,7 @@ export default function PageContact() {
       {/* ============================================
           CONTENU PRINCIPAL
           ============================================ */}
-      <main className="mt-20">
+      <main id="main-content" className="mt-20">
         {/* ============================================
             SECTION 1: HERO & HUB DE CONTACT (Split Layout)
             Colonne gauche : Promesse + Accès contact direct
@@ -272,12 +272,14 @@ export default function PageContact() {
                   {/* Switcher de mode (Particulier/Pro vs Marchés Publics) */}
                   {/* Note: La logique JS pour basculer les champs sera ajoutée ultérieurement */}
                   <div className="flex justify-center mb-8">
-                    <div className="bg-gray-100 p-1 rounded-lg inline-flex relative">
+                    <div className="bg-gray-100 p-1 rounded-lg inline-flex relative" role="group" aria-label="Type de demande">
                       <button
                         className="px-6 py-2 rounded-md text-sm font-bold shadow bg-white text-brand-blue transition-all duration-200"
                         id="btn-priv"
+                        aria-label="Sélectionner le mode particulier ou professionnel"
+                        aria-pressed="true"
                       >
-                        <svg className="w-4 h-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-4 h-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z" />
                         </svg>
                         Particulier / Pro
@@ -285,8 +287,10 @@ export default function PageContact() {
                       <button
                         className="px-6 py-2 rounded-md text-sm font-bold text-gray-500 hover:text-brand-blue transition-all duration-200"
                         id="btn-public"
+                        aria-label="Sélectionner le mode marchés publics"
+                        aria-pressed="false"
                       >
-                        <svg className="w-4 h-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <svg className="w-4 h-4 inline mr-2" fill="none" viewBox="0 0 24 24" stroke="currentColor" aria-hidden="true">
                           <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
                         </svg>
                         Marchés Publics
@@ -308,6 +312,7 @@ export default function PageContact() {
                           name="lastname"
                           placeholder="Votre nom complet"
                           required
+                          aria-required="true"
                           className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                         />
                       </div>
@@ -321,6 +326,7 @@ export default function PageContact() {
                           name="phone"
                           placeholder="06 00 00 00 00"
                           required
+                          aria-required="true"
                           className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                         />
                       </div>
@@ -337,6 +343,7 @@ export default function PageContact() {
                         name="email"
                         placeholder="exemple@email.com"
                         required
+                        aria-required="true"
                         className="focus-visible:ring-brand-orange/50 focus-visible:border-brand-orange"
                       />
                     </div>
@@ -505,9 +512,9 @@ export default function PageContact() {
                   dans tout le Bas-Rhin. Nous garantissons la ponctualité de nos équipes
                   et la propreté des chantiers.
                 </p>
-                <h4 className="font-bold text-brand-blue mb-4">
+                <h3 className="font-bold text-brand-blue mb-4">
                   Principales zones desservies :
-                </h4>
+                </h3>
                 <ul className="grid grid-cols-2 gap-2 mb-8">
                   {villesIntervention.map((ville) => (
                     <li key={ville} className="flex items-center text-gray-600">

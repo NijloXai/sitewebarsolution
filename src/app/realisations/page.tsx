@@ -287,7 +287,7 @@ export default function PageRealisations() {
       {/* ============================================
           CONTENU PRINCIPAL
           ============================================ */}
-      <main className="mt-20">
+      <main id="main-content" className="mt-20">
         {/* ============================================
             HERO SECTION - Promesse et accroche visuelle
             L'utilisateur comprend immédiatement qu'il s'agit du portfolio
@@ -310,7 +310,11 @@ export default function PageRealisations() {
             FILTRES STICKY - Navigation rapide dans le portfolio
             Permet de filtrer par type de client et par métier
             ============================================ */}
-        <section className="sticky top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm py-4">
+        <section
+          className="sticky top-20 z-40 bg-white/95 backdrop-blur-sm border-b border-gray-200 shadow-sm py-4"
+          role="navigation"
+          aria-label="Filtres des réalisations"
+        >
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
             <div className="flex flex-col md:flex-row items-center justify-between gap-4">
               {/* Compteur de projets (visible desktop) */}
@@ -326,6 +330,7 @@ export default function PageRealisations() {
                   {filtresClient.map((filtre) => (
                     <button
                       key={filtre.id}
+                      aria-label={`Filtrer par ${filtre.label}`}
                       className={`px-4 py-2 rounded-full text-sm font-medium transition-colors whitespace-nowrap ${
                         filtre.actif
                           ? "bg-slate-800 text-white shadow-md"
@@ -372,6 +377,7 @@ export default function PageRealisations() {
                   {filtresMetier.map((filtre) => (
                     <button
                       key={filtre.id}
+                      aria-label={`Filtrer par ${filtre.label}`}
                       className="px-4 py-2 rounded-full text-sm font-medium bg-white border border-gray-300 text-gray-600 hover:border-brand-orange hover:text-brand-orange transition-colors whitespace-nowrap"
                     >
                       {filtre.label}
@@ -383,6 +389,7 @@ export default function PageRealisations() {
                 <button
                   className="ml-auto px-3 py-2 text-gray-400 hover:text-red-500 transition-colors"
                   title="Réinitialiser les filtres"
+                  aria-label="Réinitialiser les filtres"
                 >
                   <svg
                     className="w-4 h-4"

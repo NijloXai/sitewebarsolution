@@ -345,7 +345,7 @@ export default function PageFAQ() {
       {/* ============================================
           CONTENU PRINCIPAL
           ============================================ */}
-      <main className="mt-20">
+      <main id="main-content" className="mt-20">
         {/* ============================================
             SECTION 1 : HERO & FILTRES DE NAVIGATION
             Permet au visiteur de s'orienter rapidement vers la catégorie qui l'intéresse
